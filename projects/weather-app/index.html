@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تطبيق الطقس — Weather App</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="app">
+    <!-- App header -->
+    <header class="app-header">
+      <h1>تطبيق الطقس</h1>
+      <p>ابحث عن أي مدينة في العالم</p>
+    </header>
+
+    <!-- City search form -->
+    <form id="search-form" class="search-box">
+      <input
+        type="text"
+        id="city-input"
+        placeholder="مثال: دمشق"
+        autocomplete="off"
+        required
+      >
+      <button type="submit">بحث</button>
+    </form>
+
+    <!-- Loading / error status message -->
+    <div id="status" class="status hidden" role="status"></div>
+
+    <!-- Weather results card -->
+    <section id="weather-card" class="weather-card hidden" aria-live="polite">
+      <div class="weather-icon" id="weather-icon" aria-hidden="true">☀️</div>
+      <h2 id="city-name"></h2>
+      <p id="country-name" class="country"></p>
+      <div class="temp-display" id="temperature"></div>
+      <p id="weather-desc" class="weather-desc"></p>
+      <p id="wind-speed" class="wind"></p>
+    </section>
+
+  </div>
+
+  <footer class="page-footer">
+    <p>بيانات الطقس من <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a></p>
+    <p>مدرب الكورس: محمد أسامة بيطار</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 08 — مشروع CSS: تصميم Portfolio</title>
+  <link rel="stylesheet" href="../shared/styles.css">
+</head>
+<body>
+  <div class="page-wrapper">
+
+    <header class="site-header">
+      <div class="container">
+        <span class="course-badge">المرحلة 2 — CSS · مشروع</span>
+        <h1>الجلسة 08: مشروع CSS — تصميم Portfolio</h1>
+        <div class="session-meta">
+          <span>المدة: ساعتان</span>
+          <span>الجلسة 8 من 16</span>
+        </div>
+      </div>
+    </header>
+
+    <nav class="lesson-nav">
+      <div class="container">
+        <a href="../index.html" class="nav-link">الرئيسية</a>
+        <a href="../session-07/lesson.html" class="nav-link">→ السابقة</a>
+        <a href="../session-09/lesson.html" class="nav-link">التالية ←</a>
+      </div>
+    </nav>
+
+    <main class="main-content">
+      <div class="container">
+
+        <!-- Theory -->
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">08</div>
+            <h2>الشرح النظري</h2>
+          </div>
+          <div class="theory-content">
+            <h3>هدف المشروع</h3>
+            <p>
+              في الجلسة 4 بنينا صفحة Portfolio بـ HTML فقط — بدون أي تصميم.
+              الآن حان وقت <strong>إضافة CSS</strong> لتحويلها إلى صفحة احترافية
+              وجذابة باستخدام كل ما تعلمناه: المحددات، Box Model، Flexbox، والتجاوب.
+            </p>
+
+            <div class="highlight-box">
+              <strong>القاعدة الذهبية:</strong> HTML يبقى كما هو — نضيف ملف
+              <span class="inline-code">styles.css</span> فقط ونربطه بالصفحة.
+              لا نغيّر هيكل HTML إلا إذا احتجنا class جديد.
+            </div>
+
+            <h3>ملف المشروع المرجعي</h3>
+            <p>
+              نسخة جاهزة من المشروع الكامل (HTML + CSS) موجودة في:
+              <span class="inline-code">projects/portfolio-full/</span>
+            </p>
+            <ul>
+              <li><span class="inline-code">index.html</span> — صفحة Portfolio مع HTML الدلالي</li>
+              <li><span class="inline-code">styles.css</span> — كل أنماط CSS للمشروع</li>
+            </ul>
+
+            <div class="tip-box">
+              <strong>مسار الملفات:</strong> من مجلد course-reference،
+              افتح <span class="inline-code">../projects/portfolio-full/index.html</span>
+              في المتصفح لمعاينة النتيجة النهائية.
+            </div>
+
+            <h3>خطة التصميم — خطوة بخطوة</h3>
+            <ol>
+              <li><strong>Reset &amp; Base:</strong> box-sizing، خط افتراضي، ألوان أساسية</li>
+              <li><strong>Header &amp; Nav:</strong> Flexbox navbar، صورة دائرية، روابط أنيقة</li>
+              <li><strong>الأقسام:</strong> padding، max-width للمحتوى، عناوين مميزة</li>
+              <li><strong>المهارات:</strong> قائمة بأيقونات أو badges ملونة</li>
+              <li><strong>جدول المشاريع:</strong> border، hover effect، ألوان الحالة</li>
+              <li><strong>نموذج التواصل:</strong> inputs منسّقة، زر submit جذاب</li>
+              <li><strong>Footer:</strong> خلفية داكنة، روابط بيضاء</li>
+              <li><strong>Responsive:</strong> media query للموبايل</li>
+            </ol>
+
+            <h3>الألوان المقترحة</h3>
+            <ul>
+              <li><strong>Primary:</strong> <span class="inline-code">#2563eb</span> — أزرق للروابط والأزرار</li>
+              <li><strong>Dark:</strong> <span class="inline-code">#1e293b</span> — للـ header و footer</li>
+              <li><strong>Text:</strong> <span class="inline-code">#334155</span> — للنصوص</li>
+              <li><strong>Background:</strong> <span class="inline-code">#f8fafc</span> — خلفية الصفحة</li>
+              <li><strong>Accent:</strong> <span class="inline-code">#059669</span> — للأسعار والنجاح</li>
+            </ul>
+
+            <h3>ما الذي سنتعلمه من هذا المشروع؟</h3>
+            <ul>
+              <li>ربط ملف CSS خارجي بمشروع حقيقي</li>
+              <li>تنظيم CSS بأقسام وتعليقات واضحة</li>
+              <li>استخدام Flexbox في navbar وfooter</li>
+              <li>تنسيق الجداول والنماذج بـ Box Model</li>
+              <li>إضافة hover effects و transitions</li>
+              <li>جعل الصفحة متجاوبة بـ media query واحد</li>
+            </ul>
+
+            <div class="warning-box">
+              <strong>تذكير:</strong> إذا لم تكمل مشروع HTML من الجلسة 4،
+              استخدم الملف الجاهز في <span class="inline-code">projects/portfolio-full/index.html</span>
+              كقاعدة للبدء.
+            </div>
+          </div>
+        </section>
+
+        <!-- Examples -->
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">💻</div>
+            <h2>أمثلة الكود</h2>
+          </div>
+
+          <h3>مثال 1: ربط CSS و Reset أساسي</h3>
+          <div class="code-block">
+            <div class="code-label">HTML + CSS — Setup</div>
+            <pre><code>&lt;!-- In portfolio index.html head --&gt;
+&lt;link rel="stylesheet" href="styles.css"&gt;
+&lt;link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&amp;display=swap" rel="stylesheet"&gt;
+
+/* styles.css — Reset and base styles */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Cairo", Tahoma, sans-serif;
+  line-height: 1.7;
+  color: #334155;
+  background-color: #f8fafc;
+}
+
+/* Limit content width for readability */
+main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 20px;
+}</code></pre>
+          </div>
+
+          <h3>مثال 2: Header و Navbar</h3>
+          <div class="code-block">
+            <div class="code-label">CSS — Header &amp; Navigation</div>
+            <pre><code>/* Site header with dark background */
+.site-header {
+  background: #1e293b;
+  color: white;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.site-header img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;          /* Circular profile photo */
+  border: 4px solid #2563eb;
+  object-fit: cover;
+  margin-bottom: 16px;
+}
+
+.site-header h1 {
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+.site-header p {
+  color: #94a3b8;
+  margin-bottom: 20px;
+}
+
+/* Flexbox navigation */
+.site-header nav {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.site-header nav a {
+  color: #e2e8f0;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: background 0.3s, color 0.3s;
+}
+
+.site-header nav a:hover {
+  background: #2563eb;
+  color: white;
+}</code></pre>
+          </div>
+
+          <div class="live-example">
+            <div class="live-example-label">معاينة حية — Header</div>
+            <div style="background:#1e293b;color:white;padding:24px;text-align:center;border-radius:8px;">
+              <div style="width:80px;height:80px;border-radius:50%;border:3px solid #2563eb;background:#475569;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-size:2rem;">👤</div>
+              <h2 style="margin:0 0 4px;font-size:1.4rem;">محمد أحمد</h2>
+              <p style="color:#94a3b8;margin:0 0 16px;font-size:0.9rem;">طالب علوم ويب | دمشق</p>
+              <nav style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
+                <a href="#" style="color:#e2e8f0;text-decoration:none;padding:6px 12px;border-radius:6px;background:#2563eb;">عني</a>
+                <a href="#" style="color:#e2e8f0;text-decoration:none;padding:6px 12px;border-radius:6px;">مهاراتي</a>
+                <a href="#" style="color:#e2e8f0;text-decoration:none;padding:6px 12px;border-radius:6px;">مشاريعي</a>
+              </nav>
+            </div>
+          </div>
+
+          <h3>مثال 3: أقسام المحتوى والمهارات</h3>
+          <div class="code-block">
+            <div class="code-label">CSS — Sections &amp; Skills</div>
+            <pre><code>/* Section spacing and titles */
+section {
+  padding: 40px 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+section h2 {
+  font-size: 1.6rem;
+  color: #1e293b;
+  margin-bottom: 20px;
+  padding-bottom: 8px;
+  border-bottom: 3px solid #2563eb;
+  display: inline-block;
+}
+
+/* Skills list with styled badges */
+#skills ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+#skills li {
+  background: #dbeafe;
+  color: #1e40af;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}</code></pre>
+          </div>
+
+          <div class="live-example">
+            <div class="live-example-label">معاينة حية — المهارات</div>
+            <h3 style="font-size:1.2rem;color:#1e293b;margin-bottom:12px;padding-bottom:6px;border-bottom:3px solid #2563eb;display:inline-block;">مهاراتي</h3>
+            <ul style="list-style:none;display:flex;flex-wrap:wrap;gap:10px;padding:0;margin:12px 0 0;">
+              <li style="background:#dbeafe;color:#1e40af;padding:6px 14px;border-radius:20px;font-weight:600;font-size:0.85rem;">HTML</li>
+              <li style="background:#dbeafe;color:#1e40af;padding:6px 14px;border-radius:20px;font-weight:600;font-size:0.85rem;">CSS</li>
+              <li style="background:#dbeafe;color:#1e40af;padding:6px 14px;border-radius:20px;font-weight:600;font-size:0.85rem;">JavaScript</li>
+              <li style="background:#dbeafe;color:#1e40af;padding:6px 14px;border-radius:20px;font-weight:600;font-size:0.85rem;">Git</li>
+            </ul>
+          </div>
+
+          <h3>مثال 4: جدول المشاريع</h3>
+          <div class="code-block">
+            <div class="code-label">CSS — Projects Table</div>
+            <pre><code>/* Styled table with hover effect */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+thead {
+  background: #1e293b;
+  color: white;
+}
+
+th, td {
+  padding: 14px 18px;
+  text-align: right;
+}
+
+tbody tr {
+  border-bottom: 1px solid #e2e8f0;
+  transition: background 0.2s;
+}
+
+tbody tr:hover {
+  background: #f1f5f9;
+}
+
+/* Status badge colors */
+.status-done {
+  color: #059669;
+  font-weight: bold;
+}
+
+.status-progress {
+  color: #d97706;
+  font-weight: bold;
+}</code></pre>
+          </div>
+
+          <h3>مثال 5: نموذج التواصل</h3>
+          <div class="code-block">
+            <div class="code-label">CSS — Contact Form</div>
+            <pre><code>/* Form inputs styling */
+#contact form {
+  background: white;
+  padding: 32px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  max-width: 500px;
+}
+
+#contact label {
+  display: block;
+  margin-bottom: 16px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+#contact input,
+#contact textarea {
+  display: block;
+  width: 100%;
+  padding: 10px 14px;
+  margin-top: 6px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+#contact input:focus,
+#contact textarea:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+}
+
+#contact button {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 12px 32px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+#contact button:hover {
+  background: #1d4ed8;
+}</code></pre>
+          </div>
+
+          <h3>مثال 6: Footer و Media Query</h3>
+          <div class="code-block">
+            <div class="code-label">CSS — Footer &amp; Responsive</div>
+            <pre><code>/* Dark footer */
+footer {
+  background: #1e293b;
+  color: #94a3b8;
+  text-align: center;
+  padding: 32px 20px;
+  margin-top: 40px;
+}
+
+footer a {
+  color: #60a5fa;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+  .site-header nav {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .site-header h1 {
+    font-size: 1.5rem;
+  }
+
+  #skills ul {
+    justify-content: center;
+  }
+
+  table {
+    font-size: 0.85rem;
+  }
+
+  th, td {
+    padding: 10px 12px;
+  }
+}</code></pre>
+          </div>
+
+          <div class="tip-box">
+            <strong>الملف الكامل:</strong> راجع
+            <span class="inline-code">projects/portfolio-full/styles.css</span>
+            للحصول على CSS كامل جاهز يمكنك مقارنته بعملك.
+          </div>
+        </section>
+
+        <!-- Exercises -->
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">✏️</div>
+            <h2>تمارين عملية</h2>
+          </div>
+
+          <div class="exercise-item">
+            <h4><span class="exercise-number">1</span> إعداد الملفات و Reset</h4>
+            <p>
+              افتح مشروع Portfolio من الجلسة 4 (أو من
+              <span class="inline-code">projects/portfolio-full/</span>).
+              أنشئ <span class="inline-code">styles.css</span>، اربطه،
+              وأضف reset + خط Cairo + ألوان أساسية.
+            </p>
+            <button class="solution-toggle" data-target="sol-1">
+              <span class="toggle-text">عرض الحل</span>
+              <span class="arrow">▼</span>
+            </button>
+            <div class="solution-content" id="sol-1">
+              <div class="code-block">
+                <div class="code-label">Solution — index.html head</div>
+                <pre><code>&lt;link rel="stylesheet" href="styles.css"&gt;
+&lt;link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&amp;display=swap" rel="stylesheet"&gt;</code></pre>
+              </div>
+              <div class="code-block">
+                <div class="code-label">Solution — styles.css start</div>
+                <pre><code>*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Cairo", sans-serif;
+  line-height: 1.7;
+  color: #334155;
+  background: #f8fafc;
+}</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="exercise-item">
+            <h4><span class="exercise-number">2</span> تصميم Header و Navigation</h4>
+            <p>
+              صمّم header بخلفية داكنة، صورة دائرية، وnavbar بـ Flexbox.
+              أضف hover effect على الروابط. استخدم الألوان المقترحة أعلاه.
+            </p>
+            <button class="solution-toggle" data-target="sol-2">
+              <span class="toggle-text">عرض الحل</span>
+              <span class="arrow">▼</span>
+            </button>
+            <div class="solution-content" id="sol-2">
+              <p>راجع مثال 2 في قسم أمثلة الكود — أو افتح
+                <span class="inline-code">projects/portfolio-full/styles.css</span>
+                وابحث عن قسم <span class="inline-code">/* Header */</span>.</p>
+            </div>
+          </div>
+
+          <div class="exercise-item">
+            <h4><span class="exercise-number">3</span> تنسيق الأقسام والجدول والنموذج</h4>
+            <p>
+              أضف padding لكل section، صمّم جدول المشاريع بظل و hover،
+              ونسّق نموذج التواصل (inputs + زر submit). أضف footer داكن.
+            </p>
+            <button class="solution-toggle" data-target="sol-3">
+              <span class="toggle-text">عرض الحل</span>
+              <span class="arrow">▼</span>
+            </button>
+            <div class="solution-content" id="sol-3">
+              <p>راجع أمثلة 3-6 أعلاه. الملف الكامل في
+                <span class="inline-code">projects/portfolio-full/styles.css</span>
+                يحتوي كل الأقسام منظّمة بتعليقات.</p>
+            </div>
+          </div>
+
+          <div class="exercise-item">
+            <h4><span class="exercise-number">4</span> التجاوب — Media Query</h4>
+            <p>
+              أضف media query عند 768px: navbar عمودي، خط أصغر للعناوين،
+              جدول بخط أصغر. اختبر بتصغير نافذة المتصفح أو DevTools → Toggle Device.
+            </p>
+            <button class="solution-toggle" data-target="sol-4">
+              <span class="toggle-text">عرض الحل</span>
+              <span class="arrow">▼</span>
+            </button>
+            <div class="solution-content" id="sol-4">
+              <div class="code-block">
+                <div class="code-label">Solution</div>
+                <pre><code>@media (max-width: 768px) {
+  .site-header nav {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .site-header h1 {
+    font-size: 1.5rem;
+  }
+
+  main {
+    padding: 0 12px;
+  }
+
+  table {
+    font-size: 0.85rem;
+  }
+}</code></pre>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Key Points -->
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">📌</div>
+            <h2>ملخص الجلسة</h2>
+          </div>
+          <ul class="key-points">
+            <li>حوّلنا Portfolio من HTML خام إلى صفحة مصمّمة بملف CSS واحد</li>
+            <li>نظّمنا CSS بأقسام: reset → header → sections → table → form → footer</li>
+            <li>استخدمنا Flexbox في navbar وقائمة المهارات</li>
+            <li>Box Model + box-shadow للبطاقات والجداول والنماذج</li>
+            <li>hover effects و transitions تضيف حيوية للصفحة</li>
+            <li>media query واحد يجعل الصفحة متجاوبة على الموبايل</li>
+            <li>الملف المرجعي الكامل: projects/portfolio-full/</li>
+          </ul>
+        </section>
+
+        <!-- Homework -->
+        <section class="homework-box">
+          <h2>واجب اختياري</h2>
+          <ul>
+            <li>خصّص الألوان بأسلوبك الشخصي — جرّب palette مختلف</li>
+            <li>أضف قسم "شهادات" أو "خبرات" بتصميم CSS جديد</li>
+            <li>حسّن hover effects: ظل أقوى على البطاقات، تغيير لون الزر</li>
+            <li>شارك رابط GitHub أو screenshot للصفحة النهائية</li>
+            <li>قارن عملك مع <span class="inline-code">projects/portfolio-full/</span> وحدّد الفروقات</li>
+          </ul>
+        </section>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p class="footer-course">أساسيات الويب — الكورس الأول</p>
+        <p class="footer-instructor">محمد أسامة بيطار · مهندس معلوماتية · مدرب علوم ويب</p>
+        <p class="footer-copy">الجلسة 08 من 16</p>
+      </div>
+    </footer>
+
+  </div>
+  <script src="../shared/scripts.js"></script>
+</body>
+</html>

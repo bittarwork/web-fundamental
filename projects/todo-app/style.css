@@ -1,0 +1,228 @@
+/* Todo App — clean navy/gold styling */
+
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap');
+
+:root {
+  --navy-dark: #0f1b2d;
+  --navy: #1a2d4a;
+  --gold: #c9a227;
+  --gold-light: #e8c84a;
+  --white: #ffffff;
+  --gray-50: #f8f9fb;
+  --gray-100: #eef1f6;
+  --gray-200: #d8dee8;
+  --gray-400: #8b95a5;
+  --success: #2d8a5e;
+  --danger: #c53030;
+  --shadow: 0 8px 24px rgba(15, 27, 45, 0.14);
+  --radius: 12px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Tajawal', sans-serif;
+  background: linear-gradient(160deg, var(--navy-dark) 0%, var(--navy) 50%, #2a4068 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 2rem 1rem;
+  direction: rtl;
+}
+
+.app {
+  width: 100%;
+  max-width: 520px;
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.app-header {
+  background: var(--navy);
+  color: var(--white);
+  padding: 1.75rem 1.5rem;
+  text-align: center;
+}
+
+.app-header h1 {
+  font-size: 1.6rem;
+  margin-bottom: 0.25rem;
+}
+
+.app-header p {
+  color: var(--gold-light);
+  font-size: 0.95rem;
+}
+
+/* Add task form */
+.todo-form {
+  display: flex;
+  gap: 0.5rem;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--gray-100);
+}
+
+.todo-form input {
+  flex: 1;
+  font-family: 'Tajawal', sans-serif;
+  font-size: 1rem;
+  padding: 0.7rem 1rem;
+  border: 1px solid var(--gray-200);
+  border-radius: 8px;
+}
+
+.todo-form input:focus {
+  outline: none;
+  border-color: var(--gold);
+}
+
+.todo-form button {
+  font-family: 'Tajawal', sans-serif;
+  font-weight: 700;
+  padding: 0.7rem 1.25rem;
+  background: var(--gold);
+  color: var(--navy-dark);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.todo-form button:hover {
+  background: var(--gold-light);
+}
+
+/* Filter buttons */
+.filters {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-bottom: 1px solid var(--gray-100);
+}
+
+.filter-btn {
+  font-family: 'Tajawal', sans-serif;
+  font-size: 0.9rem;
+  padding: 0.4rem 0.85rem;
+  background: var(--gray-50);
+  border: 1px solid var(--gray-200);
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filter-btn:hover {
+  border-color: var(--gold);
+}
+
+.filter-btn.active {
+  background: var(--navy);
+  color: var(--white);
+  border-color: var(--navy);
+}
+
+/* Task list */
+.todo-list {
+  list-style: none;
+  max-height: 360px;
+  overflow-y: auto;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 1.5rem;
+  border-bottom: 1px solid var(--gray-100);
+  transition: background 0.2s;
+}
+
+.todo-item:hover {
+  background: var(--gray-50);
+}
+
+.todo-item.completed .todo-text {
+  text-decoration: line-through;
+  color: var(--gray-400);
+}
+
+.todo-checkbox {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--success);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.todo-text {
+  flex: 1;
+  font-size: 1rem;
+  word-break: break-word;
+}
+
+.delete-btn {
+  background: none;
+  border: none;
+  color: var(--danger);
+  font-size: 1.25rem;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  line-height: 1;
+  transition: background 0.2s;
+}
+
+.delete-btn:hover {
+  background: #fff5f5;
+}
+
+.empty-msg {
+  padding: 2rem 1.5rem;
+  text-align: center;
+  color: var(--gray-400);
+}
+
+/* App footer */
+.app-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  background: var(--gray-50);
+  font-size: 0.9rem;
+  color: var(--gray-400);
+}
+
+.clear-btn {
+  font-family: 'Tajawal', sans-serif;
+  font-size: 0.85rem;
+  background: none;
+  border: 1px solid var(--gray-200);
+  border-radius: 6px;
+  padding: 0.35rem 0.75rem;
+  cursor: pointer;
+  color: var(--gray-400);
+  transition: all 0.2s;
+}
+
+.clear-btn:hover {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+.instructor {
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--gray-400);
+  padding: 0.75rem;
+  background: var(--gray-50);
+}

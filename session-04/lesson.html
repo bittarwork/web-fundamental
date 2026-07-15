@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 04 — مشروع HTML: صفحة شخصية</title>
+  <link rel="stylesheet" href="../shared/styles.css">
+</head>
+<body>
+  <div class="page-wrapper">
+
+    <header class="site-header">
+      <div class="container">
+        <span class="course-badge">المرحلة 1 — HTML · مشروع</span>
+        <h1>الجلسة 04: مشروع HTML — صفحة شخصية Portfolio</h1>
+        <div class="session-meta">
+          <span>المدة: ساعة ونصف</span>
+          <span>الجلسة 4 من 16</span>
+        </div>
+      </div>
+    </header>
+
+    <nav class="lesson-nav">
+      <div class="container">
+        <a href="../index.html" class="nav-link">الرئيسية</a>
+        <a href="../session-03/lesson.html" class="nav-link">→ السابقة</a>
+        <a href="../session-05/lesson.html" class="nav-link">التالية ←</a>
+      </div>
+    </nav>
+
+    <main class="main-content">
+      <div class="container">
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">04</div>
+            <h2>الشرح النظري</h2>
+          </div>
+          <div class="theory-content">
+            <h3>هدف المشروع</h3>
+            <p>
+              في هذه الجلسة نجمع كل ما تعلمناه في HTML لبناء <strong>صفحة Portfolio شخصية</strong>
+              كاملة — بدون أي CSS. الهدف هو إتقان هيكل HTML قبل الانتقال للتصميم.
+            </p>
+
+            <h3>متطلبات المشروع</h3>
+            <p>الصفحة يجب أن تحتوي على الأقسام التالية:</p>
+            <ol>
+              <li><strong>Header:</strong> اسمك وصورة شخصية</li>
+              <li><strong>قسم "عني":</strong> فقرة تعريفية عنك</li>
+              <li><strong>قسم المهارات:</strong> قائمة بمهاراتك</li>
+              <li><strong>قسم المشاريع:</strong> جدول بمشاريعك</li>
+              <li><strong>نموذج تواصل:</strong> اسم، إيميل، رسالة</li>
+              <li><strong>Footer:</strong> حقوق النشر وروابط</li>
+            </ol>
+
+            <div class="warning-box">
+              <strong>تذكير:</strong> لا تستخدم CSS في هذا المشروع! سنصممه بالكامل في الجلسة 8.
+              ركّز على الهيكل الصحيح والعناصر الدلالية.
+            </div>
+
+            <h3>خطوات العمل</h3>
+            <ol>
+              <li>أنشئ ملف <span class="inline-code">portfolio.html</span></li>
+              <li>ابدأ بالهيكل الدلالي: header → main → footer</li>
+              <li>أضف كل قسم داخل <span class="inline-code">section</span></li>
+              <li>استخدم nav للتنقل بين الأقسام</li>
+              <li>اختبر الصفحة في المتصفح</li>
+            </ol>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">💻</div>
+            <h2>الكود المرجعي للمشروع</h2>
+          </div>
+
+          <p>هذا نموذج كامل يمكنك البناء عليه وتخصيصه:</p>
+
+          <div class="code-block">
+            <div class="code-label">HTML — Portfolio Project</div>
+            <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="ar" dir="rtl"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;محمد أحمد — Portfolio&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+  &lt;!-- Header --&gt;
+  &lt;header&gt;
+    &lt;img src="https://via.placeholder.com/120" alt="صورتي الشخصية" width="120"&gt;
+    &lt;h1&gt;محمد أحمد&lt;/h1&gt;
+    &lt;p&gt;طالب علوم ويب | دمشق، سوريا&lt;/p&gt;
+    &lt;nav&gt;
+      &lt;a href="#about"&gt;عني&lt;/a&gt; |
+      &lt;a href="#skills"&gt;مهاراتي&lt;/a&gt; |
+      &lt;a href="#projects"&gt;مشاريعي&lt;/a&gt; |
+      &lt;a href="#contact"&gt;تواصل&lt;/a&gt;
+    &lt;/nav&gt;
+  &lt;/header&gt;
+
+  &lt;main&gt;
+
+    &lt;!-- About Section --&gt;
+    &lt;section id="about"&gt;
+      &lt;h2&gt;نبذة عني&lt;/h2&gt;
+      &lt;p&gt;
+        أنا طالب مهتم بتعلم تطوير الويب. أتعلم حالياً
+        &lt;strong&gt;HTML, CSS, JavaScript&lt;/strong&gt; وأسعى لبناء
+        مواقع جميلة ومفيدة.
+      &lt;/p&gt;
+    &lt;/section&gt;
+
+    &lt;hr&gt;
+
+    &lt;!-- Skills Section --&gt;
+    &lt;section id="skills"&gt;
+      &lt;h2&gt;مهاراتي&lt;/h2&gt;
+      &lt;ul&gt;
+        &lt;li&gt;HTML — هيكل صفحات الويب&lt;/li&gt;
+        &lt;li&gt;CSS — تصميم وتنسيق (قيد التعلم)&lt;/li&gt;
+        &lt;li&gt;JavaScript — البرمجة والتفاعل (قيد التعلم)&lt;/li&gt;
+        &lt;li&gt;العمل الجماعي والتواصل&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/section&gt;
+
+    &lt;hr&gt;
+
+    &lt;!-- Projects Section --&gt;
+    &lt;section id="projects"&gt;
+      &lt;h2&gt;مشاريعي&lt;/h2&gt;
+      &lt;table&gt;
+        &lt;thead&gt;
+          &lt;tr&gt;
+            &lt;th&gt;المشروع&lt;/th&gt;
+            &lt;th&gt;التقنية&lt;/th&gt;
+            &lt;th&gt;الحالة&lt;/th&gt;
+          &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody&gt;
+          &lt;tr&gt;
+            &lt;td&gt;صفحة شخصية&lt;/td&gt;
+            &lt;td&gt;HTML&lt;/td&gt;
+            &lt;td&gt;مكتمل&lt;/td&gt;
+          &lt;/tr&gt;
+          &lt;tr&gt;
+            &lt;td&gt;قائمة مهام&lt;/td&gt;
+            &lt;td&gt;HTML + CSS&lt;/td&gt;
+            &lt;td&gt;قيد العمل&lt;/td&gt;
+          &lt;/tr&gt;
+          &lt;tr&gt;
+            &lt;td&gt;تطبيق طقس&lt;/td&gt;
+            &lt;td&gt;HTML + CSS + JS&lt;/td&gt;
+            &lt;td&gt;مخطط&lt;/td&gt;
+          &lt;/tr&gt;
+        &lt;/tbody&gt;
+      &lt;/table&gt;
+    &lt;/section&gt;
+
+    &lt;hr&gt;
+
+    &lt;!-- Contact Section --&gt;
+    &lt;section id="contact"&gt;
+      &lt;h2&gt;تواصل معي&lt;/h2&gt;
+      &lt;form&gt;
+        &lt;label&gt;الاسم: &lt;input type="text" placeholder="اسمك"&gt;&lt;/label&gt;
+        &lt;br&gt;&lt;br&gt;
+        &lt;label&gt;البريد: &lt;input type="email" placeholder="email@example.com"&gt;&lt;/label&gt;
+        &lt;br&gt;&lt;br&gt;
+        &lt;label&gt;الرسالة:&lt;/label&gt;&lt;br&gt;
+        &lt;textarea rows="4" cols="40" placeholder="اكتب رسالتك هنا..."&gt;&lt;/textarea&gt;
+        &lt;br&gt;&lt;br&gt;
+        &lt;button type="submit"&gt;إرسال&lt;/button&gt;
+      &lt;/form&gt;
+    &lt;/section&gt;
+
+  &lt;/main&gt;
+
+  &lt;footer&gt;
+    &lt;p&gt;جميع الحقوق محفوظة &copy; 2026 — محمد أحمد&lt;/p&gt;
+    &lt;p&gt;
+      &lt;a href="mailto:student@email.com"&gt;راسلني&lt;/a&gt; |
+      &lt;a href="https://github.com" target="_blank"&gt;GitHub&lt;/a&gt;
+    &lt;/p&gt;
+  &lt;/footer&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+          </div>
+
+          <div class="tip-box">
+            <strong>ملف المشروع:</strong> نسخة جاهزة موجودة في
+            <span class="inline-code">projects/portfolio-html/index.html</span>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">✏️</div>
+            <h2>تمارين المشروع</h2>
+          </div>
+
+          <div class="exercise-item">
+            <h4><span class="exercise-number">1</span> بناء الهيكل الأساسي</h4>
+            <p>أنشئ الملف مع header (اسمك + nav) و main و footer. تأكد من استخدام العناصر الدلالية.</p>
+            <button class="solution-toggle" data-target="sol-1">
+              <span class="toggle-text">عرض الحل</span>
+              <span class="arrow">▼</span>
+            </button>
+            <div class="solution-content" id="sol-1">
+              <p>راجع الكود المرجعي أعلاه — ابدأ بـ header, main, footer ثم أضف الأقسام تدريجياً.</p>
+            </div>
+          </div>
+
+          <div class="exercise-item">
+            <h4><span class="exercise-number">2</span> إضافة المحتوى</h4>
+            <p>أضف قسم "عني" بفقرتين، قائمة مهارات بـ 5 عناصر، وجدول بـ 3 مشاريع.</p>
+            <button class="solution-toggle" data-target="sol-2">
+              <span class="toggle-text">عرض الحل</span>
+              <span class="arrow">▼</span>
+            </button>
+            <div class="solution-content" id="sol-2">
+              <p>استخدم section لكل قسم، ul للمهارات، table للمشاريع. خصّص المحتوى بمعلوماتك الشخصية.</p>
+            </div>
+          </div>
+
+          <div class="exercise-item">
+            <h4><span class="exercise-number">3</span> نموذج التواصل والمراجعة</h4>
+            <p>أضف نموذج تواصل، ثم راجع الصفحة كاملة وتأكد أن كل عنصر في مكانه الصحيح.</p>
+            <button class="solution-toggle" data-target="sol-3">
+              <span class="toggle-text">عرض الحل</span>
+              <span class="arrow">▼</span>
+            </button>
+            <div class="solution-content" id="sol-3">
+              <p>تحقق من: هل كل section له id؟ هل الروابط في nav تشير للأقسام؟ هل alt موجود للصورة؟</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">📌</div>
+            <h2>ملخص الجلسة</h2>
+          </div>
+          <ul class="key-points">
+            <li>المشروع يجمع كل عناصر HTML التي تعلمناها</li>
+            <li>استخدمنا HTML الدلالي: header, nav, main, section, footer</li>
+            <li>الصفحة تحتوي: نصوص، روابط، صور، قوائم، جداول، نماذج</li>
+            <li>لا CSS في هذه المرحلة — الهيكل فقط</li>
+            <li>سنعود لهذا المشروع في الجلسة 8 لإضافة التصميم</li>
+          </ul>
+        </section>
+
+        <section class="homework-box">
+          <h2>واجب اختياري</h2>
+          <ul>
+            <li>خصّص المحتوى بمعلوماتك الحقيقية</li>
+            <li>أضف قسم "خبراتي" بقائمة مرتبة</li>
+            <li>أرسل رابط GitHub أو صفحة إضافية في الـ footer</li>
+          </ul>
+        </section>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p class="footer-course">أساسيات الويب — الكورس الأول</p>
+        <p class="footer-instructor">محمد أسامة بيطار · مهندس معلوماتية · مدرب علوم ويب</p>
+        <p class="footer-copy">الجلسة 04 من 16</p>
+      </div>
+    </footer>
+
+  </div>
+  <script src="../shared/scripts.js"></script>
+</body>
+</html>

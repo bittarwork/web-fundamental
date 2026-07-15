@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 01 — مقدمة الويب وهيكل HTML</title>
+  <link rel="stylesheet" href="../shared/styles.css">
+</head>
+<body>
+  <div class="page-wrapper">
+
+    <header class="site-header">
+      <div class="container">
+        <span class="course-badge">المرحلة 1 — HTML</span>
+        <h1>الجلسة 01: مقدمة الويب وهيكل HTML</h1>
+        <div class="session-meta">
+          <span>المدة: ساعة ونصف</span>
+          <span>الجلسة 1 من 16</span>
+        </div>
+      </div>
+    </header>
+
+    <nav class="lesson-nav">
+      <div class="container">
+        <a href="../index.html" class="nav-link">الرئيسية</a>
+        <a href="#" class="nav-link disabled">السابقة</a>
+        <a href="../session-02/lesson.html" class="nav-link">التالية ←</a>
+      </div>
+    </nav>
+
+    <main class="main-content">
+      <div class="container">
+
+        <!-- Theory -->
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">01</div>
+            <h2>الشرح النظري</h2>
+          </div>
+          <div class="theory-content">
+            <h3>ما هو الويب؟</h3>
+            <p>
+              الويب (World Wide Web) هو نظام يربط بين ملايين الصفحات عبر الإنترنت.
+              عندما تكتب عنوان موقع في المتصفح، يقوم المتصفح بجلب الصفحة وعرضها لك.
+            </p>
+
+            <h3>كيف يعمل المتصفح؟</h3>
+            <p>المتصفح (مثل Chrome أو Firefox) يقوم بثلاث خطوات بسيطة:</p>
+            <ol>
+              <li><strong>الطلب:</strong> يرسل طلباً للسيرفر لجلب الملفات</li>
+              <li><strong>الاستلام:</strong> يستلم ملفات HTML و CSS و JavaScript</li>
+              <li><strong>العرض:</strong> يقرأ الملفات ويعرض الصفحة كما تراها</li>
+            </ol>
+
+            <h3>ما هو HTML؟</h3>
+            <p>
+              HTML اختصار لـ <span class="inline-code">HyperText Markup Language</span>
+              — أي لغة ترميز النصوص التشعبية. هي <strong>لغة الهيكل</strong> التي نبني بها صفحات الويب.
+              تخيلها كهيكل عظمي: تحدد أين العنوان، أين الفقرة، أين الصورة.
+            </p>
+
+            <div class="highlight-box">
+              <strong>ملاحظة مهمة:</strong> HTML ليست لغة برمجة — هي لغة <em>ترميز</em>.
+              نستخدمها لوصف محتوى الصفحة، وليس لكتابة منطق معقد.
+            </div>
+
+            <h3>أدوات العمل</h3>
+            <ul>
+              <li><strong>VS Code:</strong> محرر نصوص مجاني لكتابة الكود</li>
+              <li><strong>المتصفح:</strong> لمعاينة الصفحات التي نبنيها</li>
+              <li><strong>DevTools:</strong> أدوات المطور (F12) لفحص الصفحة</li>
+            </ul>
+
+            <h3>هيكل صفحة HTML الأساسي</h3>
+            <p>كل صفحة HTML تحتوي على هيكل ثابت:</p>
+            <ul>
+              <li><span class="inline-code">&lt;!DOCTYPE html&gt;</span> — يخبر المتصفح أن هذا ملف HTML5</li>
+              <li><span class="inline-code">&lt;html&gt;</span> — العنصر الجذر الذي يحتوي كل شيء</li>
+              <li><span class="inline-code">&lt;head&gt;</span> — معلومات الصفحة (العنوان، الترميز) لا تظهر للمستخدم</li>
+              <li><span class="inline-code">&lt;body&gt;</span> — المحتوى الذي يراه المستخدم فعلياً</li>
+            </ul>
+
+            <h3>عناصر النص الأساسية</h3>
+            <ul>
+              <li><span class="inline-code">h1</span> إلى <span class="inline-code">h6</span> — العناوين (h1 الأكبر)</li>
+              <li><span class="inline-code">p</span> — فقرة نصية</li>
+              <li><span class="inline-code">br</span> — سطر جديد</li>
+              <li><span class="inline-code">hr</span> — خط فاصل أفقي</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Examples -->
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">💻</div>
+            <h2>أمثلة الكود</h2>
+          </div>
+
+          <h3>مثال 1: الهيكل الأساسي لأي صفحة</h3>
+          <div class="code-block">
+            <div class="code-label">HTML — Basic Structure</div>
+            <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="ar" dir="rtl"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;صفحتي الأولى&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;مرحباً بالعالم!&lt;/h1&gt;
+  &lt;p&gt;هذه أول صفحة ويب أبنيها.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+          </div>
+
+          <h3>مثال 2: العناوين بمستويات مختلفة</h3>
+          <div class="code-block">
+            <div class="code-label">HTML — Headings</div>
+            <pre><code>&lt;h1&gt;عنوان رئيسي كبير&lt;/h1&gt;
+&lt;h2&gt;عنوان فرعي&lt;/h2&gt;
+&lt;h3&gt;عنوان أصغر&lt;/h3&gt;
+&lt;h4&gt;عنوان صغير&lt;/h4&gt;</code></pre>
+          </div>
+
+          <div class="live-example">
+            <div class="live-example-label">معاينة حية</div>
+            <h1 style="font-size:1.8rem;">عنوان رئيسي كبير</h1>
+            <h2 style="font-size:1.4rem;">عنوان فرعي</h2>
+            <h3 style="font-size:1.2rem;">عنوان أصغر</h3>
+            <h4>عنوان صغير</h4>
+          </div>
+
+          <h3>مثال 3: فقرات وفواصل</h3>
+          <div class="code-block">
+            <div class="code-label">HTML — Paragraphs</div>
+            <pre><code>&lt;p&gt;هذه فقرة أولى في صفحتي.&lt;/p&gt;
+&lt;p&gt;وهذه فقرة ثانية.&lt;br&gt;وهذا سطر جديد داخل نفس الفقرة.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;فقرة بعد الخط الفاصل.&lt;/p&gt;</code></pre>
+          </div>
+        </section>
+
+        <!-- Exercises -->
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">✏️</div>
+            <h2>تمارين عملية</h2>
+          </div>
+
+          <div class="exercise-item">
+            <h4><span class="exercise-number">1</span> أول صفحة HTML</h4>
+            <p>أنشئ ملف <span class="inline-code">index.html</span> يحتوي على الهيكل الأساسي مع عنوان "صفحتي الأولى" وعبارة ترحيب.</p>
+            <button class="solution-toggle" data-target="sol-1">
+              <span class="toggle-text">عرض الحل</span>
+              <span class="arrow">▼</span>
+            </button>
+            <div class="solution-content" id="sol-1">
+              <div class="code-block">
+                <div class="code-label">Solution</div>
+                <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="ar" dir="rtl"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;صفحتي الأولى&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;أهلاً وسهلاً!&lt;/h1&gt;
+  &lt;p&gt;هذه أول صفحة HTML أكتبها بنفسي.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="exercise-item">
+            <h4><span class="exercise-number">2</span> صفحة "نبذة عني"</h4>
+            <p>ابنِ صفحة تحتوي على: عنوان رئيسي باسمك، عنوان فرعي "نبذة عني"، وفقرتين تتحدثان عنك.</p>
+            <button class="solution-toggle" data-target="sol-2">
+              <span class="toggle-text">عرض الحل</span>
+              <span class="arrow">▼</span>
+            </button>
+            <div class="solution-content" id="sol-2">
+              <div class="code-block">
+                <div class="code-label">Solution</div>
+                <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="ar" dir="rtl"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;نبذة عني&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;أحمد محمد&lt;/h1&gt;
+  &lt;h2&gt;نبذة عني&lt;/h2&gt;
+  &lt;p&gt;أنا طالب مهتم بتعلم تطوير الويب.&lt;/p&gt;
+  &lt;p&gt;أعيش في دمشق وأسعى لبناء مواقع جميلة.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="exercise-item">
+            <h4><span class="exercise-number">3</span> استخدام DevTools</h4>
+            <p>افتح صفحتك في Chrome، اضغط F12، واعثر على عنصر <span class="inline-code">h1</span> في تبويب Elements.</p>
+            <button class="solution-toggle" data-target="sol-3">
+              <span class="toggle-text">عرض الحل</span>
+              <span class="arrow">▼</span>
+            </button>
+            <div class="solution-content" id="sol-3">
+              <p><strong>الخطوات:</strong></p>
+              <ol>
+                <li>افتح الملف في المتصفح (اسحبه أو انقر عليه مرتين)</li>
+                <li>اضغط F12 أو كليك يمين → Inspect</li>
+                <li>في تبويب Elements ستجد شجرة HTML</li>
+                <li>ابحث عن <span class="inline-code">&lt;h1&gt;</span> وانقر عليه لرؤية تفاصيله</li>
+              </ol>
+            </div>
+          </div>
+        </section>
+
+        <!-- Key Points -->
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">📌</div>
+            <h2>ملخص الجلسة</h2>
+          </div>
+          <ul class="key-points">
+            <li>الويب عبارة عن صفحات مرتبطة عبر الإنترنت يعرضها المتصفح</li>
+            <li>HTML هي لغة هيكل الصفحة — ليست لغة برمجة</li>
+            <li>كل صفحة تحتاج: DOCTYPE, html, head, body</li>
+            <li>h1-h6 للعناوين، p للفقرات، br لسطر جديد، hr لخط فاصل</li>
+            <li>VS Code + المتصفح + DevTools = أدواتك الأساسية</li>
+          </ul>
+        </section>
+
+        <!-- Homework -->
+        <section class="homework-box">
+          <h2>واجب اختياري</h2>
+          <p>قبل الجلسة القادمة:</p>
+          <ul>
+            <li>ثبّت VS Code على جهازك إن لم يكن مثبتاً</li>
+            <li>أنشئ صفحة "مذكراتي" فيها 3 عناوين و3 فقرات عن يومك</li>
+            <li>جرّب تغيير نص العنوان في DevTools وشاهد التغيير مباشرة</li>
+          </ul>
+        </section>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p class="footer-course">أساسيات الويب — الكورس الأول</p>
+        <p class="footer-instructor">محمد أسامة بيطار · مهندس معلوماتية · مدرب علوم ويب</p>
+        <p class="footer-copy">الجلسة 01 من 16</p>
+      </div>
+    </footer>
+
+  </div>
+  <script src="../shared/scripts.js"></script>
+</body>
+</html>

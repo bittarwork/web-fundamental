@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 14 — مشروع JavaScript: قائمة المهام</title>
+  <link rel="stylesheet" href="../shared/styles.css">
+</head>
+<body>
+  <div class="page-wrapper">
+
+    <header class="site-header">
+      <div class="container">
+        <span class="course-badge">المرحلة 3 — JavaScript · مشروع</span>
+        <h1>الجلسة 14: مشروع JavaScript — تطبيق Todo List</h1>
+        <div class="session-meta">
+          <span>المدة: ساعتان</span>
+          <span>الجلسة 14 من 16</span>
+        </div>
+      </div>
+    </header>
+
+    <nav class="lesson-nav">
+      <div class="container">
+        <a href="../index.html" class="nav-link">الرئيسية</a>
+        <a href="../session-13/lesson.html" class="nav-link">→ السابقة</a>
+        <a href="../session-15/lesson.html" class="nav-link">التالية ←</a>
+      </div>
+    </nav>
+
+    <main class="main-content">
+      <div class="container">
+
+        <!-- Theory -->
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">14</div>
+            <h2>الشرح النظري</h2>
+          </div>
+          <div class="theory-content">
+            <h3>هدف المشروع</h3>
+            <p>
+              في هذه الجلسة نجمع كل ما تعلمناه في JavaScript لبناء تطبيق
+              <strong>قائمة مهام (Todo List)</strong> تفاعلي كامل —
+              إضافة مهام، تحديدها كمكتملة، وحذفها.
+              هذا المشروع يُمثّل نموذجاً مصغّراً لأي تطبيق ويب حقيقي.
+            </p>
+
+            <h3>ملفات المشروع</h3>
+            <p>المشروع موجود في مجلد:</p>
+            <ul>
+              <li><span class="inline-code">projects/todo-app/index.html</span> — هيكل الصفحة</li>
+              <li><span class="inline-code">projects/todo-app/style.css</span> — التصميم</li>
+              <li><span class="inline-code">projects/todo-app/app.js</span> — المنطق والتفاعل</li>
+            </ul>
+
+            <div class="highlight-box">
+              <strong>ابدأ من هنا:</strong> افتح مجلد
+              <span class="inline-code">projects/todo-app/</span>
+              واتبع الخطوات أدناه لبناء التطبيق خطوة بخطوة.
+            </div>
+
+            <h3>الميزات المطلوبة</h3>
+            <ol>
+              <li><strong>إضافة مهمة:</strong> نموذج بإدخال نص وزر «إضافة»</li>
+              <li><strong>عرض المهام:</strong> قائمة ديناميكية تُبنى من مصفوفة</li>
+              <li><strong>إكمال مهمة:</strong> نقرة على المهمة تُعلّمها كمكتملة (خط يتوسطها)</li>
+              <li><strong>حذف مهمة:</strong> زر حذف لكل مهمة</li>
+              <li><strong>عداد:</strong> عرض عدد المهام المتبقية</li>
+            </ol>
+
+            <h3>هيكل البيانات</h3>
+            <p>كل مهمة كائن بهذا الشكل:</p>
+            <ul>
+              <li><span class="inline-code">id</span> — معرّف فريد (رقم أو timestamp)</li>
+              <li><span class="inline-code">text</span> — نص المهمة</li>
+              <li><span class="inline-code">completed</span> — هل اكتملت؟ (boolean)</li>
+            </ul>
+
+            <h3>الخطوات المنطقية</h3>
+            <ol>
+              <li>تهيئة مصفوفة <span class="inline-code">tasks</span> فارغة</li>
+              <li>دالة <span class="inline-code">render()</span> ترسم القائمة من المصفوفة</li>
+              <li>مستمع <span class="inline-code">submit</span> على النموذج يضيف مهمة جديدة</li>
+              <li>Event delegation على القائمة للنقر (إكمال) والحذف</li>
+              <li>تحديث العداد بعد كل تغيير</li>
+            </ol>
+
+            <h3>مفاهيم مطبّقة</h3>
+            <ul>
+              <li>المتغيرات والمصفوفات والكائنات (الجلسة 09-11)</li>
+              <li>الدوال والشروط (الجلسة 10)</li>
+              <li>DOM: createElement, appendChild, textContent (الجلسة 12)</li>
+              <li>الأحداث: addEventListener, submit, click, preventDefault (الجلسة 13)</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Examples -->
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">💻</div>
+            <h2>أمثلة الكود</h2>
+          </div>
+
+          <h3>مثال 1: هيكل HTML للمشروع</h3>
+          <div class="code-block">
+            <div class="code-label">projects/todo-app/index.html</div>
+            <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="ar" dir="rtl"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;قائمة المهام&lt;/title&gt;
+  &lt;link rel="stylesheet" href="style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div class="app"&gt;
+    &lt;h1&gt;مهامي&lt;/h1&gt;
+
+    &lt;form id="todo-form"&gt;
+      &lt;input type="text" id="todo-input" placeholder="مهمة جديدة..." required&gt;
+      &lt;button type="submit"&gt;إضافة&lt;/button&gt;
+    &lt;/form&gt;
+
+    &lt;p&gt;متبقي: &lt;span id="task-count"&gt;0&lt;/span&gt; مهمة&lt;/p&gt;
+    &lt;ul id="todo-list"&gt;&lt;/ul&gt;
+  &lt;/div&gt;
+  &lt;script src="app.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+          </div>
+
+          <h3>مثال 2: تهيئة البيانات والعناصر</h3>
+          <div class="code-block">
+            <div class="code-label">projects/todo-app/app.js — Setup</div>
+            <pre><code>const tasks = [];
+
+const form = document.getElementById("todo-form");
+const input = document.getElementById("todo-input");
+const list = document.getElementById("todo-list");
+const countEl = document.getElementById("task-count");
+
+let nextId = 1;</code></pre>
+          </div>
+
+          <h3>مثال 3: دالة render — رسم القائمة</h3>
+          <div class="code-block">
+            <div class="code-label">projects/todo-app/app.js — Render</div>
+            <pre><code>function render() {
+  list.innerHTML = "";
+
+  tasks.forEach((task) => {
+    const li = document.createElement("li");
+    li.className = task.completed ? "completed" : "";
+    li.dataset.id = task.id;
+
+    const span = document.createElement("span");
+    span.textContent = task.text;
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "حذف";
+    deleteBtn.className = "delete-btn";
+
+    li.appendChild(span);
+    li.appendChild(deleteBtn);
+    list.appendChild(li);
+  });
+
+  const remaining = tasks.filter((t) => !t.completed).length;
+  countEl.textContent = remaining;
+}</code></pre>
+          </div>
+
+          <h3>مثال 4: إضافة مهمة عبر النموذج</h3>
+          <div class="code-block">
+            <div class="code-label">projects/todo-app/app.js — Add Task</div>
+            <pre><code>form.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const text = input.value.trim();
+  if (text === "") return;
+
+  tasks.push({
+    id: nextId++,
+    text: text,
+    completed: false
+  });
+
+  input.value = "";
+  render();
+});</code></pre>
+          </div>
+
+          <h3>مثال 5: Event Delegation — إكمال وحذف</h3>
+          <div class="code-block">
+            <div class="code-label">projects/todo-app/app.js — Events</div>
+            <pre><code>list.addEventListener("click", (event) => {
+  const li = event.target.closest("li");
+  if (!li) return;
+
+  const taskId = Number(li.dataset.id);
+
+  // Delete button clicked
+  if (event.target.classList.contains("delete-btn")) {
+    const index = tasks.findIndex((t) => t.id === taskId);
+    if (index !== -1) {
+      tasks.splice(index, 1);
+      render();
+    }
+    return;
+  }
+
+  // Toggle completed on li click
+  const task = tasks.find((t) => t.id === taskId);
+  if (task) {
+    task.completed = !task.completed;
+    render();
+  }
+});</code></pre>
+          </div>
+
+          <h3>مثال 6: CSS أساسي للمهمة المكتملة</h3>
+          <div class="code-block">
+            <div class="code-label">projects/todo-app/style.css</div>
+            <pre><code>.completed span {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.delete-btn {
+  margin-right: 0.5rem;
+  background: #e53935;
+  color: white;
+  border: none;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+}</code></pre>
+          </div>
+        </section>
+
+        <!-- Exercises -->
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">✏️</div>
+            <h2>تمارين عملية</h2>
+          </div>
+
+          <div class="exercise-item">
+            <h4><span class="exercise-number">1</span> بناء الهيكل الأساسي</h4>
+            <p>أنشئ الملفات الثلاثة في <span class="inline-code">projects/todo-app/</span> وانسخ هيكل HTML. تأكد أن الصفحة تفتح بدون أخطاء.</p>
+            <button class="solution-toggle" data-target="sol-1">
+              <span class="toggle-text">عرض الحل</span>
+              <span class="arrow">▼</span>
+            </button>
+            <div class="solution-content" id="sol-1">
+              <p><strong>الخطوات:</strong></p>
+              <ol>
+                <li>أنشئ مجلد <span class="inline-code">projects/todo-app/</span></li>
+                <li>أنشئ <span class="inline-code">index.html</span> بالهيكل أعلاه</li>
+                <li>أنشئ <span class="inline-code">style.css</span> و <span class="inline-code">app.js</span> فارغين</li>
+                <li>افتح <span class="inline-code">index.html</span> في المتصفح</li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="exercise-item">
+            <h4><span class="exercise-number">2</span> إضافة وعرض المهام</h4>
+            <p>نفّذ دالة <span class="inline-code">render()</span> ومستمع <span class="inline-code">submit</span> لإضافة مهام وعرضها في القائمة.</p>
+            <button class="solution-toggle" data-target="sol-2">
+              <span class="toggle-text">عرض الحل</span>
+              <span class="arrow">▼</span>
+            </button>
+            <div class="solution-content" id="sol-2">
+              <p>استخدم الأمثلة 2 و 3 و 4 أعلاه — انسخ الكود إلى <span class="inline-code">app.js</span> وجرّب إضافة 3 مهام.</p>
+            </div>
+          </div>
+
+          <div class="exercise-item">
+            <h4><span class="exercise-number">3</span> إكمال وحذف وعداد</h4>
+            <p>أضف Event delegation لإكمال المهام وحذفها، وحدّث عداد المهام المتبقية.</p>
+            <button class="solution-toggle" data-target="sol-3">
+              <span class="toggle-text">عرض الحل</span>
+              <span class="arrow">▼</span>
+            </button>
+            <div class="solution-content" id="sol-3">
+              <p>استخدم المثال 5 أعلاه. تأكد أن:</p>
+              <ul>
+                <li>النقر على نص المهمة يُعلّمها مكتملة</li>
+                <li>زر «حذف» يزيل المهمة من المصفوفة والقائمة</li>
+                <li>العداد يعرض فقط المهام غير المكتملة</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- Key Points -->
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">📌</div>
+            <h2>ملخص الجلسة</h2>
+          </div>
+          <ul class="key-points">
+            <li>مشروع Todo List يجمع DOM والأحداث والمصفوفات في تطبيق واحد</li>
+            <li>مصفوفة <span class="inline-code">tasks</span> هي مصدر الحقيقة — DOM يُعاد رسمه منها</li>
+            <li>دالة <span class="inline-code">render()</span> تُحدّث الواجهة بعد كل تغيير في البيانات</li>
+            <li>Event delegation على <span class="inline-code">#todo-list</span> يتعامل مع عناصر ديناميكية</li>
+            <li><span class="inline-code">preventDefault</span> على النموذج يمنع إعادة تحميل الصفحة</li>
+          </ul>
+        </section>
+
+        <!-- Homework -->
+        <section class="homework-box">
+          <h2>واجب اختياري — تحسينات إضافية</h2>
+          <p>بعد إكمال المشروع الأساسي:</p>
+          <ul>
+            <li>أضف زر «مسح المكتملة» يحذف كل المهام المُنجزة</li>
+            <li>أضف فلتر: الكل / نشطة / مكتملة</li>
+            <li>احفظ المهام في <span class="inline-code">localStorage</span> لتبقى بعد إغلاق المتصفح</li>
+            <li>أضف تحققاً: لا تسمح بمهمة فارغة أو مكررة</li>
+          </ul>
+        </section>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p class="footer-course">أساسيات الويب — الكورس الأول</p>
+        <p class="footer-instructor">محمد أسامة بيطار · مهندس معلوماتية · مدرب علوم ويب</p>
+        <p class="footer-copy">الجلسة 14 من 16</p>
+      </div>
+    </footer>
+
+  </div>
+  <script src="../shared/scripts.js"></script>
+</body>
+</html>

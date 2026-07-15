@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 06 — Box Model والمسافات والعرض</title>
+  <link rel="stylesheet" href="../shared/styles.css">
+</head>
+<body>
+  <div class="page-wrapper">
+
+    <header class="site-header">
+      <div class="container">
+        <span class="course-badge">المرحلة 2 — CSS</span>
+        <h1>الجلسة 06: Box Model — Margin, Padding, Border, Display</h1>
+        <div class="session-meta">
+          <span>المدة: ساعة ونصف</span>
+          <span>الجلسة 6 من 16</span>
+        </div>
+      </div>
+    </header>
+
+    <nav class="lesson-nav">
+      <div class="container">
+        <a href="../index.html" class="nav-link">الرئيسية</a>
+        <a href="../session-05/lesson.html" class="nav-link">→ السابقة</a>
+        <a href="../session-07/lesson.html" class="nav-link">التالية ←</a>
+      </div>
+    </nav>
+
+    <main class="main-content">
+      <div class="container">
+
+        <!-- Theory -->
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">06</div>
+            <h2>الشرح النظري</h2>
+          </div>
+          <div class="theory-content">
+            <h3>ما هو Box Model؟</h3>
+            <p>
+              في CSS، <strong>كل عنصر HTML يُعامل كصندوق (Box)</strong>.
+              هذا الصندوق له طبقات: المحتوى في الوسط، ثم padding، ثم border، ثم margin.
+              فهم هذه الطبقات ضروري لتنسيق أي صفحة ويب.
+            </p>
+
+            <div class="highlight-box">
+              <strong>من الداخل للخارج:</strong>
+              Content → Padding → Border → Margin
+            </div>
+
+            <h3>Padding — الحشو الداخلي</h3>
+            <p>
+              <span class="inline-code">padding</span> هو المسافة <em>داخل</em> الصندوق
+              بين المحتوى والحد (border). يدفع المحتوى بعيداً عن حواف الصندوق.
+            </p>
+            <ul>
+              <li><span class="inline-code">padding: 20px;</span> — من كل الجهات</li>
+              <li><span class="inline-code">padding: 10px 20px;</span> — عمودي أفقي</li>
+              <li><span class="inline-code">padding-top</span>, <span class="inline-code">padding-right</span> — جهة محددة</li>
+            </ul>
+
+            <h3>Margin — الهامش الخارجي</h3>
+            <p>
+              <span class="inline-code">margin</span> هو المسافة <em>خارج</em> الصندوق
+              بينه وبين العناصر المجاورة. يُستخدم لفصل العناصر عن بعضها.
+            </p>
+            <ul>
+              <li><span class="inline-code">margin: 0 auto;</span> — لتوسيط عنصر block بعرض محدد</li>
+              <li><span class="inline-code">margin-bottom: 24px;</span> — مسافة تحت العنصر</li>
+            </ul>
+
+            <h3>Border — الحدود</h3>
+            <p>
+              <span class="inline-code">border</span> يضيف خطاً حول الصندوق.
+              يُكتب غالباً بصيغة مختصرة: <span class="inline-code">border: 2px solid #ccc;</span>
+            </p>
+            <ul>
+              <li><strong>العرض:</strong> 1px, 2px, 3px...</li>
+              <li><strong>النوع:</strong> solid, dashed, dotted, none</li>
+              <li><strong>اللون:</strong> أي لون CSS</li>
+              <li><span class="inline-code">border-radius</span> — زوايا دائرية للصندوق</li>
+            </ul>
+
+            <h3>box-sizing — حل مشكلة الحجم</h3>
+            <p>
+              افتراضياً، عرض العنصر = المحتوى + padding + border.
+              باستخدام <span class="inline-code">box-sizing: border-box;</span>
+              يصبح العرض الذي تحدده يشمل padding و border — أسهل للحساب!
+            </p>
+
+            <div class="tip-box">
+              <strong>نصيحة:</strong> أضف هذا في بداية CSS:
+              <span class="inline-code">*, *::before, *::after { box-sizing: border-box; }</span>
+            </div>
+
+            <h3>Display — كيف يظهر العنصر</h3>
+            <p>خاصية <span class="inline-code">display</span> تحدد سلوك العنصر في التخطيط:</p>
+            <ul>
+              <li><span class="inline-code">block</span> — يأخذ السطر كاملاً (div, p, h1)</li>
+              <li><span class="inline-code">inline</span> — بجانب العناصر الأخرى (span, a)</li>
+              <li><span class="inline-code">inline-block</span> — بجانب بعض لكن يقبل width/height</li>
+              <li><span class="inline-code">none</span> — يخفي العنصر تماماً</li>
+            </ul>
+
+            <h3>box-shadow — الظل</h3>
+            <p>
+              <span class="inline-code">box-shadow</span> يضيف ظلاً للصندوق ويعطي عمقاً بصرياً.
+              الصيغة: <span class="inline-code">offset-x offset-y blur spread color</span>
+            </p>
+            <p>مثال: <span class="inline-code">box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);</span></p>
+
+            <h3>width و height</h3>
+            <p>
+              يمكنك تحديد عرض وارتفاع العناصر. استخدم
+              <span class="inline-code">max-width: 100%</span> للصور
+              حتى لا تتجاوز حجم الشاشة.
+            </p>
+          </div>
+        </section>
+
+        <!-- Examples -->
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">💻</div>
+            <h2>أمثلة الكود</h2>
+          </div>
+
+          <h3>مثال 1: Box Model كامل</h3>
+          <div class="code-block">
+            <div class="code-label">CSS — Box Model</div>
+            <pre><code>/* Reset box-sizing for easier sizing */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+.card {
+  /* Content area width */
+  width: 320px;
+
+  /* Inner spacing between content and border */
+  padding: 24px;
+
+  /* Border around the box */
+  border: 2px solid #e5e7eb;
+
+  /* Outer spacing from other elements */
+  margin: 20px auto;
+
+  /* Rounded corners */
+  border-radius: 12px;
+
+  /* Subtle shadow for depth */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+  background-color: #ffffff;
+}</code></pre>
+          </div>
+
+          <div class="live-example">
+            <div class="live-example-label">معاينة حية — بطاقة Box Model</div>
+            <div style="width:320px;padding:24px;border:2px solid #e5e7eb;margin:0 auto;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,0.1);background:#fff;">
+              <h3 style="margin:0 0 8px;font-size:1.1rem;">لابتوب مستعمل</h3>
+              <p style="margin:0 0 12px;color:#6b7280;font-size:0.95rem;">حالة ممتازة — 8GB RAM</p>
+              <p style="margin:0;color:#059669;font-weight:bold;">750,000 ل.س</p>
+            </div>
+          </div>
+
+          <h3>مثال 2: Padding vs Margin</h3>
+          <div class="code-block">
+            <div class="code-label">CSS — Padding &amp; Margin</div>
+            <pre><code>.box-a {
+  background-color: #dbeafe;  /* Light blue */
+  padding: 30px;                /* Space inside */
+  margin-bottom: 16px;
+}
+
+.box-b {
+  background-color: #fef3c7;  /* Light yellow */
+  padding: 10px;
+  margin-top: 16px;             /* Space outside — pushes away from box-a */
+}</code></pre>
+          </div>
+
+          <div class="live-example">
+            <div class="live-example-label">معاينة حية — Padding vs Margin</div>
+            <div style="background:#dbeafe;padding:30px;margin-bottom:16px;">صندوق A — padding كبير (30px)</div>
+            <div style="background:#fef3c7;padding:10px;margin-top:16px;">صندوق B — margin يفصله عن A</div>
+          </div>
+
+          <h3>مثال 3: Display types</h3>
+          <div class="code-block">
+            <div class="code-label">CSS — Display</div>
+            <pre><code>/* Block — takes full line width */
+.block-item {
+  display: block;
+  background: #fecaca;
+  margin-bottom: 8px;
+  padding: 8px;
+}
+
+/* Inline — sits next to siblings, no width/height control */
+.inline-item {
+  display: inline;
+  background: #bbf7d0;
+  padding: 4px;
+}
+
+/* Inline-block — side by side + accepts dimensions */
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #2563eb;
+  color: white;
+  border-radius: 6px;
+  text-decoration: none;
+  margin-left: 8px;
+}</code></pre>
+          </div>
+
+          <div class="live-example">
+            <div class="live-example-label">معاينة حية — Display</div>
+            <div style="display:block;background:#fecaca;margin-bottom:8px;padding:8px;">عنصر block — سطر كامل</div>
+            <span style="display:inline;background:#bbf7d0;padding:4px;">inline 1</span>
+            <span style="display:inline;background:#bbf7d0;padding:4px;">inline 2</span>
+            <div style="margin-top:12px;">
+              <a href="#" style="display:inline-block;padding:10px 20px;background:#2563eb;color:white;border-radius:6px;text-decoration:none;margin-left:8px;">زر 1</a>
+              <a href="#" style="display:inline-block;padding:10px 20px;background:#2563eb;color:white;border-radius:6px;text-decoration:none;margin-left:8px;">زر 2</a>
+            </div>
+          </div>
+
+          <h3>مثال 4: box-shadow متعدد المستويات</h3>
+          <div class="code-block">
+            <div class="code-label">CSS — Box Shadow</div>
+            <pre><code>/* Light shadow — cards */
+.shadow-sm {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+/* Medium shadow — elevated cards */
+.shadow-md {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1),
+              0 2px 4px rgba(0, 0, 0, 0.06);
+}
+
+/* Strong shadow — modals or popups */
+.shadow-lg {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Hover effect — lift on mouse over */
+.product-card:hover {
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+  transition: box-shadow 0.3s, transform 0.3s;
+}</code></pre>
+          </div>
+
+          <div class="live-example">
+            <div class="live-example-label">معاينة حية — ظلال مختلفة</div>
+            <div style="display:flex;gap:16px;flex-wrap:wrap;">
+              <div style="padding:16px;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,0.12);border-radius:8px;flex:1;min-width:120px;text-align:center;">shadow-sm</div>
+              <div style="padding:16px;background:#fff;box-shadow:0 4px 6px rgba(0,0,0,0.1);border-radius:8px;flex:1;min-width:120px;text-align:center;">shadow-md</div>
+              <div style="padding:16px;background:#fff;box-shadow:0 10px 25px rgba(0,0,0,0.15);border-radius:8px;flex:1;min-width:120px;text-align:center;">shadow-lg</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Exercises -->
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">✏️</div>
+            <h2>تمارين عملية</h2>
+          </div>
+
+          <div class="exercise-item">
+            <h4><span class="exercise-number">1</span> بطاقة منتج كاملة</h4>
+            <p>
+              أنشئ بطاقة منتج بعرض 280px، padding 20px، border رمادي،
+              border-radius 10px، وظل خفيف. اعرض اسم منتج وسعر 120,000 ل.س.
+            </p>
+            <button class="solution-toggle" data-target="sol-1">
+              <span class="toggle-text">عرض الحل</span>
+              <span class="arrow">▼</span>
+            </button>
+            <div class="solution-content" id="sol-1">
+              <div class="code-block">
+                <div class="code-label">Solution</div>
+                <pre><code>&lt;div class="product-card"&gt;
+  &lt;h3&gt;كيبورد ميكانيكي&lt;/h3&gt;
+  &lt;p class="price"&gt;120,000 ل.س&lt;/p&gt;
+&lt;/div&gt;
+
+.product-card {
+  width: 280px;
+  padding: 20px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  background: #fff;
+  margin: 0 auto;
+}
+
+.product-card .price {
+  color: #059669;
+  font-weight: bold;
+  margin: 0;
+}</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="exercise-item">
+            <h4><span class="exercise-number">2</span> قائمة أزرار inline-block</h4>
+            <p>
+              أنشئ 3 أزرار بجانب بعض باستخدام display: inline-block.
+              كل زر له padding 12px 24px و border-radius 6px.
+            </p>
+            <button class="solution-toggle" data-target="sol-2">
+              <span class="toggle-text">عرض الحل</span>
+              <span class="arrow">▼</span>
+            </button>
+            <div class="solution-content" id="sol-2">
+              <div class="code-block">
+                <div class="code-label">Solution</div>
+                <pre><code>&lt;div class="button-group"&gt;
+  &lt;a href="#" class="btn btn-primary"&gt;شراء&lt;/a&gt;
+  &lt;a href="#" class="btn btn-secondary"&gt;تفاصيل&lt;/a&gt;
+  &lt;a href="#" class="btn btn-outline"&gt;مقارنة&lt;/a&gt;
+&lt;/div&gt;
+
+.btn {
+  display: inline-block;
+  padding: 12px 24px;
+  border-radius: 6px;
+  text-decoration: none;
+  margin-left: 8px;
+  font-weight: 600;
+}
+
+.btn-primary {
+  background: #2563eb;
+  color: #fff;
+}
+
+.btn-secondary {
+  background: #6b7280;
+  color: #fff;
+}
+
+.btn-outline {
+  border: 2px solid #2563eb;
+  color: #2563eb;
+}</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="exercise-item">
+            <h4><span class="exercise-number">3</span> توسيط صندوق بـ margin</h4>
+            <p>
+              أنشئ div بعرض 400px واجعله في منتصف الصفحة أفقياً
+              باستخدام <span class="inline-code">margin: 0 auto;</span>.
+              أضف padding و border و box-shadow.
+            </p>
+            <button class="solution-toggle" data-target="sol-3">
+              <span class="toggle-text">عرض الحل</span>
+              <span class="arrow">▼</span>
+            </button>
+            <div class="solution-content" id="sol-3">
+              <div class="code-block">
+                <div class="code-label">Solution</div>
+                <pre><code>.centered-box {
+  width: 400px;
+  margin: 40px auto;        /* 40px top/bottom, auto left/right = centered */
+  padding: 32px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  background: #fafafa;
+  text-align: center;
+}</code></pre>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Key Points -->
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">📌</div>
+            <h2>ملخص الجلسة</h2>
+          </div>
+          <ul class="key-points">
+            <li>كل عنصر HTML = صندوق: Content → Padding → Border → Margin</li>
+            <li>padding = مسافة داخلية، margin = مسافة خارجية بين العناصر</li>
+            <li>border: width + style + color، border-radius للزوايا الدائرية</li>
+            <li>box-sizing: border-box يسهّل حساب العرض والارتفاع</li>
+            <li>display: block (سطر كامل)، inline (بجانب)، inline-block (مرن)</li>
+            <li>box-shadow يضيف عمقاً بصرياً — ممتاز للبطاقات والأزرار</li>
+          </ul>
+        </section>
+
+        <!-- Homework -->
+        <section class="homework-box">
+          <h2>واجب اختياري</h2>
+          <p>قبل الجلسة القادمة:</p>
+          <ul>
+            <li>أنشئ 3 بطاقات منتجات بأسعار مختلفة (ل.س) باستخدام Box Model</li>
+            <li>جرّب padding و margin مختلفين ولاحظ الفرق في DevTools</li>
+            <li>أضف hover effect بظل أقوى على البطاقات</li>
+            <li>استخدم margin: 0 auto لتوسيط المحتوى الرئيسي</li>
+          </ul>
+        </section>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p class="footer-course">أساسيات الويب — الكورس الأول</p>
+        <p class="footer-instructor">محمد أسامة بيطار · مهندس معلوماتية · مدرب علوم ويب</p>
+        <p class="footer-copy">الجلسة 06 من 16</p>
+      </div>
+    </footer>
+
+  </div>
+  <script src="../shared/scripts.js"></script>
+</body>
+</html>

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 02 — النصوص والروابط والصور والقوائم</title>
+  <link rel="stylesheet" href="../shared/styles.css">
+</head>
+<body>
+  <div class="page-wrapper">
+
+    <header class="site-header">
+      <div class="container">
+        <span class="course-badge">المرحلة 1 — HTML</span>
+        <h1>الجلسة 02: النصوص والروابط والصور والقوائم</h1>
+        <div class="session-meta">
+          <span>المدة: ساعة ونصف</span>
+          <span>الجلسة 2 من 16</span>
+        </div>
+      </div>
+    </header>
+
+    <nav class="lesson-nav">
+      <div class="container">
+        <a href="../index.html" class="nav-link">الرئيسية</a>
+        <a href="../session-01/lesson.html" class="nav-link">→ السابقة</a>
+        <a href="../session-03/lesson.html" class="nav-link">التالية ←</a>
+      </div>
+    </nav>
+
+    <main class="main-content">
+      <div class="container">
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">02</div>
+            <h2>الشرح النظري</h2>
+          </div>
+          <div class="theory-content">
+            <h3>تنسيق النصوص</h3>
+            <p>HTML يوفر عناصر لتغيير مظهر ومعنى النص:</p>
+            <ul>
+              <li><span class="inline-code">strong</span> — نص عريض ومهم</li>
+              <li><span class="inline-code">em</span> — نص مائل للتأكيد</li>
+              <li><span class="inline-code">mark</span> — تظليل النص</li>
+              <li><span class="inline-code">small</span> — نص أصغر (ملاحظات)</li>
+            </ul>
+
+            <h3>الروابط (Links)</h3>
+            <p>
+              نستخدم عنصر <span class="inline-code">a</span> لإنشاء روابط.
+              أهم خاصية هي <span class="inline-code">href</span> التي تحدد عنوان الرابط.
+            </p>
+            <ul>
+              <li><span class="inline-code">href="https://..."</span> — رابط لموقع خارجي</li>
+              <li><span class="inline-code">href="page.html"</span> — رابط لصفحة أخرى</li>
+              <li><span class="inline-code">target="_blank"</span> — يفتح الرابط في تبويب جديد</li>
+            </ul>
+
+            <h3>الصور</h3>
+            <p>عنصر <span class="inline-code">img</span> يعرض صورة. خصائصه المهمة:</p>
+            <ul>
+              <li><span class="inline-code">src</span> — مسار الصورة</li>
+              <li><span class="inline-code">alt</span> — وصف نصي للصورة (مهم جداً)</li>
+              <li><span class="inline-code">width</span> و <span class="inline-code">height</span> — الأبعاد</li>
+            </ul>
+
+            <div class="tip-box">
+              <strong>نصيحة:</strong> دائماً أضف <span class="inline-code">alt</span> للصور.
+              يساعد المكفوفين ومحركات البحث على فهم محتوى الصورة.
+            </div>
+
+            <h3>القوائم</h3>
+            <ul>
+              <li><span class="inline-code">ul</span> — قائمة غير مرتبة (نقاط)</li>
+              <li><span class="inline-code">ol</span> — قائمة مرتبة (أرقام)</li>
+              <li><span class="inline-code">li</span> — عنصر واحد داخل القائمة</li>
+            </ul>
+
+            <h3>التعليقات</h3>
+            <p>
+              التعليقات لا تظهر في الصفحة: <span class="inline-code">&lt;!-- هذا تعليق --&gt;</span>
+              نستخدمها لتنظيم الكود وشرح أجزاء منه.
+            </p>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">💻</div>
+            <h2>أمثلة الكود</h2>
+          </div>
+
+          <h3>مثال 1: تنسيق النصوص</h3>
+          <div class="code-block">
+            <div class="code-label">HTML — Text Formatting</div>
+            <pre><code>&lt;p&gt;هذا نص &lt;strong&gt;عريض ومهم&lt;/strong&gt; وهذا &lt;em&gt;مائل&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;كلمة &lt;mark&gt;مظللة&lt;/mark&gt; و&lt;small&gt;نص صغير&lt;/small&gt;.&lt;/p&gt;</code></pre>
+          </div>
+
+          <div class="live-example">
+            <div class="live-example-label">معاينة حية</div>
+            <p>هذا نص <strong>عريض ومهم</strong> وهذا <em>مائل</em>.</p>
+            <p>كلمة <mark>مظللة</mark> و<small>نص صغير</small>.</p>
+          </div>
+
+          <h3>مثال 2: الروابط</h3>
+          <div class="code-block">
+            <div class="code-label">HTML — Links</div>
+            <pre><code>&lt;!-- رابط لموقع خارجي --&gt;
+&lt;a href="https://www.google.com" target="_blank"&gt;اذهب إلى Google&lt;/a&gt;
+
+&lt;!-- رابط لصفحة داخلية --&gt;
+&lt;a href="about.html"&gt;صفحة من أنا&lt;/a&gt;
+
+&lt;!-- رابط بريد إلكتروني --&gt;
+&lt;a href="mailto:student@email.com"&gt;راسلني&lt;/a&gt;</code></pre>
+          </div>
+
+          <h3>مثال 3: الصور</h3>
+          <div class="code-block">
+            <div class="code-label">HTML — Images</div>
+            <pre><code>&lt;img src="photo.jpg" alt="صورة شخصية" width="200"&gt;
+
+&lt;!-- صورة من الإنترنت --&gt;
+&lt;img src="https://via.placeholder.com/150" alt="صورة تجريبية"&gt;</code></pre>
+          </div>
+
+          <h3>مثال 4: القوائم</h3>
+          <div class="code-block">
+            <div class="code-label">HTML — Lists</div>
+            <pre><code>&lt;!-- قائمة غير مرتبة --&gt;
+&lt;ul&gt;
+  &lt;li&gt;HTML&lt;/li&gt;
+  &lt;li&gt;CSS&lt;/li&gt;
+  &lt;li&gt;JavaScript&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- قائمة مرتبة --&gt;
+&lt;ol&gt;
+  &lt;li&gt;تعلم HTML&lt;/li&gt;
+  &lt;li&gt;تعلم CSS&lt;/li&gt;
+  &lt;li&gt;تعلم JavaScript&lt;/li&gt;
+&lt;/ol&gt;</code></pre>
+          </div>
+
+          <div class="live-example">
+            <div class="live-example-label">معاينة حية</div>
+            <ul>
+              <li>HTML</li>
+              <li>CSS</li>
+              <li>JavaScript</li>
+            </ul>
+            <ol>
+              <li>تعلم HTML</li>
+              <li>تعلم CSS</li>
+              <li>تعلم JavaScript</li>
+            </ol>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">✏️</div>
+            <h2>تمارين عملية</h2>
+          </div>
+
+          <div class="exercise-item">
+            <h4><span class="exercise-number">1</span> صفحة "مفضلاتي"</h4>
+            <p>أنشئ صفحة فيها عنوان، قائمة بـ 5 مواقع مفضلة (روابط)، وصورة واحدة.</p>
+            <button class="solution-toggle" data-target="sol-1">
+              <span class="toggle-text">عرض الحل</span>
+              <span class="arrow">▼</span>
+            </button>
+            <div class="solution-content" id="sol-1">
+              <div class="code-block">
+                <div class="code-label">Solution</div>
+                <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="ar" dir="rtl"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;مفضلاتي&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;مواقعي المفضلة&lt;/h1&gt;
+  &lt;img src="https://via.placeholder.com/100" alt="أيقونة"&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href="https://www.google.com" target="_blank"&gt;Google&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="https://www.youtube.com" target="_blank"&gt;YouTube&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="https://www.wikipedia.org" target="_blank"&gt;Wikipedia&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="https://github.com" target="_blank"&gt;GitHub&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="https://www.w3schools.com" target="_blank"&gt;W3Schools&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="exercise-item">
+            <h4><span class="exercise-number">2</span> قائمة مهام يومية</h4>
+            <p>أنشئ قائمة مرتبة بـ 4 مهام يجب إنجازها اليوم، مع تنسيق نصي (عريض للمهم).</p>
+            <button class="solution-toggle" data-target="sol-2">
+              <span class="toggle-text">عرض الحل</span>
+              <span class="arrow">▼</span>
+            </button>
+            <div class="solution-content" id="sol-2">
+              <div class="code-block">
+                <div class="code-label">Solution</div>
+                <pre><code>&lt;h2&gt;مهام اليوم&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;مراجعة درس HTML&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;قراءة 20 صفحة&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;إنهاء التمرين العملي&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;مشاهدة فيديو تعليمي&lt;/li&gt;
+&lt;/ol&gt;</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="exercise-item">
+            <h4><span class="exercise-number">3</span> جدول أسعار بسيط (نصي)</h4>
+            <p>استخدم قائمة غير مرتبة لعرض 3 منتجات مع أسعارها بالليرة السورية.</p>
+            <button class="solution-toggle" data-target="sol-3">
+              <span class="toggle-text">عرض الحل</span>
+              <span class="arrow">▼</span>
+            </button>
+            <div class="solution-content" id="sol-3">
+              <div class="code-block">
+                <div class="code-label">Solution</div>
+                <pre><code>&lt;h2&gt;أسعار المنتجات&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;كتاب برمجة — &lt;strong&gt;25,000 ل.س&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;سماعات — &lt;strong&gt;150,000 ل.س&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;فأرة حاسوب — &lt;strong&gt;45,000 ل.س&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">📌</div>
+            <h2>ملخص الجلسة</h2>
+          </div>
+          <ul class="key-points">
+            <li>strong للنص المهم، em للتأكيد، mark للتظليل</li>
+            <li>الروابط بعنصر a مع خاصية href</li>
+            <li>target="_blank" يفتح الرابط في تبويب جديد</li>
+            <li>الصور بعنصر img مع src و alt إجباري</li>
+            <li>ul للقوائم النقطية، ol للقوائم المرقمة</li>
+            <li>التعليقات &lt;!-- --&gt; لتنظيم الكود</li>
+          </ul>
+        </section>
+
+        <section class="homework-box">
+          <h2>واجب اختياري</h2>
+          <ul>
+            <li>أنشئ صفحة "دليل المطاعم" فيها 3 مطاعم مع روابط وصور</li>
+            <li>أضف قائمة مرتبة بخطوات تحضير كوب شاي</li>
+            <li>جرّب رابط mailto: لبريدك الإلكتروني</li>
+          </ul>
+        </section>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p class="footer-course">أساسيات الويب — الكورس الأول</p>
+        <p class="footer-instructor">محمد أسامة بيطار · مهندس معلوماتية · مدرب علوم ويب</p>
+        <p class="footer-copy">الجلسة 02 من 16</p>
+      </div>
+    </footer>
+
+  </div>
+  <script src="../shared/scripts.js"></script>
+</body>
+</html>

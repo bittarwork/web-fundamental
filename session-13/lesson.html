@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 13 — الأحداث والتفاعل</title>
+  <link rel="stylesheet" href="../shared/styles.css">
+</head>
+<body>
+  <div class="page-wrapper">
+
+    <header class="site-header">
+      <div class="container">
+        <span class="course-badge">المرحلة 3 — JavaScript</span>
+        <h1>الجلسة 13: الأحداث — جعل الصفحة تتفاعل</h1>
+        <div class="session-meta">
+          <span>المدة: ساعة ونصف</span>
+          <span>الجلسة 13 من 16</span>
+        </div>
+      </div>
+    </header>
+
+    <nav class="lesson-nav">
+      <div class="container">
+        <a href="../index.html" class="nav-link">الرئيسية</a>
+        <a href="../session-12/lesson.html" class="nav-link">→ السابقة</a>
+        <a href="../session-14/lesson.html" class="nav-link">التالية ←</a>
+      </div>
+    </nav>
+
+    <main class="main-content">
+      <div class="container">
+
+        <!-- Theory -->
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">13</div>
+            <h2>الشرح النظري</h2>
+          </div>
+          <div class="theory-content">
+            <h3>ما هي الأحداث (Events)؟</h3>
+            <p>
+              الحدث هو <strong>إشارة</strong> يُرسلها المتصفح عندما يفعل المستخدم شيئاً:
+              نقرة، كتابة، إرسال نموذج، تحريك الماوس، الضغط على مفتاح...
+              JavaScript «تستمع» لهذه الإشارات وتستجيب لها.
+            </p>
+
+            <h3>addEventListener — الطريقة الصحيحة</h3>
+            <p>
+              بدلاً من كتابة <span class="inline-code">onclick</span> داخل HTML،
+              نربط المستمعين (listeners) من JavaScript:
+            </p>
+            <ul>
+              <li>أنظف وأكثر قابلية للصيانة</li>
+              <li>يسمح بإضافة أكثر من مستمع لنفس الحدث</li>
+              <li>يفصل بين HTML (هيكل) و JS (سلوك)</li>
+            </ul>
+
+            <div class="highlight-box">
+              <strong>الصيغة:</strong>
+              <span class="inline-code">element.addEventListener("event", callback)</span>
+            </div>
+
+            <h3>أحداث شائعة</h3>
+            <ul>
+              <li><span class="inline-code">click</span> — نقرة على عنصر (أزرار، روابط)</li>
+              <li><span class="inline-code">submit</span> — إرسال نموذج <span class="inline-code">form</span></li>
+              <li><span class="inline-code">input</span> — تغيّر قيمة حقل أثناء الكتابة</li>
+              <li><span class="inline-code">change</span> — تغيّر القيمة عند فقدان التركيز (select, checkbox)</li>
+              <li><span class="inline-code">keydown</span> — الضغط على مفتاح في لوحة المفاتيح</li>
+            </ul>
+
+            <h3>كائن الحدث (event object)</h3>
+            <p>
+              الدالة المستجيبة تستقبل كائناً يحمل معلومات عن الحدث:
+              العنصر المستهدف (<span class="inline-code">event.target</span>)،
+              نوع الحدث، وطرق للتحكم بالسلوك الافتراضي.
+            </p>
+
+            <h3>preventDefault — إيقاف السلوك الافتراضي</h3>
+            <p>
+              بعض العناصر لها سلوك افتراضي: النموذج يُعيد تحميل الصفحة، الرابط ينتقل لعنوان.
+              <span class="inline-code">event.preventDefault()</span> يُوقف هذا السلوك
+              لنتحكم نحن بالنتيجة عبر JavaScript.
+            </p>
+
+            <div class="highlight-box">
+              <strong>مثال شائع:</strong> نموذج تسجيل — نمنع إعادة التحميل، نقرأ المدخلات،
+              نتحقق منها، ثم نعرض رسالة نجاح.
+            </div>
+
+            <h3>Event Delegation — تفويض الأحداث</h3>
+            <p>
+              عند إضافة عناصر ديناميكياً (مثل قائمة مهام)، بدلاً من ربط مستمع لكل عنصر،
+              نربط مستمعاً واحداً على العنصر الأب ونتحقق من <span class="inline-code">event.target</span>.
+              سنطبّق هذا في مشروع الجلسة 14.
+            </p>
+          </div>
+        </section>
+
+        <!-- Examples -->
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">💻</div>
+            <h2>أمثلة الكود</h2>
+          </div>
+
+          <h3>مثال 1: حدث click على زر</h3>
+          <div class="code-block">
+            <div class="code-label">HTML + JavaScript — Click Event</div>
+            <pre><code>&lt;button id="greet-btn"&gt;اضغطني&lt;/button&gt;
+&lt;p id="message"&gt;&lt;/p&gt;
+
+&lt;script&gt;
+  const btn = document.getElementById("greet-btn");
+  const msg = document.getElementById("message");
+
+  btn.addEventListener("click", () => {
+    msg.textContent = "مرحباً! لقد ضغطت الزر.";
+  });
+&lt;/script&gt;</code></pre>
+          </div>
+
+          <h3>مثال 2: حدث input — عداد الأحرف</h3>
+          <div class="code-block">
+            <div class="code-label">JavaScript — Input Event</div>
+            <pre><code>&lt;input type="text" id="username" placeholder="اسمك"&gt;
+&lt;span id="char-count"&gt;0&lt;/span&gt; حرف
+
+&lt;script&gt;
+  const input = document.getElementById("username");
+  const counter = document.getElementById("char-count");
+
+  input.addEventListener("input", (event) => {
+    const value = event.target.value;
+    counter.textContent = value.length;
+  });
+&lt;/script&gt;</code></pre>
+          </div>
+
+          <h3>مثال 3: submit مع preventDefault</h3>
+          <div class="code-block">
+            <div class="code-label">JavaScript — Form Submit</div>
+            <pre><code>&lt;form id="contact-form"&gt;
+  &lt;input type="email" id="email" required&gt;
+  &lt;button type="submit"&gt;إرسال&lt;/button&gt;
+&lt;/form&gt;
+&lt;p id="form-result"&gt;&lt;/p&gt;
+
+&lt;script&gt;
+  const form = document.getElementById("contact-form");
+  const result = document.getElementById("form-result");
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault(); // منع إعادة تحميل الصفحة
+
+    const email = document.getElementById("email").value;
+    result.textContent = `تم استلام: ${email}`;
+  });
+&lt;/script&gt;</code></pre>
+          </div>
+
+          <h3>مثال 4: تبديل حالة (Toggle)</h3>
+          <div class="code-block">
+            <div class="code-label">JavaScript — Toggle Class</div>
+            <pre><code>&lt;button id="theme-btn"&gt;تبديل الوضع&lt;/button&gt;
+
+&lt;script&gt;
+  const themeBtn = document.getElementById("theme-btn");
+
+  themeBtn.addEventListener("click", () => {
+    document.body.classList.toggle("dark-mode");
+  });
+&lt;/script&gt;</code></pre>
+          </div>
+
+          <h3>مثال 5: حاسبة سعر بسيطة</h3>
+          <div class="code-block">
+            <div class="code-label">JavaScript — Price Calculator</div>
+            <pre><code>&lt;input type="number" id="qty" value="1" min="1"&gt;
+&lt;span id="unit-price" data-price="45000"&gt;45,000 ل.س&lt;/span&gt;
+&lt;p&gt;المجموع: &lt;strong id="total"&gt;45,000 ل.س&lt;/strong&gt;&lt;/p&gt;
+
+&lt;script&gt;
+  const qtyInput = document.getElementById("qty");
+  const priceEl = document.getElementById("unit-price");
+  const totalEl = document.getElementById("total");
+  const unitPrice = Number(priceEl.dataset.price);
+
+  qtyInput.addEventListener("input", () => {
+    const qty = Number(qtyInput.value) || 0;
+    const total = unitPrice * qty;
+    totalEl.textContent = total.toLocaleString("ar-SY") + " ل.س";
+  });
+&lt;/script&gt;</code></pre>
+          </div>
+        </section>
+
+        <!-- Exercises -->
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">✏️</div>
+            <h2>تمارين عملية</h2>
+          </div>
+
+          <div class="exercise-item">
+            <h4><span class="exercise-number">1</span> زر إظهار/إخفاء</h4>
+            <p>أنشئ فقرة وزراً. عند النقر، أخفِ الفقرة أو أظهرها بتبديل <span class="inline-code">display</span>.</p>
+            <button class="solution-toggle" data-target="sol-1">
+              <span class="toggle-text">عرض الحل</span>
+              <span class="arrow">▼</span>
+            </button>
+            <div class="solution-content" id="sol-1">
+              <div class="code-block">
+                <div class="code-label">Solution</div>
+                <pre><code>&lt;p id="secret"&gt;نص سري!&lt;/p&gt;
+&lt;button id="toggle-btn"&gt;إظهار/إخفاء&lt;/button&gt;
+
+&lt;script&gt;
+  const secret = document.getElementById("secret");
+  const toggleBtn = document.getElementById("toggle-btn");
+
+  toggleBtn.addEventListener("click", () => {
+    const isHidden = secret.style.display === "none";
+    secret.style.display = isHidden ? "block" : "none";
+  });
+&lt;/script&gt;</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="exercise-item">
+            <h4><span class="exercise-number">2</span> نموذج تسجيل بدون إعادة تحميل</h4>
+            <p>نموذج باسم ورقم هاتف. عند الإرسال، امنع التحميل واعرض «تم التسجيل: [الاسم]».</p>
+            <button class="solution-toggle" data-target="sol-2">
+              <span class="toggle-text">عرض الحل</span>
+              <span class="arrow">▼</span>
+            </button>
+            <div class="solution-content" id="sol-2">
+              <div class="code-block">
+                <div class="code-label">Solution</div>
+                <pre><code>&lt;form id="register-form"&gt;
+  &lt;input type="text" id="name" placeholder="الاسم" required&gt;
+  &lt;input type="tel" id="phone" placeholder="الهاتف" required&gt;
+  &lt;button type="submit"&gt;تسجيل&lt;/button&gt;
+&lt;/form&gt;
+&lt;p id="status"&gt;&lt;/p&gt;
+
+&lt;script&gt;
+  document.getElementById("register-form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const name = document.getElementById("name").value;
+    document.getElementById("status").textContent = `تم التسجيل: ${name}`;
+  });
+&lt;/script&gt;</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="exercise-item">
+            <h4><span class="exercise-number">3</span> عدّاد تنازلي</h4>
+            <p>زر «انقُص» يُنقص رقماً معروضاً من 10 إلى 0. عند الوصول لـ 0، عطّل الزر.</p>
+            <button class="solution-toggle" data-target="sol-3">
+              <span class="toggle-text">عرض الحل</span>
+              <span class="arrow">▼</span>
+            </button>
+            <div class="solution-content" id="sol-3">
+              <div class="code-block">
+                <div class="code-label">Solution</div>
+                <pre><code>&lt;span id="count"&gt;10&lt;/span&gt;
+&lt;button id="decrease-btn"&gt;انقُص&lt;/button&gt;
+
+&lt;script&gt;
+  let count = 10;
+  const countEl = document.getElementById("count");
+  const btn = document.getElementById("decrease-btn");
+
+  btn.addEventListener("click", () => {
+    if (count > 0) {
+      count--;
+      countEl.textContent = count;
+    }
+    if (count === 0) {
+      btn.disabled = true;
+    }
+  });
+&lt;/script&gt;</code></pre>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Key Points -->
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">📌</div>
+            <h2>ملخص الجلسة</h2>
+          </div>
+          <ul class="key-points">
+            <li>الأحداث تربط تفاعل المستخدم بكود JavaScript</li>
+            <li><span class="inline-code">addEventListener</span> الطريقة المفضّلة لربط المستمعين</li>
+            <li><span class="inline-code">click</span> للنقر · <span class="inline-code">input</span> للكتابة المباشرة · <span class="inline-code">submit</span> للنماذج</li>
+            <li><span class="inline-code">preventDefault()</span> يمنع السلوك الافتراضي (مثل إعادة تحميل الصفحة)</li>
+            <li><span class="inline-code">event.target</span> يشير للعنصر الذي أطلق الحدث</li>
+          </ul>
+        </section>
+
+        <!-- Homework -->
+        <section class="homework-box">
+          <h2>واجب اختياري</h2>
+          <p>قبل الجلسة القادمة:</p>
+          <ul>
+            <li>ابنِ نموذج «إضافة منتج» (اسم + سعر بالليرة السورية) يعرض المنتج في قائمة دون إعادة تحميل</li>
+            <li>أضف زر «مسح الكل» يُفرّغ القائمة عند النقر</li>
+            <li>جرّب حدث <span class="inline-code">keydown</span> لإرسال النموذج عند الضغط على Enter</li>
+          </ul>
+        </section>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p class="footer-course">أساسيات الويب — الكورس الأول</p>
+        <p class="footer-instructor">محمد أسامة بيطار · مهندس معلوماتية · مدرب علوم ويب</p>
+        <p class="footer-copy">الجلسة 13 من 16</p>
+      </div>
+    </footer>
+
+  </div>
+  <script src="../shared/scripts.js"></script>
+</body>
+</html>

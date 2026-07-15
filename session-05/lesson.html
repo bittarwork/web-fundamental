@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 05 — مقدمة CSS والمحددات والألوان</title>
+  <link rel="stylesheet" href="../shared/styles.css">
+</head>
+<body>
+  <div class="page-wrapper">
+
+    <header class="site-header">
+      <div class="container">
+        <span class="course-badge">المرحلة 2 — CSS</span>
+        <h1>الجلسة 05: مقدمة CSS — المحددات، الألوان، الخطوط</h1>
+        <div class="session-meta">
+          <span>المدة: ساعة ونصف</span>
+          <span>الجلسة 5 من 16</span>
+        </div>
+      </div>
+    </header>
+
+    <nav class="lesson-nav">
+      <div class="container">
+        <a href="../index.html" class="nav-link">الرئيسية</a>
+        <a href="../session-04/lesson.html" class="nav-link">→ السابقة</a>
+        <a href="../session-06/lesson.html" class="nav-link">التالية ←</a>
+      </div>
+    </nav>
+
+    <main class="main-content">
+      <div class="container">
+
+        <!-- Theory -->
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">05</div>
+            <h2>الشرح النظري</h2>
+          </div>
+          <div class="theory-content">
+            <h3>ما هو CSS؟</h3>
+            <p>
+              CSS اختصار لـ <span class="inline-code">Cascading Style Sheets</span>
+              — أي «أوراق الأنماط المتتالية». إذا كان HTML هو هيكل الصفحة (العظام)،
+              فـ CSS هو المظهر: الألوان، الخطوط، المسافات، والتخطيط.
+            </p>
+
+            <div class="highlight-box">
+              <strong>قاعدة ذهبية:</strong> HTML يصف <em>ماذا</em> يوجد في الصفحة،
+              و CSS يصف <em>كيف</em> يبدو ذلك المحتوى.
+            </div>
+
+            <h3>ثلاث طرق لربط CSS</h3>
+            <p>يمكنك تطبيق CSS بثلاث طرق — كل واحدة لها استخدام مناسب:</p>
+            <ol>
+              <li>
+                <strong>ملف خارجي (External):</strong> الأفضل للمشاريع الحقيقية.
+                تربط ملف <span class="inline-code">.css</span> من داخل
+                <span class="inline-code">&lt;head&gt;</span>.
+              </li>
+              <li>
+                <strong>داخل &lt;head&gt; (Internal):</strong> تكتب CSS داخل
+                <span class="inline-code">&lt;style&gt;</span> في نفس ملف HTML.
+                مفيد للصفحات الصغيرة أو التجارب السريعة.
+              </li>
+              <li>
+                <strong>مباشر على العنصر (Inline):</strong> باستخدام
+                <span class="inline-code">style="..."</span> على العنصر نفسه.
+                استخدمه نادراً — يصعب صيانته.
+              </li>
+            </ol>
+
+            <h3>بنية قاعدة CSS</h3>
+            <p>كل قاعدة CSS تتكون من ثلاثة أجزاء:</p>
+            <ul>
+              <li><strong>المحدد (Selector):</strong> يحدد أي عنصر HTML نستهدف</li>
+              <li><strong>الخاصية (Property):</strong> ما نريد تغييره (مثل اللون)</li>
+              <li><strong>القيمة (Value):</strong> القيمة الجديدة (مثل أحمر أو #ff0000)</li>
+            </ul>
+
+            <h3>المحددات الأساسية</h3>
+            <ul>
+              <li><span class="inline-code">*</span> — يستهدف كل العناصر (Universal)</li>
+              <li><span class="inline-code">p</span> — يستهدف كل عناصر الفقرات (Element)</li>
+              <li><span class="inline-code">.card</span> — يستهدف العناصر ذات class="card" (Class)</li>
+              <li><span class="inline-code">#header</span> — يستهدف العنصر ذو id="header" (ID)</li>
+              <li><span class="inline-code">a:hover</span> — يستهدف الرابط عند مرور الماوس (Pseudo-class)</li>
+            </ul>
+
+            <div class="warning-box">
+              <strong>تذكير:</strong> الـ id فريد لكل صفحة (عنصر واحد فقط)،
+              بينما class يمكن استخدامه لعدة عناصر. في المشاريع الكبيرة نفضّل class.
+            </div>
+
+            <h3>الألوان في CSS</h3>
+            <p>يمكنك كتابة الألوان بعدة طرق:</p>
+            <ul>
+              <li><strong>بالاسم:</strong> <span class="inline-code">red</span>, <span class="inline-code">blue</span></li>
+              <li><strong>HEX:</strong> <span class="inline-code">#1a73e8</span> — الأكثر شيوعاً</li>
+              <li><strong>RGB:</strong> <span class="inline-code">rgb(26, 115, 232)</span></li>
+              <li><strong>RGBA:</strong> مثل RGB مع شفافية — <span class="inline-code">rgba(0,0,0,0.5)</span></li>
+            </ul>
+
+            <h3>الخطوط (Fonts)</h3>
+            <p>أهم خصائص النص:</p>
+            <ul>
+              <li><span class="inline-code">font-family</span> — نوع الخط (مثل Arial أو Tahoma)</li>
+              <li><span class="inline-code">font-size</span> — حجم الخط (px, rem, em)</li>
+              <li><span class="inline-code">font-weight</span> — سُمك الخط (400 عادي، 700 عريض)</li>
+              <li><span class="inline-code">line-height</span> — المسافة بين الأسطر — مهم للقراءة</li>
+              <li><span class="inline-code">text-align</span> — محاذاة النص (right, center, left)</li>
+            </ul>
+
+            <h3>Google Fonts</h3>
+            <p>
+              يمكنك استيراد خطوط مجانية من Google Fonts. تضيف رابطاً في
+              <span class="inline-code">&lt;head&gt;</span> ثم تستخدم اسم الخط في
+              <span class="inline-code">font-family</span>.
+              للعربية جرّب: Cairo, Tajawal, Noto Sans Arabic.
+            </p>
+          </div>
+        </section>
+
+        <!-- Examples -->
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">💻</div>
+            <h2>أمثلة الكود</h2>
+          </div>
+
+          <h3>مثال 1: ربط CSS — الطرق الثلاث</h3>
+          <div class="code-block">
+            <div class="code-label">HTML + CSS — Linking Methods</div>
+            <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="ar" dir="rtl"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;طرق ربط CSS&lt;/title&gt;
+
+  &lt;!-- Method 1: External CSS file (recommended) --&gt;
+  &lt;link rel="stylesheet" href="styles.css"&gt;
+
+  &lt;!-- Method 2: Internal CSS inside head --&gt;
+  &lt;style&gt;
+    body {
+      font-family: Tahoma, sans-serif;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;مرحباً&lt;/h1&gt;
+
+  &lt;!-- Method 3: Inline style (use sparingly) --&gt;
+  &lt;p style="color: #2563eb;"&gt;فقرة بلون أزرق&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+          </div>
+
+          <h3>مثال 2: المحددات الأساسية</h3>
+          <div class="code-block">
+            <div class="code-label">CSS — Selectors</div>
+            <pre><code>/* Element selector — all paragraphs */
+p {
+  color: #333;
+  line-height: 1.6;
+}
+
+/* Class selector — reusable style */
+.price-tag {
+  color: #059669;
+  font-weight: bold;
+}
+
+/* ID selector — unique element */
+#main-title {
+  font-size: 2rem;
+  text-align: center;
+}
+
+/* Pseudo-class — link on hover */
+a:hover {
+  color: #dc2626;
+  text-decoration: underline;
+}</code></pre>
+          </div>
+
+          <div class="live-example">
+            <div class="live-example-label">معاينة حية — المحددات</div>
+            <p style="color:#333;line-height:1.6;">فقرة عادية بلون رمادي داكن.</p>
+            <p style="color:#059669;font-weight:bold;">سعر المنتج: 25,000 ل.س</p>
+            <a href="#" style="color:#2563eb;text-decoration:none;" onmouseover="this.style.color='#dc2626';this.style.textDecoration='underline'" onmouseout="this.style.color='#2563eb';this.style.textDecoration='none'">رابط — مرّر الماوس عليّ</a>
+          </div>
+
+          <h3>مثال 3: الألوان والخطوط</h3>
+          <div class="code-block">
+            <div class="code-label">CSS — Colors &amp; Fonts</div>
+            <pre><code>body {
+  /* Font stack — fallback if first font unavailable */
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  color: #1f2937;
+  background-color: #f9fafb;
+}
+
+h1 {
+  color: #1e40af;           /* HEX blue */
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.highlight {
+  background-color: rgba(250, 204, 21, 0.3); /* Yellow with transparency */
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.product-price {
+  color: rgb(5, 150, 105);  /* Green for price */
+  font-size: 1.25rem;
+  font-weight: bold;
+}</code></pre>
+          </div>
+
+          <div class="live-example">
+            <div class="live-example-label">معاينة حية — الألوان والخطوط</div>
+            <h1 style="color:#1e40af;font-size:1.8rem;font-weight:700;text-align:center;margin-bottom:0.5rem;">متجر إلكتروني</h1>
+            <p style="color:#1f2937;line-height:1.7;">هاتف ذكي بمواصفات ممتازة وشحن مجاني داخل دمشق.</p>
+            <span style="background:rgba(250,204,21,0.3);padding:4px 8px;border-radius:4px;">عرض محدود</span>
+            <p style="color:rgb(5,150,105);font-size:1.1rem;font-weight:bold;margin-top:0.5rem;">السعر: 1,850,000 ل.س</p>
+          </div>
+
+          <h3>مثال 4: استيراد خط من Google Fonts</h3>
+          <div class="code-block">
+            <div class="code-label">HTML + CSS — Google Fonts</div>
+            <pre><code>&lt;!-- In head: import Cairo font --&gt;
+&lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;
+&lt;link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&amp;display=swap" rel="stylesheet"&gt;
+
+&lt;style&gt;
+  body {
+    font-family: "Cairo", sans-serif;
+  }
+
+  .hero-title {
+    font-weight: 700;
+    font-size: 2rem;
+    color: #0f172a;
+  }
+&lt;/style&gt;</code></pre>
+          </div>
+        </section>
+
+        <!-- Exercises -->
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">✏️</div>
+            <h2>تمارين عملية</h2>
+          </div>
+
+          <div class="exercise-item">
+            <h4><span class="exercise-number">1</span> أول ملف CSS خارجي</h4>
+            <p>
+              أنشئ ملف <span class="inline-code">styles.css</span> واربطه بصفحة HTML.
+              اجعل خلفية الصفحة رمادية فاتحة (<span class="inline-code">#f3f4f6</span>)
+              والنص بلون داكن (<span class="inline-code">#111827</span>).
+            </p>
+            <button class="solution-toggle" data-target="sol-1">
+              <span class="toggle-text">عرض الحل</span>
+              <span class="arrow">▼</span>
+            </button>
+            <div class="solution-content" id="sol-1">
+              <div class="code-block">
+                <div class="code-label">Solution — styles.css</div>
+                <pre><code>/* Page background and default text color */
+body {
+  background-color: #f3f4f6;
+  color: #111827;
+  font-family: Tahoma, sans-serif;
+  margin: 0;
+  padding: 20px;
+}</code></pre>
+              </div>
+              <div class="code-block">
+                <div class="code-label">Solution — index.html (head)</div>
+                <pre><code>&lt;link rel="stylesheet" href="styles.css"&gt;</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="exercise-item">
+            <h4><span class="exercise-number">2</span> بطاقة منتج بـ class</h4>
+            <p>
+              أنشئ div بـ class="product-card" يحتوي عنوان منتج وسعره.
+              استخدم CSS لتنسيق البطاقة: خلفية بيضاء، padding، ولون أخضر للسعر.
+              مثال السعر: <strong>45,000 ل.س</strong>.
+            </p>
+            <button class="solution-toggle" data-target="sol-2">
+              <span class="toggle-text">عرض الحل</span>
+              <span class="arrow">▼</span>
+            </button>
+            <div class="solution-content" id="sol-2">
+              <div class="code-block">
+                <div class="code-label">Solution</div>
+                <pre><code>&lt;!-- HTML --&gt;
+&lt;div class="product-card"&gt;
+  &lt;h2&gt;سماعات لاسلكية&lt;/h2&gt;
+  &lt;p class="price"&gt;45,000 ل.س&lt;/p&gt;
+&lt;/div&gt;
+
+/* CSS */
+.product-card {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 300px;
+}
+
+.product-card .price {
+  color: #059669;
+  font-weight: bold;
+  font-size: 1.2rem;
+}</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="exercise-item">
+            <h4><span class="exercise-number">3</span> تنسيق روابط التنقل</h4>
+            <p>
+              أنشئ nav بـ 3 روابط. اجعل لون الروابط أزرق، وعند hover يصبح أحمر
+              مع خط تحته. استخدم pseudo-class <span class="inline-code">:hover</span>.
+            </p>
+            <button class="solution-toggle" data-target="sol-3">
+              <span class="toggle-text">عرض الحل</span>
+              <span class="arrow">▼</span>
+            </button>
+            <div class="solution-content" id="sol-3">
+              <div class="code-block">
+                <div class="code-label">Solution</div>
+                <pre><code>&lt;nav class="main-nav"&gt;
+  &lt;a href="#"&gt;الرئيسية&lt;/a&gt;
+  &lt;a href="#"&gt;المنتجات&lt;/a&gt;
+  &lt;a href="#"&gt;تواصل&lt;/a&gt;
+&lt;/nav&gt;
+
+/* Nav link default and hover states */
+.main-nav a {
+  color: #2563eb;
+  text-decoration: none;
+  margin-left: 16px;
+}
+
+.main-nav a:hover {
+  color: #dc2626;
+  text-decoration: underline;
+}</code></pre>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Key Points -->
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">📌</div>
+            <h2>ملخص الجلسة</h2>
+          </div>
+          <ul class="key-points">
+            <li>CSS يتحكم بمظهر HTML: ألوان، خطوط، مسافات، وتخطيط</li>
+            <li>أفضل طريقة لربط CSS: ملف خارجي عبر &lt;link rel="stylesheet"&gt;</li>
+            <li>المحددات: عنصر (p)، class (.name)، id (#name)، pseudo-class (:hover)</li>
+            <li>الألوان: اسم، HEX، RGB، RGBA — HEX الأكثر استخداماً</li>
+            <li>font-family, font-size, font-weight, line-height, text-align للنصوص</li>
+            <li>Google Fonts يوفّر خطوطاً مجانية جاهزة للاستخدام</li>
+          </ul>
+        </section>
+
+        <!-- Homework -->
+        <section class="homework-box">
+          <h2>واجب اختياري</h2>
+          <p>قبل الجلسة القادمة:</p>
+          <ul>
+            <li>أنشئ صفحة "قائمة أسعار" فيها 5 منتجات بأسعار بالليرة السورية (ل.س)</li>
+            <li>استخدم class مختلف لكل فئة (إلكترونيات، ملابس، إلخ)</li>
+            <li>جرّب خط Cairo من Google Fonts على الصفحة كاملة</li>
+            <li>افتح DevTools (F12) وعدّل الألوان مباشرة لترى التأثير فوراً</li>
+          </ul>
+        </section>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p class="footer-course">أساسيات الويب — الكورس الأول</p>
+        <p class="footer-instructor">محمد أسامة بيطار · مهندس معلوماتية · مدرب علوم ويب</p>
+        <p class="footer-copy">الجلسة 05 من 16</p>
+      </div>
+    </footer>
+
+  </div>
+  <script src="../shared/scripts.js"></script>
+</body>
+</html>

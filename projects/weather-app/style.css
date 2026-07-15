@@ -1,0 +1,221 @@
+/* Weather App — sky gradient with card layout */
+
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap');
+
+:root {
+  --navy-dark: #0f1b2d;
+  --navy: #1a2d4a;
+  --gold: #c9a227;
+  --gold-light: #e8c84a;
+  --white: #ffffff;
+  --sky-top: #1e3a5f;
+  --sky-bottom: #4a7ab5;
+  --card-bg: rgba(255, 255, 255, 0.95);
+  --shadow: 0 12px 32px rgba(15, 27, 45, 0.2);
+  --radius: 16px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Tajawal', sans-serif;
+  min-height: 100vh;
+  background: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-bottom) 60%, #87b8e0 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  direction: rtl;
+}
+
+.app {
+  width: 100%;
+  max-width: 440px;
+}
+
+.app-header {
+  text-align: center;
+  color: var(--white);
+  margin-bottom: 1.5rem;
+}
+
+.app-header h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 0.35rem;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.app-header p {
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+/* Search box */
+.search-box {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.search-box input {
+  flex: 1;
+  font-family: 'Tajawal', sans-serif;
+  font-size: 1rem;
+  padding: 0.85rem 1rem;
+  border: none;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.search-box input:focus {
+  outline: 2px solid var(--gold);
+}
+
+.search-box button {
+  font-family: 'Tajawal', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0.85rem 1.5rem;
+  background: var(--gold);
+  color: var(--navy-dark);
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: background 0.2s, transform 0.2s;
+}
+
+.search-box button:hover {
+  background: var(--gold-light);
+  transform: translateY(-1px);
+}
+
+.search-box button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Status message */
+.status {
+  text-align: center;
+  padding: 0.85rem;
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  margin-bottom: 1rem;
+  color: var(--navy);
+  font-weight: 500;
+}
+
+.status.error {
+  background: #fff5f5;
+  color: #c53030;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Weather card */
+.weather-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 2rem 1.5rem;
+  text-align: center;
+  box-shadow: var(--shadow);
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.weather-icon {
+  font-size: 4rem;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.weather-card h2 {
+  font-size: 1.75rem;
+  color: var(--navy-dark);
+  margin-bottom: 0.25rem;
+}
+
+.country {
+  color: #5a6474;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+}
+
+.temp-display {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: var(--navy);
+  line-height: 1.1;
+  margin-bottom: 0.5rem;
+}
+
+.weather-desc {
+  font-size: 1.1rem;
+  color: var(--gold);
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.wind {
+  font-size: 0.95rem;
+  color: #5a6474;
+}
+
+/* Page footer */
+.page-footer {
+  margin-top: 2rem;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.85rem;
+}
+
+.page-footer a {
+  color: var(--gold-light);
+  text-decoration: none;
+}
+
+.page-footer a:hover {
+  text-decoration: underline;
+}
+
+.page-footer p + p {
+  margin-top: 0.35rem;
+  opacity: 0.8;
+}
+
+/* Responsive */
+@media (max-width: 400px) {
+  .search-box {
+    flex-direction: column;
+  }
+
+  .search-box button {
+    width: 100%;
+  }
+
+  .temp-display {
+    font-size: 2.75rem;
+  }
+}

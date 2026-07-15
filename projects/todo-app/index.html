@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>قائمة المهام — Todo App</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="app">
+    <!-- App header -->
+    <header class="app-header">
+      <h1>قائمة المهام</h1>
+      <p>نظّم يومك وأنجز مهامك</p>
+    </header>
+
+    <!-- Add new task form -->
+    <form id="todo-form" class="todo-form">
+      <input
+        type="text"
+        id="todo-input"
+        placeholder="أضف مهمة جديدة..."
+        autocomplete="off"
+        required
+      >
+      <button type="submit">إضافة</button>
+    </form>
+
+    <!-- Filter buttons -->
+    <div class="filters">
+      <button type="button" class="filter-btn active" data-filter="all">الكل</button>
+      <button type="button" class="filter-btn" data-filter="active">نشطة</button>
+      <button type="button" class="filter-btn" data-filter="completed">مكتملة</button>
+    </div>
+
+    <!-- Task list -->
+    <ul id="todo-list" class="todo-list"></ul>
+
+    <!-- Footer stats and clear -->
+    <footer class="app-footer">
+      <span id="task-count">0 مهام</span>
+      <button type="button" id="clear-completed" class="clear-btn">مسح المكتملة</button>
+    </footer>
+
+    <p class="instructor">مدرب الكورس: محمد أسامة بيطار</p>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

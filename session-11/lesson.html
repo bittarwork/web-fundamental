@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 11 — المصفوفات والكائنات و JSON</title>
+  <link rel="stylesheet" href="../shared/styles.css">
+</head>
+<body>
+  <div class="page-wrapper">
+
+    <header class="site-header">
+      <div class="container">
+        <span class="course-badge">المرحلة 3 — JavaScript</span>
+        <h1>الجلسة 11: المصفوفات والكائنات و JSON</h1>
+        <div class="session-meta">
+          <span>المدة: ساعة ونصف</span>
+          <span>الجلسة 11 من 16</span>
+        </div>
+      </div>
+    </header>
+
+    <nav class="lesson-nav">
+      <div class="container">
+        <a href="../index.html" class="nav-link">الرئيسية</a>
+        <a href="../session-10/lesson.html" class="nav-link">→ السابقة</a>
+        <a href="../session-12/lesson.html" class="nav-link">التالية ←</a>
+      </div>
+    </nav>
+
+    <main class="main-content">
+      <div class="container">
+
+        <!-- Theory -->
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">11</div>
+            <h2>الشرح النظري</h2>
+          </div>
+          <div class="theory-content">
+            <h3>لماذا نحتاج هياكل بيانات؟</h3>
+            <p>
+              المتغيرات البسيطة تكفي لقيمة واحدة. لكن التطبيقات الحقيقية تتعامل مع
+              <strong>قوائم منتجات</strong>، <strong>مستخدمين</strong>، <strong>طلبات</strong>...
+              لذلك نستخدم هياكل بيانات تجمع قيماً مرتبطة معاً.
+            </p>
+
+            <h3>المصفوفات (Arrays)</h3>
+            <p>
+              المصفوفة قائمة مرتبة من القيم، تبدأ الفهرس (index) من <span class="inline-code">0</span>.
+              يمكن أن تحتوي أي نوع: أرقام، نصوص، كائنات، أو حتى مصفوفات أخرى.
+            </p>
+            <ul>
+              <li><span class="inline-code">length</span> — عدد العناصر</li>
+              <li><span class="inline-code">push()</span> — إضافة في النهاية</li>
+              <li><span class="inline-code">pop()</span> — حذف من النهاية</li>
+              <li><span class="inline-code">[index]</span> — الوصول لعنصر بالفهرس</li>
+            </ul>
+
+            <h3>الكائنات (Objects)</h3>
+            <p>
+              الكائن يخزّن بيانات على شكل أزواج <strong>مفتاح : قيمة</strong> (key-value).
+              مثالي لتمثيل كيان واحد له خصائص متعددة — مثل منتج له اسم وسعر وفئة.
+            </p>
+            <ul>
+              <li><span class="inline-code">object.key</span> أو <span class="inline-code">object["key"]</span> — قراءة خاصية</li>
+              <li>يمكن إضافة وتعديل الخصائص ديناميكياً</li>
+            </ul>
+
+            <h3>forEach — التكرار على المصفوفات</h3>
+            <p>
+              الدالة <span class="inline-code">array.forEach(callback)</span> تنفّذ دالة على كل عنصر
+              دون الحاجة لحلقة <span class="inline-code">for</span> يدوياً.
+              مفيدة لعرض قوائم أو حساب مجموعات.
+            </p>
+
+            <h3>JSON — تبادل البيانات</h3>
+            <p>
+              JSON اختصار لـ <span class="inline-code">JavaScript Object Notation</span> —
+              صيغة نصية موحّدة لتبادل البيانات بين المتصفح والسيرفر.
+              تبدو مثل كائن JavaScript لكنها <strong>نص</strong> وليست كوداً.
+            </p>
+            <ul>
+              <li><span class="inline-code">JSON.stringify(obj)</span> — تحويل كائن إلى نص JSON</li>
+              <li><span class="inline-code">JSON.parse(text)</span> — تحويل نص JSON إلى كائن</li>
+            </ul>
+
+            <div class="highlight-box">
+              <strong>تطبيق عملي:</strong> عندما تطلب منتجات من API، تستلم JSON
+              تحوّله بـ <span class="inline-code">JSON.parse</span> ثم تعرضه في الصفحة.
+            </div>
+          </div>
+        </section>
+
+        <!-- Examples -->
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">💻</div>
+            <h2>أمثلة الكود</h2>
+          </div>
+
+          <h3>مثال 1: المصفوفات الأساسية</h3>
+          <div class="code-block">
+            <div class="code-label">JavaScript — Arrays</div>
+            <pre><code>const colors = ["أحمر", "أخضر", "أزرق"];
+
+console.log(colors[0]);       // "أحمر"
+console.log(colors.length);   // 3
+
+colors.push("أصفر");
+console.log(colors);          // 4 عناصر
+
+const prices = [25000, 45000, 120000]; // ل.س
+const total = prices[0] + prices[1] + prices[2];
+console.log("مجموع الأسعار:", total, "ل.س");</code></pre>
+          </div>
+
+          <h3>مثال 2: كائن منتج</h3>
+          <div class="code-block">
+            <div class="code-label">JavaScript — Objects</div>
+            <pre><code>const product = {
+  id: 1,
+  name: "هاتف ذكي",
+  price: 1850000,        // ل.س
+  category: "إلكترونيات",
+  inStock: true
+};
+
+console.log(product.name);
+console.log(product["price"]);
+console.log(`${product.name}: ${product.price} ل.س`);
+
+product.discount = 10;    // إضافة خاصية جديدة
+console.log(product);</code></pre>
+          </div>
+
+          <h3>مثال 3: مصفوفة من كائنات — كتالوج منتجات</h3>
+          <div class="code-block">
+            <div class="code-label">JavaScript — Product Catalog</div>
+            <pre><code>const products = [
+  { name: "سماعات بلوتوث", price: 95000, inStock: true },
+  { name: "ماوس لاسلكي", price: 35000, inStock: true },
+  { name: "لوحة مفاتيح", price: 78000, inStock: false },
+  { name: "شاحن سريع", price: 42000, inStock: true }
+];
+
+products.forEach((item, index) => {
+  const status = item.inStock ? "متوفر" : "نفد";
+  console.log(`${index + 1}. ${item.name} — ${item.price} ل.س (${status})`);
+});</code></pre>
+          </div>
+
+          <h3>مثال 4: forEach مع حسابات</h3>
+          <div class="code-block">
+            <div class="code-label">JavaScript — forEach Calculations</div>
+            <pre><code>const cart = [
+  { name: "قهوة", price: 15000, qty: 2 },
+  { name: "كعك", price: 8000, qty: 3 }
+];
+
+let cartTotal = 0;
+
+cart.forEach((item) => {
+  const lineTotal = item.price * item.qty;
+  cartTotal += lineTotal;
+  console.log(`${item.name}: ${lineTotal} ل.س`);
+});
+
+console.log("إجمالي السلة:", cartTotal, "ل.س");</code></pre>
+          </div>
+
+          <h3>مثال 5: JSON — stringify و parse</h3>
+          <div class="code-block">
+            <div class="code-label">JavaScript — JSON</div>
+            <pre><code>const store = {
+  name: "متجر النور",
+  city: "دمشق",
+  products: [
+    { name: "حليب", price: 12000 },
+    { name: "خبز", price: 3500 }
+  ]
+};
+
+// Object → JSON string
+const jsonText = JSON.stringify(store);
+console.log(jsonText);
+
+// JSON string → Object
+const parsed = JSON.parse(jsonText);
+console.log(parsed.name);
+console.log(parsed.products[0].price, "ل.س");</code></pre>
+          </div>
+        </section>
+
+        <!-- Exercises -->
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">✏️</div>
+            <h2>تمارين عملية</h2>
+          </div>
+
+          <div class="exercise-item">
+            <h4><span class="exercise-number">1</span> قائمة مهام بسيطة</h4>
+            <p>أنشئ مصفوفة بثلاث مهام نصية، واطبعها باستخدام <span class="inline-code">forEach</span> مع ترقيم.</p>
+            <button class="solution-toggle" data-target="sol-1">
+              <span class="toggle-text">عرض الحل</span>
+              <span class="arrow">▼</span>
+            </button>
+            <div class="solution-content" id="sol-1">
+              <div class="code-block">
+                <div class="code-label">Solution</div>
+                <pre><code>const tasks = ["تعلّم HTML", "تعلّم CSS", "تعلّم JavaScript"];
+
+tasks.forEach((task, index) => {
+  console.log(`${index + 1}. ${task}`);
+});</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="exercise-item">
+            <h4><span class="exercise-number">2</span> كائن طالب</h4>
+            <p>عرّف كائن <span class="inline-code">student</span> يحتوي: name, age, course, grade — واطبع تقريراً منسقاً.</p>
+            <button class="solution-toggle" data-target="sol-2">
+              <span class="toggle-text">عرض الحل</span>
+              <span class="arrow">▼</span>
+            </button>
+            <div class="solution-content" id="sol-2">
+              <div class="code-block">
+                <div class="code-label">Solution</div>
+                <pre><code>const student = {
+  name: "ليلى حسن",
+  age: 20,
+  course: "أساسيات الويب",
+  grade: 88
+};
+
+console.log(`الطالبة: ${student.name}`);
+console.log(`العمر: ${student.age}`);
+console.log(`الكورس: ${student.course}`);
+console.log(`الدرجة: ${student.grade}`);</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="exercise-item">
+            <h4><span class="exercise-number">3</span> فلترة المنتجات المتوفرة</h4>
+            <p>من مصفوفة منتجات، اطبع فقط المنتجات المتوفرة (<span class="inline-code">inStock: true</span>) مع أسعارها بالليرة السورية.</p>
+            <button class="solution-toggle" data-target="sol-3">
+              <span class="toggle-text">عرض الحل</span>
+              <span class="arrow">▼</span>
+            </button>
+            <div class="solution-content" id="sol-3">
+              <div class="code-block">
+                <div class="code-label">Solution</div>
+                <pre><code>const items = [
+  { name: "ساعة ذكية", price: 320000, inStock: true },
+  { name: "تابلت", price: 890000, inStock: false },
+  { name: "سماعة", price: 65000, inStock: true }
+];
+
+items.forEach((item) => {
+  if (item.inStock) {
+    console.log(`${item.name}: ${item.price} ل.س`);
+  }
+});</code></pre>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Key Points -->
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">📌</div>
+            <h2>ملخص الجلسة</h2>
+          </div>
+          <ul class="key-points">
+            <li>المصفوفات قوائم مرتبة تبدأ فهرستها من 0</li>
+            <li>الكائنات تخزّن بيانات كأزواج مفتاح-قيمة لتمثيل كيانات حقيقية</li>
+            <li><span class="inline-code">forEach</span> يمرّ على كل عنصر وينفّذ دالة عليه</li>
+            <li>JSON صيغة نصية لتبادل البيانات — <span class="inline-code">stringify</span> و <span class="inline-code">parse</span></li>
+            <li>مصفوفة من كائنات = النمط الأكثر شيوعاً لعرض قوائم في التطبيقات</li>
+          </ul>
+        </section>
+
+        <!-- Homework -->
+        <section class="homework-box">
+          <h2>واجب اختياري</h2>
+          <p>قبل الجلسة القادمة:</p>
+          <ul>
+            <li>ابنِ كتالوج 5 منتجات (اسم، سعر بالليرة السورية، فئة، متوفر) في مصفوفة كائنات</li>
+            <li>احسب إجمالي أسعار المنتجات المتوفرة فقط</li>
+            <li>حوّل الكتالوج إلى JSON واحفظه في متغير — ثم أعد تحويله بـ <span class="inline-code">JSON.parse</span></li>
+          </ul>
+        </section>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p class="footer-course">أساسيات الويب — الكورس الأول</p>
+        <p class="footer-instructor">محمد أسامة بيطار · مهندس معلوماتية · مدرب علوم ويب</p>
+        <p class="footer-copy">الجلسة 11 من 16</p>
+      </div>
+    </footer>
+
+  </div>
+  <script src="../shared/scripts.js"></script>
+</body>
+</html>

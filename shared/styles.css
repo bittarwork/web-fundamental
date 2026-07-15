@@ -1,0 +1,654 @@
+/* =============================================
+   Web Fundamentals Course - Shared Styles
+   Theme: Navy + Gold Academic Identity
+   Font: Tajawal (Arabic)
+   ============================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* --- CSS Variables --- */
+:root {
+  --navy-dark: #0f1b2d;
+  --navy: #1a2d4a;
+  --navy-light: #243b5e;
+  --gold: #c9a227;
+  --gold-light: #e8c84a;
+  --gold-pale: #f5e6b8;
+  --white: #ffffff;
+  --gray-50: #f8f9fb;
+  --gray-100: #eef1f6;
+  --gray-200: #d8dee8;
+  --gray-400: #8b95a5;
+  --gray-600: #5a6474;
+  --gray-800: #2d3748;
+  --success: #2d8a5e;
+  --success-bg: #e8f5ee;
+  --info: #2b6cb0;
+  --info-bg: #ebf4ff;
+  --warning: #b7791f;
+  --warning-bg: #fff8e6;
+  --danger: #c53030;
+  --shadow-sm: 0 1px 3px rgba(15, 27, 45, 0.08);
+  --shadow-md: 0 4px 12px rgba(15, 27, 45, 0.12);
+  --shadow-lg: 0 8px 24px rgba(15, 27, 45, 0.16);
+  --radius: 10px;
+  --radius-lg: 16px;
+  --transition: 0.25s ease;
+}
+
+/* --- Reset & Base --- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Tajawal', sans-serif;
+  font-size: 17px;
+  line-height: 1.8;
+  color: var(--gray-800);
+  background: var(--gray-50);
+  direction: rtl;
+}
+
+/* --- Typography --- */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  color: var(--navy-dark);
+  line-height: 1.4;
+}
+
+h1 { font-size: 2rem; }
+h2 { font-size: 1.55rem; margin-bottom: 1rem; }
+h3 { font-size: 1.25rem; margin-bottom: 0.75rem; }
+h4 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+
+p { margin-bottom: 1rem; }
+
+a {
+  color: var(--info);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+a:hover { color: var(--gold); }
+
+/* --- Layout --- */
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.page-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- Header --- */
+.site-header {
+  background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 60%, var(--navy-light) 100%);
+  color: var(--white);
+  padding: 2rem 0;
+  border-bottom: 4px solid var(--gold);
+}
+
+.site-header .container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.course-badge {
+  display: inline-block;
+  background: var(--gold);
+  color: var(--navy-dark);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.25rem 0.85rem;
+  border-radius: 20px;
+  width: fit-content;
+  letter-spacing: 0.3px;
+}
+
+.site-header h1 {
+  color: var(--white);
+  font-size: 1.75rem;
+  font-weight: 800;
+}
+
+.session-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 0.9rem;
+  opacity: 0.85;
+  margin-top: 0.25rem;
+}
+
+.session-meta span {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+/* --- Navigation --- */
+.lesson-nav {
+  background: var(--white);
+  border-bottom: 1px solid var(--gray-200);
+  padding: 0.75rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--shadow-sm);
+}
+
+.lesson-nav .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.nav-link {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--navy);
+  padding: 0.4rem 0.85rem;
+  border-radius: var(--radius);
+  transition: all var(--transition);
+}
+
+.nav-link:hover {
+  background: var(--gray-100);
+  color: var(--gold);
+}
+
+.nav-link.disabled {
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+/* --- Main Content --- */
+.main-content {
+  flex: 1;
+  padding: 2.5rem 0 3rem;
+}
+
+/* --- Section Blocks --- */
+.section-block {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  margin-bottom: 1.75rem;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--gray-200);
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--gray-100);
+}
+
+.section-icon {
+  width: 42px;
+  height: 42px;
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+  color: var(--gold-light);
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.section-header h2 {
+  margin-bottom: 0;
+}
+
+/* --- Theory Content --- */
+.theory-content ul,
+.theory-content ol {
+  margin: 0.75rem 1.5rem 1rem 0;
+}
+
+.theory-content li {
+  margin-bottom: 0.5rem;
+}
+
+.theory-content strong {
+  color: var(--navy);
+}
+
+.highlight-box {
+  background: var(--info-bg);
+  border-right: 4px solid var(--info);
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius);
+  margin: 1rem 0;
+}
+
+.tip-box {
+  background: var(--success-bg);
+  border-right: 4px solid var(--success);
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius);
+  margin: 1rem 0;
+}
+
+.warning-box {
+  background: var(--warning-bg);
+  border-right: 4px solid var(--warning);
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius);
+  margin: 1rem 0;
+}
+
+/* --- Code Blocks --- */
+.code-block {
+  position: relative;
+  margin: 1.25rem 0;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--gray-200);
+}
+
+.code-label {
+  background: var(--navy-dark);
+  color: var(--gold-light);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.45rem 1rem;
+  letter-spacing: 0.5px;
+}
+
+.code-block pre {
+  background: #1e2a3a;
+  color: #e2e8f0;
+  padding: 1.25rem;
+  overflow-x: auto;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  line-height: 1.7;
+  direction: ltr;
+  text-align: left;
+  margin: 0;
+}
+
+.code-block code {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Inline code */
+.inline-code {
+  background: var(--gray-100);
+  color: var(--navy);
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.88em;
+  direction: ltr;
+  display: inline-block;
+}
+
+/* --- Live Example Box --- */
+.live-example {
+  background: var(--gray-100);
+  border: 2px dashed var(--gray-200);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin: 1.25rem 0;
+}
+
+.live-example-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--gray-600);
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* --- Exercises --- */
+.exercise-item {
+  background: var(--gray-50);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.exercise-item h4 {
+  color: var(--navy);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.exercise-number {
+  background: var(--gold);
+  color: var(--navy-dark);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+/* --- Collapsible Solutions --- */
+.solution-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--navy);
+  color: var(--white);
+  border: none;
+  padding: 0.65rem 1.25rem;
+  border-radius: var(--radius);
+  font-family: 'Tajawal', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+  margin-top: 0.75rem;
+}
+
+.solution-toggle:hover {
+  background: var(--navy-light);
+  transform: translateY(-1px);
+}
+
+.solution-toggle .arrow {
+  transition: transform var(--transition);
+  font-size: 0.75rem;
+}
+
+.solution-toggle.active .arrow {
+  transform: rotate(180deg);
+}
+
+.solution-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.3s ease;
+  background: var(--success-bg);
+  border-radius: 0 0 var(--radius) var(--radius);
+}
+
+.solution-content.open {
+  max-height: 2000px;
+  padding: 1.25rem;
+  margin-top: 0.5rem;
+  border: 1px solid rgba(45, 138, 94, 0.2);
+}
+
+/* --- Key Points --- */
+.key-points {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.key-points li {
+  position: relative;
+  padding: 0.65rem 1.5rem 0.65rem 0;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid var(--gray-100);
+}
+
+.key-points li::before {
+  content: '✓';
+  position: absolute;
+  right: 0;
+  color: var(--gold);
+  font-weight: 800;
+}
+
+.key-points li:last-child {
+  border-bottom: none;
+}
+
+/* --- Homework --- */
+.homework-box {
+  background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 100%);
+  color: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  border-right: 5px solid var(--gold);
+}
+
+.homework-box h2 {
+  color: var(--gold-light);
+}
+
+.homework-box p,
+.homework-box li {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.homework-box ul {
+  margin: 0.75rem 1.5rem 0 0;
+}
+
+/* --- Footer --- */
+.site-footer {
+  background: var(--navy-dark);
+  color: rgba(255, 255, 255, 0.75);
+  padding: 2rem 0;
+  margin-top: auto;
+  border-top: 3px solid var(--gold);
+}
+
+.site-footer .container {
+  text-align: center;
+}
+
+.footer-course {
+  color: var(--gold-light);
+  font-weight: 700;
+  font-size: 1.05rem;
+  margin-bottom: 0.5rem;
+}
+
+.footer-instructor {
+  font-size: 0.92rem;
+  line-height: 1.7;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.footer-copy {
+  margin-top: 1rem;
+  font-size: 0.82rem;
+  opacity: 0.5;
+}
+
+/* --- Index Page Styles --- */
+.hero-section {
+  text-align: center;
+  padding: 3rem 0 2rem;
+}
+
+.hero-section h1 {
+  font-size: 2.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.hero-subtitle {
+  color: var(--gray-600);
+  font-size: 1.1rem;
+  max-width: 550px;
+  margin: 0 auto 1.5rem;
+}
+
+.instructor-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  margin: 2rem auto;
+  max-width: 650px;
+  box-shadow: var(--shadow-md);
+  border-top: 4px solid var(--gold);
+}
+
+.instructor-card h3 {
+  color: var(--navy);
+  margin-bottom: 0.5rem;
+}
+
+.instructor-card p {
+  color: var(--gray-600);
+  font-size: 0.95rem;
+  margin-bottom: 0;
+}
+
+.phase-section {
+  margin-bottom: 2.5rem;
+}
+
+.phase-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--gold);
+}
+
+.phase-badge {
+  background: var(--navy);
+  color: var(--gold-light);
+  padding: 0.35rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.sessions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.session-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  border: 1px solid var(--gray-200);
+  transition: all var(--transition);
+  display: block;
+  color: inherit;
+}
+
+.session-card:hover {
+  border-color: var(--gold);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+  color: inherit;
+}
+
+.session-card-number {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--gold);
+  margin-bottom: 0.35rem;
+}
+
+.session-card h3 {
+  font-size: 1rem;
+  margin-bottom: 0.35rem;
+  color: var(--navy-dark);
+}
+
+.session-card p {
+  font-size: 0.85rem;
+  color: var(--gray-600);
+  margin-bottom: 0;
+}
+
+.session-card.project {
+  border-color: var(--gold);
+  background: linear-gradient(135deg, var(--white) 0%, var(--gold-pale) 100%);
+}
+
+.course-stats {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--navy);
+  display: block;
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: var(--gray-600);
+}
+
+/* --- Table Styles (for lesson examples) --- */
+.demo-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+}
+
+.demo-table th,
+.demo-table td {
+  border: 1px solid var(--gray-200);
+  padding: 0.65rem 1rem;
+  text-align: right;
+}
+
+.demo-table th {
+  background: var(--navy);
+  color: var(--white);
+}
+
+.demo-table tr:nth-child(even) {
+  background: var(--gray-50);
+}
+
+/* --- Responsive --- */
+@media (max-width: 600px) {
+  body { font-size: 16px; }
+
+  .site-header h1 { font-size: 1.4rem; }
+
+  .section-block { padding: 1.25rem; }
+
+  .sessions-grid {
+    grid-template-columns: 1fr;
+  }
+
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.3rem; }
+}

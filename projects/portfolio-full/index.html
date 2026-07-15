@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>محمد أحمد — Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Site header with navigation -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <img src="https://via.placeholder.com/80" alt="صورتي الشخصية" class="avatar">
+        <div>
+          <h1>محمد أحمد</h1>
+          <p class="subtitle">طالب علوم ويب · دمشق، سوريا</p>
+        </div>
+      </div>
+      <nav class="main-nav">
+        <a href="#about">عني</a>
+        <a href="#skills">مهاراتي</a>
+        <a href="#projects">مشاريعي</a>
+        <a href="#contact">تواصل</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- Hero / about section -->
+    <section id="about" class="section hero">
+      <div class="container">
+        <h2>نبذة عني</h2>
+        <p>
+          أنا طالب مهتم بتعلم تطوير الويب. أتعلم حالياً
+          <strong>HTML, CSS, JavaScript</strong> وأسعى لبناء مواقع جميلة ومفيدة.
+        </p>
+        <p>
+          أؤمن بأن التعلم المستمر هو مفتاح النجاح في مجال التقنية،
+          وأعمل على تطوير مهاراتي يومياً من خلال المشاريع العملية.
+        </p>
+      </div>
+    </section>
+
+    <!-- Skills grid -->
+    <section id="skills" class="section section-alt">
+      <div class="container">
+        <h2>مهاراتي</h2>
+        <ul class="skills-grid">
+          <li class="skill-card">HTML — هيكل صفحات الويب</li>
+          <li class="skill-card">CSS — تصميم وتنسيق</li>
+          <li class="skill-card">JavaScript — البرمجة والتفاعل</li>
+          <li class="skill-card">Flexbox — تخطيط مرن</li>
+          <li class="skill-card">العمل الجماعي والتواصل</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Projects table -->
+    <section id="projects" class="section">
+      <div class="container">
+        <h2>مشاريعي</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>المشروع</th>
+                <th>التقنية</th>
+                <th>الحالة</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>صفحة شخصية</td>
+                <td>HTML</td>
+                <td><span class="badge badge-done">مكتمل</span></td>
+              </tr>
+              <tr>
+                <td>قائمة مهام</td>
+                <td>HTML + CSS + JS</td>
+                <td><span class="badge badge-progress">قيد العمل</span></td>
+              </tr>
+              <tr>
+                <td>تطبيق طقس</td>
+                <td>HTML + CSS + JS + API</td>
+                <td><span class="badge badge-planned">مخطط</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact form -->
+    <section id="contact" class="section section-alt">
+      <div class="container">
+        <h2>تواصل معي</h2>
+        <form class="contact-form">
+          <div class="form-group">
+            <label for="name">الاسم</label>
+            <input type="text" id="name" placeholder="اسمك">
+          </div>
+          <div class="form-group">
+            <label for="email">البريد الإلكتروني</label>
+            <input type="email" id="email" placeholder="email@example.com">
+          </div>
+          <div class="form-group">
+            <label for="message">الرسالة</label>
+            <textarea id="message" rows="4" placeholder="اكتب رسالتك هنا..."></textarea>
+          </div>
+          <button type="submit" class="btn-primary">إرسال</button>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>جميع الحقوق محفوظة &copy; 2026 — محمد أحمد</p>
+      <p>
+        <a href="mailto:student@email.com">راسلني</a>
+        <a href="https://github.com" target="_blank" rel="noopener">GitHub</a>
+      </p>
+      <p class="instructor">مدرب الكورس: محمد أسامة بيطار</p>
+    </div>
+  </footer>
+
+</body>
+</html>

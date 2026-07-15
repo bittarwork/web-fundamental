@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 12 — DOM والتعامل مع الصفحة</title>
+  <link rel="stylesheet" href="../shared/styles.css">
+</head>
+<body>
+  <div class="page-wrapper">
+
+    <header class="site-header">
+      <div class="container">
+        <span class="course-badge">المرحلة 3 — JavaScript</span>
+        <h1>الجلسة 12: DOM — التعامل مع عناصر الصفحة</h1>
+        <div class="session-meta">
+          <span>المدة: ساعة ونصف</span>
+          <span>الجلسة 12 من 16</span>
+        </div>
+      </div>
+    </header>
+
+    <nav class="lesson-nav">
+      <div class="container">
+        <a href="../index.html" class="nav-link">الرئيسية</a>
+        <a href="../session-11/lesson.html" class="nav-link">→ السابقة</a>
+        <a href="../session-13/lesson.html" class="nav-link">التالية ←</a>
+      </div>
+    </nav>
+
+    <main class="main-content">
+      <div class="container">
+
+        <!-- Theory -->
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">12</div>
+            <h2>الشرح النظري</h2>
+          </div>
+          <div class="theory-content">
+            <h3>ما هو DOM؟</h3>
+            <p>
+              DOM اختصار لـ <span class="inline-code">Document Object Model</span> —
+              تمثيل شجري لصفحة HTML يبنيها المتصفح عند التحميل.
+              JavaScript تصل إلى كل عنصر في الصفحة عبر DOM وتغيّر محتواه أو مظهره أو هيكله.
+            </p>
+
+            <div class="highlight-box">
+              <strong>تخيّلها هكذا:</strong> HTML هو المخطط، DOM هو النموذج الحيّ القابل للتعديل،
+              و JavaScript هي أدوات البناء التي تُحرّك العناصر.
+            </div>
+
+            <h3>اختيار العناصر (Selecting Elements)</h3>
+            <ul>
+              <li><span class="inline-code">document.getElementById("id")</span> — عنصر واحد بـ id فريد</li>
+              <li><span class="inline-code">document.querySelector(".class")</span> — أول عنصر يطابق المحدّد CSS</li>
+              <li><span class="inline-code">document.querySelectorAll("p")</span> — كل العناصر المطابقة (NodeList)</li>
+            </ul>
+
+            <div class="highlight-box">
+              <strong>الأفضلية:</strong> <span class="inline-code">querySelector</span> أكثر مرونة
+              لأنه يستخدم نفس صيغة CSS selectors التي تعرفها.
+            </div>
+
+            <h3>تعديل المحتوى</h3>
+            <ul>
+              <li><span class="inline-code">textContent</span> — نص العنصر فقط (آمن، لا يفسّر HTML)</li>
+              <li><span class="inline-code">innerHTML</span> — HTML داخل العنصر (يُفسّر الوسوم — احذر XSS)</li>
+              <li><span class="inline-code">value</span> — قيمة حقول الإدخال <span class="inline-code">input</span></li>
+            </ul>
+
+            <h3>إنشاء عناصر جديدة</h3>
+            <p>لإضافة محتوى ديناميكي:</p>
+            <ol>
+              <li><span class="inline-code">document.createElement("tag")</span> — إنشاء عنصر</li>
+              <li>تعيين المحتوى أو الخصائص (class, textContent...)</li>
+              <li><span class="inline-code">parent.appendChild(child)</span> — إضافته للصفحة</li>
+            </ol>
+
+            <h3>تعديل الأنماط والخصائص</h3>
+            <ul>
+              <li><span class="inline-code">element.classList.add("active")</span> — إضافة class</li>
+              <li><span class="inline-code">element.style.color = "red"</span> — تعديل مباشر (للحالات البسيطة)</li>
+              <li><span class="inline-code">element.setAttribute("href", url)</span> — تعديل سمة</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Examples -->
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">💻</div>
+            <h2>أمثلة الكود</h2>
+          </div>
+
+          <h3>مثال 1: HTML الأساسي للتجربة</h3>
+          <div class="code-block">
+            <div class="code-label">HTML — DOM Target Elements</div>
+            <pre><code>&lt;!-- index.html --&gt;
+&lt;h1 id="page-title"&gt;مرحباً&lt;/h1&gt;
+&lt;p class="intro"&gt;فقرة تعريفية&lt;/p&gt;
+&lt;ul id="product-list"&gt;&lt;/ul&gt;
+&lt;div id="price-box"&gt;&lt;/div&gt;</code></pre>
+          </div>
+
+          <h3>مثال 2: getElementById و querySelector</h3>
+          <div class="code-block">
+            <div class="code-label">JavaScript — Selecting Elements</div>
+            <pre><code>// By ID
+const title = document.getElementById("page-title");
+title.textContent = "متجر الإلكترونيات";
+
+// By CSS selector
+const intro = document.querySelector(".intro");
+intro.textContent = "أفضل الأسعار بالليرة السورية";
+
+// All matching elements
+const paragraphs = document.querySelectorAll("p");
+paragraphs.forEach((p) => {
+  console.log(p.textContent);
+});</code></pre>
+          </div>
+
+          <h3>مثال 3: textContent مقابل innerHTML</h3>
+          <div class="code-block">
+            <div class="code-label">JavaScript — Content Methods</div>
+            <pre><code>const box = document.getElementById("price-box");
+
+// textContent — نص فقط
+box.textContent = "السعر: 75,000 ل.س";
+
+// innerHTML — يُفسّر HTML
+box.innerHTML = `
+  &lt;strong&gt;عرض خاص!&lt;/strong&gt;
+  &lt;span style="color:green"&gt;55,000 ل.س&lt;/span&gt;
+`;</code></pre>
+          </div>
+
+          <h3>مثال 4: createElement — بناء قائمة منتجات</h3>
+          <div class="code-block">
+            <div class="code-label">JavaScript — createElement</div>
+            <pre><code>const products = [
+  { name: "لابتوب", price: 3200000 },
+  { name: "سماعات", price: 85000 },
+  { name: "فأرة", price: 28000 }
+];
+
+const list = document.getElementById("product-list");
+
+products.forEach((product) => {
+  const li = document.createElement("li");
+  li.textContent = `${product.name} — ${product.price.toLocaleString("ar-SY")} ل.س`;
+  list.appendChild(li);
+});</code></pre>
+          </div>
+
+          <h3>مثال 5: بناء بطاقة منتج كاملة</h3>
+          <div class="code-block">
+            <div class="code-label">JavaScript — Dynamic Card</div>
+            <pre><code>const container = document.querySelector("#price-box");
+
+const card = document.createElement("div");
+card.classList.add("product-card");
+
+const nameEl = document.createElement("h3");
+nameEl.textContent = "هاتف ذكي";
+
+const priceEl = document.createElement("p");
+priceEl.textContent = "1,850,000 ل.س";
+
+card.appendChild(nameEl);
+card.appendChild(priceEl);
+container.appendChild(card);</code></pre>
+          </div>
+
+          <div class="live-example">
+            <div class="live-example-label">معاينة حية — بطاقة منتج</div>
+            <div style="border:1px solid #ddd;padding:1rem;border-radius:8px;max-width:280px;">
+              <h3 style="margin:0 0 0.5rem;font-size:1.1rem;">هاتف ذكي</h3>
+              <p style="margin:0;color:#2e7d32;font-weight:bold;">1,850,000 ل.س</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Exercises -->
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">✏️</div>
+            <h2>تمارين عملية</h2>
+          </div>
+
+          <div class="exercise-item">
+            <h4><span class="exercise-number">1</span> تغيير عنوان الصفحة</h4>
+            <p>أنشئ صفحة فيها <span class="inline-code">h1#welcome</span> وغيّر نصه عبر JavaScript إلى اسمك.</p>
+            <button class="solution-toggle" data-target="sol-1">
+              <span class="toggle-text">عرض الحل</span>
+              <span class="arrow">▼</span>
+            </button>
+            <div class="solution-content" id="sol-1">
+              <div class="code-block">
+                <div class="code-label">Solution</div>
+                <pre><code>&lt;h1 id="welcome"&gt;أهلاً&lt;/h1&gt;
+&lt;script&gt;
+  const heading = document.getElementById("welcome");
+  heading.textContent = "أهلاً محمد!";
+&lt;/script&gt;</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="exercise-item">
+            <h4><span class="exercise-number">2</span> عدّاد المهام</h4>
+            <p>عرض عدد المهام في <span class="inline-code">span#task-count</span> بناءً على طول مصفوفة مهام.</p>
+            <button class="solution-toggle" data-target="sol-2">
+              <span class="toggle-text">عرض الحل</span>
+              <span class="arrow">▼</span>
+            </button>
+            <div class="solution-content" id="sol-2">
+              <div class="code-block">
+                <div class="code-label">Solution</div>
+                <pre><code>&lt;p&gt;عدد المهام: &lt;span id="task-count"&gt;0&lt;/span&gt;&lt;/p&gt;
+&lt;script&gt;
+  const tasks = ["قراءة", "برمجة", "رياضة"];
+  const counter = document.querySelector("#task-count");
+  counter.textContent = tasks.length;
+&lt;/script&gt;</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="exercise-item">
+            <h4><span class="exercise-number">3</span> قائمة أسعار ديناميكية</h4>
+            <p>ابنِ قائمة <span class="inline-code">ul</span> فارغة واملأها بـ 3 منتجات وأسعارها بالليرة السورية باستخدام <span class="inline-code">createElement</span>.</p>
+            <button class="solution-toggle" data-target="sol-3">
+              <span class="toggle-text">عرض الحل</span>
+              <span class="arrow">▼</span>
+            </button>
+            <div class="solution-content" id="sol-3">
+              <div class="code-block">
+                <div class="code-label">Solution</div>
+                <pre><code>&lt;ul id="menu"&gt;&lt;/ul&gt;
+&lt;script&gt;
+  const menu = document.getElementById("menu");
+  const items = [
+    { name: "شاي", price: 5000 },
+    { name: "قهوة", price: 8000 },
+    { name: "عصير", price: 12000 }
+  ];
+
+  items.forEach((item) => {
+    const li = document.createElement("li");
+    li.textContent = `${item.name}: ${item.price} ل.س`;
+    menu.appendChild(li);
+  });
+&lt;/script&gt;</code></pre>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Key Points -->
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">📌</div>
+            <h2>ملخص الجلسة</h2>
+          </div>
+          <ul class="key-points">
+            <li>DOM تمثيل شجري لـ HTML يتيح لـ JavaScript التحكم بالصفحة</li>
+            <li><span class="inline-code">getElementById</span> للـ id · <span class="inline-code">querySelector</span> لأي محدّد CSS</li>
+            <li><span class="inline-code">textContent</span> آمن للنص · <span class="inline-code">innerHTML</span> يُفسّر وسوم HTML</li>
+            <li><span class="inline-code">createElement</span> + <span class="inline-code">appendChild</span> لبناء محتوى ديناميكي</li>
+            <li>الخطوة التالية: ربط هذه التقنيات بأحداث المستخدم (الجلسة 13)</li>
+          </ul>
+        </section>
+
+        <!-- Homework -->
+        <section class="homework-box">
+          <h2>واجب اختياري</h2>
+          <p>قبل الجلسة القادمة:</p>
+          <ul>
+            <li>ابنِ صفحة «معرض منتجات» تعرض 4 بطاقات من مصفوفة كائنات</li>
+            <li>استخدم <span class="inline-code">createElement</span> لكل بطاقة (اسم + سعر بالليرة السورية)</li>
+            <li>أضف <span class="inline-code">class</span> لكل بطاقة لتنسيقها لاحقاً بـ CSS</li>
+          </ul>
+        </section>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p class="footer-course">أساسيات الويب — الكورس الأول</p>
+        <p class="footer-instructor">محمد أسامة بيطار · مهندس معلوماتية · مدرب علوم ويب</p>
+        <p class="footer-copy">الجلسة 12 من 16</p>
+      </div>
+    </footer>
+
+  </div>
+  <script src="../shared/scripts.js"></script>
+</body>
+</html>

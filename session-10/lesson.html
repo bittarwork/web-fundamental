@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 10 — الشروط والحلقات والدوال</title>
+  <link rel="stylesheet" href="../shared/styles.css">
+</head>
+<body>
+  <div class="page-wrapper">
+
+    <header class="site-header">
+      <div class="container">
+        <span class="course-badge">المرحلة 3 — JavaScript</span>
+        <h1>الجلسة 10: الشروط والحلقات والدوال</h1>
+        <div class="session-meta">
+          <span>المدة: ساعة ونصف</span>
+          <span>الجلسة 10 من 16</span>
+        </div>
+      </div>
+    </header>
+
+    <nav class="lesson-nav">
+      <div class="container">
+        <a href="../index.html" class="nav-link">الرئيسية</a>
+        <a href="../session-09/lesson.html" class="nav-link">→ السابقة</a>
+        <a href="../session-11/lesson.html" class="nav-link">التالية ←</a>
+      </div>
+    </nav>
+
+    <main class="main-content">
+      <div class="container">
+
+        <!-- Theory -->
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">10</div>
+            <h2>الشرح النظري</h2>
+          </div>
+          <div class="theory-content">
+            <h3>التحكم في تدفق البرنامج</h3>
+            <p>
+              حتى الآن نفّذنا أوامراً متتابعة. لكن البرامج الحقيقية تحتاج <strong>قرارات</strong>
+              (إذا كان الشرط صحيحاً افعل كذا) و<strong>تكرار</strong> (نفّذ هذا العمل 10 مرات).
+              هذا ما نسميه «تدفق التحكم» (Control Flow).
+            </p>
+
+            <h3>if / else — اتخاذ القرار</h3>
+            <p>تنفّذ كتلة كود عند تحقق شرط معيّن، وإلا تنفّذ بديلاً:</p>
+            <ul>
+              <li><span class="inline-code">if</span> — الشرط الأساسي</li>
+              <li><span class="inline-code">else if</span> — شروط إضافية</li>
+              <li><span class="inline-code">else</span> — الحالة الافتراضية عند فشل كل الشروط</li>
+            </ul>
+
+            <h3>switch — اختيار من حالات محددة</h3>
+            <p>
+              عندما تريد مقارنة قيمة واحدة بعدة خيارات ثابتة (مثل أيام الأسبوع أو حالة الطلب)،
+              <span class="inline-code">switch</span> أوضح من سلسلة طويلة من <span class="inline-code">else if</span>.
+              لا تنسَ <span class="inline-code">break</span> لمنع تنفيذ الحالات التالية.
+            </p>
+
+            <h3>حلقة for — تكرار بعدد معروف</h3>
+            <p>
+              تتكوّن من ثلاثة أجزاء: تهيئة العداد · شرط الاستمرار · تحديث العداد.
+              مثالية عندما تعرف عدد التكرارات مسبقاً (مثل طباعة أرقام 1 إلى 10).
+            </p>
+
+            <h3>حلقة while — تكرار بشرط</h3>
+            <p>
+              تستمر طالما الشرط <span class="inline-code">true</span>.
+              مناسبة عندما لا تعرف عدد التكرارات مسبقاً (مثل انتظار إدخال صحيح من المستخدم).
+              احذر من <strong>الحلقة اللانهائية</strong> إذا لم يتغيّر الشرط!
+            </p>
+
+            <h3>الدوال (Functions)</h3>
+            <p>
+              الدالة هي كتلة كود قابلة لإعادة الاستخدام تُنفَّذ عند استدعائها.
+              بدلاً من تكرار نفس المنطق، نكتبه مرة ونستدعيه من أي مكان.
+            </p>
+            <ul>
+              <li><span class="inline-code">function name() { }</span> — التعريف التقليدي</li>
+              <li><span class="inline-code">return</span> — إرجاع نتيجة من الدالة</li>
+              <li><strong>المعاملات (Parameters):</strong> قيم تمرّر للدالة عند الاستدعاء</li>
+            </ul>
+
+            <div class="highlight-box">
+              <strong>مبدأ DRY:</strong> Don't Repeat Yourself — اكتب المنطق مرة واحدة في دالة
+              واستخدمها في كل مكان تحتاجه.
+            </div>
+          </div>
+        </section>
+
+        <!-- Examples -->
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">💻</div>
+            <h2>أمثلة الكود</h2>
+          </div>
+
+          <h3>مثال 1: if / else if / else</h3>
+          <div class="code-block">
+            <div class="code-label">JavaScript — Conditionals</div>
+            <pre><code>const score = 75;
+
+if (score >= 90) {
+  console.log("ممتاز!");
+} else if (score >= 70) {
+  console.log("جيد جداً");
+} else if (score >= 50) {
+  console.log("ناجح");
+} else {
+  console.log("راسب — حاول مرة أخرى");
+}</code></pre>
+          </div>
+
+          <h3>مثال 2: switch لحالة الطلب</h3>
+          <div class="code-block">
+            <div class="code-label">JavaScript — Switch</div>
+            <pre><code>const orderStatus = "shipped";
+
+switch (orderStatus) {
+  case "pending":
+    console.log("طلبك قيد المعالجة");
+    break;
+  case "shipped":
+    console.log("طلبك في الطريق إليك");
+    break;
+  case "delivered":
+    console.log("تم التسليم بنجاح");
+    break;
+  default:
+    console.log("حالة غير معروفة");
+}</code></pre>
+          </div>
+
+          <h3>مثال 3: حلقة for</h3>
+          <div class="code-block">
+            <div class="code-label">JavaScript — For Loop</div>
+            <pre><code>for (let i = 1; i &lt;= 5; i++) {
+  console.log("المنتج رقم", i);
+}
+
+// جمع أرقام 1 إلى 10
+let sum = 0;
+for (let n = 1; n &lt;= 10; n++) {
+  sum += n;
+}
+console.log("المجموع:", sum);</code></pre>
+          </div>
+
+          <h3>مثال 4: حلقة while</h3>
+          <div class="code-block">
+            <div class="code-label">JavaScript — While Loop</div>
+            <pre><code>let attempts = 0;
+const maxAttempts = 3;
+
+while (attempts &lt; maxAttempts) {
+  console.log("محاولة رقم", attempts + 1);
+  attempts++;
+}
+console.log("انتهت المحاولات");</code></pre>
+          </div>
+
+          <h3>مثال 5: دوال مع return</h3>
+          <div class="code-block">
+            <div class="code-label">JavaScript — Functions</div>
+            <pre><code>function calculateTotal(price, quantity) {
+  const total = price * quantity;
+  return total;
+}
+
+function formatPrice(amount) {
+  return amount.toLocaleString("ar-SY") + " ل.س";
+}
+
+const bill = calculateTotal(35000, 4);
+console.log("الفاتورة:", formatPrice(bill));
+
+// Arrow function — صيغة مختصرة
+const applyDiscount = (price, percent) => {
+  return price - (price * percent / 100);
+};
+
+console.log("بعد خصم 10%:", formatPrice(applyDiscount(bill, 10)));</code></pre>
+          </div>
+        </section>
+
+        <!-- Exercises -->
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">✏️</div>
+            <h2>تمارين عملية</h2>
+          </div>
+
+          <div class="exercise-item">
+            <h4><span class="exercise-number">1</span> تصنيف العمر</h4>
+            <p>اكتب برنامجاً يصنّف العمر إلى: طفل (أقل من 13)، مراهق (13-17)، بالغ (18+).</p>
+            <button class="solution-toggle" data-target="sol-1">
+              <span class="toggle-text">عرض الحل</span>
+              <span class="arrow">▼</span>
+            </button>
+            <div class="solution-content" id="sol-1">
+              <div class="code-block">
+                <div class="code-label">Solution</div>
+                <pre><code>const age = 16;
+
+if (age &lt; 13) {
+  console.log("طفل");
+} else if (age &lt;= 17) {
+  console.log("مراهق");
+} else {
+  console.log("بالغ");
+}</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="exercise-item">
+            <h4><span class="exercise-number">2</span> جدول الضرب</h4>
+            <p>استخدم حلقة <span class="inline-code">for</span> لطباعة جدول ضرب الرقم 7 (من 1 إلى 10).</p>
+            <button class="solution-toggle" data-target="sol-2">
+              <span class="toggle-text">عرض الحل</span>
+              <span class="arrow">▼</span>
+            </button>
+            <div class="solution-content" id="sol-2">
+              <div class="code-block">
+                <div class="code-label">Solution</div>
+                <pre><code>for (let i = 1; i &lt;= 10; i++) {
+  console.log(`7 × ${i} = ${7 * i}`);
+}</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="exercise-item">
+            <h4><span class="exercise-number">3</span> دالة حساب الضريبة</h4>
+            <p>اكتب دالة <span class="inline-code">addTax(price, rate)</span> تُرجع السعر بعد إضافة نسبة ضريبة، وجرّبها على 100,000 ل.س بنسبة 5%.</p>
+            <button class="solution-toggle" data-target="sol-3">
+              <span class="toggle-text">عرض الحل</span>
+              <span class="arrow">▼</span>
+            </button>
+            <div class="solution-content" id="sol-3">
+              <div class="code-block">
+                <div class="code-label">Solution</div>
+                <pre><code>function addTax(price, rate) {
+  return price + (price * rate / 100);
+}
+
+const finalPrice = addTax(100000, 5);
+console.log(`السعر النهائي: ${finalPrice} ل.س`);</code></pre>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Key Points -->
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">📌</div>
+            <h2>ملخص الجلسة</h2>
+          </div>
+          <ul class="key-points">
+            <li><span class="inline-code">if/else</span> لاتخاذ قرارات بناءً على شروط منطقية</li>
+            <li><span class="inline-code">switch</span> مناسب لقيم محددة ومتعددة — لا تنسَ <span class="inline-code">break</span></li>
+            <li><span class="inline-code">for</span> للتكرار بعدد معروف · <span class="inline-code">while</span> للتكرار بشرط</li>
+            <li>الدوال تجمع المنطق المتكرر وتُرجع نتائج عبر <span class="inline-code">return</span></li>
+            <li>Arrow functions صيغة حديثة مختصرة: <span class="inline-code">(a, b) =&gt; a + b</span></li>
+          </ul>
+        </section>
+
+        <!-- Homework -->
+        <section class="homework-box">
+          <h2>واجب اختياري</h2>
+          <p>قبل الجلسة القادمة:</p>
+          <ul>
+            <li>اكتب برنامج <span class="inline-code">gradeCalculator</span> يحوّل الدرجة (0-100) إلى حرف (A/B/C/D/F)</li>
+            <li>استخدم <span class="inline-code">switch</span> لطباعة رسالة ترحيب حسب اليوم (بالإنجليزية: monday, tuesday...)</li>
+            <li>ابنِ دالة <span class="inline-code">isEven(n)</span> تُرجع true إذا كان الرقم زوجياً</li>
+          </ul>
+        </section>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p class="footer-course">أساسيات الويب — الكورس الأول</p>
+        <p class="footer-instructor">محمد أسامة بيطار · مهندس معلوماتية · مدرب علوم ويب</p>
+        <p class="footer-copy">الجلسة 10 من 16</p>
+      </div>
+    </footer>
+
+  </div>
+  <script src="../shared/scripts.js"></script>
+</body>
+</html>
