@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>الجلسة 09 — مقدمة JavaScript والمتغيرات</title>
+  <title>الجلسة 09 — أول خطوة في JavaScript: المتغيرات</title>
   <link rel="stylesheet" href="../shared/styles.css">
 </head>
 <body>
@@ -11,8 +11,8 @@
 
     <header class="site-header">
       <div class="container">
-        <span class="course-badge">المرحلة 3 — JavaScript</span>
-        <h1>الجلسة 09: مقدمة JavaScript — المتغيرات وأنواع البيانات</h1>
+        <span class="course-badge">المرحلة 3 — JavaScript · من الصفر</span>
+        <h1>الجلسة 09: أول خطوة — ما هو JS والمتغيرات</h1>
         <div class="session-meta">
           <span>المدة: ساعة ونصف</span>
           <span>الجلسة 9 من 16</span>
@@ -35,67 +35,76 @@
         <section class="section-block">
           <div class="section-header">
             <div class="section-icon">09</div>
-            <h2>الشرح النظري</h2>
+            <h2>الشرح النظري — من الصفر</h2>
           </div>
           <div class="theory-content">
-            <h3>ما هو JavaScript؟</h3>
+
+            <div class="tip-box">
+              <strong>ملاحظة:</strong> في أمثلة هذا الكورس نستخدم اسم <span class="inline-code">George</span> كقيمة تجريبية في الكود.
+            </div>
+
+            <h3>1) شو هو JavaScript أصلاً؟</h3>
             <p>
-              JavaScript هي <strong>لغة برمجة</strong> تعمل داخل المتصفح وتضيف <em>السلوك والتفاعل</em> للصفحة.
-              بينما HTML يبني الهيكل و CSS يضيف التصميم، JavaScript تجعل الصفحة «حية»:
-              أزرار تستجيب، نماذج تتحقق من المدخلات، وقوائم تتحدّث دون إعادة تحميل.
+              تخيل موقع إلكتروني مثل لعبة أو متجر:
+              <strong>HTML</strong> هو الهيكل (الجدران والغرف)،
+              <strong>CSS</strong> هو التصميم (الألوان والديكور)،
+              و<strong>JavaScript</strong> هو الكهرباء — اللي يخلي الأزرار تشتغل،
+              والعداد يزيد، والصفحة تتفاعل معك.
             </p>
 
-            <h3>أين نكتب JavaScript؟</h3>
-            <p>هناك طريقتان شائعتان:</p>
-            <ul>
-              <li><strong>داخل HTML:</strong> باستخدام وسم <span class="inline-code">&lt;script&gt;</span> في نهاية <span class="inline-code">body</span></li>
-              <li><strong>ملف خارجي:</strong> <span class="inline-code">&lt;script src="app.js"&gt;&lt;/script&gt;</span> — الأفضل للمشاريع</li>
-            </ul>
-
-            <div class="highlight-box">
-              <strong>نصيحة:</strong> ضع وسم <span class="inline-code">script</span> قبل إغلاق <span class="inline-code">&lt;/body&gt;</span>
-              حتى تُحمّل عناصر الصفحة أولاً قبل تشغيل الكود.
+            <div class="analogy-box">
+              <strong>تشبيه بسيط:</strong> HTML = جسم الإنسان · CSS = الملابس · JavaScript = الحركة والتفكير
             </div>
 
-            <h3>console.log — نافذتك للتعلّم</h3>
+            <h3>2) وين منكتب الكود؟</h3>
+            <ol class="step-list">
+              <li>افتح VS Code وأنشئ ملف اسمه <span class="inline-code">app.js</span></li>
+              <li>اربطه بصفحة HTML: <span class="inline-code">&lt;script src="app.js"&gt;&lt;/script&gt;</span></li>
+              <li>افتح المتصفح واضغط <strong>F12</strong> → تبويب <strong>Console</strong></li>
+              <li>اكتب كودك وشوف النتيجة مباشرة!</li>
+            </ol>
+
+            <h3>3) console.log — أهم أداة للمبتدئ</h3>
             <p>
-              الدالة <span class="inline-code">console.log()</span> تطبع قيماً في <strong>Console</strong>
-              داخل DevTools (F12). هي أداةك الأساسية لفحص النتائج وتتبّع الأخطاء أثناء التعلّم.
+              <span class="inline-code">console.log()</span> يعني: «يا كمبيوتر، اطبعلي هالشي على الشاشة»
+              حتى نشوف النتيجة ونتأكد إنو الكود شغال.
             </p>
 
-            <h3>المتغيرات: let و const</h3>
-            <p>المتغير هو «صندوق» يخزّن قيمة يمكن استخدامها لاحقاً:</p>
-            <ul>
-              <li><span class="inline-code">let</span> — لقيمة قابلة للتغيير (مثل عداد أو اسم مستخدم مؤقت)</li>
-              <li><span class="inline-code">const</span> — لقيمة ثابتة لا تُعاد تعيينها (مثل رابط API أو نسبة ضريبة)</li>
-            </ul>
+            <h3>4) المتغيرات — الصندوق اللي بحفظ المعلومات</h3>
+            <p>
+              المتغير (Variable) مثل <strong>صندوق</strong> عليه اسم، وبداخله قيمة.
+              مثلاً: صندوق اسمه <span class="inline-code">age</span> وبداخله الرقم <span class="inline-code">17</span>.
+            </p>
 
-            <div class="highlight-box">
-              <strong>قاعدة عملية:</strong> استخدم <span class="inline-code">const</span> افتراضياً،
-              وانتقل إلى <span class="inline-code">let</span> فقط عندما تحتاج تغيير القيمة.
+            <div class="compare-grid">
+              <div class="compare-box">
+                <h4>let — قيمة بتتغير</h4>
+                <p>مثل عداد اللعبة: كل ما تفوز، الرقم بيزيد.</p>
+              </div>
+              <div class="compare-box">
+                <h4>const — قيمة ثابتة</h4>
+                <p>مثل اسم ثابت — لا يتغير بعد تعريفه.</p>
+              </div>
             </div>
 
-            <h3>أنواع البيانات الأساسية</h3>
+            <h3>5) أنواع البيانات الأساسية</h3>
             <ul>
-              <li><strong>String</strong> — نص: <span class="inline-code">"مرحباً"</span></li>
-              <li><strong>Number</strong> — رقم: <span class="inline-code">42</span> أو <span class="inline-code">3.14</span></li>
-              <li><strong>Boolean</strong> — منطقي: <span class="inline-code">true</span> أو <span class="inline-code">false</span></li>
-              <li><strong>undefined</strong> — متغير مُعرَّف لكن بلا قيمة</li>
-              <li><strong>null</strong> — قيمة فارغة مقصودة</li>
+              <li><strong>String (نص):</strong> <span class="inline-code">"George"</span> — بين علامات تنصيص</li>
+              <li><strong>Number (رقم):</strong> <span class="inline-code">17</span> — بدون علامات تنصيص</li>
+              <li><strong>Boolean (صح/غلط):</strong> <span class="inline-code">true</span> أو <span class="inline-code">false</span></li>
             </ul>
 
-            <h3>العوامل (Operators)</h3>
-            <p>العوامل تُنفّذ عمليات على القيم:</p>
-            <ul>
-              <li><strong>حسابية:</strong> <span class="inline-code">+</span> <span class="inline-code">-</span> <span class="inline-code">*</span> <span class="inline-code">/</span> <span class="inline-code">%</span></li>
-              <li><strong>مقارنة:</strong> <span class="inline-code">===</span> <span class="inline-code">!==</span> <span class="inline-code">&gt;</span> <span class="inline-code">&lt;</span></li>
-              <li><strong>منطقية:</strong> <span class="inline-code">&amp;&amp;</span> (و) · <span class="inline-code">||</span> (أو) · <span class="inline-code">!</span> (نفي)</li>
-            </ul>
-
-            <div class="highlight-box">
-              <strong>مهم:</strong> استخدم <span class="inline-code">===</span> للمقارنة الدقيقة (القيمة والنوع معاً)،
-              وليس <span class="inline-code">==</span> الذي قد يسبب نتائج غير متوقعة.
+            <div class="tip-box">
+              <strong>قاعدة ذهبية:</strong> استخدم <span class="inline-code">const</span> دائماً،
+              وغيّر لـ <span class="inline-code">let</span> بس لما تحتاج تغيّر القيمة.
             </div>
+
+            <h3>6) العمليات الحسابية البسيطة</h3>
+            <p>JavaScript يقدر يجمع ويطرح ويضرب:</p>
+            <ul>
+              <li><span class="inline-code">+</span> جمع · <span class="inline-code">-</span> طرح</li>
+              <li><span class="inline-code">*</span> ضرب · <span class="inline-code">/</span> قسمة</li>
+            </ul>
           </div>
         </section>
 
@@ -103,74 +112,201 @@
         <section class="section-block">
           <div class="section-header">
             <div class="section-icon">💻</div>
-            <h2>أمثلة الكود</h2>
+            <h2>أمثلة عملية</h2>
           </div>
 
-          <h3>مثال 1: أول سطر JavaScript</h3>
+          <h3>مثال 1: أول سطر كود</h3>
           <div class="code-block">
-            <div class="code-label">JavaScript — Hello Console</div>
-            <pre><code>console.log("مرحباً من JavaScript!");
-console.log(2026);</code></pre>
+            <div class="code-label">JavaScript</div>
+            <pre><code>console.log("Hello George!");</code></pre>
+          </div>
+          <div class="expected-output">
+            <div class="expected-output-label">📤 المخرجات المتوقعة في Console</div>
+            <pre>Hello George!</pre>
           </div>
 
-          <h3>مثال 2: المتغيرات let و const</h3>
+          <h3>مثال 2: متغيرات شخصية</h3>
           <div class="code-block">
             <div class="code-label">JavaScript — Variables</div>
-            <pre><code>const courseName = "أساسيات الويب";
-let studentCount = 25;
+            <pre><code>const firstName = "George";
+const lastName = "Shahin";
+const age = 17;
+const lovesTech = true;
 
-console.log(courseName);
-console.log(studentCount);
-
-studentCount = 26; // مسموح مع let
-console.log("عدد الطلاب الآن:", studentCount);
-
-// courseName = "كورس آخر"; // خطأ! const لا يُعاد تعيينه</code></pre>
+console.log(firstName);
+console.log(lastName);
+console.log(age);
+console.log(lovesTech);</code></pre>
+          </div>
+          <div class="expected-output">
+            <div class="expected-output-label">📤 المخرجات المتوقعة</div>
+            <pre>George
+Shahin
+17
+true</pre>
           </div>
 
-          <h3>مثال 3: أنواع البيانات</h3>
-          <div class="code-block">
-            <div class="code-label">JavaScript — Data Types</div>
-            <pre><code>const productName = "سماعات لاسلكية";   // String
-const price = 85000;                      // Number (ل.س)
-const inStock = true;                     // Boolean
-let discount;                             // undefined
+          <button class="run-demo-btn" data-demo="s09-example2">▶ شغّل المثال 2</button>
+          <div class="demo-result" id="s09-example2"></div>
 
-console.log(typeof productName);  // "string"
-console.log(typeof price);        // "number"
-console.log(typeof inStock);      // "boolean"
-console.log(typeof discount);     // "undefined"</code></pre>
+          <h3>مثال 3: let — قيمة بتتغير</h3>
+          <div class="code-block">
+            <div class="code-label">JavaScript — let</div>
+            <pre><code>let score = 0;       // نقاط اللعبة بالبداية
+console.log(score);  // 0
+
+score = 10;          // فزت جولة!
+console.log(score);  // 10
+
+score = score + 5;   // فزت جولة ثانية
+console.log(score);  // 15</code></pre>
+          </div>
+          <div class="expected-output">
+            <div class="expected-output-label">📤 المخرجات المتوقعة</div>
+            <pre>0
+10
+15</pre>
           </div>
 
-          <h3>مثال 4: العوامل الحسابية والمقارنة</h3>
+          <h3>مثال 4: حسابات — سعر تطبيق بالليرة</h3>
           <div class="code-block">
-            <div class="code-label">JavaScript — Operators</div>
-            <pre><code>const itemPrice = 120000;  // ل.س
-const quantity = 2;
-const total = itemPrice * quantity;
+            <div class="code-label">JavaScript — Math</div>
+            <pre><code>const appPrice = 50000;        // 50,000 ل.س
+const discount = 10000;          // خصم 10,000 ل.س
+const finalPrice = appPrice - discount;
 
-console.log("المجموع:", total, "ل.س");
-
-const isExpensive = total > 200000;
-console.log("هل السعر مرتفع؟", isExpensive);
-
-const hasDiscount = true;
-const isMember = false;
-console.log("يستحق خصماً؟", hasDiscount &amp;&amp; isMember); // false</code></pre>
+console.log("السعر النهائي:", finalPrice, "ل.س");</code></pre>
+          </div>
+          <div class="expected-output">
+            <div class="expected-output-label">📤 المخرجات المتوقعة</div>
+            <pre>السعر النهائي: 40000 ل.س</pre>
           </div>
 
-          <h3>مثال 5: دمج النصوص (Concatenation)</h3>
+          <h3>مثال 5: دمج النصوص</h3>
           <div class="code-block">
-            <div class="code-label">JavaScript — Strings</div>
-            <pre><code>const firstName = "محمد";
-const lastName = "بيطار";
-const fullName = firstName + " " + lastName;
+            <div class="code-label">JavaScript — Concatenation</div>
+            <pre><code>const name = "George";
+const message = "Welcome " + name + "!";
+console.log(message);</code></pre>
+          </div>
+          <div class="expected-output">
+            <div class="expected-output-label">📤 المخرجات المتوقعة</div>
+            <pre>Welcome George!</pre>
+          </div>
+        </section>
 
-console.log("الاسم الكامل:", fullName);
+        <!-- Interactive Quiz -->
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">🎯</div>
+            <h2>تجربة تفاعلية — شو رح يطلع؟</h2>
+          </div>
 
-// Template literals — الطريقة الحديثة
-const greeting = `أهلاً ${firstName}!`;
-console.log(greeting);</code></pre>
+          <div class="quiz-card" data-correct="b">
+            <p class="quiz-question">سؤال 1: شو رح يطبع هالكود؟</p>
+            <div class="code-block">
+              <pre><code>let x = 5;
+x = x + 3;
+console.log(x);</code></pre>
+            </div>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">5</button>
+              <button class="quiz-option" data-value="b">8</button>
+              <button class="quiz-option" data-value="c">53</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-card" data-correct="c">
+            <p class="quiz-question">سؤال 2: أي سطر فيه خطأ؟</p>
+            <div class="code-block">
+              <pre><code>const city = "Damascus";
+city = "Aleppo";  // ← أي سطر؟
+console.log(city);</code></pre>
+            </div>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">const city = "Damascus";</button>
+              <button class="quiz-option" data-value="b">console.log(city);</button>
+              <button class="quiz-option" data-value="c">city = "Aleppo";</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-card" data-correct="a">
+            <p class="quiz-question">سؤال 3: شو نوع البيانات هون؟</p>
+            <div class="code-block">
+              <pre><code>const isStudent = true;</code></pre>
+            </div>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">Boolean</button>
+              <button class="quiz-option" data-value="b">String</button>
+              <button class="quiz-option" data-value="c">Number</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+        </section>
+
+        <!-- Think Challenges -->
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">🧠</div>
+            <h2>تحديات تفكير — حسّن منطقك البرمجي</h2>
+          </div>
+
+          <div class="think-challenge">
+            <h4>🧩 تحدي 1: صلّح الكود!</h4>
+            <p>هالكود فيه 3 أخطاء. حاول تكتشفها قبل ما تشوف الحل:</p>
+            <div class="code-block">
+              <pre><code>let Name = "george";
+const age = "17";
+let score = 0
+score = score + 10
+console.log(name, age, score);</code></pre>
+            </div>
+            <button class="solution-toggle" data-target="think-1">
+              <span class="toggle-text">عرض الحل والشرح</span>
+              <span class="arrow">▼</span>
+            </button>
+            <div class="solution-content" id="think-1">
+              <p><strong>الأخطاء:</strong></p>
+              <ol>
+                <li><span class="inline-code">Name</span> كبيرة لكن استخدمنا <span class="inline-code">name</span> صغيرة — JavaScript حساسة لحالة الأحرف!</li>
+                <li><span class="inline-code">age</span> نص (<span class="inline-code">"17"</span>) مو رقم — الأفضل: <span class="inline-code">const age = 17;</span></li>
+                <li>ناقص <span class="inline-code">;</span> في نهاية السطرين (اختياري بس الأفضل نضيفها)</li>
+              </ol>
+              <div class="code-block">
+                <pre><code>let name = "George";
+const age = 17;
+let score = 0;
+score = score + 10;
+console.log(name, age, score);
+// George 17 10</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="think-challenge">
+            <h4>🧩 تحدي 2: بدون تشغيل — توقع النتيجة!</h4>
+            <p>اقرأ الكود بعناية واكتب النتيجة على ورقة:</p>
+            <div class="code-block">
+              <pre><code>const a = 10;
+const b = 3;
+let result = a * b + 1;
+result = result - 5;
+console.log(result);</code></pre>
+            </div>
+            <button class="solution-toggle" data-target="think-2">
+              <span class="toggle-text">عرض الإجابة</span>
+              <span class="arrow">▼</span>
+            </button>
+            <div class="solution-content" id="think-2">
+              <p><strong>الحل خطوة بخطوة:</strong></p>
+              <ol>
+                <li><span class="inline-code">a * b + 1</span> = 10 × 3 + 1 = <strong>31</strong></li>
+                <li><span class="inline-code">31 - 5</span> = <strong>26</strong></li>
+              </ol>
+              <div class="expected-output"><pre>26</pre></div>
+            </div>
           </div>
         </section>
 
@@ -182,62 +318,62 @@ console.log(greeting);</code></pre>
           </div>
 
           <div class="exercise-item">
-            <h4><span class="exercise-number">1</span> متغيرات الملف الشخصي</h4>
-            <p>أنشئ ملف <span class="inline-code">profile.js</span> يحتوي على <span class="inline-code">const</span> للاسم والعمر والمدينة، واطبعها في Console.</p>
+            <h4><span class="exercise-number">1</span> بطاقة شخصية</h4>
+            <p>أنشئ متغيرات: الاسم الكامل، العمر (17)، المدينة، وهل يحب التقنية (true). اطبعهم.</p>
             <button class="solution-toggle" data-target="sol-1">
               <span class="toggle-text">عرض الحل</span>
               <span class="arrow">▼</span>
             </button>
             <div class="solution-content" id="sol-1">
               <div class="code-block">
-                <div class="code-label">Solution</div>
-                <pre><code>const name = "سارة أحمد";
-const age = 22;
-const city = "دمشق";
+                <pre><code>const fullName = "George Ziad Shahin";
+const age = 17;
+const city = "Damascus";
+const lovesTech = true;
 
-console.log("الاسم:", name);
-console.log("العمر:", age);
-console.log("المدينة:", city);</code></pre>
+console.log(fullName);
+console.log(age);
+console.log(city);
+console.log(lovesTech);</code></pre>
               </div>
+              <div class="expected-output"><pre>George Ziad Shahin
+17
+Damascus
+true</pre></div>
             </div>
           </div>
 
           <div class="exercise-item">
-            <h4><span class="exercise-number">2</span> حساب سعر منتج</h4>
-            <p>عرّف سعر منتج بـ 45,000 ل.س وكمية 3، واحسب المجموع واطبعه مع وحدة العملة.</p>
+            <h4><span class="exercise-number">2</span> عداد اللعبة</h4>
+            <p>ابدأ score = 0، أضف 25، ثم 50، ثم اطبع النتيجة.</p>
             <button class="solution-toggle" data-target="sol-2">
               <span class="toggle-text">عرض الحل</span>
               <span class="arrow">▼</span>
             </button>
             <div class="solution-content" id="sol-2">
               <div class="code-block">
-                <div class="code-label">Solution</div>
-                <pre><code>const unitPrice = 45000;
-const quantity = 3;
-const total = unitPrice * quantity;
-
-console.log(`المجموع: ${total} ل.س`);</code></pre>
+                <pre><code>let score = 0;
+score = score + 25;
+score = score + 50;
+console.log(score); // 75</code></pre>
               </div>
             </div>
           </div>
 
           <div class="exercise-item">
-            <h4><span class="exercise-number">3</span> فحص الأنواع والمقارنة</h4>
-            <p>قارن بين الرقمين 10 و "10" باستخدام <span class="inline-code">===</span> و <span class="inline-code">==</span>، واطبع <span class="inline-code">typeof</span> لكل منهما.</p>
+            <h4><span class="exercise-number">3</span> حساب سعر سماعات</h4>
+            <p>السعر 120,000 ل.س، خصم 20,000 ل.س. احسب واطبع السعر النهائي.</p>
             <button class="solution-toggle" data-target="sol-3">
               <span class="toggle-text">عرض الحل</span>
               <span class="arrow">▼</span>
             </button>
             <div class="solution-content" id="sol-3">
               <div class="code-block">
-                <div class="code-label">Solution</div>
-                <pre><code>const num = 10;
-const str = "10";
-
-console.log(typeof num);       // "number"
-console.log(typeof str);       // "string"
-console.log(num === str);      // false
-console.log(num == str);       // true (تحويل تلقائي — تجنّبه)</code></pre>
+                <pre><code>const price = 120000;
+const discount = 20000;
+const total = price - discount;
+console.log("المجموع:", total, "ل.س");
+// المجموع: 100000 ل.س</code></pre>
               </div>
             </div>
           </div>
@@ -250,22 +386,21 @@ console.log(num == str);       // true (تحويل تلقائي — تجنّبه
             <h2>ملخص الجلسة</h2>
           </div>
           <ul class="key-points">
-            <li>JavaScript تضيف التفاعل والسلوك لصفحات الويب داخل المتصفح</li>
-            <li><span class="inline-code">console.log()</span> أداة أساسية للتعلّم والتصحيح عبر DevTools</li>
-            <li>استخدم <span class="inline-code">const</span> افتراضياً و <span class="inline-code">let</span> عند الحاجة للتغيير</li>
-            <li>الأنواع الأساسية: String, Number, Boolean, undefined, null</li>
-            <li>فضّل <span class="inline-code">===</span> للمقارنة الدقيقة بين القيم</li>
+            <li>JavaScript تخلي الصفحة تتفاعل — HTML هيكل، CSS تصميم، JS حركة</li>
+            <li>console.log() لطباعة النتائج في Console (F12)</li>
+            <li>const للقيم الثابتة، let للقيم المتغيرة</li>
+            <li>أنواع البيانات: String, Number, Boolean</li>
+            <li>JavaScript حساسة لحالة الأحرف: name ≠ Name</li>
+            <li>جرّب كل مثال بنفسك — القراءة بدون تجربة ما بتكفي!</li>
           </ul>
         </section>
 
-        <!-- Homework -->
         <section class="homework-box">
           <h2>واجب اختياري</h2>
-          <p>قبل الجلسة القادمة:</p>
           <ul>
-            <li>أنشئ صفحة HTML بسيطة واربطها بملف JS خارجي</li>
-            <li>عرّف 5 متغيرات تصف متجرك الافتراضي (اسم، منتج، سعر بالليرة السورية، كمية، متوفر)</li>
-            <li>احسب إجمالي الفاتورة واطبع تقريراً منسقاً في Console</li>
+            <li>أنشئ ملف <span class="inline-code">practice.js</span> وفيه 5 متغيرات عنك</li>
+            <li>احسب مجموع 3 أرقام واطبع النتيجة</li>
+            <li>اكتب رسالة ترحيب فيها اسمك باستخدام <span class="inline-code">+</span></li>
           </ul>
         </section>
 
@@ -281,6 +416,20 @@ console.log(num == str);       // true (تحويل تلقائي — تجنّبه
     </footer>
 
   </div>
+
+  <script>
+    // Demo function for session 09 example 2
+    function demo_s09_example2() {
+      const firstName = "George";
+      const lastName = "Shahin";
+      const age = 17;
+      const lovesTech = true;
+      console.log(firstName);
+      console.log(lastName);
+      console.log(age);
+      console.log(lovesTech);
+    }
+  </script>
   <script src="../shared/scripts.js"></script>
 </body>
 </html>

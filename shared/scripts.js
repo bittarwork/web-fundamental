@@ -55,8 +55,92 @@ function highlightCurrentSession() {
   });
 }
 
+// Interactive quiz: pick an answer and get instant feedback
+function initQuizCards() {
+  const quizCards = document.querySelectorAll('.quiz-card');
+
+  quizCards.forEach(function (card) {
+    const options = card.querySelectorAll('.quiz-option');
+    const feedback = card.querySelector('.quiz-feedback');
+    const correctAnswer = card.getAttribute('data-correct');
+
+    options.forEach(function (option) {
+      option.addEventListener('click', function () {
+        if (card.classList.contains('answered-correct') || card.classList.contains('answered-wrong')) {
+          return;
+        }
+
+        const selected = option.getAttribute('data-value');
+        const isCorrect = selected === correctAnswer;
+
+        options.forEach(function (opt) {
+          opt.disabled = true;
+          if (opt.getAttribute('data-value') === correctAnswer) {
+            opt.style.borderColor = 'var(--success)';
+            opt.style.background = 'var(--success-bg)';
+          }
+        });
+
+        if (isCorrect) {
+          card.classList.add('answered-correct');
+          feedback.textContent = '✓ ممتاز! إجابة صحيحة';
+          feedback.className = 'quiz-feedback show correct';
+        } else {
+          card.classList.add('answered-wrong');
+          feedback.textContent = '✗ ليست الإجابة الصحيحة — راجع الكود وحاول مرة أخرى';
+          feedback.className = 'quiz-feedback show wrong';
+        }
+      });
+    });
+  });
+}
+
+// Run inline code demos safely inside lesson pages
+function initCodeDemos() {
+  const demoButtons = document.querySelectorAll('.run-demo-btn');
+
+  demoButtons.forEach(function (button) {
+    button.addEventListener('click', function () {
+      const demoId = button.getAttribute('data-demo');
+      const resultBox = document.getElementById(demoId);
+
+      if (!resultBox) return;
+
+      const demoFn = window['demo_' + demoId];
+      if (typeof demoFn !== 'function') {
+        resultBox.textContent = 'Demo not found';
+        resultBox.classList.add('show');
+        return;
+      }
+
+      const lines = [];
+      const originalLog = console.log;
+
+      // Capture console.log output for display
+      console.log = function () {
+        const args = Array.from(arguments);
+        lines.push(args.map(function (arg) {
+          return typeof arg === 'object' ? JSON.stringify(arg) : String(arg);
+        }).join(' '));
+      };
+
+      try {
+        demoFn();
+        resultBox.textContent = lines.length > 0 ? lines.join('\n') : '(no output)';
+      } catch (error) {
+        resultBox.textContent = 'Error: ' + error.message;
+      }
+
+      console.log = originalLog;
+      resultBox.classList.add('show');
+    });
+  });
+}
+
 // Initialize all shared functionality when DOM is ready
 document.addEventListener('DOMContentLoaded', function () {
   initSolutionToggles();
   highlightCurrentSession();
+  initQuizCards();
+  initCodeDemos();
 });

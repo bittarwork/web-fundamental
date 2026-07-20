@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DOM Practice</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2rem;
+      text-align: center;
+      background: #f8f9fb;
+    }
+
+    h1 {
+      color: #1a2d4a;
+    }
+
+    button {
+      padding: 0.6rem 1.2rem;
+      margin: 0.5rem;
+      cursor: pointer;
+      border: none;
+      border-radius: 8px;
+      background: #1a2d4a;
+      color: #fff;
+      font-size: 1rem;
+    }
+
+    button:hover {
+      background: #243b5e;
+    }
+
+    #count {
+      font-weight: bold;
+      font-size: 1.5rem;
+      color: #c9a227;
+    }
+  </style>
+</head>
+<body>
+
+  <h1 id="title">DOM Practice</h1>
+  <p id="message">Click the buttons!</p>
+  <p>Count: <span id="count">0</span></p>
+
+  <button id="greet-btn">Greet</button>
+  <button id="color-btn">Random Color</button>
+  <button id="add-btn">+1</button>
+
+  <script>
+    // Grab elements from the page
+    const title = document.getElementById("title");
+    const message = document.getElementById("message");
+    const countEl = document.getElementById("count");
+    const greetBtn = document.getElementById("greet-btn");
+    const colorBtn = document.getElementById("color-btn");
+    const addBtn = document.getElementById("add-btn");
+
+    let count = 0;
+    const colors = ["#e11d48", "#2563eb", "#16a34a", "#ca8a04", "#9333ea"];
+
+    // Change greeting on click
+    greetBtn.addEventListener("click", function () {
+      message.textContent = "Welcome, George Ziad Shahin!";
+      title.style.color = "#2563eb";
+    });
+
+    // Pick a random text color
+    colorBtn.addEventListener("click", function () {
+      const randomIndex = Math.floor(Math.random() * colors.length);
+      message.style.color = colors[randomIndex];
+    });
+
+    // Simple counter
+    addBtn.addEventListener("click", function () {
+      count = count + 1;
+      countEl.textContent = count;
+    });
+  </script>
+</body>
+</html>

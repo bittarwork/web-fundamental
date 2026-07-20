@@ -3,18 +3,74 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>الجلسة 14 — مشروع JavaScript: قائمة المهام</title>
+  <title>الجلسة 14 — DOM: ربط JavaScript بالصفحة</title>
   <link rel="stylesheet" href="../shared/styles.css">
+  <style>
+    /* Small sandbox styles for live DOM demos on this page */
+    .dom-playground {
+      background: var(--gray-50, #f8f9fa);
+      border: 2px dashed var(--gold, #c9a227);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin: 1.25rem 0;
+      text-align: center;
+    }
+
+    .dom-playground h4 {
+      margin-top: 0;
+      color: var(--navy, #1a2744);
+    }
+
+    .dom-playground .demo-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      align-items: center;
+      margin: 1rem 0;
+    }
+
+    .dom-playground button {
+      cursor: pointer;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 8px;
+      background: var(--navy, #1a2744);
+      color: #fff;
+      font-size: 1rem;
+    }
+
+    .dom-playground button:hover {
+      opacity: 0.9;
+    }
+
+    #s14-greeting-text {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--navy, #1a2744);
+    }
+
+    #s14-counter-value {
+      font-size: 2rem;
+      font-weight: 700;
+      min-width: 3rem;
+    }
+
+    #s14-color-text {
+      font-size: 1.1rem;
+      transition: color 0.3s ease;
+    }
+  </style>
 </head>
 <body>
   <div class="page-wrapper">
 
     <header class="site-header">
       <div class="container">
-        <span class="course-badge">المرحلة 3 — JavaScript · مشروع</span>
-        <h1>الجلسة 14: مشروع JavaScript — تطبيق Todo List</h1>
+        <span class="course-badge">المرحلة 3 — JavaScript · DOM</span>
+        <h1>الجلسة 14: DOM — ربط JavaScript بالصفحة</h1>
         <div class="session-meta">
-          <span>المدة: ساعتان</span>
+          <span>المدة: ساعة ونصف</span>
           <span>الجلسة 14 من 16</span>
         </div>
       </div>
@@ -31,68 +87,120 @@
     <main class="main-content">
       <div class="container">
 
+        <div class="student-welcome">
+          <h3>هدف الجلسة</h3>
+          <p>
+            اليوم نربط JavaScript بصفحة HTML — الأزرار تعمل،
+            النص يتغير، والألوان تتحدّث أمامك.
+            DOM هو الجسر بين الكود والصفحة. سنبسّط الموضوع خطوة بخطوة
+            حتى تتمكن من بناء تفاعلات صغيرة بنفسك.
+          </p>
+        </div>
+
         <!-- Theory -->
         <section class="section-block">
           <div class="section-header">
             <div class="section-icon">14</div>
-            <h2>الشرح النظري</h2>
+            <h2>الشرح النظري — DOM من الصفر</h2>
           </div>
           <div class="theory-content">
-            <h3>هدف المشروع</h3>
+
+            <h3>1) شو هو DOM؟</h3>
             <p>
-              في هذه الجلسة نجمع كل ما تعلمناه في JavaScript لبناء تطبيق
-              <strong>قائمة مهام (Todo List)</strong> تفاعلي كامل —
-              إضافة مهام، تحديدها كمكتملة، وحذفها.
-              هذا المشروع يُمثّل نموذجاً مصغّراً لأي تطبيق ويب حقيقي.
+              لما المتصفح يفتح صفحة HTML، يحوّلها لـ <strong>شجرة عناصر</strong> اسمها
+              <span class="inline-code">DOM</span> (Document Object Model).
+              كل tag في HTML يصير «عقدة» (node) في الشجرة — JavaScript تقدر توصل لأي عقدة وتغيّرها.
             </p>
 
-            <h3>ملفات المشروع</h3>
-            <p>المشروع موجود في مجلد:</p>
-            <ul>
-              <li><span class="inline-code">projects/todo-app/index.html</span> — هيكل الصفحة</li>
-              <li><span class="inline-code">projects/todo-app/style.css</span> — التصميم</li>
-              <li><span class="inline-code">projects/todo-app/app.js</span> — المنطق والتفاعل</li>
-            </ul>
-
-            <div class="highlight-box">
-              <strong>ابدأ من هنا:</strong> افتح مجلد
-              <span class="inline-code">projects/todo-app/</span>
-              واتبع الخطوات أدناه لبناء التطبيق خطوة بخطوة.
+            <div class="analogy-box">
+              <strong>تشبيه بسيط — شجرة عائلة:</strong><br>
+              <span class="inline-code">&lt;html&gt;</span> = الجد الأكبر ·
+              <span class="inline-code">&lt;body&gt;</span> = الأب ·
+              <span class="inline-code">&lt;h1&gt;</span> و <span class="inline-code">&lt;p&gt;</span> = الأولاد ·
+              JavaScript = الشخص اللي يقدر يغيّر أي فرد بالعائلة
             </div>
 
-            <h3>الميزات المطلوبة</h3>
-            <ol>
-              <li><strong>إضافة مهمة:</strong> نموذج بإدخال نص وزر «إضافة»</li>
-              <li><strong>عرض المهام:</strong> قائمة ديناميكية تُبنى من مصفوفة</li>
-              <li><strong>إكمال مهمة:</strong> نقرة على المهمة تُعلّمها كمكتملة (خط يتوسطها)</li>
-              <li><strong>حذف مهمة:</strong> زر حذف لكل مهمة</li>
-              <li><strong>عداد:</strong> عرض عدد المهام المتبقية</li>
-            </ol>
-
-            <h3>هيكل البيانات</h3>
-            <p>كل مهمة كائن بهذا الشكل:</p>
+            <h3>2) كيف نوصل للعنصر؟</h3>
+            <p>أهم طريقتين للمبتدئ:</p>
             <ul>
-              <li><span class="inline-code">id</span> — معرّف فريد (رقم أو timestamp)</li>
-              <li><span class="inline-code">text</span> — نص المهمة</li>
-              <li><span class="inline-code">completed</span> — هل اكتملت؟ (boolean)</li>
+              <li>
+                <span class="inline-code">document.getElementById("my-id")</span> —
+                يجيب عنصر واحد بـ <strong>id</strong> محدد (بدون #)
+              </li>
+              <li>
+                <span class="inline-code">document.querySelector(".my-class")</span> —
+                يجيب <strong>أول</strong> عنصر يطابق محدّد CSS (مثل .class أو #id أو tag)
+              </li>
             </ul>
 
-            <h3>الخطوات المنطقية</h3>
-            <ol>
-              <li>تهيئة مصفوفة <span class="inline-code">tasks</span> فارغة</li>
-              <li>دالة <span class="inline-code">render()</span> ترسم القائمة من المصفوفة</li>
-              <li>مستمع <span class="inline-code">submit</span> على النموذج يضيف مهمة جديدة</li>
-              <li>Event delegation على القائمة للنقر (إكمال) والحذف</li>
-              <li>تحديث العداد بعد كل تغيير</li>
-            </ol>
+            <div class="tip-box">
+              <strong>تذكّر:</strong>
+              <span class="inline-code">getElementById</span> يأخذ الاسم فقط —
+              <span class="inline-code">"title"</span> مو <span class="inline-code">"#title"</span>.
+              أما <span class="inline-code">querySelector</span> يستخدم صيغة CSS كاملة مع # أو .
+            </div>
 
-            <h3>مفاهيم مطبّقة</h3>
-            <ul>
-              <li>المتغيرات والمصفوفات والكائنات (الجلسة 09-11)</li>
-              <li>الدوال والشروط (الجلسة 10)</li>
-              <li>DOM: createElement, appendChild, textContent (الجلسة 12)</li>
-              <li>الأحداث: addEventListener, submit, click, preventDefault (الجلسة 13)</li>
-            </ul>
+            <h3>3) textContent vs innerHTML</h3>
+            <div class="compare-grid">
+              <div class="compare-box">
+                <h4>textContent</h4>
+                <p>يغيّر <strong>النص فقط</strong> — آمن وبسيط. استخدمه دايماً للنصوص العادية.</p>
+              </div>
+              <div class="compare-box">
+                <h4>innerHTML</h4>
+                <p>يغيّر النص <strong>مع HTML</strong> (مثل &lt;strong&gt;). احذر — ممكن يسبب مشاكل أمنية.</p>
+              </div>
+            </div>
+
+            <h3>4) تغيير الأنماط — element.style</h3>
+            <p>
+              بعد ما تجيب العنصر، تقدر تغيّر شكله مباشرة:
+              <span class="inline-code">element.style.color = "blue"</span> أو
+              <span class="inline-code">element.style.fontSize = "24px"</span>.
+              اسم الخاصية بـ camelCase: <span class="inline-code">backgroundColor</span> مو background-color.
+            </p>
+
+            <h3>5) الأحداث — addEventListener</h3>
+            <p>
+              عشان الزر «يسمع» النقر:
+              <span class="inline-code">button.addEventListener("click", function() { ... })</span>.
+              لما المستخدم ينقر، الكود داخل الدالة ينفّذ.
+            </p>
+
+            <div class="highlight-box">
+              <strong>الخطوة الجاية:</strong> بعد ما تتقن الأساسيات هون،
+              جرّب مشروع <span class="inline-code">projects/todo-app/</span> —
+              تطبيق قائمة مهام كامل يستخدم DOM والأحداث مع بعض!
+            </div>
+          </div>
+        </section>
+
+        <!-- Live playground -->
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">🎮</div>
+            <h2>جرّب هون — تفاعل مباشر على الصفحة</h2>
+          </div>
+          <p>اضغط الأزرار وشوف DOM يشتغل قدامك — نفس الفكرة اللي رح تكتبها بـ JavaScript:</p>
+
+          <div class="dom-playground">
+            <h4>1) زر الترحيب</h4>
+            <p id="s14-greeting-text">مرحباً يا ضيف!</p>
+            <button type="button" id="s14-greeting-btn">غيّر الترحيب</button>
+          </div>
+
+          <div class="dom-playground">
+            <h4>2) عدّاد النقرات</h4>
+            <div class="demo-row">
+              <span id="s14-counter-value">0</span>
+              <button type="button" id="s14-counter-btn">+1</button>
+            </div>
+          </div>
+
+          <div class="dom-playground">
+            <h4>3) غيّر لون النص</h4>
+            <p id="s14-color-text">هذا النص رح يغيّر لونه!</p>
+            <button type="button" id="s14-color-btn">لون عشوائي</button>
           </div>
         </section>
 
@@ -100,142 +208,290 @@
         <section class="section-block">
           <div class="section-header">
             <div class="section-icon">💻</div>
-            <h2>أمثلة الكود</h2>
+            <h2>أمثلة عملية</h2>
           </div>
 
-          <h3>مثال 1: هيكل HTML للمشروع</h3>
+          <h3>مثال 1: getElementById — تغيير نص</h3>
           <div class="code-block">
-            <div class="code-label">projects/todo-app/index.html</div>
+            <div class="code-label">HTML + JavaScript</div>
+            <pre><code>&lt;p id="welcome"&gt;Hello!&lt;/p&gt;
+&lt;script&gt;
+  const welcomeEl = document.getElementById("welcome");
+  welcomeEl.textContent = "Welcome George!";
+&lt;/script&gt;</code></pre>
+          </div>
+          <div class="expected-output">
+            <div class="expected-output-label">📤 النتيجة على الصفحة</div>
+            <pre>Welcome George!</pre>
+          </div>
+
+          <h3>مثال 2: querySelector — أول زر</h3>
+          <div class="code-block">
+            <div class="code-label">JavaScript — querySelector</div>
+            <pre><code>const btn = document.querySelector(".start-btn");
+btn.textContent = "Ready, George!";</code></pre>
+          </div>
+          <div class="expected-output">
+            <div class="expected-output-label">📤 النتيجة</div>
+            <pre>نص الزر الأول من class="start-btn" يصير: Ready, George!</pre>
+          </div>
+
+          <h3>مثال 3: textContent vs innerHTML</h3>
+          <div class="code-block">
+            <div class="code-label">JavaScript — Content</div>
+            <pre><code>const box = document.getElementById("info");
+
+box.textContent = "George loves tech";     // نص عادي
+// box.innerHTML = "&lt;strong&gt;George&lt;/strong&gt; loves tech";  // نص + HTML</code></pre>
+          </div>
+          <div class="expected-output">
+            <div class="expected-output-label">📤 الفرق</div>
+            <pre>textContent → George loves tech (نص فقط)
+innerHTML   → George (عريض) loves tech (يفسر HTML كوسوم)</pre>
+          </div>
+
+          <h3>مثال 4: element.style — تغيير اللون</h3>
+          <div class="code-block">
+            <div class="code-label">JavaScript — Styles</div>
+            <pre><code>const title = document.getElementById("title");
+title.style.color = "#2563eb";
+title.style.fontSize = "28px";</code></pre>
+          </div>
+          <div class="expected-output">
+            <div class="expected-output-label">📤 النتيجة</div>
+            <pre>العنوان يصير أزرق وحجمه 28px</pre>
+          </div>
+
+          <h3>مثال 5: addEventListener — زر يغيّر الترحيب</h3>
+          <div class="code-block">
+            <div class="code-label">JavaScript — Click Event</div>
+            <pre><code>const greetBtn = document.getElementById("greet-btn");
+const greetText = document.getElementById("greet-text");
+
+greetBtn.addEventListener("click", function () {
+  greetText.textContent = "Hey George Ziad Shahin! 👋";
+  greetText.style.color = "green";
+});</code></pre>
+          </div>
+          <div class="expected-output">
+            <div class="expected-output-label">📤 النتيجة</div>
+            <pre>عند النقر: النص يتغير واللون يصير أخضر</pre>
+          </div>
+
+          <button class="run-demo-btn" data-demo="s14-example5">▶ شغّل المثال 5 (محاكاة)</button>
+          <div class="demo-result" id="s14-example5"></div>
+
+          <h3>مثال 6: عدّاد بسيط</h3>
+          <div class="code-block">
+            <div class="code-label">JavaScript — Counter</div>
+            <pre><code>let count = 0;
+const countEl = document.getElementById("count");
+const addBtn = document.getElementById("add-btn");
+
+addBtn.addEventListener("click", function () {
+  count = count + 1;
+  countEl.textContent = count;
+});</code></pre>
+          </div>
+          <div class="expected-output">
+            <div class="expected-output-label">📤 النتيجة</div>
+            <pre>كل نقرة: 0 → 1 → 2 → 3 ...</pre>
+          </div>
+        </section>
+
+        <!-- Hands-on snippet -->
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">🛠️</div>
+            <h2>ملف صغير — انسخه وجربه</h2>
+          </div>
+          <p>
+            ملف جاهز للتجربة:
+            <a href="dom-practice.html" target="_blank">dom-practice.html</a>
+            — افتحه واضغط الأزرار:
+          </p>
+          <div class="code-block">
+            <div class="code-label">dom-practice.html — ملف كامل</div>
             <pre><code>&lt;!DOCTYPE html&gt;
-&lt;html lang="ar" dir="rtl"&gt;
+&lt;html lang="en"&gt;
 &lt;head&gt;
   &lt;meta charset="UTF-8"&gt;
-  &lt;title&gt;قائمة المهام&lt;/title&gt;
-  &lt;link rel="stylesheet" href="style.css"&gt;
+  &lt;title&gt;DOM Practice&lt;/title&gt;
+  &lt;style&gt;
+    body { font-family: sans-serif; padding: 2rem; text-align: center; }
+    button { padding: 0.5rem 1rem; margin: 0.5rem; cursor: pointer; }
+  &lt;/style&gt;
 &lt;/head&gt;
 &lt;body&gt;
-  &lt;div class="app"&gt;
-    &lt;h1&gt;مهامي&lt;/h1&gt;
+  &lt;h1 id="title"&gt;DOM Practice&lt;/h1&gt;
+  &lt;p id="message"&gt;Click the buttons!&lt;/p&gt;
+  &lt;p&gt;Count: &lt;span id="count"&gt;0&lt;/span&gt;&lt;/p&gt;
+  &lt;button id="greet-btn"&gt;Greet&lt;/button&gt;
+  &lt;button id="color-btn"&gt;Random Color&lt;/button&gt;
+  &lt;button id="add-btn"&gt;+1&lt;/button&gt;
 
-    &lt;form id="todo-form"&gt;
-      &lt;input type="text" id="todo-input" placeholder="مهمة جديدة..." required&gt;
-      &lt;button type="submit"&gt;إضافة&lt;/button&gt;
-    &lt;/form&gt;
+  &lt;script&gt;
+    // Grab elements from the page
+    const title = document.getElementById("title");
+    const message = document.getElementById("message");
+    const countEl = document.getElementById("count");
+    const greetBtn = document.getElementById("greet-btn");
+    const colorBtn = document.getElementById("color-btn");
+    const addBtn = document.getElementById("add-btn");
 
-    &lt;p&gt;متبقي: &lt;span id="task-count"&gt;0&lt;/span&gt; مهمة&lt;/p&gt;
-    &lt;ul id="todo-list"&gt;&lt;/ul&gt;
-  &lt;/div&gt;
-  &lt;script src="app.js"&gt;&lt;/script&gt;
+    let count = 0;
+    const colors = ["#e11d48", "#2563eb", "#16a34a", "#ca8a04", "#9333ea"];
+
+    // Change greeting on click
+    greetBtn.addEventListener("click", function () {
+      message.textContent = "Welcome George Ziad Shahin!";
+      title.style.color = "#2563eb";
+    });
+
+    // Pick a random text color
+    colorBtn.addEventListener("click", function () {
+      const randomIndex = Math.floor(Math.random() * colors.length);
+      message.style.color = colors[randomIndex];
+    });
+
+    // Simple counter
+    addBtn.addEventListener("click", function () {
+      count = count + 1;
+      countEl.textContent = count;
+    });
+  &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
           </div>
+          <div class="tip-box">
+            <strong>بعد ما يشتغل:</strong> افتح مجلد
+            <span class="inline-code">projects/todo-app/</span>
+            وشوف كيف نفس الأفكار (اختيار عناصر + أحداث) تُستخدم في مشروع أكبر!
+          </div>
+        </section>
 
-          <h3>مثال 2: تهيئة البيانات والعناصر</h3>
-          <div class="code-block">
-            <div class="code-label">projects/todo-app/app.js — Setup</div>
-            <pre><code>const tasks = [];
-
-const form = document.getElementById("todo-form");
-const input = document.getElementById("todo-input");
-const list = document.getElementById("todo-list");
-const countEl = document.getElementById("task-count");
-
-let nextId = 1;</code></pre>
+        <!-- Interactive Quiz -->
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">🎯</div>
+            <h2>تجربة تفاعلية — شو رح يصير؟</h2>
           </div>
 
-          <h3>مثال 3: دالة render — رسم القائمة</h3>
-          <div class="code-block">
-            <div class="code-label">projects/todo-app/app.js — Render</div>
-            <pre><code>function render() {
-  list.innerHTML = "";
-
-  tasks.forEach((task) => {
-    const li = document.createElement("li");
-    li.className = task.completed ? "completed" : "";
-    li.dataset.id = task.id;
-
-    const span = document.createElement("span");
-    span.textContent = task.text;
-
-    const deleteBtn = document.createElement("button");
-    deleteBtn.textContent = "حذف";
-    deleteBtn.className = "delete-btn";
-
-    li.appendChild(span);
-    li.appendChild(deleteBtn);
-    list.appendChild(li);
-  });
-
-  const remaining = tasks.filter((t) => !t.completed).length;
-  countEl.textContent = remaining;
-}</code></pre>
+          <div class="quiz-card" data-correct="b">
+            <p class="quiz-question">سؤال 1: أي سطر يجيب عنصر id="score"؟</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">document.querySelector("score")</button>
+              <button class="quiz-option" data-value="b">document.getElementById("score")</button>
+              <button class="quiz-option" data-value="c">document.getElementById("#score")</button>
+            </div>
+            <div class="quiz-feedback"></div>
           </div>
 
-          <h3>مثال 4: إضافة مهمة عبر النموذج</h3>
-          <div class="code-block">
-            <div class="code-label">projects/todo-app/app.js — Add Task</div>
-            <pre><code>form.addEventListener("submit", (event) => {
-  event.preventDefault();
+          <div class="quiz-card" data-correct="a">
+            <p class="quiz-question">سؤال 2: لتحط نص عادي بدون HTML، الأفضل:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">element.textContent = "Hello"</button>
+              <button class="quiz-option" data-value="b">element.innerHTML = "Hello"</button>
+              <button class="quiz-option" data-value="c">element.style = "Hello"</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
 
-  const text = input.value.trim();
-  if (text === "") return;
-
-  tasks.push({
-    id: nextId++,
-    text: text,
-    completed: false
-  });
-
-  input.value = "";
-  render();
+          <div class="quiz-card" data-correct="c">
+            <p class="quiz-question">سؤال 3: شو ينفّذ لما تنقر الزر؟</p>
+            <div class="code-block">
+              <pre><code>let n = 2;
+btn.addEventListener("click", function () {
+  n = n + 1;
+  output.textContent = n;
 });</code></pre>
+            </div>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">n يبقى 2 دائماً</button>
+              <button class="quiz-option" data-value="b">الصفحة تعيد التحميل</button>
+              <button class="quiz-option" data-value="c">n يزيد: 3، 4، 5... عند كل نقرة</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+        </section>
+
+        <!-- Think Challenges -->
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">🧠</div>
+            <h2>تحديات تفكير — حسّن منطقك البرمجي</h2>
           </div>
 
-          <h3>مثال 5: Event Delegation — إكمال وحذف</h3>
-          <div class="code-block">
-            <div class="code-label">projects/todo-app/app.js — Events</div>
-            <pre><code>list.addEventListener("click", (event) => {
-  const li = event.target.closest("li");
-  if (!li) return;
+          <div class="think-challenge">
+            <h4>🧩 تحدي 1: محدّد خاطئ — صلّح الـ selector!</h4>
+            <p>HTML فيه <span class="inline-code">&lt;button id="save-btn"&gt;Save&lt;/button&gt;</span> لكن الكود ما يلاقي الزر. ليش؟</p>
+            <div class="code-block">
+              <pre><code>const saveBtn = document.querySelector("save-btn");
 
-  const taskId = Number(li.dataset.id);
-
-  // Delete button clicked
-  if (event.target.classList.contains("delete-btn")) {
-    const index = tasks.findIndex((t) => t.id === taskId);
-    if (index !== -1) {
-      tasks.splice(index, 1);
-      render();
-    }
-    return;
-  }
-
-  // Toggle completed on li click
-  const task = tasks.find((t) => t.id === taskId);
-  if (task) {
-    task.completed = !task.completed;
-    render();
-  }
+saveBtn.addEventListener("click", function () {
+  console.log("Saved!");
 });</code></pre>
+            </div>
+            <button class="solution-toggle" data-target="think-1">
+              <span class="toggle-text">عرض الحل والشرح</span>
+              <span class="arrow">▼</span>
+            </button>
+            <div class="solution-content" id="think-1">
+              <p><strong>الخطأ:</strong> <span class="inline-code">querySelector</span> يحتاج صيغة CSS — ناقص <span class="inline-code">#</span> للـ id.</p>
+              <p><strong>الحل:</strong></p>
+              <div class="code-block">
+                <pre><code>// Option 1: querySelector with # for id
+const saveBtn = document.querySelector("#save-btn");
+
+// Option 2: getElementById (no # needed)
+const saveBtn = document.getElementById("save-btn");
+
+saveBtn.addEventListener("click", function () {
+  console.log("Saved!");
+});</code></pre>
+              </div>
+              <p>بدون <span class="inline-code">#</span>، المتصفح يدور على tag اسمه save-btn — وما موجود!</p>
+            </div>
           </div>
 
-          <h3>مثال 6: CSS أساسي للمهمة المكتملة</h3>
-          <div class="code-block">
-            <div class="code-label">projects/todo-app/style.css</div>
-            <pre><code>.completed span {
-  text-decoration: line-through;
-  opacity: 0.6;
-}
+          <div class="think-challenge">
+            <h4>🧩 تحدي 2: كود DOM مكسور — صلّحه!</h4>
+            <p>المفروض الزر يغيّر النص، بس ما يشتغل. فيه 3 أخطاء — حاول تكتشفها:</p>
+            <div class="code-block">
+              <pre><code>&lt;p id="status"&gt;Waiting...&lt;/p&gt;
+&lt;button id="go-btn"&gt;Go&lt;/button&gt;
 
-.delete-btn {
-  margin-right: 0.5rem;
-  background: #e53935;
-  color: white;
-  border: none;
-  padding: 0.25rem 0.5rem;
-  border-radius: 4px;
-  cursor: pointer;
-}</code></pre>
+&lt;script&gt;
+  const status = document.getElementById("Status");
+  const goBtn = document.getElementById("go-btn");
+
+  goBtn.addEventListener("click", function () {
+    status.innerText = "Done!";
+    status.style.color = blue;
+  });
+&lt;/script&gt;</code></pre>
+            </div>
+            <button class="solution-toggle" data-target="think-2">
+              <span class="toggle-text">عرض الحل والشرح</span>
+              <span class="arrow">▼</span>
+            </button>
+            <div class="solution-content" id="think-2">
+              <p><strong>الأخطاء:</strong></p>
+              <ol>
+                <li><span class="inline-code">"Status"</span> بحرف S كبير — الـ id بالHTML <span class="inline-code">"status"</span> صغير. JavaScript حساسة لحالة الأحرف!</li>
+                <li><span class="inline-code">innerText</span> يشتغل، بس الأفضل <span class="inline-code">textContent</span> للاتساق — أو خليه innerText إذا بدك.</li>
+                <li><span class="inline-code">blue</span> بدون علامات تنصيص — JavaScript تظنّه متغير! الصح: <span class="inline-code">"blue"</span></li>
+              </ol>
+              <div class="code-block">
+                <pre><code>const status = document.getElementById("status");
+const goBtn = document.getElementById("go-btn");
+
+goBtn.addEventListener("click", function () {
+  status.textContent = "Done!";
+  status.style.color = "blue";
+});</code></pre>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -247,49 +503,100 @@ let nextId = 1;</code></pre>
           </div>
 
           <div class="exercise-item">
-            <h4><span class="exercise-number">1</span> بناء الهيكل الأساسي</h4>
-            <p>أنشئ الملفات الثلاثة في <span class="inline-code">projects/todo-app/</span> وانسخ هيكل HTML. تأكد أن الصفحة تفتح بدون أخطاء.</p>
+            <h4><span class="exercise-number">1</span> زر ترحيب شخصي</h4>
+            <p>
+              أنشئ صفحة فيها <span class="inline-code">&lt;h1 id="name"&gt;Student&lt;/h1&gt;</span>
+              وزر. لما ينقر، يصير النص «George Ziad Shahin» واللون أخضر.
+            </p>
             <button class="solution-toggle" data-target="sol-1">
               <span class="toggle-text">عرض الحل</span>
               <span class="arrow">▼</span>
             </button>
             <div class="solution-content" id="sol-1">
-              <p><strong>الخطوات:</strong></p>
-              <ol>
-                <li>أنشئ مجلد <span class="inline-code">projects/todo-app/</span></li>
-                <li>أنشئ <span class="inline-code">index.html</span> بالهيكل أعلاه</li>
-                <li>أنشئ <span class="inline-code">style.css</span> و <span class="inline-code">app.js</span> فارغين</li>
-                <li>افتح <span class="inline-code">index.html</span> في المتصفح</li>
-              </ol>
+              <div class="code-block">
+                <pre><code>&lt;h1 id="name"&gt;Student&lt;/h1&gt;
+&lt;button id="show-name"&gt;Show My Name&lt;/button&gt;
+
+&lt;script&gt;
+  const nameEl = document.getElementById("name");
+  const btn = document.getElementById("show-name");
+
+  btn.addEventListener("click", function () {
+    nameEl.textContent = "George Ziad Shahin";
+    nameEl.style.color = "green";
+  });
+&lt;/script&gt;</code></pre>
+              </div>
             </div>
           </div>
 
           <div class="exercise-item">
-            <h4><span class="exercise-number">2</span> إضافة وعرض المهام</h4>
-            <p>نفّذ دالة <span class="inline-code">render()</span> ومستمع <span class="inline-code">submit</span> لإضافة مهام وعرضها في القائمة.</p>
+            <h4><span class="exercise-number">2</span> عدّاد + و −</h4>
+            <p>
+              عدّاد يبدأ من 0، زر «+» يزيد، زر «−» ينقص. استخدم
+              <span class="inline-code">textContent</span> لتحديث الرقم.
+            </p>
             <button class="solution-toggle" data-target="sol-2">
               <span class="toggle-text">عرض الحل</span>
               <span class="arrow">▼</span>
             </button>
             <div class="solution-content" id="sol-2">
-              <p>استخدم الأمثلة 2 و 3 و 4 أعلاه — انسخ الكود إلى <span class="inline-code">app.js</span> وجرّب إضافة 3 مهام.</p>
+              <div class="code-block">
+                <pre><code>&lt;p&gt;Score: &lt;span id="score"&gt;0&lt;/span&gt;&lt;/p&gt;
+&lt;button id="plus"&gt;+&lt;/button&gt;
+&lt;button id="minus"&gt;-&lt;/button&gt;
+
+&lt;script&gt;
+  let score = 0;
+  const scoreEl = document.getElementById("score");
+  const plusBtn = document.getElementById("plus");
+  const minusBtn = document.getElementById("minus");
+
+  plusBtn.addEventListener("click", function () {
+    score = score + 1;
+    scoreEl.textContent = score;
+  });
+
+  minusBtn.addEventListener("click", function () {
+    score = score - 1;
+    scoreEl.textContent = score;
+  });
+&lt;/script&gt;</code></pre>
+              </div>
             </div>
           </div>
 
           <div class="exercise-item">
-            <h4><span class="exercise-number">3</span> إكمال وحذف وعداد</h4>
-            <p>أضف Event delegation لإكمال المهام وحذفها، وحدّث عداد المهام المتبقية.</p>
+            <h4><span class="exercise-number">3</span> زر يبدّل بين لونين</h4>
+            <p>
+              فقرة وزر. كل نقرة تبدّل لون النص بين أزرق (<span class="inline-code">#2563eb</span>)
+              وأحمر (<span class="inline-code">#dc2626</span>). تلميح: استخدم متغير boolean
+              <span class="inline-code">isBlue</span>.
+            </p>
             <button class="solution-toggle" data-target="sol-3">
               <span class="toggle-text">عرض الحل</span>
               <span class="arrow">▼</span>
             </button>
             <div class="solution-content" id="sol-3">
-              <p>استخدم المثال 5 أعلاه. تأكد أن:</p>
-              <ul>
-                <li>النقر على نص المهمة يُعلّمها مكتملة</li>
-                <li>زر «حذف» يزيل المهمة من المصفوفة والقائمة</li>
-                <li>العداد يعرض فقط المهام غير المكتملة</li>
-              </ul>
+              <div class="code-block">
+                <pre><code>&lt;p id="text"&gt;Toggle my color!&lt;/p&gt;
+&lt;button id="toggle"&gt;Toggle&lt;/button&gt;
+
+&lt;script&gt;
+  const textEl = document.getElementById("text");
+  const toggleBtn = document.getElementById("toggle");
+  let isBlue = true;
+
+  toggleBtn.addEventListener("click", function () {
+    if (isBlue) {
+      textEl.style.color = "#dc2626";
+    } else {
+      textEl.style.color = "#2563eb";
+    }
+    isBlue = !isBlue;
+  });
+&lt;/script&gt;</code></pre>
+              </div>
             </div>
           </div>
         </section>
@@ -301,23 +608,22 @@ let nextId = 1;</code></pre>
             <h2>ملخص الجلسة</h2>
           </div>
           <ul class="key-points">
-            <li>مشروع Todo List يجمع DOM والأحداث والمصفوفات في تطبيق واحد</li>
-            <li>مصفوفة <span class="inline-code">tasks</span> هي مصدر الحقيقة — DOM يُعاد رسمه منها</li>
-            <li>دالة <span class="inline-code">render()</span> تُحدّث الواجهة بعد كل تغيير في البيانات</li>
-            <li>Event delegation على <span class="inline-code">#todo-list</span> يتعامل مع عناصر ديناميكية</li>
-            <li><span class="inline-code">preventDefault</span> على النموذج يمنع إعادة تحميل الصفحة</li>
+            <li>DOM = شجرة عناصر HTML — JavaScript تعدّلها حيّاً</li>
+            <li><span class="inline-code">getElementById("id")</span> و <span class="inline-code">querySelector("#id")</span> لاختيار العناصر</li>
+            <li><span class="inline-code">textContent</span> للنص العادي · <span class="inline-code">innerHTML</span> فقط لما تحتاج HTML</li>
+            <li><span class="inline-code">element.style</span> لتغيير الألوان والحجم مباشرة</li>
+            <li><span class="inline-code">addEventListener("click", ...)</span> يربط الأزرار بالكود</li>
+            <li>الخطوة الجاية: مشروع <span class="inline-code">projects/todo-app/</span> — تطبيق حقيقي!</li>
           </ul>
         </section>
 
-        <!-- Homework -->
         <section class="homework-box">
-          <h2>واجب اختياري — تحسينات إضافية</h2>
-          <p>بعد إكمال المشروع الأساسي:</p>
+          <h2>واجب اختياري</h2>
           <ul>
-            <li>أضف زر «مسح المكتملة» يحذف كل المهام المُنجزة</li>
-            <li>أضف فلتر: الكل / نشطة / مكتملة</li>
-            <li>احفظ المهام في <span class="inline-code">localStorage</span> لتبقى بعد إغلاق المتصفح</li>
-            <li>أضف تحققاً: لا تسمح بمهمة فارغة أو مكررة</li>
+            <li>أكمل ملف <span class="inline-code">dom-practice.html</span> من الأمثلة أعلاه</li>
+            <li>أضف زر ثالث يغيّر حجم العنوان (<span class="inline-code">fontSize</span>)</li>
+            <li>افتح <span class="inline-code">projects/todo-app/index.html</span> واقرأ <span class="inline-code">app.js</span> — دور على <span class="inline-code">getElementById</span> و <span class="inline-code">addEventListener</span></li>
+            <li>حاول تفهم سطر واحد جديد كل يوم من مشروع todo-app</li>
           </ul>
         </section>
 
@@ -333,6 +639,52 @@ let nextId = 1;</code></pre>
     </footer>
 
   </div>
+
+  <script>
+    // Demo simulation for example 5 (console output)
+    function demo_s14_example5() {
+      console.log("Click simulated!");
+      console.log("greetText.textContent = 'Hey George Ziad Shahin! 👋'");
+      console.log("greetText.style.color = 'green'");
+    }
+
+    // Live DOM demos on this lesson page
+    document.addEventListener("DOMContentLoaded", function () {
+      const greetingText = document.getElementById("s14-greeting-text");
+      const greetingBtn = document.getElementById("s14-greeting-btn");
+      const counterValue = document.getElementById("s14-counter-value");
+      const counterBtn = document.getElementById("s14-counter-btn");
+      const colorText = document.getElementById("s14-color-text");
+      const colorBtn = document.getElementById("s14-color-btn");
+
+      let clickCount = 0;
+      const palette = ["#e11d48", "#2563eb", "#16a34a", "#ca8a04", "#9333ea", "#0891b2"];
+
+      // Greeting button — changes text and color
+      if (greetingBtn && greetingText) {
+        greetingBtn.addEventListener("click", function () {
+          greetingText.textContent = "Hey George Ziad Shahin! 👋";
+          greetingText.style.color = "#16a34a";
+        });
+      }
+
+      // Counter button — increments on each click
+      if (counterBtn && counterValue) {
+        counterBtn.addEventListener("click", function () {
+          clickCount = clickCount + 1;
+          counterValue.textContent = clickCount;
+        });
+      }
+
+      // Random color button — picks from palette array
+      if (colorBtn && colorText) {
+        colorBtn.addEventListener("click", function () {
+          const index = Math.floor(Math.random() * palette.length);
+          colorText.style.color = palette[index];
+        });
+      }
+    });
+  </script>
   <script src="../shared/scripts.js"></script>
 </body>
 </html>

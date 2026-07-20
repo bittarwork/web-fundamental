@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>الجلسة 13 — الأحداث والتفاعل</title>
+  <title>الجلسة 13 — التوابع السهمية و filter و map</title>
   <link rel="stylesheet" href="../shared/styles.css">
 </head>
 <body>
@@ -11,8 +11,8 @@
 
     <header class="site-header">
       <div class="container">
-        <span class="course-badge">المرحلة 3 — JavaScript</span>
-        <h1>الجلسة 13: الأحداث — جعل الصفحة تتفاعل</h1>
+        <span class="course-badge">المرحلة 3 — JavaScript · من الصفر</span>
+        <h1>الجلسة 13: التوابع السهمية و filter و map</h1>
         <div class="session-meta">
           <span>المدة: ساعة ونصف</span>
           <span>الجلسة 13 من 16</span>
@@ -31,70 +31,106 @@
     <main class="main-content">
       <div class="container">
 
+        <div class="student-welcome">
+          <h3>هدف الجلسة</h3>
+          <p>
+            بعد تعلم المصفوفات والأغراض، نتعلم اليوم <strong>3 أدوات قوية</strong>:
+            التوابع السهمية (Arrow Functions)، و<span class="inline-code">filter()</span> للتصفية،
+            و<span class="inline-code">map()</span> للتحويل.
+            مثل تصفية 50 لعبة لإبقاء المرتبة فوق 4، أو تطبيق خصم على 20 سعراً دفعة واحدة.
+          </p>
+        </div>
+
         <!-- Theory -->
         <section class="section-block">
           <div class="section-header">
             <div class="section-icon">13</div>
-            <h2>الشرح النظري</h2>
+            <h2>الشرح النظري — من الصفر</h2>
           </div>
           <div class="theory-content">
-            <h3>ما هي الأحداث (Events)؟</h3>
+
+            <h3>1) شو هي الدالة (Function)؟</h3>
             <p>
-              الحدث هو <strong>إشارة</strong> يُرسلها المتصفح عندما يفعل المستخدم شيئاً:
-              نقرة، كتابة، إرسال نموذج، تحريك الماوس، الضغط على مفتاح...
-              JavaScript «تستمع» لهذه الإشارات وتستجيب لها.
+              الدالة = كتلة كود لها اسم، بتقدر تستدعيها متى ما بدك.
+              مثل «وصفة» جاهزة: بدل ما تكتب نفس الخطوات كل مرة، بتقول «نفّذ الوصفة».
             </p>
 
-            <h3>addEventListener — الطريقة الصحيحة</h3>
+            <h3>2) التوابع السهمية — Arrow Functions</h3>
             <p>
-              بدلاً من كتابة <span class="inline-code">onclick</span> داخل HTML،
-              نربط المستمعين (listeners) من JavaScript:
+              طريقة أقصر وأحدث لكتابة الدوال. بدل كلمة <span class="inline-code">function</span>
+              منستخدم السهم <span class="inline-code">=&gt;</span>.
             </p>
-            <ul>
-              <li>أنظف وأكثر قابلية للصيانة</li>
-              <li>يسمح بإضافة أكثر من مستمع لنفس الحدث</li>
-              <li>يفصل بين HTML (هيكل) و JS (سلوك)</li>
-            </ul>
 
-            <div class="highlight-box">
-              <strong>الصيغة:</strong>
-              <span class="inline-code">element.addEventListener("event", callback)</span>
+            <div class="compare-grid">
+              <div class="compare-box">
+                <h4>دالة عادية (Regular)</h4>
+                <p><span class="inline-code">function add(a, b) { return a + b; }</span></p>
+                <p>أطول، الطريقة الكلاسيكية</p>
+              </div>
+              <div class="compare-box">
+                <h4>دالة سهمية (Arrow)</h4>
+                <p><span class="inline-code">const add = (a, b) =&gt; a + b;</span></p>
+                <p>أقصر، مثالية مع filter و map</p>
+              </div>
             </div>
 
-            <h3>أحداث شائعة</h3>
-            <ul>
-              <li><span class="inline-code">click</span> — نقرة على عنصر (أزرار، روابط)</li>
-              <li><span class="inline-code">submit</span> — إرسال نموذج <span class="inline-code">form</span></li>
-              <li><span class="inline-code">input</span> — تغيّر قيمة حقل أثناء الكتابة</li>
-              <li><span class="inline-code">change</span> — تغيّر القيمة عند فقدان التركيز (select, checkbox)</li>
-              <li><span class="inline-code">keydown</span> — الضغط على مفتاح في لوحة المفاتيح</li>
-            </ul>
-
-            <h3>كائن الحدث (event object)</h3>
-            <p>
-              الدالة المستجيبة تستقبل كائناً يحمل معلومات عن الحدث:
-              العنصر المستهدف (<span class="inline-code">event.target</span>)،
-              نوع الحدث، وطرق للتحكم بالسلوك الافتراضي.
-            </p>
-
-            <h3>preventDefault — إيقاف السلوك الافتراضي</h3>
-            <p>
-              بعض العناصر لها سلوك افتراضي: النموذج يُعيد تحميل الصفحة، الرابط ينتقل لعنوان.
-              <span class="inline-code">event.preventDefault()</span> يُوقف هذا السلوك
-              لنتحكم نحن بالنتيجة عبر JavaScript.
-            </p>
-
-            <div class="highlight-box">
-              <strong>مثال شائع:</strong> نموذج تسجيل — نمنع إعادة التحميل، نقرأ المدخلات،
-              نتحقق منها، ثم نعرض رسالة نجاح.
+            <div class="analogy-box">
+              <strong>تشبيه بسيط:</strong> الدالة العادية = رسالة طويلة · الدالة السهمية = اختصار واتساب — نفس المعنى، أسرع بالكتابة
             </div>
 
-            <h3>Event Delegation — تفويض الأحداث</h3>
+            <h4>قواعد Arrow Function البسيطة</h4>
+            <ul>
+              <li>معامل واحد: ممكن بدون أقواس — <span class="inline-code">x =&gt; x * 2</span></li>
+              <li>أكثر من معامل: أقواس لازمة — <span class="inline-code">(a, b) =&gt; a + b</span></li>
+              <li>سطر واحد + return: ما تحتاج <span class="inline-code">{}</span> ولا <span class="inline-code">return</span></li>
+              <li>أكثر من سطر: أقواس معقوفة + <span class="inline-code">return</span></li>
+            </ul>
+
+            <h3>3) filter() — احتفظ باللي بيطابق الشرط</h3>
             <p>
-              عند إضافة عناصر ديناميكياً (مثل قائمة مهام)، بدلاً من ربط مستمع لكل عنصر،
-              نربط مستمعاً واحداً على العنصر الأب ونتحقق من <span class="inline-code">event.target</span>.
-              سنطبّق هذا في مشروع الجلسة 14.
+              <span class="inline-code">filter()</span> بمر على كل عنصر بالمصفوفة،
+              و<b>بيرجع مصفوفة جديدة</b> فيها بس العناصر اللي الشرط طلع <span class="inline-code">true</span> عليها.
+              المصفوفة الأصلية <strong>ما بتتغير</strong>!
             </p>
+
+            <div class="code-block">
+              <div class="code-label">Syntax</div>
+              <pre><code>const result = array.filter((item) =&gt; condition);</code></pre>
+            </div>
+
+            <p><strong>مثال من الحياة:</strong> عندك 10 ألعاب، بدك بس اللي تقييمها فوق 4 — filter بيعمل هالشي.</p>
+
+            <h3>4) map() — حوّل كل عنصر</h3>
+            <p>
+              <span class="inline-code">map()</span> بمر على كل عنصر،
+              <strong>بيحوّله</strong> لشي جديد، و<b>بيرجع مصفوفة جديدة</b> بنفس الطول.
+              برضه المصفوفة الأصلية ما بتتغير.
+            </p>
+
+            <div class="code-block">
+              <div class="code-label">Syntax</div>
+              <pre><code>const result = array.map((item) =&gt; newValue);</code></pre>
+            </div>
+
+            <p><strong>مثال من الحياة:</strong> عندك أسعار 5 منتجات بالليرة، بدك تطبق خصم 10% على كل واحد — map بيعمل هالشي.</p>
+
+            <div class="compare-grid">
+              <div class="compare-box">
+                <h4>filter — تصفية</h4>
+                <p>10 عناصر → 4 عناصر (بس اللي بيطابقوا)</p>
+                <p>«أريني بس اللي...»</p>
+              </div>
+              <div class="compare-box">
+                <h4>map — تحويل</h4>
+                <p>10 عناصر → 10 عناصر (كل واحد متحوّل)</p>
+                <p>«غيّر كل واحد لـ...»</p>
+              </div>
+            </div>
+
+            <div class="tip-box">
+              <strong>قاعدة ذهبية:</strong> filter = أقل عناصر (تصفية) · map = نفس العدد (تحويل) ·
+              الاتنين بيرجعوا مصفوفة <strong>جديدة</strong> وما بيعدّلوا الأصل!
+            </div>
           </div>
         </section>
 
@@ -102,97 +138,276 @@
         <section class="section-block">
           <div class="section-header">
             <div class="section-icon">💻</div>
-            <h2>أمثلة الكود</h2>
+            <h2>أمثلة عملية</h2>
           </div>
 
-          <h3>مثال 1: حدث click على زر</h3>
+          <h3>مثال 1: Arrow Function — أول دالة سهمية</h3>
           <div class="code-block">
-            <div class="code-label">HTML + JavaScript — Click Event</div>
-            <pre><code>&lt;button id="greet-btn"&gt;اضغطني&lt;/button&gt;
-&lt;p id="message"&gt;&lt;/p&gt;
+            <div class="code-label">JavaScript — Arrow Functions</div>
+            <pre><code>// regular function
+function greet(name) {
+  return "Hello " + name;
+}
 
-&lt;script&gt;
-  const btn = document.getElementById("greet-btn");
-  const msg = document.getElementById("message");
+// arrow function — same result, shorter syntax
+const greetArrow = (name) =&gt; "Hello " + name;
 
-  btn.addEventListener("click", () => {
-    msg.textContent = "مرحباً! لقد ضغطت الزر.";
-  });
-&lt;/script&gt;</code></pre>
+console.log(greet("George"));
+console.log(greetArrow("George"));
+
+// arrow with math
+const double = (n) =&gt; n * 2;
+console.log(double(5));</code></pre>
+          </div>
+          <div class="expected-output">
+            <div class="expected-output-label">📤 المخرجات المتوقعة في Console</div>
+            <pre>Hello George
+Hello George
+10</pre>
           </div>
 
-          <h3>مثال 2: حدث input — عداد الأحرف</h3>
+          <h3>مثال 2: filter — ألعاب تقييمها فوق 4</h3>
           <div class="code-block">
-            <div class="code-label">JavaScript — Input Event</div>
-            <pre><code>&lt;input type="text" id="username" placeholder="اسمك"&gt;
-&lt;span id="char-count"&gt;0&lt;/span&gt; حرف
+            <div class="code-label">JavaScript — filter()</div>
+            <pre><code>const games = [
+  { name: "FIFA", rating: 4.5 },
+  { name: "Minecraft", rating: 5 },
+  { name: "Old Game", rating: 2.8 },
+  { name: "GTA", rating: 4.7 }
+];
 
-&lt;script&gt;
-  const input = document.getElementById("username");
-  const counter = document.getElementById("char-count");
+// keep only games with rating above 4
+const topGames = games.filter((game) =&gt; game.rating &gt; 4);
 
-  input.addEventListener("input", (event) => {
-    const value = event.target.value;
-    counter.textContent = value.length;
-  });
-&lt;/script&gt;</code></pre>
+console.log(topGames.length);       // how many passed the filter
+topGames.forEach((g) =&gt; console.log(g.name));</code></pre>
+          </div>
+          <div class="expected-output">
+            <div class="expected-output-label">📤 المخرجات المتوقعة</div>
+            <pre>3
+FIFA
+Minecraft
+GTA</pre>
           </div>
 
-          <h3>مثال 3: submit مع preventDefault</h3>
+          <button class="run-demo-btn" data-demo="s13-example2">▶ شغّل المثال 2</button>
+          <div class="demo-result" id="s13-example2"></div>
+
+          <h3>مثال 3: map — خصم 10% على أسعار المنتجات</h3>
           <div class="code-block">
-            <div class="code-label">JavaScript — Form Submit</div>
-            <pre><code>&lt;form id="contact-form"&gt;
-  &lt;input type="email" id="email" required&gt;
-  &lt;button type="submit"&gt;إرسال&lt;/button&gt;
-&lt;/form&gt;
-&lt;p id="form-result"&gt;&lt;/p&gt;
+            <div class="code-label">JavaScript — map()</div>
+            <pre><code>const products = [
+  { name: "Mouse", price: 28000 },
+  { name: "Keyboard", price: 95000 },
+  { name: "Headphones", price: 85000 }
+];
 
-&lt;script&gt;
-  const form = document.getElementById("contact-form");
-  const result = document.getElementById("form-result");
+// transform each product — apply 10% discount
+const discounted = products.map((product) =&gt; {
+  const newPrice = product.price * 0.9;  // 10% off
+  return {
+    name: product.name,
+    price: newPrice
+  };
+});
 
-  form.addEventListener("submit", (event) => {
-    event.preventDefault(); // منع إعادة تحميل الصفحة
-
-    const email = document.getElementById("email").value;
-    result.textContent = `تم استلام: ${email}`;
-  });
-&lt;/script&gt;</code></pre>
+discounted.forEach((p) =&gt; {
+  console.log(p.name + ": " + Math.round(p.price) + " ل.س");
+});</code></pre>
+          </div>
+          <div class="expected-output">
+            <div class="expected-output-label">📤 المخرجات المتوقعة</div>
+            <pre>Mouse: 25200 ل.س
+Keyboard: 85500 ل.س
+Headphones: 76500 ل.س</pre>
           </div>
 
-          <h3>مثال 4: تبديل حالة (Toggle)</h3>
+          <h3>مثال 4: map — تحويل الأسماء لأحرف كبيرة</h3>
           <div class="code-block">
-            <div class="code-label">JavaScript — Toggle Class</div>
-            <pre><code>&lt;button id="theme-btn"&gt;تبديل الوضع&lt;/button&gt;
+            <div class="code-label">JavaScript — map with Strings</div>
+            <pre><code>const friends = ["george", "ahmad", "sara"];
 
-&lt;script&gt;
-  const themeBtn = document.getElementById("theme-btn");
+const upperNames = friends.map((name) =&gt; name.toUpperCase());
 
-  themeBtn.addEventListener("click", () => {
-    document.body.classList.toggle("dark-mode");
-  });
-&lt;/script&gt;</code></pre>
+console.log(friends);      // original — unchanged!
+console.log(upperNames);   // new array with uppercase</code></pre>
+          </div>
+          <div class="expected-output">
+            <div class="expected-output-label">📤 المخرجات المتوقعة</div>
+            <pre>["george","ahmad","sara"]
+["GEORGE","AHMAD","SARA"]</pre>
           </div>
 
-          <h3>مثال 5: حاسبة سعر بسيطة</h3>
+          <button class="run-demo-btn" data-demo="s13-example4">▶ شغّل المثال 4</button>
+          <div class="demo-result" id="s13-example4"></div>
+
+          <h3>مثال 5: filter + map معاً — منتجات رخيصة بأسعار جديدة</h3>
           <div class="code-block">
-            <div class="code-label">JavaScript — Price Calculator</div>
-            <pre><code>&lt;input type="number" id="qty" value="1" min="1"&gt;
-&lt;span id="unit-price" data-price="45000"&gt;45,000 ل.س&lt;/span&gt;
-&lt;p&gt;المجموع: &lt;strong id="total"&gt;45,000 ل.س&lt;/strong&gt;&lt;/p&gt;
+            <div class="code-label">JavaScript — Chaining filter &amp; map</div>
+            <pre><code>const shop = [
+  { name: "Cable", price: 15000 },
+  { name: "Laptop", price: 3200000 },
+  { name: "Case", price: 25000 },
+  { name: "Monitor", price: 450000 }
+];
 
-&lt;script&gt;
-  const qtyInput = document.getElementById("qty");
-  const priceEl = document.getElementById("unit-price");
-  const totalEl = document.getElementById("total");
-  const unitPrice = Number(priceEl.dataset.price);
+// step 1: filter — only items under 100,000 ل.س
+const cheap = shop.filter((item) =&gt; item.price &lt; 100000);
 
-  qtyInput.addEventListener("input", () => {
-    const qty = Number(qtyInput.value) || 0;
-    const total = unitPrice * qty;
-    totalEl.textContent = total.toLocaleString("ar-SY") + " ل.س";
-  });
-&lt;/script&gt;</code></pre>
+// step 2: map — add 5000 ل.س shipping to each
+const withShipping = cheap.map((item) =&gt; ({
+  name: item.name,
+  total: item.price + 5000
+}));
+
+withShipping.forEach((p) =&gt; {
+  console.log(p.name + " total: " + p.total + " ل.س");
+});</code></pre>
+          </div>
+          <div class="expected-output">
+            <div class="expected-output-label">📤 المخرجات المتوقعة</div>
+            <pre>Cable total: 20000 ل.س
+Case total: 30000 ل.س</pre>
+          </div>
+
+          <h3>مثال 6: before / after — شوف الفرق</h3>
+          <div class="compare-grid">
+            <div class="compare-box">
+              <h4>قبل — for loop تقليدي</h4>
+              <div class="code-block">
+                <pre><code>const nums = [1, 2, 3, 4, 5];
+const evens = [];
+for (let i = 0; i &lt; nums.length; i++) {
+  if (nums[i] % 2 === 0) {
+    evens.push(nums[i]);
+  }
+}
+console.log(evens); // [2, 4]</code></pre>
+              </div>
+            </div>
+            <div class="compare-box">
+              <h4>بعد — filter + arrow</h4>
+              <div class="code-block">
+                <pre><code>const nums = [1, 2, 3, 4, 5];
+const evens = nums.filter((n) =&gt; n % 2 === 0);
+console.log(evens); // [2, 4]</code></pre>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Interactive Quiz -->
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">🎯</div>
+            <h2>تجربة تفاعلية — شو رح يطلع؟</h2>
+          </div>
+
+          <div class="quiz-card" data-correct="b">
+            <p class="quiz-question">سؤال 1: شو رح يرجع filter؟</p>
+            <div class="code-block">
+              <pre><code>const nums = [10, 25, 30, 45];
+const result = nums.filter((n) =&gt; n &gt; 20);
+console.log(result.length);</code></pre>
+            </div>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">4</button>
+              <button class="quiz-option" data-value="b">2</button>
+              <button class="quiz-option" data-value="c">3</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-card" data-correct="a">
+            <p class="quiz-question">سؤال 2: شو رح يرجع map؟</p>
+            <div class="code-block">
+              <pre><code>const prices = [10000, 20000, 30000];
+const doubled = prices.map((p) =&gt; p * 2);
+console.log(doubled[1]);</code></pre>
+            </div>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">40000</button>
+              <button class="quiz-option" data-value="b">20000</button>
+              <button class="quiz-option" data-value="c">60000</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-card" data-correct="c">
+            <p class="quiz-question">سؤال 3: أي arrow function صحيحة؟</p>
+            <div class="code-block">
+              <pre><code>// we want: multiply number by 3</code></pre>
+            </div>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">const triple = n =&gt; { n * 3 };</button>
+              <button class="quiz-option" data-value="b">const triple = function(n) =&gt; n * 3;</button>
+              <button class="quiz-option" data-value="c">const triple = (n) =&gt; n * 3;</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+        </section>
+
+        <!-- Think Challenges -->
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">🧠</div>
+            <h2>تحديات تفكير — حسّن منطقك البرمجي</h2>
+          </div>
+
+          <div class="think-challenge">
+            <h4>🧩 تحدي 1: filter ولا map؟</h4>
+            <p>عندك مصفوفة ألعاب. بدك <strong>بس أسماء</strong> الألعاب اللي تقييمها 5. أي أداة تستخدم؟</p>
+            <div class="code-block">
+              <pre><code>const games = [
+  { name: "Minecraft", rating: 5 },
+  { name: "FIFA", rating: 4 },
+  { name: "GTA", rating: 5 }
+];
+// ??? — what goes here?</code></pre>
+            </div>
+            <button class="solution-toggle" data-target="think-1">
+              <span class="toggle-text">عرض الحل والشرح</span>
+              <span class="arrow">▼</span>
+            </button>
+            <div class="solution-content" id="think-1">
+              <p><strong>الجواب:</strong> filter <strong>ثم</strong> map — أو filter + map مع بعض!</p>
+              <ol>
+                <li><span class="inline-code">filter</span> — نحتفظ بس rating === 5</li>
+                <li><span class="inline-code">map</span> — نستخرج الاسم فقط من كل غرض</li>
+              </ol>
+              <div class="code-block">
+                <pre><code>const perfect = games
+  .filter((g) =&gt; g.rating === 5)
+  .map((g) =&gt; g.name);
+
+console.log(perfect);
+// ["Minecraft", "GTA"]</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="think-challenge">
+            <h4>🧩 تحدي 2: بدون تشغيل — توقع النتيجة!</h4>
+            <p>اقرأ الكود واكتب النتيجة:</p>
+            <div class="code-block">
+              <pre><code>const items = [5, 12, 8, 20, 3];
+const result = items
+  .filter((n) =&gt; n &gt; 5)
+  .map((n) =&gt; n + 10);
+console.log(result);</code></pre>
+            </div>
+            <button class="solution-toggle" data-target="think-2">
+              <span class="toggle-text">عرض الإجابة</span>
+              <span class="arrow">▼</span>
+            </button>
+            <div class="solution-content" id="think-2">
+              <p><strong>الحل خطوة بخطوة:</strong></p>
+              <ol>
+                <li>filter (&gt; 5): من [5, 12, 8, 20, 3] → <strong>[12, 8, 20]</strong></li>
+                <li>map (+ 10): 12→22, 8→18, 20→30</li>
+              </ol>
+              <div class="expected-output"><pre>[22, 18, 30]</pre></div>
+            </div>
           </div>
         </section>
 
@@ -204,88 +419,92 @@
           </div>
 
           <div class="exercise-item">
-            <h4><span class="exercise-number">1</span> زر إظهار/إخفاء</h4>
-            <p>أنشئ فقرة وزراً. عند النقر، أخفِ الفقرة أو أظهرها بتبديل <span class="inline-code">display</span>.</p>
+            <h4><span class="exercise-number">1</span> تصفية ألعاب بالتقييم</h4>
+            <p>
+              أنشئ مصفوفة 5 ألعاب (name + rating). استخدم filter لإظهار بس الألعاب
+              اللي rating أكبر أو يساوي 4.5. اطبع عددها وأسماءها.
+            </p>
             <button class="solution-toggle" data-target="sol-1">
               <span class="toggle-text">عرض الحل</span>
               <span class="arrow">▼</span>
             </button>
             <div class="solution-content" id="sol-1">
               <div class="code-block">
-                <div class="code-label">Solution</div>
-                <pre><code>&lt;p id="secret"&gt;نص سري!&lt;/p&gt;
-&lt;button id="toggle-btn"&gt;إظهار/إخفاء&lt;/button&gt;
+                <pre><code>const myGames = [
+  { name: "FIFA", rating: 4.5 },
+  { name: "Minecraft", rating: 5 },
+  { name: "Valorant", rating: 4.2 },
+  { name: "GTA", rating: 4.8 },
+  { name: "Old Game", rating: 3.5 }
+];
 
-&lt;script&gt;
-  const secret = document.getElementById("secret");
-  const toggleBtn = document.getElementById("toggle-btn");
-
-  toggleBtn.addEventListener("click", () => {
-    const isHidden = secret.style.display === "none";
-    secret.style.display = isHidden ? "block" : "none";
-  });
-&lt;/script&gt;</code></pre>
+const best = myGames.filter((g) =&gt; g.rating &gt;= 4.5);
+console.log(best.length);
+best.forEach((g) =&gt; console.log(g.name));</code></pre>
               </div>
+              <div class="expected-output"><pre>3
+FIFA
+Minecraft
+GTA</pre></div>
             </div>
           </div>
 
           <div class="exercise-item">
-            <h4><span class="exercise-number">2</span> نموذج تسجيل بدون إعادة تحميل</h4>
-            <p>نموذج باسم ورقم هاتف. عند الإرسال، امنع التحميل واعرض «تم التسجيل: [الاسم]».</p>
+            <h4><span class="exercise-number">2</span> خصم على منتجات التقنية</h4>
+            <p>
+              3 منتجات tech بأسعار بالليرة. استخدم map لتطبيق خصم 15% على كل سعر.
+              اطبع: "الاسم: السعر_الجديد ل.س"
+            </p>
             <button class="solution-toggle" data-target="sol-2">
               <span class="toggle-text">عرض الحل</span>
               <span class="arrow">▼</span>
             </button>
             <div class="solution-content" id="sol-2">
               <div class="code-block">
-                <div class="code-label">Solution</div>
-                <pre><code>&lt;form id="register-form"&gt;
-  &lt;input type="text" id="name" placeholder="الاسم" required&gt;
-  &lt;input type="tel" id="phone" placeholder="الهاتف" required&gt;
-  &lt;button type="submit"&gt;تسجيل&lt;/button&gt;
-&lt;/form&gt;
-&lt;p id="status"&gt;&lt;/p&gt;
+                <pre><code>const tech = [
+  { name: "Webcam", price: 120000 },
+  { name: "SSD", price: 350000 },
+  { name: "RAM 16GB", price: 280000 }
+];
 
-&lt;script&gt;
-  document.getElementById("register-form").addEventListener("submit", (e) => {
-    e.preventDefault();
-    const name = document.getElementById("name").value;
-    document.getElementById("status").textContent = `تم التسجيل: ${name}`;
-  });
-&lt;/script&gt;</code></pre>
+const sale = tech.map((item) =&gt; ({
+  name: item.name,
+  price: Math.round(item.price * 0.85)
+}));
+
+sale.forEach((p) =&gt; {
+  console.log(p.name + ": " + p.price + " ل.س");
+});</code></pre>
               </div>
+              <div class="expected-output"><pre>Webcam: 102000 ل.س
+SSD: 297500 ل.س
+RAM 16GB: 238000 ل.س</pre></div>
             </div>
           </div>
 
           <div class="exercise-item">
-            <h4><span class="exercise-number">3</span> عدّاد تنازلي</h4>
-            <p>زر «انقُص» يُنقص رقماً معروضاً من 10 إلى 0. عند الوصول لـ 0، عطّل الزر.</p>
+            <h4><span class="exercise-number">3</span> arrow function + filter + map</h4>
+            <p>
+              مصفوفة أرقام: <span class="inline-code">[3, 7, 12, 4, 9, 15]</span>.
+              1) filter: بس الأرقام الأكبر من 5.
+              2) map: اضرب كل رقم × 2.
+              3) اطبع النتيجة النهائية.
+            </p>
             <button class="solution-toggle" data-target="sol-3">
               <span class="toggle-text">عرض الحل</span>
               <span class="arrow">▼</span>
             </button>
             <div class="solution-content" id="sol-3">
               <div class="code-block">
-                <div class="code-label">Solution</div>
-                <pre><code>&lt;span id="count"&gt;10&lt;/span&gt;
-&lt;button id="decrease-btn"&gt;انقُص&lt;/button&gt;
+                <pre><code>const numbers = [3, 7, 12, 4, 9, 15];
 
-&lt;script&gt;
-  let count = 10;
-  const countEl = document.getElementById("count");
-  const btn = document.getElementById("decrease-btn");
+const result = numbers
+  .filter((n) =&gt; n &gt; 5)
+  .map((n) =&gt; n * 2);
 
-  btn.addEventListener("click", () => {
-    if (count > 0) {
-      count--;
-      countEl.textContent = count;
-    }
-    if (count === 0) {
-      btn.disabled = true;
-    }
-  });
-&lt;/script&gt;</code></pre>
+console.log(result);</code></pre>
               </div>
+              <div class="expected-output"><pre>[14, 24, 18, 30]</pre></div>
             </div>
           </div>
         </section>
@@ -297,22 +516,22 @@
             <h2>ملخص الجلسة</h2>
           </div>
           <ul class="key-points">
-            <li>الأحداث تربط تفاعل المستخدم بكود JavaScript</li>
-            <li><span class="inline-code">addEventListener</span> الطريقة المفضّلة لربط المستمعين</li>
-            <li><span class="inline-code">click</span> للنقر · <span class="inline-code">input</span> للكتابة المباشرة · <span class="inline-code">submit</span> للنماذج</li>
-            <li><span class="inline-code">preventDefault()</span> يمنع السلوك الافتراضي (مثل إعادة تحميل الصفحة)</li>
-            <li><span class="inline-code">event.target</span> يشير للعنصر الذي أطلق الحدث</li>
+            <li>Arrow function: <span class="inline-code">(x) =&gt; x * 2</span> — أقصر من function العادية</li>
+            <li><span class="inline-code">filter()</span> — يرجع عناصر بس اللي الشرط true عليها (تصفية)</li>
+            <li><span class="inline-code">map()</span> — يحوّل كل عنصر ويرجع مصفوفة بنفس الطول (تحويل)</li>
+            <li>filter و map ما بيعدّلوا المصفوفة الأصلية — بيرجعوا مصفوفة جديدة</li>
+            <li>ممكن تربطهم: <span class="inline-code">arr.filter(...).map(...)</span></li>
+            <li>هالأدوات أساسية لمشاريع حقيقية — الجلسة الجاية: مشروع Todo List!</li>
           </ul>
         </section>
 
-        <!-- Homework -->
         <section class="homework-box">
           <h2>واجب اختياري</h2>
-          <p>قبل الجلسة القادمة:</p>
           <ul>
-            <li>ابنِ نموذج «إضافة منتج» (اسم + سعر بالليرة السورية) يعرض المنتج في قائمة دون إعادة تحميل</li>
-            <li>أضف زر «مسح الكل» يُفرّغ القائمة عند النقر</li>
-            <li>جرّب حدث <span class="inline-code">keydown</span> لإرسال النموذج عند الضغط على Enter</li>
+            <li>أنشئ 6 ألعاب (name + rating) واستخدم filter لإظهار اللي rating &gt; 4 فقط</li>
+            <li>أنشئ 4 منتجات tech بأسعار بالليرة، واستخدم map لتطبيق خصم 20%</li>
+            <li>اكتب arrow function اسمها <span class="inline-code">addTax</span> تضيف 5% على أي سعر</li>
+            <li>جرّب ربط filter + map على مصفوفة أرقام من عندك</li>
           </ul>
         </section>
 
@@ -328,6 +547,29 @@
     </footer>
 
   </div>
+
+  <script>
+    // Demo: filter top-rated games
+    function demo_s13_example2() {
+      const games = [
+        { name: "FIFA", rating: 4.5 },
+        { name: "Minecraft", rating: 5 },
+        { name: "Old Game", rating: 2.8 },
+        { name: "GTA", rating: 4.7 }
+      ];
+      const topGames = games.filter((game) => game.rating > 4);
+      console.log(topGames.length);
+      topGames.forEach((g) => console.log(g.name));
+    }
+
+    // Demo: map names to uppercase
+    function demo_s13_example4() {
+      const friends = ["george", "ahmad", "sara"];
+      const upperNames = friends.map((name) => name.toUpperCase());
+      console.log(friends);
+      console.log(upperNames);
+    }
+  </script>
   <script src="../shared/scripts.js"></script>
 </body>
 </html>

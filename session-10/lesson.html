@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>الجلسة 10 — الشروط والحلقات والدوال</title>
+  <title>الجلسة 10 — الشروط — if و else (اتخاذ القرارات)</title>
   <link rel="stylesheet" href="../shared/styles.css">
 </head>
 <body>
@@ -11,8 +11,8 @@
 
     <header class="site-header">
       <div class="container">
-        <span class="course-badge">المرحلة 3 — JavaScript</span>
-        <h1>الجلسة 10: الشروط والحلقات والدوال</h1>
+        <span class="course-badge">المرحلة 3 — JavaScript · من الصفر</span>
+        <h1>الجلسة 10: الشروط — if و else (اتخاذ القرارات)</h1>
         <div class="session-meta">
           <span>المدة: ساعة ونصف</span>
           <span>الجلسة 10 من 16</span>
@@ -31,63 +31,114 @@
     <main class="main-content">
       <div class="container">
 
+        <div class="student-welcome">
+          <h3>هدف الجلسة</h3>
+          <p>
+            اليوم نتعلم كيف البرنامج «يفكر» ويأخذ قرارات — مثل لما تلعب لعبة
+            وإذا نقاطك أكثر من 60 تنجح، وإذا بطارية التلفون أقل من 20% يظهر تحذير.
+            هذه الجلسة أساسية لأي تطبيق أو لعبة ستبنيها.
+          </p>
+        </div>
+
         <!-- Theory -->
         <section class="section-block">
           <div class="section-header">
             <div class="section-icon">10</div>
-            <h2>الشرح النظري</h2>
+            <h2>الشرح النظري — من الصفر</h2>
           </div>
           <div class="theory-content">
-            <h3>التحكم في تدفق البرنامج</h3>
+
+            <h3>1) شو يعني «شرط» في البرمجة؟</h3>
             <p>
-              حتى الآن نفّذنا أوامراً متتابعة. لكن البرامج الحقيقية تحتاج <strong>قرارات</strong>
-              (إذا كان الشرط صحيحاً افعل كذا) و<strong>تكرار</strong> (نفّذ هذا العمل 10 مرات).
-              هذا ما نسميه «تدفق التحكم» (Control Flow).
+              البرنامج عادةً ينفّذ أوامر بالترتيب، سطر بعد سطر.
+              لكن أحياناً بدنا نقول: <strong>«إذا صار هالشي، اعمل كذا — وإلا اعمل شي تاني»</strong>.
+              هون بيجي دور <span class="inline-code">if</span> و <span class="inline-code">else</span>.
             </p>
 
-            <h3>if / else — اتخاذ القرار</h3>
-            <p>تنفّذ كتلة كود عند تحقق شرط معيّن، وإلا تنفّذ بديلاً:</p>
-            <ul>
-              <li><span class="inline-code">if</span> — الشرط الأساسي</li>
-              <li><span class="inline-code">else if</span> — شروط إضافية</li>
-              <li><span class="inline-code">else</span> — الحالة الافتراضية عند فشل كل الشروط</li>
-            </ul>
-
-            <h3>switch — اختيار من حالات محددة</h3>
-            <p>
-              عندما تريد مقارنة قيمة واحدة بعدة خيارات ثابتة (مثل أيام الأسبوع أو حالة الطلب)،
-              <span class="inline-code">switch</span> أوضح من سلسلة طويلة من <span class="inline-code">else if</span>.
-              لا تنسَ <span class="inline-code">break</span> لمنع تنفيذ الحالات التالية.
-            </p>
-
-            <h3>حلقة for — تكرار بعدد معروف</h3>
-            <p>
-              تتكوّن من ثلاثة أجزاء: تهيئة العداد · شرط الاستمرار · تحديث العداد.
-              مثالية عندما تعرف عدد التكرارات مسبقاً (مثل طباعة أرقام 1 إلى 10).
-            </p>
-
-            <h3>حلقة while — تكرار بشرط</h3>
-            <p>
-              تستمر طالما الشرط <span class="inline-code">true</span>.
-              مناسبة عندما لا تعرف عدد التكرارات مسبقاً (مثل انتظار إدخال صحيح من المستخدم).
-              احذر من <strong>الحلقة اللانهائية</strong> إذا لم يتغيّر الشرط!
-            </p>
-
-            <h3>الدوال (Functions)</h3>
-            <p>
-              الدالة هي كتلة كود قابلة لإعادة الاستخدام تُنفَّذ عند استدعائها.
-              بدلاً من تكرار نفس المنطق، نكتبه مرة ونستدعيه من أي مكان.
-            </p>
-            <ul>
-              <li><span class="inline-code">function name() { }</span> — التعريف التقليدي</li>
-              <li><span class="inline-code">return</span> — إرجاع نتيجة من الدالة</li>
-              <li><strong>المعاملات (Parameters):</strong> قيم تمرّر للدالة عند الاستدعاء</li>
-            </ul>
-
-            <div class="highlight-box">
-              <strong>مبدأ DRY:</strong> Don't Repeat Yourself — اكتب المنطق مرة واحدة في دالة
-              واستخدمها في كل مكان تحتاجه.
+            <div class="analogy-box">
+              <strong>تشبيه بسيط:</strong> الشرط مثل حارس الباب — إذا عمرك 18+ بيدخّلك، وإلا بيرجعك.
             </div>
+
+            <h3>2) if — إذا تحقق الشرط</h3>
+            <ol class="step-list">
+              <li>نكتب <span class="inline-code">if</span> وبعدها الشرط بين أقواس <span class="inline-code">()</span></li>
+              <li>نفتح أقواس معقوفة <span class="inline-code">{ }</span> ونكتب الكود اللي بدنا ينفّذ</li>
+              <li>إذا الشرط <span class="inline-code">true</span> (صح) — الكود بين الأقواس ينفّذ</li>
+              <li>إذا الشرط <span class="inline-code">false</span> (غلط) — الكود بين الأقواس ما بينفّذ</li>
+            </ol>
+
+            <h3>3) else — وإلا</h3>
+            <p>
+              لما بدنا خيار بديل إذا الشرط ما تحقق، نستخدم <span class="inline-code">else</span>:
+            </p>
+            <div class="code-block">
+              <pre><code>if (age >= 18) {
+  console.log("مسموح");
+} else {
+  console.log("ممنوع");
+}</code></pre>
+            </div>
+
+            <h3>4) else if — أكتر من خيار</h3>
+            <p>
+              لما عندنا أكتر من حالة (مثل مستويات بطارية أو خصومات)، نستخدم
+              <span class="inline-code">else if</span> بين <span class="inline-code">if</span> و <span class="inline-code">else</span>.
+            </p>
+
+            <h3>5) عوامل المقارنة — كيف نقارن القيم؟</h3>
+            <div class="compare-grid">
+              <div class="compare-box">
+                <h4>== و ===</h4>
+                <p><span class="inline-code">==</span> يساوي (قد يحوّل النوع)<br>
+                <span class="inline-code">===</span> يساوي تماماً (نوع + قيمة)<br>
+                <strong>استخدم === دائماً!</strong></p>
+              </div>
+              <div class="compare-box">
+                <h4>!= و !==</h4>
+                <p><span class="inline-code">!=</span> لا يساوي<br>
+                <span class="inline-code">!==</span> لا يساوي تماماً<br>
+                <strong>استخدم !== دائماً!</strong></p>
+              </div>
+              <div class="compare-box">
+                <h4>&gt; &lt; &gt;= &lt;=</h4>
+                <p>أكبر · أصغر · أكبر أو يساوي · أصغر أو يساوي<br>
+                مثل: <span class="inline-code">score >= 60</span></p>
+              </div>
+            </div>
+
+            <div class="tip-box">
+              <strong>قاعدة ذهبية:</strong> استخدم <span class="inline-code">===</span> و <span class="inline-code">!==</span>
+              بدل <span class="inline-code">==</span> و <span class="inline-code">!=</span> — أدق وأقل أخطاء!
+              مثلاً: <span class="inline-code">"5" === 5</span> يرجع <span class="inline-code">false</span>
+              لأن واحد نص والتاني رقم.
+            </div>
+
+            <h3>6) && و || — ربط أكتر من شرط</h3>
+            <ul>
+              <li><span class="inline-code">&&</span> (و) — لازم <strong>كل</strong> الشروط تكون صح</li>
+              <li><span class="inline-code">||</span> (أو) — يكفي <strong>شرط واحد</strong> يكون صح</li>
+            </ul>
+            <p>مثال: <span class="inline-code">age >= 18 && hasID === true</span> — لازم العمر 18+ <strong>و</strong> معك هوية.</p>
+
+            <h3>7) switch — اختيار من قائمة (مبسّط)</h3>
+            <p>
+              لما عندك قيمة محددة وبدك تختار حسبها (مثل مستوى خصم)،
+              <span class="inline-code">switch</span> أوضح من كتير <span class="inline-code">if</span>:
+            </p>
+            <div class="code-block">
+              <pre><code>switch (tier) {
+  case "gold":
+    console.log("خصم 30%");
+    break;
+  case "silver":
+    console.log("خصم 15%");
+    break;
+  default:
+    console.log("بدون خصم");
+}</code></pre>
+            </div>
+            <p>لا تنسى <span class="inline-code">break</span> — بدونها الكود يكمل للحالة اللي بعدها!</p>
+
           </div>
         </section>
 
@@ -95,94 +146,247 @@
         <section class="section-block">
           <div class="section-header">
             <div class="section-icon">💻</div>
-            <h2>أمثلة الكود</h2>
+            <h2>أمثلة عملية</h2>
           </div>
 
-          <h3>مثال 1: if / else if / else</h3>
+          <h3>مثال 1: فحص العمر — طالب عمره 17 سنة</h3>
           <div class="code-block">
-            <div class="code-label">JavaScript — Conditionals</div>
-            <pre><code>const score = 75;
+            <div class="code-label">JavaScript — if / else</div>
+            <pre><code>const age = 17;
 
-if (score >= 90) {
-  console.log("ممتاز!");
-} else if (score >= 70) {
-  console.log("جيد جداً");
-} else if (score >= 50) {
-  console.log("ناجح");
+if (age >= 18) {
+  console.log("مسموح — أنت بالغ");
 } else {
-  console.log("راسب — حاول مرة أخرى");
+  console.log("لسا صغير — لازم موافقة الأهل");
 }</code></pre>
           </div>
+          <div class="expected-output">
+            <div class="expected-output-label">📤 المخرجات المتوقعة في Console</div>
+            <pre>لسا صغير — لازم موافقة الأهل</pre>
+          </div>
 
-          <h3>مثال 2: switch لحالة الطلب</h3>
+          <button class="run-demo-btn" data-demo="s10_example1">▶ شغّل المثال 1</button>
+          <div class="demo-result" id="s10_example1"></div>
+
+          <h3>مثال 2: نجاح أو رسوب في اللعبة</h3>
           <div class="code-block">
-            <div class="code-label">JavaScript — Switch</div>
-            <pre><code>const orderStatus = "shipped";
+            <div class="code-label">JavaScript — Game Score</div>
+            <pre><code>const score = 75;
+const passScore = 60;
 
-switch (orderStatus) {
-  case "pending":
-    console.log("طلبك قيد المعالجة");
+if (score >= passScore) {
+  console.log("مبروك! نجحت — النقاط:", score);
+} else {
+  console.log("حاول مرة تانية — النقاط:", score);
+}</code></pre>
+          </div>
+          <div class="expected-output">
+            <div class="expected-output-label">📤 المخرجات المتوقعة</div>
+            <pre>مبروك! نجحت — النقاط: 75</pre>
+          </div>
+
+          <button class="run-demo-btn" data-demo="s10_example2">▶ شغّل المثال 2</button>
+          <div class="demo-result" id="s10_example2"></div>
+
+          <h3>مثال 3: مستوى بطارية التلفون</h3>
+          <div class="code-block">
+            <div class="code-label">JavaScript — else if</div>
+            <pre><code>const battery = 15; // نسبة البطارية %
+
+if (battery > 50) {
+  console.log("🔋 بطارية ممتازة");
+} else if (battery > 20) {
+  console.log("🔋 بطارية متوسطة — شوّج قريب");
+} else {
+  console.log("⚠️ بطارية منخفضة! وصل الشاحن");
+}</code></pre>
+          </div>
+          <div class="expected-output">
+            <div class="expected-output-label">📤 المخرجات المتوقعة</div>
+            <pre>⚠️ بطارية منخفضة! وصل الشاحن</pre>
+          </div>
+
+          <button class="run-demo-btn" data-demo="s10_example3">▶ شغّل المثال 3</button>
+          <div class="demo-result" id="s10_example3"></div>
+
+          <h3>مثال 4: مستويات خصم تطبيق بالليرة</h3>
+          <div class="code-block">
+            <div class="code-label">JavaScript — switch + Prices</div>
+            <pre><code>const appPrice = 100000; // 100,000 ل.س
+const userTier = "gold"; // gold, silver, normal
+
+let discount = 0;
+
+switch (userTier) {
+  case "gold":
+    discount = 30000; // خصم 30,000 ل.س
     break;
-  case "shipped":
-    console.log("طلبك في الطريق إليك");
-    break;
-  case "delivered":
-    console.log("تم التسليم بنجاح");
+  case "silver":
+    discount = 15000;
     break;
   default:
-    console.log("حالة غير معروفة");
+    discount = 0;
+}
+
+const finalPrice = appPrice - discount;
+console.log("السعر النهائي:", finalPrice, "ل.س");</code></pre>
+          </div>
+          <div class="expected-output">
+            <div class="expected-output-label">📤 المخرجات المتوقعة</div>
+            <pre>السعر النهائي: 70000 ل.س</pre>
+          </div>
+
+          <button class="run-demo-btn" data-demo="s10_example4">▶ شغّل المثال 4</button>
+          <div class="demo-result" id="s10_example4"></div>
+
+          <h3>مثال 5: شروط متعددة مع &&</h3>
+          <div class="code-block">
+            <div class="code-label">JavaScript — Logical AND</div>
+            <pre><code>const age = 17;
+const hasParentConsent = true;
+
+if (age >= 18 || hasParentConsent === true) {
+  console.log("مسموح تشتري التطبيق");
+} else {
+  console.log("ممنوع — لازم موافقة");
 }</code></pre>
           </div>
+          <div class="expected-output">
+            <div class="expected-output-label">📤 المخرجات المتوقعة</div>
+            <pre>مسموح تشتري التطبيق</pre>
+          </div>
+        </section>
 
-          <h3>مثال 3: حلقة for</h3>
-          <div class="code-block">
-            <div class="code-label">JavaScript — For Loop</div>
-            <pre><code>for (let i = 1; i &lt;= 5; i++) {
-  console.log("المنتج رقم", i);
-}
-
-// جمع أرقام 1 إلى 10
-let sum = 0;
-for (let n = 1; n &lt;= 10; n++) {
-  sum += n;
-}
-console.log("المجموع:", sum);</code></pre>
+        <!-- Interactive Quiz -->
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">🎯</div>
+            <h2>تجربة تفاعلية — شو رح يطلع؟</h2>
           </div>
 
-          <h3>مثال 4: حلقة while</h3>
-          <div class="code-block">
-            <div class="code-label">JavaScript — While Loop</div>
-            <pre><code>let attempts = 0;
-const maxAttempts = 3;
-
-while (attempts &lt; maxAttempts) {
-  console.log("محاولة رقم", attempts + 1);
-  attempts++;
-}
-console.log("انتهت المحاولات");</code></pre>
+          <div class="quiz-card" data-correct="b">
+            <p class="quiz-question">سؤال 1: شو رح يطبع هالكود؟</p>
+            <div class="code-block">
+              <pre><code>const x = 10;
+if (x > 5) {
+  console.log("A");
+} else {
+  console.log("B");
+}</code></pre>
+            </div>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">B</button>
+              <button class="quiz-option" data-value="b">A</button>
+              <button class="quiz-option" data-value="c">AB</button>
+            </div>
+            <div class="quiz-feedback"></div>
           </div>
 
-          <h3>مثال 5: دوال مع return</h3>
-          <div class="code-block">
-            <div class="code-label">JavaScript — Functions</div>
-            <pre><code>function calculateTotal(price, quantity) {
-  const total = price * quantity;
-  return total;
+          <div class="quiz-card" data-correct="c">
+            <p class="quiz-question">سؤال 2: شو نتيجة المقارنة؟</p>
+            <div class="code-block">
+              <pre><code>console.log("5" === 5);</code></pre>
+            </div>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">true</button>
+              <button class="quiz-option" data-value="b">undefined</button>
+              <button class="quiz-option" data-value="c">false</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-card" data-correct="a">
+            <p class="quiz-question">سؤال 3: battery = 25 — شو رح يطبع؟</p>
+            <div class="code-block">
+              <pre><code>const battery = 25;
+if (battery > 50) {
+  console.log("عالي");
+} else if (battery > 20) {
+  console.log("متوسط");
+} else {
+  console.log("منخفض");
+}</code></pre>
+            </div>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">متوسط</button>
+              <button class="quiz-option" data-value="b">عالي</button>
+              <button class="quiz-option" data-value="c">منخفض</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+        </section>
+
+        <!-- Think Challenges -->
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">🧠</div>
+            <h2>تحديات تفكير — حسّن منطقك البرمجي</h2>
+          </div>
+
+          <div class="think-challenge">
+            <h4>🧩 تحدي 1: صلّح الشروط المكسورة!</h4>
+            <p>هالكود المفروض يطبع «نجحت» إذا score أكبر أو يساوي 60، بس فيه أخطاء:</p>
+            <div class="code-block">
+              <pre><code>let score = 75;
+if score >= 60 {
+  console.log("نجحت");
+} else
+  console.log("رسبت");
+}</code></pre>
+            </div>
+            <button class="solution-toggle" data-target="think-1">
+              <span class="toggle-text">عرض الحل والشرح</span>
+              <span class="arrow">▼</span>
+            </button>
+            <div class="solution-content" id="think-1">
+              <p><strong>الأخطاء:</strong></p>
+              <ol>
+                <li>ناقص أقواس حول الشرط: <span class="inline-code">if (score >= 60)</span></li>
+                <li>قوس إضافي <span class="inline-code">}</span> في آخر الكود</li>
+                <li>الأفضل نضع أقواس <span class="inline-code">{ }</span> حول كل كتلة else</li>
+              </ol>
+              <div class="code-block">
+                <pre><code>let score = 75;
+if (score >= 60) {
+  console.log("نجحت");
+} else {
+  console.log("رسبت");
+}
+// نجحت</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="think-challenge">
+            <h4>🧩 تحدي 2: بدون تشغيل — توقع النتيجة!</h4>
+            <p>اقرأ الكود بعناية واكتب النتيجة على ورقة:</p>
+            <div class="code-block">
+              <pre><code>const price = 80000;
+let message = "";
+
+if (price >= 100000) {
+  message = "غالي";
+} else if (price >= 50000) {
+  message = "متوسط";
+} else {
+  message = "رخيص";
 }
 
-function formatPrice(amount) {
-  return amount.toLocaleString("ar-SY") + " ل.س";
-}
-
-const bill = calculateTotal(35000, 4);
-console.log("الفاتورة:", formatPrice(bill));
-
-// Arrow function — صيغة مختصرة
-const applyDiscount = (price, percent) => {
-  return price - (price * percent / 100);
-};
-
-console.log("بعد خصم 10%:", formatPrice(applyDiscount(bill, 10)));</code></pre>
+console.log(message);</code></pre>
+            </div>
+            <button class="solution-toggle" data-target="think-2">
+              <span class="toggle-text">عرض الإجابة</span>
+              <span class="arrow">▼</span>
+            </button>
+            <div class="solution-content" id="think-2">
+              <p><strong>الحل خطوة بخطوة:</strong></p>
+              <ol>
+                <li><span class="inline-code">price = 80000</span> — مو >= 100000، إذن نروح للـ else if</li>
+                <li><span class="inline-code">80000 >= 50000</span> = <strong>true</strong></li>
+                <li>إذن <span class="inline-code">message = "متوسط"</span></li>
+              </ol>
+              <div class="expected-output"><pre>متوسط</pre></div>
+            </div>
           </div>
         </section>
 
@@ -194,62 +398,68 @@ console.log("بعد خصم 10%:", formatPrice(applyDiscount(bill, 10)));</code><
           </div>
 
           <div class="exercise-item">
-            <h4><span class="exercise-number">1</span> تصنيف العمر</h4>
-            <p>اكتب برنامجاً يصنّف العمر إلى: طفل (أقل من 13)، مراهق (13-17)، بالغ (18+).</p>
+            <h4><span class="exercise-number">1</span> فحص العمر</h4>
+            <p>العمر 17. اكتب if/else: إذا >= 18 اطبع «بالغ»، وإلا «قاصر».</p>
             <button class="solution-toggle" data-target="sol-1">
               <span class="toggle-text">عرض الحل</span>
               <span class="arrow">▼</span>
             </button>
             <div class="solution-content" id="sol-1">
               <div class="code-block">
-                <div class="code-label">Solution</div>
-                <pre><code>const age = 16;
+                <pre><code>const age = 17;
 
-if (age &lt; 13) {
-  console.log("طفل");
-} else if (age &lt;= 17) {
-  console.log("مراهق");
-} else {
+if (age >= 18) {
   console.log("بالغ");
+} else {
+  console.log("قاصر");
 }</code></pre>
               </div>
+              <div class="expected-output"><pre>قاصر</pre></div>
             </div>
           </div>
 
           <div class="exercise-item">
-            <h4><span class="exercise-number">2</span> جدول الضرب</h4>
-            <p>استخدم حلقة <span class="inline-code">for</span> لطباعة جدول ضرب الرقم 7 (من 1 إلى 10).</p>
+            <h4><span class="exercise-number">2</span> تقييم نقاط اللعبة</h4>
+            <p>score = 45. إذا >= 60 «نجحت»، وإلا «حاول مرة تانية».</p>
             <button class="solution-toggle" data-target="sol-2">
               <span class="toggle-text">عرض الحل</span>
               <span class="arrow">▼</span>
             </button>
             <div class="solution-content" id="sol-2">
               <div class="code-block">
-                <div class="code-label">Solution</div>
-                <pre><code>for (let i = 1; i &lt;= 10; i++) {
-  console.log(`7 × ${i} = ${7 * i}`);
+                <pre><code>const score = 45;
+
+if (score >= 60) {
+  console.log("نجحت");
+} else {
+  console.log("حاول مرة تانية");
 }</code></pre>
               </div>
+              <div class="expected-output"><pre>حاول مرة تانية</pre></div>
             </div>
           </div>
 
           <div class="exercise-item">
-            <h4><span class="exercise-number">3</span> دالة حساب الضريبة</h4>
-            <p>اكتب دالة <span class="inline-code">addTax(price, rate)</span> تُرجع السعر بعد إضافة نسبة ضريبة، وجرّبها على 100,000 ل.س بنسبة 5%.</p>
+            <h4><span class="exercise-number">3</span> خصم تطبيق بالليرة</h4>
+            <p>سعر التطبيق 150,000 ل.س. إذا userTier === "vip" خصم 50,000، وإلا خصم 0. اطبع السعر النهائي.</p>
             <button class="solution-toggle" data-target="sol-3">
               <span class="toggle-text">عرض الحل</span>
               <span class="arrow">▼</span>
             </button>
             <div class="solution-content" id="sol-3">
               <div class="code-block">
-                <div class="code-label">Solution</div>
-                <pre><code>function addTax(price, rate) {
-  return price + (price * rate / 100);
+                <pre><code>const appPrice = 150000;
+const userTier = "vip";
+let discount = 0;
+
+if (userTier === "vip") {
+  discount = 50000;
 }
 
-const finalPrice = addTax(100000, 5);
-console.log(`السعر النهائي: ${finalPrice} ل.س`);</code></pre>
+const finalPrice = appPrice - discount;
+console.log("السعر:", finalPrice, "ل.س");</code></pre>
               </div>
+              <div class="expected-output"><pre>السعر: 100000 ل.س</pre></div>
             </div>
           </div>
         </section>
@@ -261,22 +471,21 @@ console.log(`السعر النهائي: ${finalPrice} ل.س`);</code></pre>
             <h2>ملخص الجلسة</h2>
           </div>
           <ul class="key-points">
-            <li><span class="inline-code">if/else</span> لاتخاذ قرارات بناءً على شروط منطقية</li>
-            <li><span class="inline-code">switch</span> مناسب لقيم محددة ومتعددة — لا تنسَ <span class="inline-code">break</span></li>
-            <li><span class="inline-code">for</span> للتكرار بعدد معروف · <span class="inline-code">while</span> للتكرار بشرط</li>
-            <li>الدوال تجمع المنطق المتكرر وتُرجع نتائج عبر <span class="inline-code">return</span></li>
-            <li>Arrow functions صيغة حديثة مختصرة: <span class="inline-code">(a, b) =&gt; a + b</span></li>
+            <li>if ينفّذ كود إذا الشرط true، else للخيار البديل</li>
+            <li>else if لأكتر من حالة (بطارية، خصومات، مستويات)</li>
+            <li>استخدم === و !== للمقارنة الدقيقة (نوع + قيمة)</li>
+            <li>&& (و) — كل الشروط لازم تكون صح · || (أو) — شرط واحد يكفي</li>
+            <li>switch لاختيار من قائمة قيم — لا تنسى break</li>
+            <li>الشروط أساس أي تطبيق: ألعاب، متاجر، تحذيرات، صلاحيات</li>
           </ul>
         </section>
 
-        <!-- Homework -->
         <section class="homework-box">
           <h2>واجب اختياري</h2>
-          <p>قبل الجلسة القادمة:</p>
           <ul>
-            <li>اكتب برنامج <span class="inline-code">gradeCalculator</span> يحوّل الدرجة (0-100) إلى حرف (A/B/C/D/F)</li>
-            <li>استخدم <span class="inline-code">switch</span> لطباعة رسالة ترحيب حسب اليوم (بالإنجليزية: monday, tuesday...)</li>
-            <li>ابنِ دالة <span class="inline-code">isEven(n)</span> تُرجع true إذا كان الرقم زوجياً</li>
+            <li>اكتب برنامج يفحص بطارية تلفونك (رقم من 0 لـ 100) ويطبع 3 مستويات</li>
+            <li>برنامج خصم: إذا السعر >= 200,000 ل.س خصم 40,000 ل.س</li>
+            <li>جرب الفرق بين <span class="inline-code">==</span> و <span class="inline-code">===</span> مع نص ورقم</li>
           </ul>
         </section>
 
@@ -292,6 +501,60 @@ console.log(`السعر النهائي: ${finalPrice} ل.س`);</code></pre>
     </footer>
 
   </div>
+
+  <script>
+    // Demo: age check (17 years old)
+    function demo_s10_example1() {
+      const age = 17;
+      if (age >= 18) {
+        console.log("مسموح — أنت بالغ");
+      } else {
+        console.log("لسا صغير — لازم موافقة الأهل");
+      }
+    }
+
+    // Demo: game pass/fail based on score
+    function demo_s10_example2() {
+      const score = 75;
+      const passScore = 60;
+      if (score >= passScore) {
+        console.log("مبروك! نجحت — النقاط:", score);
+      } else {
+        console.log("حاول مرة تانية — النقاط:", score);
+      }
+    }
+
+    // Demo: phone battery level warning
+    function demo_s10_example3() {
+      const battery = 15;
+      if (battery > 50) {
+        console.log("🔋 بطارية ممتازة");
+      } else if (battery > 20) {
+        console.log("🔋 بطارية متوسطة — شوّج قريب");
+      } else {
+        console.log("⚠️ بطارية منخفضة! وصل الشاحن");
+      }
+    }
+
+    // Demo: app price discount tiers in Syrian pounds
+    function demo_s10_example4() {
+      const appPrice = 100000;
+      const userTier = "gold";
+      let discount = 0;
+      switch (userTier) {
+        case "gold":
+          discount = 30000;
+          break;
+        case "silver":
+          discount = 15000;
+          break;
+        default:
+          discount = 0;
+      }
+      const finalPrice = appPrice - discount;
+      console.log("السعر النهائي:", finalPrice, "ل.س");
+    }
+  </script>
   <script src="../shared/scripts.js"></script>
 </body>
 </html>

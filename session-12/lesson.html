@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>الجلسة 12 — DOM والتعامل مع الصفحة</title>
+  <title>الجلسة 12 — المصفوفات والأغراض</title>
   <link rel="stylesheet" href="../shared/styles.css">
 </head>
 <body>
@@ -11,8 +11,8 @@
 
     <header class="site-header">
       <div class="container">
-        <span class="course-badge">المرحلة 3 — JavaScript</span>
-        <h1>الجلسة 12: DOM — التعامل مع عناصر الصفحة</h1>
+        <span class="course-badge">المرحلة 3 — JavaScript · من الصفر</span>
+        <h1>الجلسة 12: المصفوفات والأغراض</h1>
         <div class="session-meta">
           <span>المدة: ساعة ونصف</span>
           <span>الجلسة 12 من 16</span>
@@ -31,58 +31,117 @@
     <main class="main-content">
       <div class="container">
 
+        <div class="student-welcome">
+          <h3>هدف الجلسة</h3>
+          <p>
+            اليوم نتعلم كيف نخزّن <strong>أكثر من قيمة</strong> في مكان واحد.
+            مثل قائمة ألعاب مفضلة، أو ملف شخصي فيه الاسم والعمر والمدينة —
+            هذا لا يُحفظ في متغير واحد. لذلك نستخدم <strong>المصفوفات</strong> و<strong>الأغراض</strong>.
+          </p>
+        </div>
+
         <!-- Theory -->
         <section class="section-block">
           <div class="section-header">
             <div class="section-icon">12</div>
-            <h2>الشرح النظري</h2>
+            <h2>الشرح النظري — من الصفر</h2>
           </div>
           <div class="theory-content">
-            <h3>ما هو DOM؟</h3>
+
+            <h3>1) ليش نحتاج هياكل بيانات؟</h3>
             <p>
-              DOM اختصار لـ <span class="inline-code">Document Object Model</span> —
-              تمثيل شجري لصفحة HTML يبنيها المتصفح عند التحميل.
-              JavaScript تصل إلى كل عنصر في الصفحة عبر DOM وتغيّر محتواه أو مظهره أو هيكله.
+              المتغير العادي (<span class="inline-code">const name = "George"</span>) بيحفظ <strong>قيمة واحدة</strong>.
+              بس بالحياة الحقيقية عندك قوائم: ألعاب، منتجات، أصدقاء...
+              JavaScript بتعطينا طريقتين أساسيتين لتجميع البيانات:
             </p>
 
-            <div class="highlight-box">
-              <strong>تخيّلها هكذا:</strong> HTML هو المخطط، DOM هو النموذج الحيّ القابل للتعديل،
-              و JavaScript هي أدوات البناء التي تُحرّك العناصر.
+            <div class="compare-grid">
+              <div class="compare-box">
+                <h4>Array — مصفوفة</h4>
+                <p>قائمة مرتبة: لعبة 1، لعبة 2، لعبة 3. كل عنصر له رقم (index) يبدأ من 0.</p>
+              </div>
+              <div class="compare-box">
+                <h4>Object — غرض</h4>
+                <p>بطاقة شخصية: اسم، عمر، مدينة. كل معلومة لها اسم (property).</p>
+              </div>
             </div>
 
-            <h3>اختيار العناصر (Selecting Elements)</h3>
-            <ul>
-              <li><span class="inline-code">document.getElementById("id")</span> — عنصر واحد بـ id فريد</li>
-              <li><span class="inline-code">document.querySelector(".class")</span> — أول عنصر يطابق المحدّد CSS</li>
-              <li><span class="inline-code">document.querySelectorAll("p")</span> — كل العناصر المطابقة (NodeList)</li>
-            </ul>
-
-            <div class="highlight-box">
-              <strong>الأفضلية:</strong> <span class="inline-code">querySelector</span> أكثر مرونة
-              لأنه يستخدم نفس صيغة CSS selectors التي تعرفها.
+            <div class="analogy-box">
+              <strong>تشبيه بسيط:</strong> المصفوفة = رف ألعاب مرتب بالترتيب (الأول، الثاني، الثالث...) ·
+              الغرض = بطاقة هوية فيها حقول: الاسم، العمر، المدينة
             </div>
 
-            <h3>تعديل المحتوى</h3>
+            <h3>2) المصفوفات (Arrays) — القائمة المرتبة</h3>
+
+            <h4>إنشاء مصفوفة</h4>
+            <p>بنكتب العناصر بين أقواس مربعة <span class="inline-code">[]</span> ومفصولة بفاصلة:</p>
             <ul>
-              <li><span class="inline-code">textContent</span> — نص العنصر فقط (آمن، لا يفسّر HTML)</li>
-              <li><span class="inline-code">innerHTML</span> — HTML داخل العنصر (يُفسّر الوسوم — احذر XSS)</li>
-              <li><span class="inline-code">value</span> — قيمة حقول الإدخال <span class="inline-code">input</span></li>
+              <li><span class="inline-code">const games = ["FIFA", "Minecraft", "GTA"];</span></li>
+              <li>مصفوفة فاضية: <span class="inline-code">const empty = [];</span></li>
             </ul>
 
-            <h3>إنشاء عناصر جديدة</h3>
-            <p>لإضافة محتوى ديناميكي:</p>
-            <ol>
-              <li><span class="inline-code">document.createElement("tag")</span> — إنشاء عنصر</li>
-              <li>تعيين المحتوى أو الخصائص (class, textContent...)</li>
-              <li><span class="inline-code">parent.appendChild(child)</span> — إضافته للصفحة</li>
-            </ol>
+            <h4>الوصول بالـ index — الرقم يبدأ من 0!</h4>
+            <p>
+              أول عنصر = index 0، ثاني عنصر = index 1، وهكذا.
+              <span class="inline-code">games[0]</span> يعطينا "FIFA".
+            </p>
 
-            <h3>تعديل الأنماط والخصائص</h3>
+            <div class="tip-box">
+              <strong>قاعدة مهمة:</strong> آخر عنصر = index <span class="inline-code">length - 1</span>.
+              إذا عندك 3 ألعاب، آخر index هو 2 مو 3!
+            </div>
+
+            <h4>length — كم عنصر في المصفوفة؟</h4>
+            <p><span class="inline-code">games.length</span> بيرجع عدد العناصر (مثلاً 3).</p>
+
+            <h4>push و pop — إضافة وحذف من الآخر</h4>
             <ul>
-              <li><span class="inline-code">element.classList.add("active")</span> — إضافة class</li>
-              <li><span class="inline-code">element.style.color = "red"</span> — تعديل مباشر (للحالات البسيطة)</li>
-              <li><span class="inline-code">element.setAttribute("href", url)</span> — تعديل سمة</li>
+              <li><span class="inline-code">push()</span> — يضيف عنصر <strong>آخر</strong> المصفوفة</li>
+              <li><span class="inline-code">pop()</span> — يحذف <strong>آخر</strong> عنصر ويرجعه</li>
             </ul>
+
+            <h4>التكرار على المصفوفة — for loop</h4>
+            <p>
+              لما بدنا نمر على كل عنصر ونطبعه، منستخدم حلقة
+              <span class="inline-code">for</span> مع <span class="inline-code">length</span>:
+            </p>
+            <ul>
+              <li><span class="inline-code">let i = 0</span> — نبدأ من أول index</li>
+              <li><span class="inline-code">i &lt; arr.length</span> — نوقف قبل ما نتجاوز الحد</li>
+              <li><span class="inline-code">arr[i]</span> — نقرأ العنصر الحالي</li>
+            </ul>
+
+            <h3>3) الأغراض (Objects) — البطاقة الشخصية</h3>
+
+            <h4>إنشاء غرض</h4>
+            <p>
+              بنكتب الخصائص (properties) بين أقواس معقوفة <span class="inline-code">{}</span>:
+              اسم الخاصية، ثم نقطتين، ثم القيمة.
+            </p>
+
+            <h4>الوصول للخصائص — طريقتين</h4>
+            <div class="compare-grid">
+              <div class="compare-box">
+                <h4>Dot notation — النقطة</h4>
+                <p><span class="inline-code">student.name</span> — لما تعرف اسم الخاصية مسبقاً</p>
+              </div>
+              <div class="compare-box">
+                <h4>Bracket notation — الأقواس</h4>
+                <p><span class="inline-code">student["name"]</span> — مفيد لما الاسم بمتغير</p>
+              </div>
+            </div>
+
+            <h4>أغراض متداخلة (Nested Objects)</h4>
+            <p>
+              الغرض ممكن يحتوي غرض أو مصفوفة جواته!
+              مثلاً: منتج فيه <span class="inline-code">name</span> و<span class="inline-code">price</span>
+              و<span class="inline-code">details</span> (غرض داخل غرض).
+            </p>
+
+            <div class="tip-box">
+              <strong>فرق سريع:</strong> المصفوفة = ترتيب + أرقام (0, 1, 2...) ·
+              الغرض = أسماء حقول (name, age, city...)
+            </div>
           </div>
         </section>
 
@@ -90,94 +149,266 @@
         <section class="section-block">
           <div class="section-header">
             <div class="section-icon">💻</div>
-            <h2>أمثلة الكود</h2>
+            <h2>أمثلة عملية</h2>
           </div>
 
-          <h3>مثال 1: HTML الأساسي للتجربة</h3>
+          <h3>مثال 1: مصفوفة ألعاب مفضلة</h3>
           <div class="code-block">
-            <div class="code-label">HTML — DOM Target Elements</div>
-            <pre><code>&lt;!-- index.html --&gt;
-&lt;h1 id="page-title"&gt;مرحباً&lt;/h1&gt;
-&lt;p class="intro"&gt;فقرة تعريفية&lt;/p&gt;
-&lt;ul id="product-list"&gt;&lt;/ul&gt;
-&lt;div id="price-box"&gt;&lt;/div&gt;</code></pre>
+            <div class="code-label">JavaScript — Array Basics</div>
+            <pre><code>const favoriteGames = ["FIFA", "Minecraft", "GTA"];
+
+console.log(favoriteGames);      // print whole array
+console.log(favoriteGames[0]);   // first game
+console.log(favoriteGames[2]);   // third game
+console.log(favoriteGames.length); // how many games</code></pre>
+          </div>
+          <div class="expected-output">
+            <div class="expected-output-label">📤 المخرجات المتوقعة في Console</div>
+            <pre>["FIFA","Minecraft","GTA"]
+FIFA
+GTA
+3</pre>
           </div>
 
-          <h3>مثال 2: getElementById و querySelector</h3>
+          <h3>مثال 2: push و pop — إضافة وحذف</h3>
           <div class="code-block">
-            <div class="code-label">JavaScript — Selecting Elements</div>
-            <pre><code>// By ID
-const title = document.getElementById("page-title");
-title.textContent = "متجر الإلكترونيات";
+            <div class="code-label">JavaScript — push &amp; pop</div>
+            <pre><code>const games = ["FIFA", "Minecraft"];
 
-// By CSS selector
-const intro = document.querySelector(".intro");
-intro.textContent = "أفضل الأسعار بالليرة السورية";
+games.push("Valorant");          // add new game at the end
+console.log(games);              // 3 games now
 
-// All matching elements
-const paragraphs = document.querySelectorAll("p");
-paragraphs.forEach((p) => {
-  console.log(p.textContent);
-});</code></pre>
+const removed = games.pop();     // remove last game
+console.log(removed);            // which game was removed
+console.log(games);              // array after pop</code></pre>
+          </div>
+          <div class="expected-output">
+            <div class="expected-output-label">📤 المخرجات المتوقعة</div>
+            <pre>["FIFA","Minecraft","Valorant"]
+Valorant
+["FIFA","Minecraft"]</pre>
           </div>
 
-          <h3>مثال 3: textContent مقابل innerHTML</h3>
+          <button class="run-demo-btn" data-demo="s12-example2">▶ شغّل المثال 2</button>
+          <div class="demo-result" id="s12-example2"></div>
+
+          <h3>مثال 3: حلقة for — طباعة كل لعبة</h3>
           <div class="code-block">
-            <div class="code-label">JavaScript — Content Methods</div>
-            <pre><code>const box = document.getElementById("price-box");
+            <div class="code-label">JavaScript — Loop Through Array</div>
+            <pre><code>const games = ["FIFA", "Minecraft", "GTA"];
 
-// textContent — نص فقط
-box.textContent = "السعر: 75,000 ل.س";
-
-// innerHTML — يُفسّر HTML
-box.innerHTML = `
-  &lt;strong&gt;عرض خاص!&lt;/strong&gt;
-  &lt;span style="color:green"&gt;55,000 ل.س&lt;/span&gt;
-`;</code></pre>
+for (let i = 0; i &lt; games.length; i++) {
+  console.log("Game " + (i + 1) + ": " + games[i]);
+}</code></pre>
+          </div>
+          <div class="expected-output">
+            <div class="expected-output-label">📤 المخرجات المتوقعة</div>
+            <pre>Game 1: FIFA
+Game 2: Minecraft
+Game 3: GTA</pre>
           </div>
 
-          <h3>مثال 4: createElement — بناء قائمة منتجات</h3>
+          <h3>مثال 4: غرض — ملف شخصي</h3>
           <div class="code-block">
-            <div class="code-label">JavaScript — createElement</div>
+            <div class="code-label">JavaScript — Student Profile Object</div>
+            <pre><code>const student = {
+  name: "George Ziad Shahin",
+  age: 17,
+  city: "Damascus",
+  hobbies: ["coding", "gaming", "tech"]
+};
+
+console.log(student.name);           // dot notation
+console.log(student["age"]);         // bracket notation
+console.log(student.hobbies[0]);     // first hobby from array inside object
+console.log(student.city);</code></pre>
+          </div>
+          <div class="expected-output">
+            <div class="expected-output-label">📤 المخرجات المتوقعة</div>
+            <pre>George Ziad Shahin
+17
+coding
+Damascus</pre>
+          </div>
+
+          <button class="run-demo-btn" data-demo="s12-example4">▶ شغّل المثال 4</button>
+          <div class="demo-result" id="s12-example4"></div>
+
+          <h3>مثال 5: أغراض منتجات — أسعار بالليرة السورية</h3>
+          <div class="code-block">
+            <div class="code-label">JavaScript — Product Objects</div>
+            <pre><code>const laptop = {
+  name: "Gaming Laptop",
+  price: 3200000,                  // 3,200,000 ل.س
+  inStock: true
+};
+
+const headphones = {
+  name: "Wireless Headphones",
+  price: 85000,                    // 85,000 ل.س
+  inStock: false
+};
+
+console.log(laptop.name + " — " + laptop.price + " ل.س");
+console.log(headphones.name + " — " + headphones.price + " ل.س");
+
+// nested object — product with details inside
+const phone = {
+  name: "Smartphone",
+  price: 1850000,
+  details: {
+    brand: "Samsung",
+    storage: "256GB"
+  }
+};
+
+console.log(phone.details.brand);    // nested access with dot
+console.log(phone["details"]["storage"]); // nested with brackets</code></pre>
+          </div>
+          <div class="expected-output">
+            <div class="expected-output-label">📤 المخرجات المتوقعة</div>
+            <pre>Gaming Laptop — 3200000 ل.س
+Wireless Headphones — 85000 ل.س
+Samsung
+256GB</pre>
+          </div>
+
+          <h3>مثال 6: مصفوفة فيها أغراض — متجر صغير</h3>
+          <div class="code-block">
+            <div class="code-label">JavaScript — Array of Objects</div>
             <pre><code>const products = [
-  { name: "لابتوب", price: 3200000 },
-  { name: "سماعات", price: 85000 },
-  { name: "فأرة", price: 28000 }
+  { name: "Mouse", price: 28000 },
+  { name: "Keyboard", price: 95000 },
+  { name: "Monitor", price: 450000 }
 ];
 
-const list = document.getElementById("product-list");
+for (let i = 0; i &lt; products.length; i++) {
+  console.log(products[i].name + ": " + products[i].price + " ل.س");
+}</code></pre>
+          </div>
+          <div class="expected-output">
+            <div class="expected-output-label">📤 المخرجات المتوقعة</div>
+            <pre>Mouse: 28000 ل.س
+Keyboard: 95000 ل.س
+Monitor: 450000 ل.س</pre>
+          </div>
+        </section>
 
-products.forEach((product) => {
-  const li = document.createElement("li");
-  li.textContent = `${product.name} — ${product.price.toLocaleString("ar-SY")} ل.س`;
-  list.appendChild(li);
-});</code></pre>
+        <!-- Interactive Quiz -->
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">🎯</div>
+            <h2>تجربة تفاعلية — شو رح يطلع؟</h2>
           </div>
 
-          <h3>مثال 5: بناء بطاقة منتج كاملة</h3>
-          <div class="code-block">
-            <div class="code-label">JavaScript — Dynamic Card</div>
-            <pre><code>const container = document.querySelector("#price-box");
-
-const card = document.createElement("div");
-card.classList.add("product-card");
-
-const nameEl = document.createElement("h3");
-nameEl.textContent = "هاتف ذكي";
-
-const priceEl = document.createElement("p");
-priceEl.textContent = "1,850,000 ل.س";
-
-card.appendChild(nameEl);
-card.appendChild(priceEl);
-container.appendChild(card);</code></pre>
+          <div class="quiz-card" data-correct="b">
+            <p class="quiz-question">سؤال 1: شو رح يطبع هالكود؟</p>
+            <div class="code-block">
+              <pre><code>const games = ["FIFA", "GTA", "Minecraft"];
+console.log(games[1]);</code></pre>
+            </div>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">FIFA</button>
+              <button class="quiz-option" data-value="b">GTA</button>
+              <button class="quiz-option" data-value="c">Minecraft</button>
+            </div>
+            <div class="quiz-feedback"></div>
           </div>
 
-          <div class="live-example">
-            <div class="live-example-label">معاينة حية — بطاقة منتج</div>
-            <div style="border:1px solid #ddd;padding:1rem;border-radius:8px;max-width:280px;">
-              <h3 style="margin:0 0 0.5rem;font-size:1.1rem;">هاتف ذكي</h3>
-              <p style="margin:0;color:#2e7d32;font-weight:bold;">1,850,000 ل.س</p>
+          <div class="quiz-card" data-correct="c">
+            <p class="quiz-question">سؤال 2: بعد push، شو رح يكون length؟</p>
+            <div class="code-block">
+              <pre><code>const arr = ["A", "B"];
+arr.push("C");
+console.log(arr.length);</code></pre>
+            </div>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">2</button>
+              <button class="quiz-option" data-value="b">4</button>
+              <button class="quiz-option" data-value="c">3</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-card" data-correct="a">
+            <p class="quiz-question">سؤال 3: شو رح يطبع هالكود؟</p>
+            <div class="code-block">
+              <pre><code>const student = { name: "George", age: 17 };
+console.log(student["name"]);</code></pre>
+            </div>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">George</button>
+              <button class="quiz-option" data-value="b">name</button>
+              <button class="quiz-option" data-value="c">17</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+        </section>
+
+        <!-- Think Challenges -->
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">🧠</div>
+            <h2>تحديات تفكير — حسّن منطقك البرمجي</h2>
+          </div>
+
+          <div class="think-challenge">
+            <h4>🧩 تحدي 1: بدون تشغيل — توقع النتيجة!</h4>
+            <p>اقرأ الكود بعناية واكتب النتيجة على ورقة:</p>
+            <div class="code-block">
+              <pre><code>const games = ["FIFA", "Minecraft"];
+games.push("GTA");
+games.pop();
+console.log(games.length);
+console.log(games[1]);</code></pre>
+            </div>
+            <button class="solution-toggle" data-target="think-1">
+              <span class="toggle-text">عرض الإجابة</span>
+              <span class="arrow">▼</span>
+            </button>
+            <div class="solution-content" id="think-1">
+              <p><strong>الحل خطوة بخطوة:</strong></p>
+              <ol>
+                <li>البداية: <span class="inline-code">["FIFA", "Minecraft"]</span> — length = 2</li>
+                <li>بعد <span class="inline-code">push("GTA")</span>: 3 عناصر</li>
+                <li>بعد <span class="inline-code">pop()</span>: يرجع "GTA" ويحذفها — length = <strong>2</strong></li>
+                <li><span class="inline-code">games[1]</span> = العنصر الثاني = <strong>Minecraft</strong></li>
+              </ol>
+              <div class="expected-output"><pre>2
+Minecraft</pre></div>
+            </div>
+          </div>
+
+          <div class="think-challenge">
+            <h4>🧩 تحدي 2: وصل النقاط!</h4>
+            <p>عندك غرض متداخل. شو لازم تكتب بدل <span class="inline-code">???</span> ليطبع "Damascus"؟</p>
+            <div class="code-block">
+              <pre><code>const profile = {
+  name: "George",
+  address: {
+    city: "Damascus",
+    country: "Syria"
+  }
+};
+
+console.log(profile.???.city);</code></pre>
+            </div>
+            <button class="solution-toggle" data-target="think-2">
+              <span class="toggle-text">عرض الحل والشرح</span>
+              <span class="arrow">▼</span>
+            </button>
+            <div class="solution-content" id="think-2">
+              <p><strong>الجواب:</strong> <span class="inline-code">address</span></p>
+              <p>
+                "Damascus" موجودة داخل غرض <span class="inline-code">address</span>،
+                فلازم نمر عبر <span class="inline-code">profile.address</span> أولاً،
+                بعدين <span class="inline-code">.city</span>.
+              </p>
+              <div class="code-block">
+                <pre><code>console.log(profile.address.city);        // dot notation
+console.log(profile["address"]["city"]);  // bracket notation
+// Damascus</code></pre>
+              </div>
             </div>
           </div>
         </section>
@@ -190,70 +421,83 @@ container.appendChild(card);</code></pre>
           </div>
 
           <div class="exercise-item">
-            <h4><span class="exercise-number">1</span> تغيير عنوان الصفحة</h4>
-            <p>أنشئ صفحة فيها <span class="inline-code">h1#welcome</span> وغيّر نصه عبر JavaScript إلى اسمك.</p>
+            <h4><span class="exercise-number">1</span> قائمة ألعاب</h4>
+            <p>
+              أنشئ مصفوفة فيها 4 ألعاب تحبها. اطبع أول لعبة، آخر لعبة (باستخدام index)،
+              وعدد الألعاب (<span class="inline-code">length</span>).
+            </p>
             <button class="solution-toggle" data-target="sol-1">
               <span class="toggle-text">عرض الحل</span>
               <span class="arrow">▼</span>
             </button>
             <div class="solution-content" id="sol-1">
               <div class="code-block">
-                <div class="code-label">Solution</div>
-                <pre><code>&lt;h1 id="welcome"&gt;أهلاً&lt;/h1&gt;
-&lt;script&gt;
-  const heading = document.getElementById("welcome");
-  heading.textContent = "أهلاً محمد!";
-&lt;/script&gt;</code></pre>
+                <pre><code>const myGames = ["FIFA", "Minecraft", "GTA", "Valorant"];
+
+console.log(myGames[0]);              // first game
+console.log(myGames[myGames.length - 1]); // last game
+console.log(myGames.length);          // count</code></pre>
               </div>
+              <div class="expected-output"><pre>FIFA
+Valorant
+4</pre></div>
             </div>
           </div>
 
           <div class="exercise-item">
-            <h4><span class="exercise-number">2</span> عدّاد المهام</h4>
-            <p>عرض عدد المهام في <span class="inline-code">span#task-count</span> بناءً على طول مصفوفة مهام.</p>
+            <h4><span class="exercise-number">2</span> بطاقة طالب كاملة</h4>
+            <p>
+              أنشئ غرض <span class="inline-code">student</span> فيه: name, age (17), city, hobbies (مصفوفة).
+              اطبع الاسم بالنقطة والعمر بالأقواس.
+            </p>
             <button class="solution-toggle" data-target="sol-2">
               <span class="toggle-text">عرض الحل</span>
               <span class="arrow">▼</span>
             </button>
             <div class="solution-content" id="sol-2">
               <div class="code-block">
-                <div class="code-label">Solution</div>
-                <pre><code>&lt;p&gt;عدد المهام: &lt;span id="task-count"&gt;0&lt;/span&gt;&lt;/p&gt;
-&lt;script&gt;
-  const tasks = ["قراءة", "برمجة", "رياضة"];
-  const counter = document.querySelector("#task-count");
-  counter.textContent = tasks.length;
-&lt;/script&gt;</code></pre>
+                <pre><code>const student = {
+  name: "George Ziad Shahin",
+  age: 17,
+  city: "Damascus",
+  hobbies: ["coding", "gaming", "tech"]
+};
+
+console.log(student.name);
+console.log(student["age"]);
+console.log(student.hobbies[1]);</code></pre>
               </div>
+              <div class="expected-output"><pre>George Ziad Shahin
+17
+gaming</pre></div>
             </div>
           </div>
 
           <div class="exercise-item">
-            <h4><span class="exercise-number">3</span> قائمة أسعار ديناميكية</h4>
-            <p>ابنِ قائمة <span class="inline-code">ul</span> فارغة واملأها بـ 3 منتجات وأسعارها بالليرة السورية باستخدام <span class="inline-code">createElement</span>.</p>
+            <h4><span class="exercise-number">3</span> متجر إلكترونيات صغير</h4>
+            <p>
+              أنشئ مصفوفة فيها 3 منتجات (كل منتج غرض فيه name و price بالليرة).
+              استخدم حلقة for واطبع كل منتج بصيغة: "الاسم: السعر ل.س"
+            </p>
             <button class="solution-toggle" data-target="sol-3">
               <span class="toggle-text">عرض الحل</span>
               <span class="arrow">▼</span>
             </button>
             <div class="solution-content" id="sol-3">
               <div class="code-block">
-                <div class="code-label">Solution</div>
-                <pre><code>&lt;ul id="menu"&gt;&lt;/ul&gt;
-&lt;script&gt;
-  const menu = document.getElementById("menu");
-  const items = [
-    { name: "شاي", price: 5000 },
-    { name: "قهوة", price: 8000 },
-    { name: "عصير", price: 12000 }
-  ];
+                <pre><code>const shop = [
+  { name: "USB Cable", price: 15000 },
+  { name: "Webcam", price: 120000 },
+  { name: "SSD 512GB", price: 350000 }
+];
 
-  items.forEach((item) => {
-    const li = document.createElement("li");
-    li.textContent = `${item.name}: ${item.price} ل.س`;
-    menu.appendChild(li);
-  });
-&lt;/script&gt;</code></pre>
+for (let i = 0; i &lt; shop.length; i++) {
+  console.log(shop[i].name + ": " + shop[i].price + " ل.س");
+}</code></pre>
               </div>
+              <div class="expected-output"><pre>USB Cable: 15000 ل.س
+Webcam: 120000 ل.س
+SSD 512GB: 350000 ل.س</pre></div>
             </div>
           </div>
         </section>
@@ -265,22 +509,22 @@ container.appendChild(card);</code></pre>
             <h2>ملخص الجلسة</h2>
           </div>
           <ul class="key-points">
-            <li>DOM تمثيل شجري لـ HTML يتيح لـ JavaScript التحكم بالصفحة</li>
-            <li><span class="inline-code">getElementById</span> للـ id · <span class="inline-code">querySelector</span> لأي محدّد CSS</li>
-            <li><span class="inline-code">textContent</span> آمن للنص · <span class="inline-code">innerHTML</span> يُفسّر وسوم HTML</li>
-            <li><span class="inline-code">createElement</span> + <span class="inline-code">appendChild</span> لبناء محتوى ديناميكي</li>
-            <li>الخطوة التالية: ربط هذه التقنيات بأحداث المستخدم (الجلسة 13)</li>
+            <li>المصفوفة = قائمة مرتبة، الـ index يبدأ من 0</li>
+            <li><span class="inline-code">length</span> يعطي عدد العناصر · <span class="inline-code">push</span> يضيف · <span class="inline-code">pop</span> يحذف من الآخر</li>
+            <li>حلقة <span class="inline-code">for</span> لمرور على كل عناصر المصفوفة</li>
+            <li>الغرض = خصائص بأسماء: <span class="inline-code">name</span>, <span class="inline-code">age</span>...</li>
+            <li>Dot notation (<span class="inline-code">obj.name</span>) و Bracket notation (<span class="inline-code">obj["name"]</span>)</li>
+            <li>مصفوفة فيها أغراض = أقوى تركيبة للمتاجر والقوائم الحقيقية</li>
+            <li>الجلسة الجاية: توابع سهمية + filter و map لتصفية وتحويل البيانات!</li>
           </ul>
         </section>
 
-        <!-- Homework -->
         <section class="homework-box">
           <h2>واجب اختياري</h2>
-          <p>قبل الجلسة القادمة:</p>
           <ul>
-            <li>ابنِ صفحة «معرض منتجات» تعرض 4 بطاقات من مصفوفة كائنات</li>
-            <li>استخدم <span class="inline-code">createElement</span> لكل بطاقة (اسم + سعر بالليرة السورية)</li>
-            <li>أضف <span class="inline-code">class</span> لكل بطاقة لتنسيقها لاحقاً بـ CSS</li>
+            <li>أنشئ مصفوفة <span class="inline-code">favoriteGames</span> فيها 5 ألعاب، واطبعها كلها بحلقة for</li>
+            <li>أنشئ غرض <span class="inline-code">myProfile</span> فيه اسمك، عمرك، مدينتك، ومصفوفة hobbies</li>
+            <li>أنشئ 3 منتجات tech (غرض لكل واحد) بأسعار بالليرة السورية، وحطهم بمصفوفة واطبعهم</li>
           </ul>
         </section>
 
@@ -296,6 +540,32 @@ container.appendChild(card);</code></pre>
     </footer>
 
   </div>
+
+  <script>
+    // Demo: push and pop on games array
+    function demo_s12_example2() {
+      const games = ["FIFA", "Minecraft"];
+      games.push("Valorant");
+      console.log(games);
+      const removed = games.pop();
+      console.log(removed);
+      console.log(games);
+    }
+
+    // Demo: student profile object
+    function demo_s12_example4() {
+      const student = {
+        name: "George Ziad Shahin",
+        age: 17,
+        city: "Damascus",
+        hobbies: ["coding", "gaming", "tech"]
+      };
+      console.log(student.name);
+      console.log(student["age"]);
+      console.log(student.hobbies[0]);
+      console.log(student.city);
+    }
+  </script>
   <script src="../shared/scripts.js"></script>
 </body>
 </html>
