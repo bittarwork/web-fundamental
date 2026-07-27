@@ -36,7 +36,10 @@
           <p>
             اليوم نتعلم شيئين مهمين: <strong>الحلقات</strong> — لتكرار العمل بدون كتابة نفس الكود مراراً،
             و<strong>التوابع</strong> — كتل جاهزة تستدعيها عند الحاجة.
-            مثل عدّ تنازلي قبل بدء لعبة، أو دالة تحسب النقاط تلقائياً.
+            رح نغطّي <span class="inline-code">while</span> و <span class="inline-code">break</span> و
+            <span class="inline-code">continue</span>، ونفهم الفرق بين
+            <span class="inline-code">return</span> و <span class="inline-code">console.log</span>.
+            مثل عدّ تنازلي قبل بدء لعبة، أو دالة تحسب السعر باليورو تلقائياً.
           </p>
         </div>
 
@@ -76,7 +79,8 @@
             <h3>3) حلقة while — «طالما الشرط صح»</h3>
             <p>
               <span class="inline-code">while</span> تكرّر الكود <strong>طالما</strong> الشرط true.
-              مفيدة لما ما نعرف بالضبط كم مرة بدنا نكرّر.
+              مفيدة لما ما نعرف بالضبط كم مرة بدنا نكرّر — أو لما التكرار يعتمد على حالة
+              تتغيّر أثناء التشغيل (مثل أرواح اللاعب، أو انتظار إدخال صحيح).
             </p>
 
             <div class="compare-grid">
@@ -88,18 +92,91 @@
               <div class="compare-box">
                 <h4>while</h4>
                 <p>لما التكرار يعتمد على شرط<br>
-                مثل: «طالما اللعبة شغالة»</p>
+                مثل: «طالما اللعبة شغالة» أو «طالما في أرواح»</p>
               </div>
+            </div>
+
+            <p>بنية <span class="inline-code">while</span> أبسط من <span class="inline-code">for</span> — فيها جزئين فقط:</p>
+            <ol class="step-list">
+              <li><strong>قبل الحلقة:</strong> نجهّز المتغيرات (مثل <span class="inline-code">let lives = 3</span>)</li>
+              <li><strong>الشرط:</strong> <span class="inline-code">while (lives > 0)</span> — يُفحص قبل كل دورة</li>
+              <li><strong>داخل الحلقة:</strong> الكود + تحديث المتغير (مثل <span class="inline-code">lives--</span>) — وإلا بتعلق!</li>
+            </ol>
+
+            <div class="code-block">
+              <pre><code>let lives = 3;
+
+while (lives > 0) {
+  console.log("أرواح متبقية:", lives);
+  lives--; // decrease by 1 each round
+}
+console.log("انتهت اللعبة!");</code></pre>
+            </div>
+
+            <div class="analogy-box">
+              <strong>كيف تشتغل؟</strong> المتصفح يسأل: «هل الشرط true؟»
+              → نعم: ينفّذ الكود ويرجع يسأل من جديد
+              → لا: يطلع من الحلقة ويكمل الكود اللي بعدها.
+              <br>مثل سؤال «في أرواح؟» قبل كل جولة — لما تصير 0، بتوقف.
             </div>
 
             <div class="tip-box">
               <strong>تحذير — الحلقة اللانهائية!</strong> إذا الشرط في while دايماً true،
               البرنامج ما بيوقف وبيعلق المتصفح!
               <br>مثال خطير: <span class="inline-code">while (true) { ... }</span> بدون break.
-              <br>تأكد إنو في شي يغيّر الشرط أو يوقف الحلقة.
+              <br>تأكد إنو في شي <strong>داخل</strong> الحلقة يغيّر الشرط (مثل <span class="inline-code">i++</span> أو <span class="inline-code">lives--</span>)
+              أو يستخدم <span class="inline-code">break</span> لإيقافها.
             </div>
 
-            <h3>4) شو هي الدالة (Function)؟</h3>
+            <h3>4) break و continue — التحكم داخل الحلقة</h3>
+            <p>
+              أحياناً بدنا نوقف الحلقة مبكراً أو نتخطّى دورة واحدة بدون ما نوقف كل شي.
+              هون بيجي دور <span class="inline-code">break</span> و <span class="inline-code">continue</span>.
+              (تذكّر: <span class="inline-code">break</span> استخدمناها بـ switch بالجلسة 10 — نفس الفكرة: «وقف واطلع»!)
+            </p>
+
+            <div class="compare-grid">
+              <div class="compare-box">
+                <h4>break — «وقف الحلقة»</h4>
+                <p>يوقف الحلقة <strong>فوراً</strong> ويكمل الكود اللي بعدها.<br>
+                مثل: وصلت للرقم اللي بتدور عليه — ما داعي تكمل العد.</p>
+              </div>
+              <div class="compare-box">
+                <h4>continue — «تخطّى هالدورة»</h4>
+                <p>يوقف الدورة الحالية ويروح للدورة الجاية.<br>
+                مثل: تخطّي الأرقام الزوجية واطبع الفردية بس.</p>
+              </div>
+            </div>
+
+            <div class="code-block">
+              <pre><code>// break — stop when we reach the target number
+const target = 5;
+
+for (let i = 1; i &lt;= 10; i++) {
+  console.log("جاري العد:", i);
+  if (i === target) {
+    console.log("وصلنا للهدف!");
+    break; // no need to keep counting
+  }
+}
+
+// continue — skip multiples of 3
+for (let n = 1; n &lt;= 7; n++) {
+  if (n % 3 === 0) {
+    continue; // skip 3, 6...
+  }
+  console.log(n);
+}
+// prints: 1, 2, 4, 5, 7</code></pre>
+            </div>
+
+            <div class="tip-box">
+              <strong>قاعدة سريعة:</strong>
+              <span class="inline-code">break</span> = اخرج من الحلقة كلها ·
+              <span class="inline-code">continue</span> = روح للتكرار الجاي بدون ما تنفّذ باقي الكود بهالدورة.
+            </div>
+
+            <h3>5) شو هي الدالة (Function)؟</h3>
             <p>
               الدالة (تابع) هي <strong>كتلة كود مسماة</strong> تقدر تستدعيها متى ما بدك —
               مثل وصفة طبخ: اكتبها مرة، استخدمها 100 مرة.
@@ -109,27 +186,85 @@
               <strong>تشبيه:</strong> الدالة = وصفة «تحضير قهوة» — ما بتكتب الخطوات كل مرة، بتقول «حضّر قهوة»!
             </div>
 
-            <h3>5) تعريف دالة — function</h3>
+            <h3>6) تعريف دالة — function</h3>
+            <p>تعريف الدالة = «نكتب الوصفة». استدعاء الدالة = «نطبّق الوصفة».</p>
             <ol class="step-list">
-              <li>نكتب <span class="inline-code">function</span> ثم اسم الدالة</li>
-              <li>أقواس <span class="inline-code">()</span> — فيها <strong>معاملات (parameters)</strong> اختيارية</li>
-              <li>أقواس <span class="inline-code">{ }</span> — جسم الدالة (الكود)</li>
-              <li>نستدعيها: <span class="inline-code">greet("George")</span></li>
+              <li>نكتب <span class="inline-code">function</span> ثم <strong>اسم الدالة</strong> (يفضّل يبدأ بفعل: greet, calculateScore, add)</li>
+              <li>أقواس <span class="inline-code">()</span> — فيها <strong>معاملات (parameters)</strong> اختيارية: مدخلات الوصفة</li>
+              <li>أقواس <span class="inline-code">{ }</span> — جسم الدالة: الخطوات اللي تنفّذ</li>
+              <li>نستدعيها باسمها + القيم: <span class="inline-code">greet("George")</span></li>
             </ol>
 
-            <h3>6) return — إرجاع نتيجة</h3>
+            <div class="code-block">
+              <pre><code>// definition — write the recipe once
+function greet(name) {
+  console.log("مرحباً " + name + "!");
+}
+
+// calls — use it many times with different values
+greet("George");
+greet("Sara");
+greet("Ali");</code></pre>
+            </div>
+
+            <h3>7) Parameters و Arguments — مدخلات الدالة</h3>
             <p>
-              <span class="inline-code">return</span> يرجّع قيمة من الدالة بدل ما يطبعها بس.
-              مثلاً: دالة تحسب نقاط اللعبة وترجع الرقم.
+              <strong>Parameters</strong> = الأسماء اللي نكتبها وقت تعريف الدالة (مثل <span class="inline-code">name</span>, <span class="inline-code">wins</span>).
+              <strong>Arguments</strong> = القيم الفعلية اللي نمرّرها وقت الاستدعاء (مثل <span class="inline-code">"George"</span>, <span class="inline-code">7</span>).
             </p>
 
             <div class="code-block">
+              <pre><code>function showPrice(item, price) {
+  // item and price are parameters
+  console.log(item + " — " + price + " €");
+}
+
+showPrice("Coffee", 3);   // arguments: "Coffee", 3
+showPrice("Cake", 5);     // arguments: "Cake", 5</code></pre>
+            </div>
+
+            <p>
+              الدالة ما بتشتغل لحالها — لازم <strong>نستدعيها</strong>.
+              ممكن نستدعيها أكثر من مرة بقيم مختلفة، وكل استدعاء ينفّذ الكود من جديد.
+            </p>
+
+            <h3>8) return — إرجاع نتيجة</h3>
+            <p>
+              <span class="inline-code">return</span> يرجّع قيمة من الدالة و<strong>يوقف</strong> تنفيذها.
+              الفرق عن <span class="inline-code">console.log</span>: الطباعة بتعرض بالكونسول بس؛
+              <span class="inline-code">return</span> بترجع قيمة تقدر تخزّنها أو تستخدمها بحسابات لاحقة.
+            </p>
+
+            <div class="compare-grid">
+              <div class="compare-box">
+                <h4>console.log داخل الدالة</h4>
+                <p>يطبع وخلص — ما ترجع قيمة للاستخدام<br>
+                النتيجة: <span class="inline-code">undefined</span></p>
+              </div>
+              <div class="compare-box">
+                <h4>return</h4>
+                <p>يرجّع قيمة — تقدر تحفظها بمتغير<br>
+                مثل: <span class="inline-code">const total = calculateScore(5, 10)</span></p>
+              </div>
+            </div>
+
+            <div class="code-block">
               <pre><code>function add(a, b) {
-  return a + b;
+  return a + b; // send result back to caller
 }
 
 const result = add(5, 3);
-console.log(result); // 8</code></pre>
+console.log(result); // 8
+
+// use return value in another calculation
+const doubled = add(5, 3) * 2;
+console.log(doubled); // 16</code></pre>
+            </div>
+
+            <div class="tip-box">
+              <strong>متى أستخدم return؟</strong> لما الدالة «تحسب» شي وتريده ترجع —
+              مثل السعر النهائي، مجموع النقاط، أو تحويل درجة حرارة.
+              استخدم <span class="inline-code">console.log</span> بس للعرض والتجربة أثناء التعلّم.
             </div>
 
           </div>
@@ -185,28 +320,121 @@ for (let i = 1; i <= 10; i++) {
           <button class="run-demo-btn" data-demo="s11_example2">▶ شغّل المثال 2</button>
           <div class="demo-result" id="s11_example2"></div>
 
-          <h3>مثال 3: while — جمع أرقام</h3>
+          <h3>مثال 3: while — أرواح اللعبة</h3>
+          <p>سيناريو واقعي: اللعبة تستمر «طالما في أرواح» — كل جولة تنقص رصيد الأرواح.</p>
           <div class="code-block">
-            <div class="code-label">JavaScript — while loop</div>
-            <pre><code>let sum = 0;
-let n = 1;
+            <div class="code-label">JavaScript — while loop (game lives)</div>
+            <pre><code>let lives = 3;
 
-while (n <= 5) {
-  sum = sum + n;
-  n++;
+console.log("🎮 بدأت اللعبة!");
+
+while (lives > 0) {
+  console.log("جولة — أرواح متبقية:", lives);
+  lives--; // lose one life each round
 }
 
-console.log("المجموع:", sum);</code></pre>
+console.log("💀 انتهت اللعبة — ما عاد في أرواح");</code></pre>
           </div>
           <div class="expected-output">
             <div class="expected-output-label">📤 المخرجات المتوقعة</div>
-            <pre>المجموع: 15</pre>
+            <pre>🎮 بدأت اللعبة!
+جولة — أرواح متبقية: 3
+جولة — أرواح متبقية: 2
+جولة — أرواح متبقية: 1
+💀 انتهت اللعبة — ما عاد في أرواح</pre>
           </div>
 
           <button class="run-demo-btn" data-demo="s11_example3">▶ شغّل المثال 3</button>
           <div class="demo-result" id="s11_example3"></div>
 
-          <h3>مثال 4: دالة ترحيب — greet</h3>
+          <h3>مثال 4: break — أوقف العد عند رقم معيّن</h3>
+          <p>بدنا نعد من 1 لـ 10 — بس أول ما نوصل للرقم 5، نوقف الحلقة بـ break.</p>
+          <div class="code-block">
+            <div class="code-label">JavaScript — break in loop</div>
+            <pre><code>const targetNumber = 5;
+
+for (let i = 1; i &lt;= 10; i++) {
+  console.log("جاري العد:", i);
+
+  if (i === targetNumber) {
+    console.log("✓ وصلنا للرقم المطلوب!");
+    break; // stop — no need to count 6, 7, 8...
+  }
+}
+
+console.log("انتهى العد");</code></pre>
+          </div>
+          <div class="expected-output">
+            <div class="expected-output-label">📤 المخرجات المتوقعة</div>
+            <pre>جاري العد: 1
+جاري العد: 2
+جاري العد: 3
+جاري العد: 4
+جاري العد: 5
+✓ وصلنا للرقم المطلوب!
+انتهى العد</pre>
+          </div>
+
+          <button class="run-demo-btn" data-demo="s11_example4">▶ شغّل المثال 4</button>
+          <div class="demo-result" id="s11_example4"></div>
+
+          <h3>مثال 5: continue — تخطّي مضاعفات 3</h3>
+          <p>بدنا نطبع أرقام من 1 لـ 10، بس نتخطّى أي رقم يقبل القسمة على 3.</p>
+          <div class="code-block">
+            <div class="code-label">JavaScript — continue in loop</div>
+            <pre><code>for (let n = 1; n &lt;= 10; n++) {
+  if (n % 3 === 0) {
+    continue; // skip 3, 6, 9 — go to next n
+  }
+  console.log(n);
+}</code></pre>
+          </div>
+          <div class="expected-output">
+            <div class="expected-output-label">📤 المخرجات المتوقعة</div>
+            <pre>1
+2
+4
+5
+7
+8
+10</pre>
+          </div>
+
+          <button class="run-demo-btn" data-demo="s11_example5">▶ شغّل المثال 5</button>
+          <div class="demo-result" id="s11_example5"></div>
+
+          <h3>مثال 6: while + break — تخمين الرقم السري</h3>
+          <p>حلقة while لا نهائية (<span class="inline-code">while (true)</span>) — نوقفها بـ break أول ما نصيب الرقم.</p>
+          <div class="code-block">
+            <div class="code-label">JavaScript — while with break</div>
+            <pre><code>const secretNumber = 7;
+let guess = 1;
+
+while (true) {
+  console.log("تخمين:", guess);
+
+  if (guess === secretNumber) {
+    console.log("🎉 صبت! الرقم كان", secretNumber);
+    break; // stop the loop — we found it!
+  }
+
+  guess++;
+}</code></pre>
+          </div>
+          <div class="expected-output">
+            <div class="expected-output-label">📤 المخرجات المتوقعة (أول 3 أسطر)</div>
+            <pre>تخمين: 1
+تخمين: 2
+تخمين: 3
+...
+🎉 صبت! الرقم كان 7</pre>
+          </div>
+
+          <button class="run-demo-btn" data-demo="s11_example6">▶ شغّل المثال 6</button>
+          <div class="demo-result" id="s11_example6"></div>
+
+          <h3>مثال 7: دالة ترحيب — greet</h3>
+          <p>نكتب الدالة مرة واحدة ونستدعيها بأسماء مختلفة — كل استدعاء ينفّذ نفس الكود بقيمة جديدة.</p>
           <div class="code-block">
             <div class="code-label">JavaScript — Function</div>
             <pre><code>function greet(name) {
@@ -222,10 +450,11 @@ greet("Ziad");</code></pre>
 مرحباً Ziad! أهلاً فيك 👋</pre>
           </div>
 
-          <button class="run-demo-btn" data-demo="s11_example4">▶ شغّل المثال 4</button>
-          <div class="demo-result" id="s11_example4"></div>
+          <button class="run-demo-btn" data-demo="s11_example7">▶ شغّل المثال 7</button>
+          <div class="demo-result" id="s11_example7"></div>
 
-          <h3>مثال 5: دالة تحسب نقاط اللعبة</h3>
+          <h3>مثال 8: دالة تحسب نقاط اللعبة + return</h3>
+          <p>هون الدالة <strong>ترجع</strong> رقم النقاط — نقدر نستخدمه بعدين بـ if للتحقق من النجاح.</p>
           <div class="code-block">
             <div class="code-label">JavaScript — Function with return</div>
             <pre><code>function calculateScore(wins, bonus) {
@@ -249,8 +478,38 @@ if (georgeScore >= 60) {
 مبروك! نجحت</pre>
           </div>
 
-          <button class="run-demo-btn" data-demo="s11_example5">▶ شغّل المثال 5</button>
-          <div class="demo-result" id="s11_example5"></div>
+          <button class="run-demo-btn" data-demo="s11_example8">▶ شغّل المثال 8</button>
+          <div class="demo-result" id="s11_example8"></div>
+
+          <h3>مثال 9: دالة تحسب السعر النهائي باليورو</h3>
+          <p>دالة بـ return ترجع قيمة — نستخدمها بعدين بحسابات أو شروط if.</p>
+          <div class="code-block">
+            <div class="code-label">JavaScript — Function with parameters and return</div>
+            <pre><code>function finalPrice(basePrice, discountPercent) {
+  const discount = basePrice * (discountPercent / 100);
+  const total = basePrice - discount;
+  return total; // return value in euros
+}
+
+const price1 = finalPrice(100, 20); // 100 € with 20% off
+const price2 = finalPrice(50, 10);  // 50 € with 10% off
+
+console.log("السعر بعد الخصم:", price1, "€");
+console.log("السعر بعد الخصم:", price2, "€");
+
+if (price1 &lt; 90) {
+  console.log("عرض ممتاز! أقل من 90 €");
+}</code></pre>
+          </div>
+          <div class="expected-output">
+            <div class="expected-output-label">📤 المخرجات المتوقعة</div>
+            <pre>السعر بعد الخصم: 80 €
+السعر بعد الخصم: 45 €
+عرض ممتاز! أقل من 90 €</pre>
+          </div>
+
+          <button class="run-demo-btn" data-demo="s11_example9">▶ شغّل المثال 9</button>
+          <div class="demo-result" id="s11_example9"></div>
         </section>
 
         <!-- Interactive Quiz -->
@@ -302,6 +561,38 @@ console.log(add(4, 6));</code></pre>
               <button class="quiz-option" data-value="a">5</button>
               <button class="quiz-option" data-value="b">0</button>
               <button class="quiz-option" data-value="c">1</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-card" data-correct="b">
+            <p class="quiz-question">سؤال 4: كم مرة رح يطبع «محاولة»؟</p>
+            <div class="code-block">
+              <pre><code>for (let i = 1; i &lt;= 10; i++) {
+  console.log("محاولة:", i);
+  if (i === 3) {
+    break;
+  }
+}</code></pre>
+            </div>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">4 مرات</button>
+              <button class="quiz-option" data-value="b">3 مرات</button>
+              <button class="quiz-option" data-value="c">1 مرة</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-card" data-correct="a">
+            <p class="quiz-question">سؤال 5: شو الفرق بين parameter و argument؟</p>
+            <div class="code-block">
+              <pre><code>function greet(name) { ... }
+greet("George");</code></pre>
+            </div>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">name = parameter · "George" = argument</button>
+              <button class="quiz-option" data-value="b">"George" = parameter · name = argument</button>
+              <button class="quiz-option" data-value="c">نفس الشي — ما في فرق</button>
             </div>
             <div class="quiz-feedback"></div>
           </div>
@@ -365,6 +656,41 @@ console.log(total);</code></pre>
                 <li>i=4: total = 6+4 = <strong>10</strong></li>
               </ol>
               <div class="expected-output"><pre>10</pre></div>
+            </div>
+          </div>
+
+          <div class="think-challenge">
+            <h4>🧩 تحدي 3: break vs continue — شو الفرق؟</h4>
+            <p>بدون تشغيل — أي كود يطبع أقل أرقام؟</p>
+            <div class="compare-grid">
+              <div class="compare-box">
+                <h4>الكود A</h4>
+                <div class="code-block">
+                  <pre><code>for (let i = 1; i &lt;= 5; i++) {
+  if (i === 3) break;
+  console.log(i);
+}</code></pre>
+                </div>
+              </div>
+              <div class="compare-box">
+                <h4>الكود B</h4>
+                <div class="code-block">
+                  <pre><code>for (let i = 1; i &lt;= 5; i++) {
+  if (i === 3) continue;
+  console.log(i);
+}</code></pre>
+                </div>
+              </div>
+            </div>
+            <button class="solution-toggle" data-target="think-3">
+              <span class="toggle-text">عرض الإجابة</span>
+              <span class="arrow">▼</span>
+            </button>
+            <div class="solution-content" id="think-3">
+              <p><strong>الكود A (break):</strong> يطبع 1، 2 — عند i=3 يوقف الحلقة كلها.</p>
+              <p><strong>الكود B (continue):</strong> يطبع 1، 2، 4، 5 — عند i=3 يتخطّى بس ويكمل.</p>
+              <div class="expected-output"><pre>A → 1, 2
+B → 1, 2, 4, 5</pre></div>
             </div>
           </div>
         </section>
@@ -437,6 +763,56 @@ console.log(score);</code></pre>
               <div class="expected-output"><pre>60</pre></div>
             </div>
           </div>
+
+          <div class="exercise-item">
+            <h4><span class="exercise-number">4</span> continue — أرقام فردية فقط</h4>
+            <p>استخدم for من 1 لـ 10 و continue لتخطّي الأرقام الزوجية — اطبع الفردية بس.</p>
+            <button class="solution-toggle" data-target="sol-4">
+              <span class="toggle-text">عرض الحل</span>
+              <span class="arrow">▼</span>
+            </button>
+            <div class="solution-content" id="sol-4">
+              <div class="code-block">
+                <pre><code>for (let n = 1; n &lt;= 10; n++) {
+  if (n % 2 === 0) {
+    continue; // skip even numbers
+  }
+  console.log(n);
+}</code></pre>
+              </div>
+              <div class="expected-output"><pre>1
+3
+5
+7
+9</pre></div>
+            </div>
+          </div>
+
+          <div class="exercise-item">
+            <h4><span class="exercise-number">5</span> break — أوقف عند 100</h4>
+            <p>حلقة while تجمع أرقام (1+2+3...) — أوقفها بـ break لما المجموع يوصل 100 أو أكثر.</p>
+            <button class="solution-toggle" data-target="sol-5">
+              <span class="toggle-text">عرض الحل</span>
+              <span class="arrow">▼</span>
+            </button>
+            <div class="solution-content" id="sol-5">
+              <div class="code-block">
+                <pre><code>let sum = 0;
+let n = 1;
+
+while (true) {
+  sum = sum + n;
+  if (sum >= 100) {
+    break; // stop when we reach 100
+  }
+  n++;
+}
+
+console.log("المجموع:", sum, "— توقف عند n =", n);</code></pre>
+              </div>
+              <div class="expected-output"><pre>المجموع: 105 — توقف عند n = 14</pre></div>
+            </div>
+          </div>
         </section>
 
         <!-- Key Points -->
@@ -447,11 +823,13 @@ console.log(score);</code></pre>
           </div>
           <ul class="key-points">
             <li>for: start; condition; step — للتكرار بعدد معروف</li>
-            <li>while: طالما الشرط true — انتبه من الحلقات اللانهائية!</li>
+            <li>while: طالما الشرط true — جهّز المتغير قبلها، حدّثه داخلها، وانتبه من الحلقات اللانهائية!</li>
+            <li>break: أوقف الحلقة فوراً · continue: تخطّى الدورة الحالية وروح للجاية</li>
             <li>i++ يعني زيادة العداد بـ 1 · count-- يعني نقصان بـ 1</li>
-            <li>function = وصفة قابلة لإعادة الاستخدام</li>
-            <li>parameters = مدخلات الدالة · return = النتيجة المرجعة</li>
-            <li>الحلقات + التوابع = أساس أي برنامج حقيقي</li>
+            <li>function = وصفة قابلة لإعادة الاستخدام — عرّف مرة، استدعِ كم مرة بدك</li>
+            <li>parameters = أسماء المدخلات وقت التعريف · arguments = القيم وقت الاستدعاء</li>
+            <li>return يرجّع قيمة ويوقف الدالة · console.log للعرض بس</li>
+            <li>الحلقات + التوابع + break/continue = أساس أي برنامج حقيقي</li>
           </ul>
         </section>
 
@@ -461,6 +839,8 @@ console.log(score);</code></pre>
             <li>اكتب عد تنازلي من 10 لـ 1 قبل «ابدأ اللعبة»</li>
             <li>جدول ضرب الرقم 7 (من 1 لـ 10)</li>
             <li>دالة double(n) ترجع n × 2 — جرب double(8)</li>
+            <li>حلقة while تطبع «محاولة 1»، «محاولة 2»... لحد 5 محاولات</li>
+            <li>استخدم continue لطباعة أرقام 1–20 ما عدا مضاعفات 5</li>
           </ul>
         </section>
 
@@ -495,19 +875,56 @@ console.log(score);</code></pre>
       }
     }
 
-    // Demo: sum numbers 1 to 5 using while
+    // Demo: game lives with while loop
     function demo_s11_example3() {
-      let sum = 0;
-      let n = 1;
-      while (n <= 5) {
-        sum = sum + n;
-        n++;
+      let lives = 3;
+      console.log("🎮 بدأت اللعبة!");
+      while (lives > 0) {
+        console.log("جولة — أرواح متبقية:", lives);
+        lives--;
       }
-      console.log("المجموع:", sum);
+      console.log("💀 انتهت اللعبة — ما عاد في أرواح");
+    }
+
+    // Demo: break when target number is reached
+    function demo_s11_example4() {
+      const targetNumber = 5;
+      for (let i = 1; i <= 10; i++) {
+        console.log("جاري العد:", i);
+        if (i === targetNumber) {
+          console.log("✓ وصلنا للرقم المطلوب!");
+          break;
+        }
+      }
+      console.log("انتهى العد");
+    }
+
+    // Demo: continue to skip multiples of 3
+    function demo_s11_example5() {
+      for (let n = 1; n <= 10; n++) {
+        if (n % 3 === 0) {
+          continue;
+        }
+        console.log(n);
+      }
+    }
+
+    // Demo: while(true) with break when secret number is found
+    function demo_s11_example6() {
+      const secretNumber = 7;
+      let guess = 1;
+      while (true) {
+        console.log("تخمين:", guess);
+        if (guess === secretNumber) {
+          console.log("🎉 صبت! الرقم كان", secretNumber);
+          break;
+        }
+        guess++;
+      }
     }
 
     // Demo: greet function with parameters
-    function demo_s11_example4() {
+    function demo_s11_example7() {
       function greet(name) {
         console.log("مرحباً " + name + "! أهلاً فيك 👋");
       }
@@ -516,7 +933,7 @@ console.log(score);</code></pre>
     }
 
     // Demo: calculate game score with return
-    function demo_s11_example5() {
+    function demo_s11_example8() {
       function calculateScore(wins, bonus) {
         const pointsPerWin = 10;
         const total = (wins * pointsPerWin) + bonus;
@@ -528,6 +945,22 @@ console.log(score);</code></pre>
         console.log("مبروك! نجحت");
       } else {
         console.log("حاول مرة تانية");
+      }
+    }
+
+    // Demo: final price function with return in euros
+    function demo_s11_example9() {
+      function finalPrice(basePrice, discountPercent) {
+        const discount = basePrice * (discountPercent / 100);
+        const total = basePrice - discount;
+        return total;
+      }
+      const price1 = finalPrice(100, 20);
+      const price2 = finalPrice(50, 10);
+      console.log("السعر بعد الخصم:", price1, "€");
+      console.log("السعر بعد الخصم:", price2, "€");
+      if (price1 < 90) {
+        console.log("عرض ممتاز! أقل من 90 €");
       }
     }
   </script>
