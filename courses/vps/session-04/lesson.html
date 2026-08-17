@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 04 — الوصول إلى السيرفر</title>
+  <link rel="stylesheet" href="../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="vps" data-session="04">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+        <div class="student-welcome"><h3>هدف الجلسة</h3><p>ندخل من متصفح Hostinger ثم من جهازنا عبر SSH، وننتقل تدريجياً إلى المفاتيح بدل كلمة المرور وحدها.</p></div>
+        <section class="section-block"><div class="section-header"><div class="section-icon">04</div><h2>الشرح النظري</h2></div><div class="theory-content">
+      <h3>1) Browser Terminal</h3>
+      <p>من Overview افتح الطرفية في المتصفح. اسم المستخدم root وكلمة المرور التي ضبطتها. مناسب لأول يوم ومن جهاز بلا أدوات.</p>
+      <h3>2) SSH من جهازك</h3>
+      <p>SSH نفق مشفّر إلى السيرفر. على لينكس/ماك/ويندوز حديث:</p>
+      <div class="code-block"><pre><code>ssh root@YOUR_SERVER_IP</code></pre></div>
+      <p>اكتب yes لأول مرة (بصمة المضيف). ثم كلمة root. في ويندوز القديم قد يُستخدم عميل SSH مدمج في Terminal.</p>
+      <h3>3) مفاتيح SSH</h3>
+      <p>زوج ملفات: خاص يبقى عندك، عام يوضع على السيرفر. أأمن من كلمة مرور تُعاد كتابتها.</p>
+      <div class="code-block"><pre><code>ssh-keygen -t ed25519 -C "osama.bittar@example.com"</code></pre></div>
+      <p>أضف المفتاح العام من hPanel: VPS → SSH Keys، أو الصقه في <span class="inline-code">~/.ssh/authorized_keys</span> على السيرفر.</p>
+      <div class="tip-box"><strong>Hostinger</strong> يسمح بحفظ المفاتيح في الحساب وربطها بالسيرفر دون نسخ يدوي في كل مرة.</div>
+      <h3>4) VS Code Remote</h3>
+      <p>امتداد Remote - SSH يفتح ملفات السيرفر كمشروع. مفيد بعد أن يثبت الدخول من الطرفية.</p>
+      <h3>5) عادات العمل</h3>
+      <ul>
+        <li>لا تعمل كل يوم كـ root بعد إنشاء مستخدم نشر (جلسة 07).</li>
+        <li>لا تعطِ زملاءك كلمة root؛ أعطهم مفتاحاً أو مستخدماً محدوداً.</li>
+        <li>إن فشل الدخول: تحقق من IP، الحالة Running، وجدار hPanel للمنفذ 22.</li>
+      </ul>
+    </div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">💻</div><h2>أمثلة عملية</h2></div>
+      <h3>مثال 1: أول أمر بعد الدخول</h3>
+      <div class="code-block"><pre><code>whoami
+hostname
+uname -a</code></pre></div>
+      <h3>مثال 2: نسخ المفتاح يدوياً</h3>
+      <div class="code-block"><pre><code>ssh-copy-id root@YOUR_SERVER_IP</code></pre></div>
+      <p>إن لم يتوفر الأمر، انسخ محتوى <span class="inline-code">id_ed25519.pub</span> فقط — ليس الملف بلا .pub.</p>
+      <h3>مثال 3: إعداد مضيف في ~/.ssh/config</h3>
+      <div class="code-block"><pre><code>Host academy-vps
+  HostName YOUR_SERVER_IP
+  User root
+  IdentityFile ~/.ssh/id_ed25519</code></pre></div>
+      <p>بعدها: <span class="inline-code">ssh academy-vps</span></p>
+    </section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">🎯</div><h2>اختبار سريع</h2></div><div class="quiz-card" data-correct="b"><p class="quiz-question">الملف الذي يُرفع للسيرفر:</p><div class="quiz-options"><button class="quiz-option" data-value="a">id_ed25519 بلا امتداد (الخاص)</button><button class="quiz-option" data-value="b">id_ed25519.pub (العام)</button><button class="quiz-option" data-value="c">كلمة root داخل Dockerfile</button></div><div class="quiz-feedback"></div></div><div class="quiz-card" data-correct="a"><p class="quiz-question">Browser Terminal مفيد لـ:</p><div class="quiz-options"><button class="quiz-option" data-value="a">أول دخول بلا تثبيت عميل</button><button class="quiz-option" data-value="b">حذف Git من الجهاز</button><button class="quiz-option" data-value="c">شراء النطاق تلقائياً</button></div><div class="quiz-feedback"></div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">✏️</div><h2>تمارين عملية</h2></div><div class="exercise-item"><h4><span class="exercise-number">1</span> طرفية المتصفح</h4><p>ادخل ونفّذ whoami.</p><button class="solution-toggle" data-target="v04-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="v04-1"><div class="code-block"><pre><code># expected: root</code></pre></div></div></div><div class="exercise-item"><h4><span class="exercise-number">2</span> SSH محلي</h4><p>اتصل من جهازك بنفس الأمر.</p><button class="solution-toggle" data-target="v04-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="v04-2"><div class="code-block"><pre><code>ssh root@YOUR_SERVER_IP</code></pre></div></div></div><div class="exercise-item"><h4><span class="exercise-number">3</span> مفتاح</h4><p>أنشئ مفتاحاً وأضفه من hPanel أو authorized_keys.</p><button class="solution-toggle" data-target="v04-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="v04-3"><p>اختبر دخولاً بلا كتابة كلمة المرور إن أمكن.</p></div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📌</div><h2>ملخص الجلسة</h2></div><ul class="key-points"><li>مساران: المتصفح وSSH</li><li>المفتاح العام فقط يُشارك</li><li>الجهاز الخاص يبقى سرياً</li></ul></section>
+        <section class="homework-box"><h2>واجب الجلسة</h2><ul><li>ثبّت الدخول بالمفتاح</li><li>احفظ Host في config</li><li>لا تضع المفتاح الخاص في المشروع</li></ul></section></div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../shared/course-data.js"></script>
+  <script src="../../shared/layout.js"></script>
+  <script src="../../shared/scripts.js"></script>
+</body>
+</html>

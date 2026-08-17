@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 06 — توجيه متقدم وحماية المسارات</title>
+  <link rel="stylesheet" href="../../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="react-advanced" data-session="06">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+
+        <div class="student-welcome">
+          <h3>هدف الجلسة</h3>
+          <p>نبني تخطيطات متداخلة، نقرأ البحث من الرابط، ونحمي صفحات اللوحة بجلسة بسيطة.</p>
+        </div>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">06</div>
+            <h2>الشرح النظري</h2>
+          </div>
+          <div class="theory-content">
+            <h3>1) Nested layouts</h3>
+            <p>تخطيط لوحة فيه قائمة جانبية وOutlet للمحتوى. المسارات الأبناء تُرسم داخله.</p>
+            <h3>2) Outlet context</h3>
+            <p>مرّر بيانات التخطيط للأبناء بلا نفخ props في كل Route.</p>
+            <h3>3) useSearchParams</h3>
+            <p>الفلاتر في الرابط قابلة للمشاركة: ?q=react&amp;min=29</p>
+            <h3>4) Protected routes</h3>
+            <p>إن لم توجد جلسة، Navigate إلى /login مع state من أين جاء المستخدم.</p>
+            <div class="warning-box"><strong>هذا ليس أمناً حقيقياً للسيرفر.</strong> حماية الواجهة تمنع التجول العرضي فقط.</div>
+      </div>
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">💻</div>
+            <h2>أمثلة عملية</h2>
+          </div>
+          
+          <h3>مثال 1: تخطيط محمي</h3>
+          <div class="code-block"><pre><code>function RequireSession({ children }) {
+  const { session } = useSession();
+  const location = useLocation();
+  if (!session) {
+    return &lt;Navigate to="/login" replace state={{ from: location }} /&gt;;
+  }
+  return children;
+}</code></pre></div>
+          <h3>مثال 2: فلاتر في URL</h3>
+          <div class="code-block"><pre><code>const [params, setParams] = useSearchParams();
+const query = params.get("q") || "";
+
+function onSearch(value) {
+  setParams({ q: value });
+}</code></pre></div>
+          <h3>مثال 3: سياق الـ Outlet</h3>
+          <div class="code-block"><pre><code>function DeskLayout() {
+  return (
+    &lt;div&gt;
+      &lt;aside&gt;Osama Bittar&lt;/aside&gt;
+      &lt;Outlet context={{ currency: "€" }} /&gt;
+    &lt;/div&gt;
+  );
+}</code></pre></div>
+      
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">🎯</div>
+            <h2>اختبار سريع</h2>
+          </div>
+                    <div class="quiz-card" data-correct="b">
+            <p class="quiz-question">حفظ الفلتر في search params يفيد:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">إخفاء الرابط</button>
+              <button class="quiz-option" data-value="b">مشاركة الحالة عبر نسخ الرابط</button>
+              <button class="quiz-option" data-value="c">تعطيل Git</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+          <div class="quiz-card" data-correct="a">
+            <p class="quiz-question">Navigate replace عند الدخول:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">لا يكدّس صفحة الدخول في التاريخ</button>
+              <button class="quiz-option" data-value="b">يحذف المستودع</button>
+              <button class="quiz-option" data-value="c">يغيّر العملة تلقائياً</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">✏️</div>
+            <h2>تمارين عملية</h2>
+          </div>
+                    <div class="exercise-item">
+            <h4><span class="exercise-number">1</span> حارس</h4>
+            <p>غلّف /desk بـ RequireSession.</p>
+            <button class="solution-toggle" data-target="ra06-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="ra06-1">
+              <p>انظر مثال 1 وضع المسارات الأبناء تحته.</p>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">2</span> بحث</h4>
+            <p>حقل يحدّث ?q= ويعيد التصفية.</p>
+            <button class="solution-toggle" data-target="ra06-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="ra06-2">
+              <div class="code-block"><pre><code>setParams(query ? { q: query } : {});</code></pre></div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">3</span> عملة من التخطيط</h4>
+            <p>اقرأ currency من useOutletContext واعرض 49 €.</p>
+            <button class="solution-toggle" data-target="ra06-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="ra06-3">
+              <div class="code-block"><pre><code>const { currency } = useOutletContext();</code></pre></div>
+            </div>
+          </div>
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">📌</div>
+            <h2>ملخص الجلسة</h2>
+          </div>
+          <ul class="key-points">
+            <li>التخطيط المتداخل يثبت الصدفة</li>
+            <li>الرابط مصدر حقيقة للفلاتر</li>
+            <li>حماية الواجهة ≠ أمن API</li>
+          </ul>
+        </section>
+        <section class="homework-box">
+          <h2>واجب الجلسة</h2>
+          <ul>
+            <li>ابنِ login وهمي يضع session في context</li>
+            <li>لوحة /desk/courses مع بحث في URL</li>
+            <li>بعد الدخول ارجع للمكان from</li>
+          </ul>
+        </section>
+      </div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../../shared/course-data.js"></script>
+  <script src="../../../shared/layout.js"></script>
+  <script src="../../../shared/scripts.js"></script>
+</body>
+</html>

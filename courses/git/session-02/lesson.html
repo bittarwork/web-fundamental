@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 02 — الفروع والتاريخ والتراجع الآمن</title>
+  <link rel="stylesheet" href="../../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="git" data-session="02">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+
+        <div class="student-welcome">
+          <h3>هدف الجلسة</h3>
+          <p>
+            نقرأ الفروقات، نتجاهل الملفات غير المطلوبة، نعمل على فروع،
+            ندمجها في main، ونتراجع بحذر دون تدمير التاريخ.
+          </p>
+        </div>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">02</div>
+            <h2>الشرح النظري</h2>
+          </div>
+          <div class="theory-content">
+            <h3>1) git diff</h3>
+            <p>
+              يعرض ما تغيّر ولم يُضف بعد إلى الانتظار.
+              <span class="inline-code">git diff --staged</span>
+              يعرض ما ينتظر الـ commit.
+              السطور الخضراء إضافة، والحمراء حذف.
+            </p>
+
+            <h3>2) git restore</h3>
+            <p>
+              لإلغاء تعديل في ملف لم يُحفظ بعد:
+              <span class="inline-code">git restore notes.txt</span>
+              يعيده لآخر commit.
+            </p>
+            <p>
+              لإخراج ملف من الانتظار دون حذف التعديل من القرص:
+              <span class="inline-code">git restore --staged notes.txt</span>.
+            </p>
+            <div class="tip-box">
+              <strong>في إصدارات أقدم</strong> قد ترى
+              <span class="inline-code">git checkout -- file</span>
+              لنفس فكرة restore. فضّل restore لأنه أوضح.
+            </div>
+
+            <h3>3) ملف .gitignore</h3>
+            <p>
+              بعض الملفات لا تُرفع أبداً: مجلدات البناء،
+              <span class="inline-code">node_modules</span>،
+              <span class="inline-code">.env</span>،
+              ملفات نظام التشغيل.
+              ضع أسماءها في <span class="inline-code">.gitignore</span>
+              في جذر المشروع ثم اعمل commit لهذا الملف نفسه.
+            </p>
+            <div class="warning-box">
+              <strong>الأسرار:</strong> كلمات المرور ومفاتيح API لا تدخل Git.
+              إذا أضفتها بالخطأ لا يكفي حذف السطر لاحقاً — تبقى في التاريخ. اسأل المدرب قبل أي «تنظيف» متقدم.
+            </div>
+
+            <h3>4) الفروع</h3>
+            <p>
+              الفرع خط عمل مستقل. <span class="inline-code">main</span>
+              هو الخط المستقر. ميزة جديدة تُبنى على فرع مثل
+              <span class="inline-code">feature/contact-page</span>
+              حتى لا تُكسر النسخة الجاهزة.
+            </p>
+            <div class="analogy-box">
+              <strong>تشبيه:</strong> main = الشارع الرئيسي.
+              الفرع = ورشة جانبية. بعد نجاح التجربة تُفتح الورشة على الشارع (merge).
+            </div>
+            <div class="code-block">
+              <pre><code>git branch
+git switch -c feature/about
+git switch main</code></pre>
+            </div>
+            <p>
+              <span class="inline-code">git switch -c name</span> ينشئ الفرع وينقلك إليه.
+              <span class="inline-code">git branch</span> يعرض الفروع والنجمة على الحالي.
+            </p>
+
+            <h3>5) git merge</h3>
+            <p>
+              وأنت على main:
+              <span class="inline-code">git merge feature/about</span>
+              يدخل عمل الفرع.
+              إن كان main لم يتقدّم قد يكون الدمج Fast-forward (تحريك المؤشر فقط).
+              إن عمل الاثنان على تواريخ مختلفة يُنشأ commit دمج.
+            </p>
+            <p>التعارضات عندما يعدّل الطرفان نفس الأسطر — نحلّها في الجلسة 05.</p>
+
+            <h3>6) قراءة السجل كشجرة</h3>
+            <div class="code-block">
+              <pre><code>git log --oneline --graph --all</code></pre>
+            </div>
+            <p>ترى تفرّع الخطوط ثم التقاءها بعد الدمج.</p>
+
+            <h3>7) التراجع الآمن</h3>
+            <ul>
+              <li><strong>restore:</strong> تراجع عن ملفات غير committed.</li>
+              <li><strong>commit --amend:</strong> تصحيح آخر commit إن لم يُرفع بعد (تعديل الرسالة أو نسيان ملف صغير).</li>
+              <li><strong>reset --soft HEAD~1:</strong> يلغي آخر commit ويبقي التغييرات في الانتظار.</li>
+              <li><strong>reset --mixed HEAD~1:</strong> يلغي الـ commit ويبقي التعديلات في المجلد دون staging.</li>
+            </ul>
+            <div class="warning-box">
+              <strong>تجنّب git reset --hard</strong> في هذه الدورة إلا بطلب صريح وبعد فهم أن الملفات غير المحفوظة قد تُفقد.
+              لا تستخدمه على عمل مشترك مرفوع.
+            </div>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">💻</div>
+            <h2>أمثلة عملية</h2>
+          </div>
+
+          <h3>مثال 1: مشاهدة الفرق ثم الاستعادة</h3>
+          <div class="code-block">
+            <pre><code>echo "draft line" >> notes.txt
+git diff
+git restore notes.txt
+git status</code></pre>
+          </div>
+
+          <h3>مثال 2: تجاهل ملفات النظام</h3>
+          <div class="code-block">
+            <pre><code>echo ".env" > .gitignore
+echo "node_modules/" >> .gitignore
+echo ".DS_Store" >> .gitignore
+git add .gitignore
+git commit -m "Ignore env files and dependencies"</code></pre>
+          </div>
+
+          <h3>مثال 3: فرع لصفحة عن المدرب</h3>
+          <div class="code-block">
+            <pre><code>git switch -c feature/about
+echo "&lt;h1&gt;About Osama Bittar&lt;/h1&gt;" > about.html
+git add about.html
+git commit -m "Add about page for the trainer"
+git switch main
+git merge feature/about
+git log --oneline --graph --all</code></pre>
+          </div>
+
+          <h3>مثال 4: تعديل رسالة آخر commit (محلياً فقط)</h3>
+          <div class="code-block">
+            <pre><code>git commit --amend -m "Add about page for Osama Bittar"</code></pre>
+          </div>
+          <p>لا تعدّل commits رُفعت إلى GitHub وشاركها الآخرون.</p>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">🎯</div>
+            <h2>اختبار سريع</h2>
+          </div>
+          <div class="quiz-card" data-correct="b">
+            <p class="quiz-question">فرع الميزة يُستخدم لـ:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">حذف Git من الجهاز</button>
+              <button class="quiz-option" data-value="b">تطوير تغيير منعزل ثم دمجه في main</button>
+              <button class="quiz-option" data-value="c">استبدال HTML بـ CSS</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+          <div class="quiz-card" data-correct="a">
+            <p class="quiz-question">ملف .env في مشاريع الويب:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">يُذكر في .gitignore ولا يُرفع</button>
+              <button class="quiz-option" data-value="b">يُرفع دائماً إلى GitHub العام</button>
+              <button class="quiz-option" data-value="c">بديل عن git commit</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">✏️</div>
+            <h2>تمارين عملية</h2>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">1</span> إخراج من الانتظار</h4>
+            <p>أضف ملفاً بـ add ثم أخرجه بـ restore --staged دون حذف الملف.</p>
+            <button class="solution-toggle" data-target="g02-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="g02-1">
+              <div class="code-block">
+                <pre><code>git add draft.txt
+git restore --staged draft.txt</code></pre>
+              </div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">2</span> فرع الأسعار</h4>
+            <p>أنشئ فرعاً feature/pricing فيه سطر «Price: 29 €» ثم ادمجه في main.</p>
+            <button class="solution-toggle" data-target="g02-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="g02-2">
+              <div class="code-block">
+                <pre><code>git switch -c feature/pricing
+echo "Price: 29 €" > pricing.txt
+git add pricing.txt
+git commit -m "Add course price in EUR"
+git switch main
+git merge feature/pricing</code></pre>
+              </div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">3</span> شجرة السجل</h4>
+            <p>اعرض كل الفروع بشكل رسم بعد الدمج.</p>
+            <button class="solution-toggle" data-target="g02-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="g02-3">
+              <div class="code-block">
+                <pre><code>git log --oneline --graph --all</code></pre>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">📌</div>
+            <h2>ملخص الجلسة</h2>
+          </div>
+          <ul class="key-points">
+            <li>diff يوضح التغيير قبل الحفظ</li>
+            <li>.gitignore يحمي الأسرار والمجلدات الثقيلة</li>
+            <li>اعمل على فرع ثم ادمج إلى main</li>
+            <li>restore آمن · reset --hard خطير</li>
+          </ul>
+        </section>
+
+        <section class="homework-box">
+          <h2>واجب الجلسة</h2>
+          <ul>
+            <li>أضف .gitignore لمشروع academy-notes</li>
+            <li>ابنِ فرعين صغيرين (مثلاً about و pricing) وادمجهما</li>
+            <li>التقط صورة لخرج git log --oneline --graph --all في الواجب</li>
+          </ul>
+        </section>
+
+      </div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../../shared/course-data.js"></script>
+  <script src="../../../shared/layout.js"></script>
+  <script src="../../../shared/scripts.js"></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 05 — REST وعمليات CRUD</title>
+  <link rel="stylesheet" href="../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="backend" data-session="05">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+        <div class="student-welcome"><h3>هدف الجلسة</h3><p>نصمّم API حول مورد الكورسات في الذاكرة: قراءة وإنشاء وتحديث وحذف بردود موحّدة.</p></div>
+        <section class="section-block"><div class="section-header"><div class="section-icon">05</div><h2>الشرح النظري</h2></div><div class="theory-content"><h3>1) REST Principles و Resource-Based APIs</h3>
+  <p>اسم جمع للمورد: /api/courses. لا أفعال في المسار مثل /getCourses. الفعل في طريقة HTTP.</p>
+  <h3>2) CRUD مقابل الطرق</h3>
+  <ul>
+    <li>GET قائمة وGET واحد</li>
+    <li>POST إنشاء</li>
+    <li>PUT استبدال كامل · PATCH تحديث جزئي</li>
+    <li>DELETE حذف</li>
+  </ul>
+  <h3>3) API Response Structure</h3>
+  <div class="code-block"><pre><code>{ "success": true, "data": { } }
+{ "success": false, "message": "Course not found" }</code></pre></div>
+  <p>السعر داخل المورد باليورو: <span class="inline-code">price: 49</span> مع حقل currency: "EUR".</p></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">💻</div><h2>أمثلة عملية</h2></div><h3>مثال 1: قائمة في الذاكرة</h3><div class="code-block"><pre><code>let courses = [
+  { id: "1", title: "React", price: 49, trainer: "Osama Bittar" }
+];</code></pre></div>
+  <h3>مثال 2: POST</h3><div class="code-block"><pre><code>export function createCourse(req, res) {
+  const course = { id: String(Date.now()), ...req.body };
+  courses.push(course);
+  res.status(201).json({ success: true, data: course });
+}</code></pre></div>
+  <h3>مثال 3: DELETE</h3><div class="code-block"><pre><code>courses = courses.filter((item) => item.id !== req.params.id);
+res.status(200).json({ success: true, data: null });</code></pre></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">🎯</div><h2>اختبار سريع</h2></div><div class="quiz-card" data-correct="a"><p class="quiz-question">قائمة الموارد تناسب:</p><div class="quiz-options"><button class="quiz-option" data-value="a">GET /api/courses</button><button class="quiz-option" data-value="b">POST /api/delete</button><button class="quiz-option" data-value="c">GET /api/getAll</button></div><div class="quiz-feedback"></div></div><div class="quiz-card" data-correct="b"><p class="quiz-question">إنشاء مورد جديد:</p><div class="quiz-options"><button class="quiz-option" data-value="a">404</button><button class="quiz-option" data-value="b">201 مع الجسم</button><button class="quiz-option" data-value="c">301 دائماً</button></div><div class="quiz-feedback"></div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">✏️</div><h2>تمارين عملية</h2></div><div class="exercise-item"><h4><span class="exercise-number">1</span> GET واحد</h4><p>404 إن لم يوجد id.</p><button class="solution-toggle" data-target="b05-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="b05-1"><div class="code-block"><pre><code>if (!course) return res.status(404).json({ success: false, message: "Not found" });</code></pre></div></div></div><div class="exercise-item"><h4><span class="exercise-number">2</span> PATCH</h4><p>حدّث السعر فقط.</p><button class="solution-toggle" data-target="b05-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="b05-2"><div class="code-block"><pre><code>course.price = req.body.price ?? course.price;</code></pre></div></div></div><div class="exercise-item"><h4><span class="exercise-number">3</span> شكل الرد</h4><p>وحّد success/data في كل المسارات.</p><button class="solution-toggle" data-target="b05-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="b05-3"><p>لا ترجع مصفوفة عارية دون غلاف إن اعتمدت الغلاف.</p></div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📌</div><h2>ملخص الجلسة</h2></div><ul class="key-points"><li>المورد في المسار · الفعل في الطريقة</li><li>CRUD خمسة مسارات شائعة</li><li>رد موحّد يسهّل الواجهة</li></ul></section>
+        <section class="homework-box"><h2>واجب الجلسة</h2><ul><li>CRUD كامل في الذاكرة لمورد courses</li><li>أسعار € واسم المدرب</li><li>اختبر الطرق الخمس</li></ul></section></div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../shared/course-data.js"></script>
+  <script src="../../shared/layout.js"></script>
+  <script src="../../shared/scripts.js"></script>
+</body>
+</html>

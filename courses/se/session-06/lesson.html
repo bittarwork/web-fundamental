@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 06 — هندسة البرمجيات</title>
+  <link rel="stylesheet" href="../../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="se" data-session="06">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+        <div class="student-welcome"><h3>هدف الجلسة</h3><p>نحوّل المتطلبات إلى ممثلين وحالات استخدام وقصص مستخدم مع تتبع إلى FR.</p></div>
+        <section class="section-block"><div class="section-header"><div class="section-icon">06</div><h2>الشرح النظري</h2></div>
+          <div class="theory-content">
+            <h3>1) الممثلون (Actors)</h3>
+            <p>العميل، عامل المطبخ، السائق، المشغّل (Dispatcher)، المحاسب، النظام الخارجي (Payment, Maps). الممثل قد يكون نظاماً لا إنساناً.</p>
+            <h3>2) حالة الاستخدام</h3>
+            <p>Use Case تصف هدفاً يحققه الممثل مع النظام: Place Order، Assign Driver، Settle Wallet. نذكر السيناريو السعيد والاستثناءات.</p>
+            <h3>3) Include و Extend</h3>
+            <p>احتساب السعر Include داخل Place Order. تطبيق كوبون Extend اختياري. لا تفرط في الأسهم حتى يبقى المخطط مقروءاً.</p>
+            <h3>4) قصص المستخدم</h3>
+            <p>صيغة: كـ [دور]، أريد [هدف]، حتى [قيمة]. ثم معايير قبول. القصة لا تغني عن FR؛ هي جسر للتواصل.</p>
+            <div class="tip-box"><strong>تتبع:</strong> UC-ORD-01 ← FR-ORD-01. إذا وُجدت قصة بلا FR فإمّا متطلب ناقص أو قصة زائدة.</div>
+          </div>
+        </section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📐</div><h2>مخططات ووثائق عملية</h2></div>
+          <div class="diagram-box"><div class="diagram-caption">Use case sketch (main)</div>                 (Place Order)
+  Customer --------(Track Order)
+                 (Cancel Order)
+  Kitchen  --------(Update Prep Status)
+  Dispatcher ------(Assign Driver)
+  Driver   --------(Accept Job)
+           --------(Confirm Delivery)
+  Finance  --------(Weekly Settlement)
+  PaymentGW --&lt;&lt;include&gt;&gt;-- (Pay Online)</div>
+          <div class="spec-table-wrap"><table class="spec-table"><thead><tr><th>Story</th><th>دور</th><th>قبول</th></tr></thead><tbody><tr><td>Place an order</td><td>Customer</td><td>مجموع € ظاهر، رقم طلب، حالة Placed</td></tr><tr><td>Mark ready</td><td>Kitchen</td><td>Ready يُطلق طلب تعيين سائق</td></tr><tr><td>Accept job</td><td>Driver</td><td>الحالة PickedUp بعد المسح/التأكيد</td></tr></tbody></table></div>
+          </section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">🎯</div><h2>اختبار سريع</h2></div><div class="quiz-card" data-correct="a">
+            <p class="quiz-question">بوابة الدفع في مخطط الاستخدام:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">ممثل خارجي</button>
+              <button class="quiz-option" data-value="b">عميل بشري</button>
+              <button class="quiz-option" data-value="c">صنف طعام</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div><div class="quiz-card" data-correct="b">
+            <p class="quiz-question">قصة بلا معيار قبول:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">جاهزة للتطوير</button>
+              <button class="quiz-option" data-value="b">ناقصة حتى تُضاف شروط قابلة للفحص</button>
+              <button class="quiz-option" data-value="c">تغني عن SRS</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">✏️</div><h2>تمارين عملية</h2></div><div class="exercise-item">
+            <h4><span class="exercise-number">1</span> وصف UC</h4>
+            <p>اكتب UC-DRV-02 رفض السائق للطلب مع استثناء.</p>
+            <button class="solution-toggle" data-target="se06-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="se06-1"><p>السعيد: يرفض خلال مهلة 45 ثانية فيُعاد التعيين. الاستثناء: بعد القبول لا رفض إلا عبر المشغّل مع سبب.</p></div>
+          </div><div class="exercise-item">
+            <h4><span class="exercise-number">2</span> ثلاث قصص مالية</h4>
+            <p>للمحاسب والسائق والمالك.</p>
+            <button class="solution-toggle" data-target="se06-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="se06-2"><p>المحاسب: كشف أسبوعي. السائق: رؤية الرصيد. المالك: إيراد اليوم باليورو.</p></div>
+          </div><div class="exercise-item">
+            <h4><span class="exercise-number">3</span> مصفوفة تتبع</h4>
+            <p>اربط 5 UC بـ FR من الجلسة 04.</p>
+            <button class="solution-toggle" data-target="se06-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="se06-3"><p>UC-ORD-01→FR-ORD-01، UC-KIT-01→FR-KIT-01، UC-DRV-01→FR-DRV-01، UC-FIN-01→FR-FIN-01، UC-CUS-01→FR-CUS-01.</p></div>
+          </div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📌</div><h2>ملخص الجلسة</h2></div>
+          <ul class="key-points"><li>الممثل قد يكون نظاماً خارجياً</li><li>Use Case هدف لا شاشة</li><li>القصص للتواصل وFR للعقد</li><li>التتبع يكشف النقص مبكراً</li></ul>
+        </section>
+        <section class="homework-box"><h2>واجب الجلسة</h2><ul><li>مخطط Use Case رئيسي</li><li>وصف تفصيلي لثلاث UC حرجة</li><li>عشر قصص مستخدم مع قبول</li></ul></section>
+      </div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../../shared/course-data.js"></script>
+  <script src="../../../shared/layout.js"></script>
+  <script src="../../../shared/scripts.js"></script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 15 — المشروع النهائي — المرحلة الثانية</title>
+  <link rel="stylesheet" href="../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="backend" data-session="15">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+        <div class="student-welcome"><h3>هدف الجلسة</h3><p>نربط الصلاحيات والعلاقات والتحقق والرفع والبحث والترقيم، ثم نختبر ونراجع الكود.</p></div>
+        <section class="section-block"><div class="section-header"><div class="section-icon">15</div><h2>الشرح النظري</h2></div><div class="theory-content"><h3>1) Authorization و Roles و Ownership</h3>
+  <p>أكمل وسطاء الأدمن والملكية على التعديل والحذف.</p>
+  <h3>2) Relationships</h3>
+  <p>populate للمالك في التفاصيل. لا تُظهر password.</p>
+  <h3>3) Validation و Error Handling</h3>
+  <p>معالج مركزي و404 ورسائل تحقق عربية أو إنجليزية موحّدة (الإنجليزية في JSON كما في أمثلة الدورة).</p>
+  <h3>4) Search و Filtering و Pagination و File Uploads</h3>
+  <p>قائمة قوية ورفع صورة الغلاف.</p>
+  <h3>5) Security Fundamentals</h3>
+  <p>CORS مقيّد، أسرار في env، حد لمسار login، ترويسات أساسية.</p>
+  <h3>6) API Testing و Debugging و Code Organization و المراجعة</h3>
+  <p>مجموعة طلبات تغطي السعادة والفشل (401/403/400/404). لا أخطاء غير ملتقطة في الطرفية عند المسار السعيد.</p>
+  <div class="tip-box"><strong>معيار الاكتمال:</strong> واجهة React لاحقة تستطيع عرض الكورسات وتسجيل الدخول دون تعديل العقد.</div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">💻</div><h2>أمثلة عملية</h2></div><h3>مثال 1: قائمة مراجعة</h3>
+  <ul>
+    <li>register/login/me</li>
+    <li>CRUD + صلاحيات</li>
+    <li>q / minPrice / page / limit</li>
+    <li>رفع صورة</li>
+    <li>.env غير مرفوع</li>
+  </ul>
+  <h3>مثال 2: اختبار سريع</h3><div class="code-block"><pre><code>curl -s http://localhost:3000/api/courses?page=1&limit=5</code></pre></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">🎯</div><h2>اختبار سريع</h2></div><div class="quiz-card" data-correct="b"><p class="quiz-question">قبل التسليم نتأكد أن:</p><div class="quiz-options"><button class="quiz-option" data-value="a">كلمة JWT في GitHub</button><button class="quiz-option" data-value="b">لا أسرار في المستودع والمسار السعيد بلا تعطل</button><button class="quiz-option" data-value="c">كل المسارات بلا تحقق</button></div><div class="quiz-feedback"></div></div><div class="quiz-card" data-correct="a"><p class="quiz-question">populate يجب أن يستبعد:</p><div class="quiz-options"><button class="quiz-option" data-value="a">password</button><button class="quiz-option" data-value="b">title</button><button class="quiz-option" data-value="c">price</button></div><div class="quiz-feedback"></div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">✏️</div><h2>تمارين عملية</h2></div><div class="exercise-item"><h4><span class="exercise-number">1</span> صلاحيات</h4><p>403 لمستخدم يمسح كورس غيره.</p><button class="solution-toggle" data-target="b15-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="b15-1"><p>اختبر بتوكن user.</p></div></div><div class="exercise-item"><h4><span class="exercise-number">2</span> قائمة</h4><p>بحث وترقيم يعملان.</p><button class="solution-toggle" data-target="b15-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="b15-2"><p>?q=node&page=1</p></div></div><div class="exercise-item"><h4><span class="exercise-number">3</span> مراجعة</h4><p>ثلاث ملاحظات تحسين وجدتها.</p><button class="solution-toggle" data-target="b15-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="b15-3"><p>مثال: توحيد الرسائل، نقل فلتر إلى service، إخفاء _v.</p></div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📌</div><h2>ملخص الجلسة</h2></div><ul class="key-points"><li>API عقد للواجهة الأمامية</li><li>الأمن جزء من التسليم</li><li>المراجعة ليست اختيارية</li></ul></section>
+        <section class="homework-box"><h2>واجب الجلسة</h2><ul><li>تسليم: مستودع + مجموعة اختبار + README تشغيل محلي (إن طُلب لاحقاً منك) دون رفع أسرار</li><li>أسعار € واسم Osama Bittar في البيانات</li><li>الخادم يعمل على PORT من env</li></ul></section></div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../shared/course-data.js"></script>
+  <script src="../../shared/layout.js"></script>
+  <script src="../../shared/scripts.js"></script>
+</body>
+</html>

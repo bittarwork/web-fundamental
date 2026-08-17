@@ -6,29 +6,12 @@
   <title>الجلسة 09 — أول خطوة في JavaScript: المتغيرات</title>
   <link rel="stylesheet" href="../shared/styles.css">
 </head>
-<body>
+<body class="lesson-page" data-page="lesson" data-course="web" data-session="09">
   <div class="page-wrapper">
 
-    <header class="site-header">
-      <div class="container">
-        <span class="course-badge">المرحلة 3 — JavaScript · من الصفر</span>
-        <h1>الجلسة 09: أول خطوة — ما هو JS والمتغيرات</h1>
-        <div class="session-meta">
-          <span>المدة: ساعة ونصف</span>
-          <span>الجلسة 9 من 16</span>
-        </div>
-      </div>
-    </header>
+    <div id="layout-header"></div>
 
-    <nav class="lesson-nav">
-      <div class="container">
-        <a href="../index.html" class="nav-link">الرئيسية</a>
-        <a href="../session-08/lesson.html" class="nav-link">→ السابقة</a>
-        <a href="../session-10/lesson.html" class="nav-link">التالية ←</a>
-      </div>
-    </nav>
-
-    <main class="main-content">
+    <main class="main-content" id="main-content">
       <div class="container">
 
         <!-- Theory -->
@@ -40,7 +23,7 @@
           <div class="theory-content">
 
             <div class="tip-box">
-              <strong>ملاحظة:</strong> في أمثلة هذا الكورس نستخدم اسم <span class="inline-code">George</span> كقيمة تجريبية في الكود.
+              <strong>ملاحظة:</strong> في أمثلة هذا الكورس نستخدم اسم <span class="inline-code">Osama</span> كقيمة تجريبية في الكود.
             </div>
 
             <h3>1) شو هو JavaScript أصلاً؟</h3>
@@ -89,7 +72,7 @@
 
             <h3>5) أنواع البيانات الأساسية</h3>
             <ul>
-              <li><strong>String (نص):</strong> <span class="inline-code">"George"</span> — بين علامات تنصيص</li>
+              <li><strong>String (نص):</strong> <span class="inline-code">"Osama"</span> — بين علامات تنصيص</li>
               <li><strong>Number (رقم):</strong> <span class="inline-code">17</span> — بدون علامات تنصيص</li>
               <li><strong>Boolean (صح/غلط):</strong> <span class="inline-code">true</span> أو <span class="inline-code">false</span></li>
             </ul>
@@ -118,18 +101,18 @@
           <h3>مثال 1: أول سطر كود</h3>
           <div class="code-block">
             <div class="code-label">JavaScript</div>
-            <pre><code>console.log("Hello George!");</code></pre>
+            <pre><code>console.log("Hello Osama!");</code></pre>
           </div>
           <div class="expected-output">
             <div class="expected-output-label">📤 المخرجات المتوقعة في Console</div>
-            <pre>Hello George!</pre>
+            <pre>Hello Osama!</pre>
           </div>
 
           <h3>مثال 2: متغيرات شخصية</h3>
           <div class="code-block">
             <div class="code-label">JavaScript — Variables</div>
-            <pre><code>const firstName = "George";
-const lastName = "Shahin";
+            <pre><code>const firstName = "Osama";
+const lastName = "Bittar";
 const age = 17;
 const lovesTech = true;
 
@@ -140,8 +123,8 @@ console.log(lovesTech);</code></pre>
           </div>
           <div class="expected-output">
             <div class="expected-output-label">📤 المخرجات المتوقعة</div>
-            <pre>George
-Shahin
+            <pre>Osama
+Bittar
 17
 true</pre>
           </div>
@@ -185,13 +168,13 @@ console.log("السعر النهائي:", finalPrice, "ل.س");</code></pre>
           <h3>مثال 5: دمج النصوص</h3>
           <div class="code-block">
             <div class="code-label">JavaScript — Concatenation</div>
-            <pre><code>const name = "George";
+            <pre><code>const name = "Osama";
 const message = "Welcome " + name + "!";
 console.log(message);</code></pre>
           </div>
           <div class="expected-output">
             <div class="expected-output-label">📤 المخرجات المتوقعة</div>
-            <pre>Welcome George!</pre>
+            <pre>Welcome Osama!</pre>
           </div>
         </section>
 
@@ -257,7 +240,7 @@ console.log(city);</code></pre>
             <h4>🧩 تحدي 1: صلّح الكود!</h4>
             <p>هالكود فيه 3 أخطاء. حاول تكتشفها قبل ما تشوف الحل:</p>
             <div class="code-block">
-              <pre><code>let Name = "george";
+              <pre><code>let Name = "osama";
 const age = "17";
 let score = 0
 score = score + 10
@@ -275,12 +258,12 @@ console.log(name, age, score);</code></pre>
                 <li>ناقص <span class="inline-code">;</span> في نهاية السطرين (اختياري بس الأفضل نضيفها)</li>
               </ol>
               <div class="code-block">
-                <pre><code>let name = "George";
+                <pre><code>let name = "Osama";
 const age = 17;
 let score = 0;
 score = score + 10;
 console.log(name, age, score);
-// George 17 10</code></pre>
+// Osama 17 10</code></pre>
               </div>
             </div>
           </div>
@@ -319,14 +302,14 @@ console.log(result);</code></pre>
 
           <div class="exercise-item">
             <h4><span class="exercise-number">1</span> بطاقة شخصية</h4>
-            <p>أنشئ متغيرات: الاسم الكامل، العمر (17)، المدينة، وهل يحب التقنية (true). اطبعهم.</p>
+            <p>أنشئ متغيرات: الاسم الكامل <span class="inline-code">Osama Bittar</span>، العمر (17)، المدينة، وهل يحب التقنية (true). اطبعهم.</p>
             <button class="solution-toggle" data-target="sol-1">
               <span class="toggle-text">عرض الحل</span>
               <span class="arrow">▼</span>
             </button>
             <div class="solution-content" id="sol-1">
               <div class="code-block">
-                <pre><code>const fullName = "George Ziad Shahin";
+                <pre><code>const fullName = "Osama Bittar";
 const age = 17;
 const city = "Damascus";
 const lovesTech = true;
@@ -336,7 +319,7 @@ console.log(age);
 console.log(city);
 console.log(lovesTech);</code></pre>
               </div>
-              <div class="expected-output"><pre>George Ziad Shahin
+              <div class="expected-output"><pre>Osama Bittar
 17
 Damascus
 true</pre></div>
@@ -398,30 +381,24 @@ console.log("المجموع:", total, "ل.س");
         <section class="homework-box">
           <h2>واجب اختياري</h2>
           <ul>
-            <li>أنشئ ملف <span class="inline-code">practice.js</span> وفيه 5 متغيرات عنك</li>
+            <li>أنشئ ملف <span class="inline-code">practice.js</span> وفيه 5 متغيرات عن المدرب Osama</li>
             <li>احسب مجموع 3 أرقام واطبع النتيجة</li>
-            <li>اكتب رسالة ترحيب فيها اسمك باستخدام <span class="inline-code">+</span></li>
+            <li>اكتب رسالة ترحيب فيها اسم <span class="inline-code">Osama</span> باستخدام <span class="inline-code">+</span></li>
           </ul>
         </section>
 
       </div>
     </main>
 
-    <footer class="site-footer">
-      <div class="container">
-        <p class="footer-course">أساسيات الويب — الكورس الأول</p>
-        <p class="footer-instructor">محمد أسامة بيطار · مهندس معلوماتية · مدرب علوم ويب</p>
-        <p class="footer-copy">الجلسة 09 من 16</p>
-      </div>
-    </footer>
+    <div id="layout-footer"></div>
 
   </div>
 
   <script>
     // Demo function for session 09 example 2
     function demo_s09_example2() {
-      const firstName = "George";
-      const lastName = "Shahin";
+      const firstName = "Osama";
+      const lastName = "Bittar";
       const age = 17;
       const lovesTech = true;
       console.log(firstName);
@@ -430,6 +407,8 @@ console.log("المجموع:", total, "ل.س");
       console.log(lovesTech);
     }
   </script>
+  <script src="../shared/course-data.js"></script>
+  <script src="../shared/layout.js"></script>
   <script src="../shared/scripts.js"></script>
 </body>
 </html>

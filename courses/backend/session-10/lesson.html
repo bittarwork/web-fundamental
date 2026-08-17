@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 10 — التفويض وأدوار المستخدم</title>
+  <link rel="stylesheet" href="../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="backend" data-session="10">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+        <div class="student-welcome"><h3>هدف الجلسة</h3><p>نفرّق المصادقة عن التفويض، ونحمي الموارد حسب الدور وملكية المستند.</p></div>
+        <section class="section-block"><div class="section-header"><div class="section-icon">10</div><h2>الشرح النظري</h2></div><div class="theory-content"><h3>1) Authentication vs Authorization</h3>
+  <p>المصادقة: من أنت؟ التفويض: هل يُسمح لك بهذا الفعل؟</p>
+  <h3>2) Roles و Admin / User و Permissions</h3>
+  <p>role: user | admin. وسيط requireRole("admin") لمسارات الإدارة مثل إنشاء كورس عام.</p>
+  <h3>3) Ownership Validation</h3>
+  <p>تعديل كورس: إما أدمن أو owner يساوي req.user.id. وإلا 403.</p>
+  <h3>4) Protected Resources</h3>
+  <p>GET العام للقائمة يمكن أن يبقى مفتوحاً. DELETE للمالك أو الأدمن فقط.</p></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">💻</div><h2>أمثلة عملية</h2></div><h3>مثال 1: دور</h3><div class="code-block"><pre><code>export function requireRole(...roles) {
+  return (req, res, next) => {
+    if (!roles.includes(req.user.role)) {
+      return res.status(403).json({ success: false, message: "Forbidden" });
+    }
+    next();
+  };
+}</code></pre></div>
+  <h3>مثال 2: ملكية</h3><div class="code-block"><pre><code>const course = await Course.findById(id);
+const isOwner = String(course.owner) === String(req.user.id);
+if (!isOwner && req.user.role !== "admin") {
+  return res.status(403).json({ success: false, message: "Forbidden" });
+}</code></pre></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">🎯</div><h2>اختبار سريع</h2></div><div class="quiz-card" data-correct="b"><p class="quiz-question">مستخدم معروف بلا صلاحية يناسب:</p><div class="quiz-options"><button class="quiz-option" data-value="a">401</button><button class="quiz-option" data-value="b">403</button><button class="quiz-option" data-value="c">201</button></div><div class="quiz-feedback"></div></div><div class="quiz-card" data-correct="a"><p class="quiz-question">الأدمن يتجاوز فحص الملكية عندما:</p><div class="quiz-options"><button class="quiz-option" data-value="a">تقرر ذلك صراحة في الكود</button><button class="quiz-option" data-value="b">دائماً بلا شرط</button><button class="quiz-option" data-value="c">عبر CSS</button></div><div class="quiz-feedback"></div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">✏️</div><h2>تمارين عملية</h2></div><div class="exercise-item"><h4><span class="exercise-number">1</span> وسيط أدمن</h4><p>POST إنشاء كورس للأدمن فقط.</p><button class="solution-toggle" data-target="b10-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="b10-1"><div class="code-block"><pre><code>router.post("/", protect, requireRole("admin"), createCourse);</code></pre></div></div></div><div class="exercise-item"><h4><span class="exercise-number">2</span> حذف</h4><p>المالك أو الأدمن.</p><button class="solution-toggle" data-target="b10-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="b10-2"><p>انظر مثال 2.</p></div></div><div class="exercise-item"><h4><span class="exercise-number">3</span> مستخدم عادي</h4><p>حاول حذف كورس غيره وتتوقع 403.</p><button class="solution-toggle" data-target="b10-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="b10-3"><p>اختبار يدوي بتوكنين.</p></div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📌</div><h2>ملخص الجلسة</h2></div><ul class="key-points"><li>401 غير مسجّل · 403 بلا صلاحية</li><li>الدور في التوكن والنموذج</li><li>الملكية حقل owner</li></ul></section>
+        <section class="homework-box"><h2>واجب الجلسة</h2><ul><li>مسارات أدمن محمية</li><li>حذف حسب الملكية</li><li>وثّق الأدوار في تعليق إنجليزي</li></ul></section></div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../shared/course-data.js"></script>
+  <script src="../../shared/layout.js"></script>
+  <script src="../../shared/scripts.js"></script>
+</body>
+</html>

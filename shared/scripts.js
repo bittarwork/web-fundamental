@@ -137,10 +137,39 @@ function initCodeDemos() {
   });
 }
 
+// Add copy buttons to code examples
+function initCopyButtons() {
+  const blocks = document.querySelectorAll('.code-block');
+
+  blocks.forEach(function (block) {
+    if (block.querySelector('.copy-code-btn')) return;
+    const code = block.querySelector('pre');
+    if (!code) return;
+
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'copy-code-btn';
+    button.textContent = 'نسخ';
+
+    button.addEventListener('click', function () {
+      const text = code.textContent || '';
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () {
+          button.textContent = 'تم النسخ';
+          setTimeout(function () { button.textContent = 'نسخ'; }, 1600);
+        });
+      }
+    });
+
+    block.appendChild(button);
+  });
+}
+
 // Initialize all shared functionality when DOM is ready
 document.addEventListener('DOMContentLoaded', function () {
   initSolutionToggles();
   highlightCurrentSession();
   initQuizCards();
   initCodeDemos();
+  initCopyButtons();
 });

@@ -6,29 +6,12 @@
   <title>الجلسة 04 — مشروع HTML: صفحة شخصية</title>
   <link rel="stylesheet" href="../shared/styles.css">
 </head>
-<body>
+<body class="lesson-page" data-page="lesson" data-course="web" data-session="04">
   <div class="page-wrapper">
 
-    <header class="site-header">
-      <div class="container">
-        <span class="course-badge">المرحلة 1 — HTML · مشروع</span>
-        <h1>الجلسة 04: مشروع HTML — صفحة شخصية Portfolio</h1>
-        <div class="session-meta">
-          <span>المدة: ساعة ونصف</span>
-          <span>الجلسة 4 من 16</span>
-        </div>
-      </div>
-    </header>
+    <div id="layout-header"></div>
 
-    <nav class="lesson-nav">
-      <div class="container">
-        <a href="../index.html" class="nav-link">الرئيسية</a>
-        <a href="../session-03/lesson.html" class="nav-link">→ السابقة</a>
-        <a href="../session-05/lesson.html" class="nav-link">التالية ←</a>
-      </div>
-    </nav>
-
-    <main class="main-content">
+    <main class="main-content" id="main-content">
       <div class="container">
 
         <section class="section-block">
@@ -46,10 +29,10 @@
             <h3>متطلبات المشروع</h3>
             <p>الصفحة يجب أن تحتوي على الأقسام التالية:</p>
             <ol>
-              <li><strong>Header:</strong> اسمك وصورة شخصية</li>
-              <li><strong>قسم "عني":</strong> فقرة تعريفية عنك</li>
-              <li><strong>قسم المهارات:</strong> قائمة بمهاراتك</li>
-              <li><strong>قسم المشاريع:</strong> جدول بمشاريعك</li>
+              <li><strong>Header:</strong> اسم المدرب محمد أسامة بيطار وصورة شخصية</li>
+              <li><strong>قسم "عني":</strong> فقرة تعريفية عن المدرب</li>
+              <li><strong>قسم المهارات:</strong> قائمة بالمهارات</li>
+              <li><strong>قسم المشاريع:</strong> جدول بالمشاريع</li>
               <li><strong>نموذج تواصل:</strong> اسم، إيميل، رسالة</li>
               <li><strong>Footer:</strong> حقوق النشر وروابط</li>
             </ol>
@@ -84,15 +67,15 @@
 &lt;html lang="ar" dir="rtl"&gt;
 &lt;head&gt;
   &lt;meta charset="UTF-8"&gt;
-  &lt;title&gt;محمد أحمد — Portfolio&lt;/title&gt;
+  &lt;title&gt;محمد أسامة بيطار — Portfolio&lt;/title&gt;
 &lt;/head&gt;
 &lt;body&gt;
 
   &lt;!-- Header --&gt;
   &lt;header&gt;
     &lt;img src="https://via.placeholder.com/120" alt="صورتي الشخصية" width="120"&gt;
-    &lt;h1&gt;محمد أحمد&lt;/h1&gt;
-    &lt;p&gt;طالب علوم ويب | دمشق، سوريا&lt;/p&gt;
+    &lt;h1&gt;محمد أسامة بيطار&lt;/h1&gt;
+    &lt;p&gt;مهندس معلوماتية | مدرب علوم ويب | دمشق، سوريا&lt;/p&gt;
     &lt;nav&gt;
       &lt;a href="#about"&gt;عني&lt;/a&gt; |
       &lt;a href="#skills"&gt;مهاراتي&lt;/a&gt; |
@@ -107,9 +90,9 @@
     &lt;section id="about"&gt;
       &lt;h2&gt;نبذة عني&lt;/h2&gt;
       &lt;p&gt;
-        أنا طالب مهتم بتعلم تطوير الويب. أتعلم حالياً
-        &lt;strong&gt;HTML, CSS, JavaScript&lt;/strong&gt; وأسعى لبناء
-        مواقع جميلة ومفيدة.
+        مهندس معلوماتية ومدرب علوم ويب. أعمل على بناء مواقع
+        ومشاريع رقمية باستخدام
+        &lt;strong&gt;HTML, CSS, JavaScript&lt;/strong&gt;.
       &lt;/p&gt;
     &lt;/section&gt;
 
@@ -120,8 +103,8 @@
       &lt;h2&gt;مهاراتي&lt;/h2&gt;
       &lt;ul&gt;
         &lt;li&gt;HTML — هيكل صفحات الويب&lt;/li&gt;
-        &lt;li&gt;CSS — تصميم وتنسيق (قيد التعلم)&lt;/li&gt;
-        &lt;li&gt;JavaScript — البرمجة والتفاعل (قيد التعلم)&lt;/li&gt;
+        &lt;li&gt;CSS — تصميم وتنسيق&lt;/li&gt;
+        &lt;li&gt;JavaScript — البرمجة والتفاعل&lt;/li&gt;
         &lt;li&gt;العمل الجماعي والتواصل&lt;/li&gt;
       &lt;/ul&gt;
     &lt;/section&gt;
@@ -179,7 +162,7 @@
   &lt;/main&gt;
 
   &lt;footer&gt;
-    &lt;p&gt;جميع الحقوق محفوظة &copy; 2026 — محمد أحمد&lt;/p&gt;
+    &lt;p&gt;جميع الحقوق محفوظة &copy; 2026 — محمد أسامة بيطار&lt;/p&gt;
     &lt;p&gt;
       &lt;a href="mailto:student@email.com"&gt;راسلني&lt;/a&gt; |
       &lt;a href="https://github.com" target="_blank"&gt;GitHub&lt;/a&gt;
@@ -204,7 +187,7 @@
 
           <div class="exercise-item">
             <h4><span class="exercise-number">1</span> بناء الهيكل الأساسي</h4>
-            <p>أنشئ الملف مع header (اسمك + nav) و main و footer. تأكد من استخدام العناصر الدلالية.</p>
+            <p>أنشئ الملف مع header (اسم المدرب محمد أسامة بيطار + nav) و main و footer. تأكد من استخدام العناصر الدلالية.</p>
             <button class="solution-toggle" data-target="sol-1">
               <span class="toggle-text">عرض الحل</span>
               <span class="arrow">▼</span>
@@ -265,15 +248,11 @@
       </div>
     </main>
 
-    <footer class="site-footer">
-      <div class="container">
-        <p class="footer-course">أساسيات الويب — الكورس الأول</p>
-        <p class="footer-instructor">محمد أسامة بيطار · مهندس معلوماتية · مدرب علوم ويب</p>
-        <p class="footer-copy">الجلسة 04 من 16</p>
-      </div>
-    </footer>
+    <div id="layout-footer"></div>
 
   </div>
+  <script src="../shared/course-data.js"></script>
+  <script src="../shared/layout.js"></script>
   <script src="../shared/scripts.js"></script>
 </body>
 </html>

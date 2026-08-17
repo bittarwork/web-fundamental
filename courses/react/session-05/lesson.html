@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 05 — useState</title>
+  <link rel="stylesheet" href="../../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="react" data-session="05">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+
+        <div class="student-welcome">
+          <h3>هدف الجلسة</h3>
+          <p>
+            نفهم State: بيانات تتغير مع الوقت وتُعيد رسم المكوّن.
+            نتعلّم useState مع قيم بسيطة، أكثر من حالة، ومع Objects وArrays.
+          </p>
+        </div>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">05</div>
+            <h2>الشرح النظري</h2>
+          </div>
+          <div class="theory-content">
+            <h3>1) مفهوم State</h3>
+            <p>
+              Props تأتي من الخارج ولا تُغيَّر في الابن.
+              State ملك المكوّن: عداد، قائمة مهام، رسالة خطأ — أي قيمة تتبدل بعد تفاعل المستخدم.
+            </p>
+            <div class="analogy-box">
+              <strong>تشبيه:</strong> Props = اسم الطالب على البطاقة (يأتي من الخارج).
+              State = درجته الحالية في التمرين (تتغير أثناء الجلسة).
+            </div>
+
+            <h3>2) useState Hook</h3>
+            <div class="code-block">
+              <pre><code>import { useState } from "react";
+
+const [count, setCount] = useState(0);</code></pre>
+            </div>
+            <ul>
+              <li><span class="inline-code">count</span> القيمة الحالية.</li>
+              <li><span class="inline-code">setCount</span> الدالة الوحيدة لتغييرها.</li>
+              <li>القيمة الابتدائية تُمرَّر لـ <span class="inline-code">useState(0)</span>.</li>
+            </ul>
+            <div class="tip-box">
+              <strong>Hooks:</strong> تُستدعى في أعلى المكوّن فقط، ليس داخل if أو loops.
+            </div>
+
+            <h3>3) تحديث State وإعادة الرسم</h3>
+            <p>
+              استدعاء <span class="inline-code">setCount</span> يطلب من React إعادة تشغيل المكوّن
+              بالقيمة الجديدة ثم إعادة رسم JSX. لا تكتب <span class="inline-code">count = count + 1</span>.
+            </p>
+            <p>
+              إذا اعتمد التحديث على القيمة السابقة استخدم دالة:
+              <span class="inline-code">setCount((current) =&gt; current + 1)</span>.
+            </p>
+
+            <h3>4) أكثر من State</h3>
+            <p>يمكنك استدعاء useState أكثر من مرة: اسم، عمر، هل القائمة مفتوحة...</p>
+
+            <h3>5) Objects و Arrays</h3>
+            <p>
+              State يجب أن يُستبدل بنسخة جديدة لا أن يُعدَّل مباشرة.
+              للأغراض: انسخ بـ spread ثم غيّر الحقل.
+              للمصفوفات: <span class="inline-code">map</span> / <span class="inline-code">filter</span> / spread.
+            </p>
+            <div class="warning-box">
+              <strong>ممنوع:</strong> <span class="inline-code">user.name = "Osama"</span> ثم
+              <span class="inline-code">setUser(user)</span> — المرجع نفسه وReact قد لا ترسم.
+            </div>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">💻</div>
+            <h2>أمثلة عملية</h2>
+          </div>
+
+          <h3>مثال 1: عداد</h3>
+          <div class="code-block">
+            <pre><code>import { useState } from "react";
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  return (
+    &lt;div&gt;
+      &lt;p&gt;Clicks: {count}&lt;/p&gt;
+      &lt;button onClick={() =&gt; setCount((c) =&gt; c + 1)}&gt;+1&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+          </div>
+
+          <h3>مثال 2: إظهار اسم المدرب</h3>
+          <div class="code-block">
+            <pre><code>function NameToggle() {
+  const [visible, setVisible] = useState(false);
+
+  return (
+    &lt;div&gt;
+      &lt;button onClick={() =&gt; setVisible((v) =&gt; !v)}&gt;
+        Toggle name
+      &lt;/button&gt;
+      {visible && &lt;p&gt;Osama Bittar&lt;/p&gt;}
+    &lt;/div&gt;
+  );
+}</code></pre>
+          </div>
+
+          <h3>مثال 3: أكثر من حالة</h3>
+          <div class="code-block">
+            <pre><code>function Profile() {
+  const [name, setName] = useState("Osama");
+  const [city, setCity] = useState("Damascus");
+
+  return (
+    &lt;p&gt;{name} · {city}&lt;/p&gt;
+  );
+}</code></pre>
+          </div>
+
+          <h3>مثال 4: تحديث غرض</h3>
+          <div class="code-block">
+            <pre><code>function TrainerCard() {
+  const [trainer, setTrainer] = useState({
+    name: "Osama Bittar",
+    hours: 32
+  });
+
+  function addHours() {
+    setTrainer((current) =&gt; ({
+      ...current,
+      hours: current.hours + 8
+    }));
+  }
+
+  return (
+    &lt;div&gt;
+      &lt;p&gt;{trainer.name}: {trainer.hours} h&lt;/p&gt;
+      &lt;button onClick={addHours}&gt;Add web course hours&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+          </div>
+
+          <h3>مثال 5: إضافة عنصر لمصفوفة</h3>
+          <div class="code-block">
+            <pre><code>const [topics, setTopics] = useState(["JSX", "Components"]);
+
+function addTopic() {
+  setTopics((current) =&gt; [...current, "Props"]);
+}</code></pre>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">🎯</div>
+            <h2>اختبار سريع</h2>
+          </div>
+          <div class="quiz-card" data-correct="b">
+            <p class="quiz-question">لتغيير count نكتب:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">count = count + 1</button>
+              <button class="quiz-option" data-value="b">setCount((c) =&gt; c + 1)</button>
+              <button class="quiz-option" data-value="c">useState(count + 1)</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+          <div class="quiz-card" data-correct="a">
+            <p class="quiz-question">عند تحديث object في state:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">ننشئ نسخة جديدة بـ spread</button>
+              <button class="quiz-option" data-value="b">نعدّل الحقل على نفس الغرض فقط</button>
+              <button class="quiz-option" data-value="c">نحذف useState</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">✏️</div>
+            <h2>تمارين عملية</h2>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">1</span> عداد جلسات</h4>
+            <p>ابدأ من 1، زر يزيد حتى 16 كحد أقصى.</p>
+            <button class="solution-toggle" data-target="r05-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="r05-1">
+              <div class="code-block">
+                <pre><code>function next() {
+  setSession((s) =&gt; (s &lt; 16 ? s + 1 : s));
+}</code></pre>
+              </div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">2</span> غرض مدرب</h4>
+            <p>state فيه name: Osama Bittar و city. زر يغيّر المدينة إلى Berlin.</p>
+            <button class="solution-toggle" data-target="r05-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="r05-2">
+              <div class="code-block">
+                <pre><code>setTrainer((t) =&gt; ({ ...t, city: "Berlin" }));</code></pre>
+              </div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">3</span> حذف من مصفوفة</h4>
+            <p>احذف عنصراً بالـ id باستخدام filter.</p>
+            <button class="solution-toggle" data-target="r05-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="r05-3">
+              <div class="code-block">
+                <pre><code>setItems((current) =&gt; current.filter((item) =&gt; item.id !== id));</code></pre>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">📌</div>
+            <h2>ملخص الجلسة</h2>
+          </div>
+          <ul class="key-points">
+            <li>State بيانات داخلية تُعيد رسم المكوّن عند التغيير</li>
+            <li>غيّر دائماً عبر setState لا بالتعيين المباشر</li>
+            <li>استخدم الدالة إذا التحديث يعتمد على القيمة السابقة</li>
+            <li>الأغراض والمصفوفات تُستبدل بنسخ جديدة</li>
+          </ul>
+        </section>
+
+        <section class="homework-box">
+          <h2>واجب الجلسة</h2>
+          <ul>
+            <li>ابنِ عداداً + و − مع عدم النزول تحت 0</li>
+            <li>قائمة مواضيع تُضاف بزر إلى المصفوفة</li>
+            <li>بطاقة مدرب state كغرض مع زر لتحديث حقل واحد</li>
+          </ul>
+        </section>
+
+      </div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../../shared/course-data.js"></script>
+  <script src="../../../shared/layout.js"></script>
+  <script src="../../../shared/scripts.js"></script>
+</body>
+</html>

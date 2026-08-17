@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 13 — هندسة البرمجيات</title>
+  <link rel="stylesheet" href="../../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="se" data-session="13">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+        <div class="student-welcome"><h3>هدف الجلسة</h3><p>نصمّم معمارية المعلومات: خرائط الشاشات، النماذج الشبكية كنص، ومصفوفة صلاحيات لكل دور.</p></div>
+        <section class="section-block"><div class="section-header"><div class="section-icon">13</div><h2>الشرح النظري</h2></div>
+          <div class="theory-content">
+            <h3>1) معمارية المعلومات</h3>
+            <p>ما الذي يراه كل دور في الدقيقة الأولى؟ العميل: قائمة وحالة طلب. المطبخ: طابور. السائق: المهمة الحالية. المالية: كشوف يورو.</p>
+            <h3>2) نماذج شبكية بلا تصميم جرافيكي</h3>
+            <p>نكتب مناطق الشاشة: رأس، قائمة أصناف، سلة، زر تأكيد. يكفي مربع نصي. الهدف منع نسيان تدفق.</p>
+            <h3>3) RBAC</h3>
+            <p>أدوار: Customer، Kitchen، Driver، Dispatcher، Finance، Admin. الصلاحية على مورد وفعل: read orders، update job status، export settlements.</p>
+            <h3>4) فصل السائق عن المالية</h3>
+            <p>السائق لا يعدّل أجره. المالية لا تعيّن سائقين إن لم تُمنح Dispatcher. المالك Admin يتجاوز بوعي موثّق.</p>
+            <div class="compare-grid">
+              <div class="compare-box"><h4>شاشة السائق</h4><p>المهمة، الخريطة، أزرار قبول/استلام/تسليم، رصيد اليوم.</p></div>
+              <div class="compare-box"><h4>شاشة المالية</h4><p>جدول سائقين، COD، صافى التسوية، تصدير.</p></div>
+            </div>
+          </div>
+        </section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📐</div><h2>مخططات ووثائق عملية</h2></div>
+          <div class="spec-table-wrap"><table class="spec-table"><thead><tr><th>دور</th><th>Order read</th><th>Order cancel</th><th>Assign job</th><th>Wallet export</th></tr></thead><tbody><tr><td>Customer</td><td>طلباته فقط</td><td>حسب الحالة</td><td>لا</td><td>لا</td></tr><tr><td>Kitchen</td><td>قيد التحضير</td><td>لا (طلب مشغّل)</td><td>لا</td><td>لا</td></tr><tr><td>Driver</td><td>مهمته</td><td>لا</td><td>لا</td><td>لا — رصيده فقط</td></tr><tr><td>Dispatcher</td><td>نعم</td><td>محدود</td><td>نعم</td><td>لا</td></tr><tr><td>Finance</td><td>نعم للتقارير</td><td>لا</td><td>لا</td><td>نعم</td></tr></tbody></table></div>
+          <div class="code-block"><pre><code>Wireframe: Driver — Active Job
+[Header: Bittar Kitchen | Online]
+[Job #A183 | Pickup: Kitchen | Dropoff: Address]
+[Map area]
+[Button: Confirm pickup]
+[Button: Confirm delivered]
+[COD expected: €20.50]</code></pre></div>
+          </section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">🎯</div><h2>اختبار سريع</h2></div><div class="quiz-card" data-correct="a">
+            <p class="quiz-question">Finance يصدّر التسويات و:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">لا يعيّن السائقين ما لم يُمنح دوراً إضافياً</button>
+              <button class="quiz-option" data-value="b">يجب أن يغيّر حالة المطبخ</button>
+              <button class="quiz-option" data-value="c">يرى كلمات مرور العملاء</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div><div class="quiz-card" data-correct="c">
+            <p class="quiz-question">النموذج الشبكي في هذه الدورة:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">ملف Photoshop إلزامي</button>
+              <button class="quiz-option" data-value="b">كود CSS</button>
+              <button class="quiz-option" data-value="c">تخطيط مناطق وشروط ظهور</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">✏️</div><h2>تمارين عملية</h2></div><div class="exercise-item">
+            <h4><span class="exercise-number">1</span> خريطة شاشات العميل</h4>
+            <p>5 شاشات أساسية.</p>
+            <button class="solution-toggle" data-target="se13-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="se13-1"><p>قائمة، تفاصيل صنف، سلة، دفع/تأكيد، تتبع الطلب.</p></div>
+          </div><div class="exercise-item">
+            <h4><span class="exercise-number">2</span> صلاحية ناقصة</h4>
+            <p>من يوقف صنفاً؟</p>
+            <button class="solution-toggle" data-target="se13-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="se13-2"><p>Kitchen أو Admin: update menu availability. ليس السائق.</p></div>
+          </div><div class="exercise-item">
+            <h4><span class="exercise-number">3</span> Wireframe مالية</h4>
+            <p>اكتب مناطق كشف أسبوعي.</p>
+            <button class="solution-toggle" data-target="se13-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="se13-3"><p>فلتر تاريخ سائق، جدول طلبات وأجور وCOD، صافى €، زر تصدير، أثر تدقيق.</p></div>
+          </div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📌</div><h2>ملخص الجلسة</h2></div>
+          <ul class="key-points"><li>كل دور له مدخل مختلف لنفس الحقيقة</li><li>RBAC يمنع خلط التشغيل بالمال</li><li>الوايرفريم نصّي كافٍ للتحليل</li><li>Admin استثناء واعٍ</li></ul>
+        </section>
+        <section class="homework-box"><h2>واجب الجلسة</h2><ul><li>خريطة شاشات لكل قناة</li><li>مصفوفة صلاحيات كاملة</li><li>وايرفريم نصي لأربع شاشات حرجة</li></ul></section>
+      </div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../../shared/course-data.js"></script>
+  <script src="../../../shared/layout.js"></script>
+  <script src="../../../shared/scripts.js"></script>
+</body>
+</html>

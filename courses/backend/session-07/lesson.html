@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 07 — Mongoose</title>
+  <link rel="stylesheet" href="../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="backend" data-session="07">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+        <div class="student-welcome"><h3>هدف الجلسة</h3><p>نربط التطبيق، نعرّف Schema ونموذجاً، وننفّذ CRUD عبر Mongoose مع تحقق الحقول.</p></div>
+        <section class="section-block"><div class="section-header"><div class="section-icon">07</div><h2>الشرح النظري</h2></div><div class="theory-content"><h3>1) الاتصال</h3>
+  <div class="code-block"><pre><code>import mongoose from "mongoose";
+await mongoose.connect(process.env.MONGO_URI);</code></pre></div>
+  <h3>2) Schemas و Models و Types</h3>
+  <p>الـ Schema يصف الحقول. الـ Model هو الباب للاستعلامات. String وNumber وBoolean وDate وObjectId شائعة.</p>
+  <h3>3) Validation</h3>
+  <p>required وmin وmax وmatch للبريد. timestamps: true يضيف createdAt وupdatedAt.</p>
+  <h3>4) CRUD</h3>
+  <p>create / find / findById / findByIdAndUpdate / findByIdAndDelete. new: true في التحديث لإرجاع النسخة الجديدة.</p></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">💻</div><h2>أمثلة عملية</h2></div><h3>مثال 1: Course schema</h3><div class="code-block"><pre><code>const courseSchema = new mongoose.Schema({
+  title: { type: String, required: true, trim: true },
+  price: { type: Number, required: true, min: 0 },
+  trainer: { type: String, default: "Osama Bittar" }
+}, { timestamps: true });
+
+export const Course = mongoose.model("Course", courseSchema);</code></pre></div>
+  <h3>مثال 2: إنشاء</h3><div class="code-block"><pre><code>const course = await Course.create(req.body);
+res.status(201).json({ success: true, data: course });</code></pre></div>
+  <h3>مثال 3: اتصال عند الإقلاع</h3><div class="code-block"><pre><code>await mongoose.connect(process.env.MONGO_URI);
+app.listen(port);</code></pre></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">🎯</div><h2>اختبار سريع</h2></div><div class="quiz-card" data-correct="a"><p class="quiz-question">required: true يعني:</p><div class="quiz-options"><button class="quiz-option" data-value="a">الحقل إلزامي عند الحفظ</button><button class="quiz-option" data-value="b">الحقل يُحذف</button><button class="quiz-option" data-value="c">يفتح CORS</button></div><div class="quiz-feedback"></div></div><div class="quiz-card" data-correct="b"><p class="quiz-question">findByIdAndUpdate مع new: true:</p><div class="quiz-options"><button class="quiz-option" data-value="a">يحذف المستند</button><button class="quiz-option" data-value="b">يرجع المستند بعد التعديل</button><button class="quiz-option" data-value="c">يغلق المنفذ</button></div><div class="quiz-feedback"></div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">✏️</div><h2>تمارين عملية</h2></div><div class="exercise-item"><h4><span class="exercise-number">1</span> ثبّت</h4><p>npm install mongoose.</p><button class="solution-toggle" data-target="b07-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="b07-1"><div class="code-block"><pre><code>npm install mongoose</code></pre></div></div></div><div class="exercise-item"><h4><span class="exercise-number">2</span> نموذج</h4><p>Course كما في المثال مع price باليورو.</p><button class="solution-toggle" data-target="b07-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="b07-2"><p>min: 0 يمنع سعراً سالباً.</p></div></div><div class="exercise-item"><h4><span class="exercise-number">3</span> استبدل الذاكرة</h4><p>POST يحفظ في Mongo لا المصفوفة.</p><button class="solution-toggle" data-target="b07-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="b07-3"><p>Course.create(req.body)</p></div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📌</div><h2>ملخص الجلسة</h2></div><ul class="key-points"><li>الاتصال مرة عند الإقلاع</li><li>Schema يحمي الشكل</li><li>CRUD عبر النموذج لا السائق الخام في هذه الدورة</li></ul></section>
+        <section class="homework-box"><h2>واجب الجلسة</h2><ul><li>اتصال ناجح</li><li>إنشاء كورس من POST يظهر في القاعدة</li><li>trainer الافتراضي Osama Bittar</li></ul></section></div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../shared/course-data.js"></script>
+  <script src="../../shared/layout.js"></script>
+  <script src="../../shared/scripts.js"></script>
+</body>
+</html>

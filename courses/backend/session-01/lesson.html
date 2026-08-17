@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 01 — أساسيات Backend و Node.js</title>
+  <link rel="stylesheet" href="../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="backend" data-session="01">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+        <div class="student-welcome"><h3>هدف الجلسة</h3><p>نفهم دور الخادم مقابل الواجهة، بروتوكول HTTP وفكرة REST، ثم نشغّل Node.js مع npm ووحدات.</p></div>
+        <section class="section-block"><div class="section-header"><div class="section-icon">01</div><h2>الشرح النظري</h2></div><div class="theory-content"><div class="tip-box"><strong>ملاحظة:</strong> أمثلة الدورة تستخدم <span class="inline-code">Osama Bittar</span> والأسعار باليورو (€).</div>
+  <h3>1) Backend Development</h3>
+  <p>الواجهة تعرض الصفحات. الخادم يخزّن البيانات، يتحقق من الصلاحيات، ويرجع JSON. المتصفح أو تطبيق React يستهلك هذا الـ API.</p>
+  <h3>2) Client / Server</h3>
+  <div class="analogy-box"><strong>تشبيه:</strong> العميل يطلب قائمة كورسات · الخادم يبحث في القاعدة ويردّ بالمستندات.</div>
+  <h3>3) HTTP</h3>
+  <p>طلب فيه طريقة (GET/POST...) ومسار وترويسات وجسم أحياناً. الرد فيه رمز حالة وجسم غالباً JSON.</p>
+  <h3>4) REST</h3>
+  <p>نصمّم عناوين حول موارد: <span class="inline-code">/api/courses</span> للكورسات. الحالة لا تُحفظ في الخادم بين الطلبات (stateless) — التوكن يأتي مع كل طلب لاحقاً.</p>
+  <h3>5) Node.js و npm و package.json</h3>
+  <p>Node يشغّل JavaScript خارج المتصفح. npm يثبت الحزم. package.json يسجّل الاسم والإصدار والسكربتات.</p>
+  <div class="code-block"><pre><code>node -v
+npm -v
+mkdir academy-api && cd academy-api
+npm init -y</code></pre></div>
+  <h3>6) Modules</h3>
+  <p>في الدورة نفضّل ES Modules: <span class="inline-code">"type": "module"</span> في package.json ثم import/export.</p></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">💻</div><h2>أمثلة عملية</h2></div><h3>مثال 1: أول ملف</h3><div class="code-block"><pre><code>// index.js
+const trainer = "Osama Bittar";
+console.log("Academy API — " + trainer);</code></pre></div>
+  <p>تشغيل: <span class="inline-code">node index.js</span></p>
+  <h3>مثال 2: تصدير وحدة</h3><div class="code-block"><pre><code>// prices.js
+export const euro = (amount) => amount + " €";
+
+// index.js
+import { euro } from "./prices.js";
+console.log(euro(49));</code></pre></div>
+  <h3>مثال 3: سكربت في package.json</h3><div class="code-block"><pre><code>{
+  "type": "module",
+  "scripts": { "start": "node index.js" }
+}</code></pre></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">🎯</div><h2>اختبار سريع</h2></div><div class="quiz-card" data-correct="b"><p class="quiz-question">Node.js يشغّل JavaScript:</p><div class="quiz-options"><button class="quiz-option" data-value="a">في المتصفح فقط</button><button class="quiz-option" data-value="b">على الخادم (وخارج المتصفح)</button><button class="quiz-option" data-value="c">داخل ملف CSS</button></div><div class="quiz-feedback"></div></div><div class="quiz-card" data-correct="a"><p class="quiz-question">REST يرتكز على:</p><div class="quiz-options"><button class="quiz-option" data-value="a">موارد وعناوين HTTP واضحة</button><button class="quiz-option" data-value="b">جلسة PHP إلزامية لكل طلب</button><button class="quiz-option" data-value="c">تعديل DOM</button></div><div class="quiz-feedback"></div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">✏️</div><h2>تمارين عملية</h2></div><div class="exercise-item"><h4><span class="exercise-number">1</span> مشروع</h4><p>npm init -y وأضف type module.</p><button class="solution-toggle" data-target="b01-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="b01-1"><div class="code-block"><pre><code>npm init -y</code></pre></div></div></div><div class="exercise-item"><h4><span class="exercise-number">2</span> طباعة</h4><p>اطبع اسم المدرب من ملف منفصل.</p><button class="solution-toggle" data-target="b01-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="b01-2"><p>export const trainer = "Osama Bittar"; ثم import.</p></div></div><div class="exercise-item"><h4><span class="exercise-number">3</span> start</h4><p>أضف سكربت start.</p><button class="solution-toggle" data-target="b01-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="b01-3"><div class="code-block"><pre><code>npm start</code></pre></div></div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📌</div><h2>ملخص الجلسة</h2></div><ul class="key-points"><li>الخادم يملك البيانات والقواعد</li><li>HTTP طلب/رد</li><li>npm وES Modules أساس المشروع</li></ul></section>
+        <section class="homework-box"><h2>واجب الجلسة</h2><ul><li>مجلد academy-api يعمل بـ node</li><li>type module مفعّل</li><li>لا ترفع node_modules</li></ul></section></div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../shared/course-data.js"></script>
+  <script src="../../shared/layout.js"></script>
+  <script src="../../shared/scripts.js"></script>
+</body>
+</html>

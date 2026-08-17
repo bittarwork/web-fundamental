@@ -6,29 +6,12 @@
   <title>الجلسة 01 — مقدمة الويب وهيكل HTML</title>
   <link rel="stylesheet" href="../shared/styles.css">
 </head>
-<body>
+<body class="lesson-page" data-page="lesson" data-course="web" data-session="01">
   <div class="page-wrapper">
 
-    <header class="site-header">
-      <div class="container">
-        <span class="course-badge">المرحلة 1 — HTML</span>
-        <h1>الجلسة 01: مقدمة الويب وهيكل HTML</h1>
-        <div class="session-meta">
-          <span>المدة: ساعة ونصف</span>
-          <span>الجلسة 1 من 16</span>
-        </div>
-      </div>
-    </header>
+    <div id="layout-header"></div>
 
-    <nav class="lesson-nav">
-      <div class="container">
-        <a href="../index.html" class="nav-link">الرئيسية</a>
-        <a href="#" class="nav-link disabled">السابقة</a>
-        <a href="../session-02/lesson.html" class="nav-link">التالية ←</a>
-      </div>
-    </nav>
-
-    <main class="main-content">
+    <main class="main-content" id="main-content">
       <div class="container">
 
         <!-- Theory -->
@@ -174,7 +157,7 @@
 
           <div class="exercise-item">
             <h4><span class="exercise-number">2</span> صفحة "نبذة عني"</h4>
-            <p>ابنِ صفحة تحتوي على: عنوان رئيسي باسمك، عنوان فرعي "نبذة عني"، وفقرتين تتحدثان عنك.</p>
+            <p>ابنِ صفحة تحتوي على: عنوان رئيسي باسم المدرب محمد أسامة بيطار، عنوان فرعي "نبذة عني"، وفقرتين تعريفيتين.</p>
             <button class="solution-toggle" data-target="sol-2">
               <span class="toggle-text">عرض الحل</span>
               <span class="arrow">▼</span>
@@ -189,10 +172,10 @@
   &lt;title&gt;نبذة عني&lt;/title&gt;
 &lt;/head&gt;
 &lt;body&gt;
-  &lt;h1&gt;أحمد محمد&lt;/h1&gt;
+  &lt;h1&gt;محمد أسامة بيطار&lt;/h1&gt;
   &lt;h2&gt;نبذة عني&lt;/h2&gt;
-  &lt;p&gt;أنا طالب مهتم بتعلم تطوير الويب.&lt;/p&gt;
-  &lt;p&gt;أعيش في دمشق وأسعى لبناء مواقع جميلة.&lt;/p&gt;
+  &lt;p&gt;مهندس معلوماتية ومدرب علوم ويب.&lt;/p&gt;
+  &lt;p&gt;أعمل في دمشق على بناء مواقع ومشاريع رقمية.&lt;/p&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
               </div>
@@ -247,15 +230,11 @@
       </div>
     </main>
 
-    <footer class="site-footer">
-      <div class="container">
-        <p class="footer-course">أساسيات الويب — الكورس الأول</p>
-        <p class="footer-instructor">محمد أسامة بيطار · مهندس معلوماتية · مدرب علوم ويب</p>
-        <p class="footer-copy">الجلسة 01 من 16</p>
-      </div>
-    </footer>
+    <div id="layout-footer"></div>
 
   </div>
+  <script src="../shared/course-data.js"></script>
+  <script src="../shared/layout.js"></script>
   <script src="../shared/scripts.js"></script>
 </body>
 </html>

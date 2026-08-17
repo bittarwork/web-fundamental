@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 16 — المشروع الثاني: حجز الاستوديو</title>
+  <link rel="stylesheet" href="../../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="react-advanced" data-session="16">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+
+        <div class="student-welcome">
+          <h3>هدف الجلسة</h3>
+          <p>ندمج المعالج المتعدد الخطوات، الواجهة المتفائلة، حدود الأخطاء، واختبار دخان، ثم نراجع التسليم.</p>
+        </div>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">16</div>
+            <h2>الشرح النظري</h2>
+          </div>
+          <div class="theory-content">
+            <h3>1) المنتج</h3>
+            <p>Studio Booking: اختيار جلسة، عدد مقاعد، ملخص باليورو، تأكيد. القائمة تُحدَّث تفاؤلياً. خطأ الشبكة يعيد المقاعد.</p>
+            <h3>2) ماذا يُدمج؟</h3>
+            <ul>
+              <li>Wizard الجلسة 12</li>
+              <li>Optimistic الجلسة 11</li>
+              <li>Error boundary حول خطوة الملخص إن تعمدت خطأ تدريب</li>
+              <li>اختبار دخان: يظهر زر الحجز واسم Osama Bittar</li>
+            </ul>
+            <h3>3) مراجعة نهائية</h3>
+            <p>مفاتيح id، abort في التفاصيل إن بقيت، لا أسرار في المستودع، الأسعار €، التركيز في Dialog التأكيد.</p>
+            <div class="tip-box"><strong>معيار الاكتمال:</strong> مستخدم يدخل، يحجز مقعدين بـ 29 €، يرى الإجمالي 58 €، يفشل طلب مرة فيرجع العدد، ثم ينجح.</div>
+  </div>
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">💻</div>
+            <h2>أمثلة عملية</h2>
+          </div>
+          
+          <h3>مثال 1: إجمالي الحجز</h3>
+          <div class="code-block"><pre><code>const UNIT = 29;
+const total = UNIT * seats;</code></pre></div>
+          <h3>مثال 2: تأكيد متفائل</h3>
+          <div class="code-block"><pre><code>await confirmBooking({ trainer: "Osama Bittar", seats, total });</code></pre></div>
+          <h3>مثال 3: اختبار دخان</h3>
+          <div class="code-block"><pre><code>test("shows studio heading", () =&gt; {
+  render(&lt;BookingPage /&gt;);
+  expect(screen.getByRole("heading", { name: /studio/i })).toBeInTheDocument();
+});</code></pre></div>
+  
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">🎯</div>
+            <h2>اختبار سريع</h2>
+          </div>
+                    <div class="quiz-card" data-correct="b">
+            <p class="quiz-question">سيناريو الفشل المتفائل يجب أن:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">يترك المقاعد محجوزة كذباً</button>
+              <button class="quiz-option" data-value="b">يعيد العدد ويعرض خطأ</button>
+              <button class="quiz-option" data-value="c">يكسر Error Boundary عمداً بلا حاجة</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+          <div class="quiz-card" data-correct="a">
+            <p class="quiz-question">المراجعة النهائية تشمل:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">التدفق الكامل بلا أخطاء Console</button>
+              <button class="quiz-option" data-value="b">إضافة مكتبات غير مطلوبة</button>
+              <button class="quiz-option" data-value="c">حذف الاختبارات كلها</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">✏️</div>
+            <h2>تمارين عملية</h2>
+          </div>
+                    <div class="exercise-item">
+            <h4><span class="exercise-number">1</span> المعالج</h4>
+            <p>ثلاث خطوات حتى الملخص 58 € لمقعدين.</p>
+            <button class="solution-toggle" data-target="ra16-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="ra16-1">
+              <p>UNIT 29 €.</p>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">2</span> تفاؤل</h4>
+            <p>أكد الحجز مع مسار فشل 30٪ للتدريب.</p>
+            <button class="solution-toggle" data-target="ra16-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="ra16-2">
+              <p>rollback للمقاعد.</p>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">3</span> دخان</h4>
+            <p>اختبار أن الصفحة تعرض Osama Bittar أو عنوان الاستوديو.</p>
+            <button class="solution-toggle" data-target="ra16-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="ra16-3">
+              <p>انظر مثال 3 ووسّعه.</p>
+            </div>
+          </div>
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">📌</div>
+            <h2>ملخص الجلسة</h2>
+          </div>
+          <ul class="key-points">
+            <li>الحجز مسار منتج لا عرض شرائح</li>
+            <li>التفاؤل مع تراجع</li>
+            <li>اختبار دخان + مراجعة وصولية خفيفة</li>
+          </ul>
+        </section>
+        <section class="homework-box">
+          <h2>واجب الجلسة</h2>
+          <ul>
+            <li>تسليم Studio Booking يعمل</li>
+            <li>لوحة الجلسة 15 ما زالت تعمل</li>
+            <li>أسعار € واسم المدرب في الواجهة</li>
+          </ul>
+        </section>
+      </div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../../shared/course-data.js"></script>
+  <script src="../../../shared/layout.js"></script>
+  <script src="../../../shared/scripts.js"></script>
+</body>
+</html>

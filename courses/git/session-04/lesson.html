@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 04 — التعاون عبر GitHub</title>
+  <link rel="stylesheet" href="../../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="git" data-session="04">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+
+        <div class="student-welcome">
+          <h3>هدف الجلسة</h3>
+          <p>
+            نتعاون دون الكتابة مباشرة على main:
+            GitHub Flow، رفع الفرع، Pull Request، المراجعة، Issues، والفرق بين Fork والدعوة.
+          </p>
+        </div>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">04</div>
+            <h2>الشرح النظري</h2>
+          </div>
+          <div class="theory-content">
+            <h3>1) GitHub Flow</h3>
+            <p>مسار العمل القياسي للفرق الصغيرة:</p>
+            <ol>
+              <li>حدّث main: <span class="inline-code">git switch main</span> ثم <span class="inline-code">git pull</span>.</li>
+              <li>أنشئ فرع ميزة من main.</li>
+              <li>اعمل commits صغيرة واضحة.</li>
+              <li>ادفع الفرع إلى GitHub.</li>
+              <li>افتح Pull Request.</li>
+              <li>بعد المراجعة ادمج إلى main واحذف فرع الميزة إن انتهى.</li>
+            </ol>
+            <div class="analogy-box">
+              <strong>تشبيه:</strong> لا ترمّم الشارع وأنت تغلقه على الجميع.
+              ابنِ في الورشة (الفرع) ثم اطلب موافقة لفتحه على الشارع (PR).
+            </div>
+
+            <h3>2) رفع فرع بعيد</h3>
+            <div class="code-block">
+              <pre><code>git switch -c feature/contact
+# edit files, add, commit
+git push -u origin feature/contact</code></pre>
+            </div>
+            <p>
+              بعدها يظهر الفرع في تبويب Branches على GitHub،
+              ويقترح الموقع غالباً «Compare &amp; pull request».
+            </p>
+
+            <h3>3) Pull Requests</h3>
+            <p>
+              طلب الدمج صفحة على GitHub تقارن فرعك بـ main (أو أي فرع هدف).
+              العنوان يلخّص العمل، والوصف يشرح ماذا ولماذا وكيف الاختبار.
+            </p>
+            <ul>
+              <li><strong>Open:</strong> بانتظار المراجعة أو الدمج.</li>
+              <li><strong>Draft:</strong> عمل غير جاهز — لا يُدمج عادة.</li>
+              <li><strong>Merged:</strong> دخل main.</li>
+              <li><strong>Closed:</strong> أُلغي بلا دمج.</li>
+            </ul>
+            <p>
+              خيارات الدمج الشائعة: Merge commit يبقي كل التاريخ،
+              Squash يلخّص فرعك في commit واحد (مناسب للدورة)،
+              Rebase يعيد ترتيب اللقطات — لاحقاً بعد إتقان الأساسيات.
+            </p>
+
+            <h3>4) المراجعة والدمج</h3>
+            <p>
+              المراجع يقرأ الفرق (Files changed)، يضع تعليقاً على سطر،
+              ويوافق أو يطلب تعديلات.
+              صاحب الفرع يدفع commits جديدة على نفس الفرع فتظهر في نفس الـ PR تلقائياً.
+            </p>
+            <div class="tip-box">
+              <strong>لا تدفع إلى main مباشرة</strong> في عمل جماعي.
+              حتى وأنت وحدك، الـ PR يدرّبك على وصف التغيير قبل دمجه.
+            </div>
+
+            <h3>5) Issues</h3>
+            <p>
+              المسألة تذكرة عمل: خطأ، فكرة، مهمة.
+              العنوان واضح، والجسم خطوات إعادة الخطأ أو قبول المهمة.
+              يمكن ربطها في الـ PR بكتابة
+              <span class="inline-code">Closes #12</span>
+              فتُغلق عند الدمج.
+            </p>
+            <p>التصنيفات (Labels) مثل bug و enhancement تساعد على الفرز. Assignees تحدد المسؤول.</p>
+
+            <h3>6) Fork مقابل Collaborators</h3>
+            <div class="compare-grid">
+              <div class="compare-box">
+                <h4>Collaborators</h4>
+                <p>صاحب المستودع يدعوك من Settings → Collaborators.
+                  تدفع فروعاً إلى نفس المستودع ثم تفتح PR داخلياً. مناسب لفريق الدورة.</p>
+              </div>
+              <div class="compare-box">
+                <h4>Fork</h4>
+                <p>نسخة تحت حسابك من مشروع شخص آخر (شائع في المصادر المفتوحة).
+                  تدفع إلى الـ fork ثم تفتح PR نحو المستودع الأصلي.</p>
+              </div>
+            </div>
+
+            <h3>7) وصف الـ PR الجيد</h3>
+            <ul>
+              <li>ماذا تغيّر في جملة.</li>
+              <li>لقطات شاشة إن كان التغيير مرئياً.</li>
+              <li>كيفية التجربة محلياً.</li>
+              <li>ربط الـ Issue إن وُجد.</li>
+            </ul>
+            <p>
+              نجوم المستودع وWatch للإشعارات مفيدة للمتابعة، لكنها ليست بديلاً عن الـ PR.
+              Discussions وWiki موجودة في GitHub؛ نكتفي بمعرفتها دون التعمّق في هذه الجلسة.
+            </p>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">💻</div>
+            <h2>أمثلة عملية</h2>
+          </div>
+
+          <h3>مثال 1: فرع ثم دفع</h3>
+          <div class="code-block">
+            <pre><code>git switch main
+git pull
+git switch -c feature/contact
+echo "&lt;h1&gt;Contact Osama Bittar&lt;/h1&gt;" > contact.html
+git add contact.html
+git commit -m "Add contact page"
+git push -u origin feature/contact</code></pre>
+          </div>
+
+          <h3>مثال 2: نص وصف PR</h3>
+          <div class="code-block">
+            <pre><code>Title: Add contact page
+
+This pull request adds a simple contact heading
+for the academy site of Osama Bittar.
+
+Closes #3</code></pre>
+          </div>
+
+          <h3>مثال 3: تحديث نفس الـ PR بعد ملاحظة</h3>
+          <div class="code-block">
+            <pre><code>echo "&lt;p&gt;Email coming soon.&lt;/p&gt;" >> contact.html
+git add contact.html
+git commit -m "Clarify contact page copy"
+git push</code></pre>
+          </div>
+          <p>لأن الفرع يتتبع origin/feature/contact يكفي push بلا -u مرة ثانية.</p>
+
+          <h3>مثال 4: بعد الدمج محلياً</h3>
+          <div class="code-block">
+            <pre><code>git switch main
+git pull
+git branch -d feature/contact</code></pre>
+          </div>
+          <p>احذف الفرع البعيد من GitHub عبر الواجهة أو بعد التأكد أن الـ PR مدمج.</p>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">🎯</div>
+            <h2>اختبار سريع</h2>
+          </div>
+          <div class="quiz-card" data-correct="b">
+            <p class="quiz-question">Pull Request هو:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">حذف المستودع من GitHub</button>
+              <button class="quiz-option" data-value="b">طلب دمج فرع في فرع آخر مع نقاش ومراجعة</button>
+              <button class="quiz-option" data-value="c">بديل عن git init</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+          <div class="quiz-card" data-correct="a">
+            <p class="quiz-question">Fork يناسب:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">المساهمة في مشروع لا تملك صلاحية الدفع إليه</button>
+              <button class="quiz-option" data-value="b">تغيير لون الزر في CSS فقط دون Git</button>
+              <button class="quiz-option" data-value="c">إيقاف Git على الجهاز</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">✏️</div>
+            <h2>تمارين عملية</h2>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">1</span> Issue</h4>
+            <p>أنشئ Issue بعنوان Add pricing note ونص يوضح أن السعر باليورو.</p>
+            <button class="solution-toggle" data-target="g04-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="g04-1">
+              <p>GitHub → Issues → New issue → العنوان والوصف → Submit. انسخ الرقم مثل #4 لربطه لاحقاً.</p>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">2</span> PR من فرع</h4>
+            <p>ادفع فرعاً يضيف سطراً في notes.txt وافتح Pull Request يدمج إلى main.</p>
+            <button class="solution-toggle" data-target="g04-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="g04-2">
+              <div class="code-block">
+                <pre><code>git switch -c feature/note
+echo "GitHub flow practice" >> notes.txt
+git add notes.txt
+git commit -m "Add GitHub flow practice note"
+git push -u origin feature/note</code></pre>
+              </div>
+              <p>ثم Compare &amp; pull request على GitHub.</p>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">3</span> ربط الإغلاق</h4>
+            <p>في وصف الـ PR اكتب Closes ورقم الـ Issue.</p>
+            <button class="solution-toggle" data-target="g04-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="g04-3">
+              <div class="code-block">
+                <pre><code>Closes #4</code></pre>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">📌</div>
+            <h2>ملخص الجلسة</h2>
+          </div>
+          <ul class="key-points">
+            <li>GitHub Flow: فرع → commits → push → PR → مراجعة → دمج</li>
+            <li>Issues تتبّع العمل وتُغلق من الـ PR</li>
+            <li>الدعوة للتعاون داخل المستودع · الـ Fork للمشاريع الخارجية</li>
+            <li>لا تعتمد على الدفع المباشر إلى main في الفريق</li>
+          </ul>
+        </section>
+
+        <section class="homework-box">
+          <h2>واجب الجلسة</h2>
+          <ul>
+            <li>Issue واحد + فرع + Pull Request مدمج إلى main</li>
+            <li>وصف الـ PR يذكر اسم Osama Bittar في سياق الأكاديمية</li>
+            <li>أرسل روابط الـ Issue والـ PR</li>
+          </ul>
+        </section>
+
+      </div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../../shared/course-data.js"></script>
+  <script src="../../../shared/layout.js"></script>
+  <script src="../../../shared/scripts.js"></script>
+</body>
+</html>

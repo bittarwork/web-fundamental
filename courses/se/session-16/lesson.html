@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 16 — هندسة البرمجيات</title>
+  <link rel="stylesheet" href="../../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="se" data-session="16">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+        <div class="student-welcome"><h3>هدف الجلسة</h3><p>نجمّع حزمة التصدير والتسليم: فهرس الوثائق، خط الأساس، العرض على المالك، ومراجعة الملف الهندسي النهائي.</p></div>
+        <section class="section-block"><div class="section-header"><div class="section-icon">16</div><h2>الشرح النظري</h2></div>
+          <div class="theory-content">
+            <h3>1) التصدير ليس زر PDF فقط</h3>
+            <p>التصدير الأكاديمي: حزمة منسّقة، بأسماء ملفات إنجليزية ثابتة، وفهرس، وإصدار (مثلاً v1.0 بتاريخ 2026-08-17). من يفتح الحزمة يعرف من أين يبدأ.</p>
+            <h3>2) محتويات الحزمة</h3>
+            <p>01-charter، 02-context-scope، 03-srs، 04-use-cases، 05-order-lifecycle، 06-drivers، 07-finance، 08-uml، 09-erd-dictionary، 10-architecture، 11-ia-rbac، 12-plan-risks، 13-test-uat، 14-handover.</p>
+            <h3>3) خط الأساس Baseline</h3>
+            <p>v1.0 تُجمَّد. أي تغيير لاحق طلب تغيير لا تعديل صامت. هكذا تُحمى الفرق من «قلنا شفهياً».</p>
+            <h3>4) العرض</h3>
+            <p>15 دقيقة للمالك: مشكلة المطعم، النطاق، مسار الطلب، السائق، المال باليورو، المخاطر، ماذا يُبنى أولاً. لا تقرأ الـ SRS سطراً سطراً.</p>
+            <h3>5) التسليم</h3>
+            <p>قائمة: الحزمة، سجل قرارات، حسابات تجريبية إن وُجدت لاحقاً، وما هو خارج النطاق. الطالب يُقيَّم بكمال الملف واتساقه لا بجمال شاشة لم تُبرمج.</p>
+            <div class="tip-box"><strong>الأسلوب المكتسب:</strong> أي فكرة جديدة — عيادة، متجر، حجز — تمر بنفس السلسلة. هذا هو مخرج الدورة الحقيقي.</div>
+          </div>
+        </section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📐</div><h2>مخططات ووثائق عملية</h2></div>
+          <div class="spec-table-wrap"><table class="spec-table"><thead><tr><th>ملف</th><th>سؤال يجيبه</th></tr></thead><tbody><tr><td>charter</td><td>لماذا المشروع ومن المالك؟</td></tr><tr><td>srs</td><td>ماذا يجب أن يفعل النظام؟</td></tr><tr><td>finance</td><td>كيف تتحرك اليوروهات؟</td></tr><tr><td>plan-risks</td><td>بأي ترتيب نبني وماذا قد يفشل؟</td></tr><tr><td>handover</td><td>ماذا تسلّم للعميل اليوم؟</td></tr></tbody></table></div>
+          <div class="code-block"><pre><code>Bittar-Kitchen-SE-v1.0/
+  README.txt
+  01-charter
+  02-context-scope
+  03-srs
+  ...
+  14-handover
+Baseline date: 2026-08-17
+Owner: Osama Bittar</code></pre></div>
+          </section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">🎯</div><h2>اختبار سريع</h2></div><div class="quiz-card" data-correct="b">
+            <p class="quiz-question">بعد تجميد v1.0 التعديل الشفهي على قاعدة الأجر:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">يُدمج فوراً بلا أثر</button>
+              <button class="quiz-option" data-value="b">طلب تغيير يحدّث الملف والإصدار</button>
+              <button class="quiz-option" data-value="c">يُترك للسائق ليقرره</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div><div class="quiz-card" data-correct="a">
+            <p class="quiz-question">نجاح الطالب في هذه الدورة يُقاس بـ:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">اتساق الملف الهندسي واكتمال المراحل</button>
+              <button class="quiz-option" data-value="b">عدد أسطر JavaScript</button>
+              <button class="quiz-option" data-value="c">عدد ألوان الشعار</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">✏️</div><h2>تمارين عملية</h2></div><div class="exercise-item">
+            <h4><span class="exercise-number">1</span> فهرس حزمة</h4>
+            <p>اكتب قائمة ملفاتك كما هي في مجلدك.</p>
+            <button class="solution-toggle" data-target="se16-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="se16-1"><p>استخدم الأسماء الإنجليزية أعلاه وطابقها مع ما أنجزته فعلاً، وعلّم الناقص.</p></div>
+          </div><div class="exercise-item">
+            <h4><span class="exercise-number">2</span> سكربت عرض</h4>
+            <p>7 شرائح عنوان فقط.</p>
+            <button class="solution-toggle" data-target="se16-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="se16-2"><p>رؤية، نطاق، طلب، سائق، مالية €، مخاطر، مرحلة M1.</p></div>
+          </div><div class="exercise-item">
+            <h4><span class="exercise-number">3</span> دروس مستفادة</h4>
+            <p>ثلاثة دروس أسلوب لأي فكرة قادمة.</p>
+            <button class="solution-toggle" data-target="se16-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="se16-3"><p>لا كود قبل النطاق. المال دفتر منفصل. كل حالة لها فاعل. التتبع يكشف النقص.</p></div>
+          </div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📌</div><h2>ملخص الجلسة</h2></div>
+          <ul class="key-points"><li>الحزمة إصدار مؤرّخ</li><li>Baseline يحمي من التغيير الصامت</li><li>العرض قصة لا قراءة قاموس</li><li>الأسلوب قابل للنقل لأي فكرة</li></ul>
+        </section>
+        <section class="homework-box"><h2>واجب الجلسة</h2><ul><li>جمّع الحزمة كاملة</li><li>أضف صفحة تسليم بتوقيع منطقي للمالك</li><li>راجع الاتساق: كل FR Must له UC واختبار ومرحلة</li></ul></section>
+      </div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../../shared/course-data.js"></script>
+  <script src="../../../shared/layout.js"></script>
+  <script src="../../../shared/scripts.js"></script>
+</body>
+</html>

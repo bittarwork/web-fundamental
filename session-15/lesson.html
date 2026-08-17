@@ -3,322 +3,89 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>الجلسة 15 — Fetch API و JSON</title>
+  <title>الجلسة 15 — المشروع النهائي — البناء</title>
   <link rel="stylesheet" href="../shared/styles.css">
 </head>
-<body>
+<body class="lesson-page" data-page="lesson" data-course="web" data-session="15">
   <div class="page-wrapper">
+    <div id="layout-header"></div>
 
-    <header class="site-header">
+    <main class="main-content" id="main-content">
       <div class="container">
-        <span class="course-badge">المرحلة 4 — API</span>
-        <h1>الجلسة 15: Fetch API و JSON و async/await</h1>
-        <div class="session-meta">
-          <span>المدة: ساعتان</span>
-          <span>الجلسة 15 من 16</span>
+
+        <div class="session-status">
+          أفكار الجلسة جاهزة — الشرح العلمي التفصيلي والأمثلة والتمارين سيُضاف في المرحلة التالية.
         </div>
-      </div>
-    </header>
 
-    <nav class="lesson-nav">
-      <div class="container">
-        <a href="../index.html" class="nav-link">الرئيسية</a>
-        <a href="../session-14/lesson.html" class="nav-link">→ السابقة</a>
-        <a href="../session-16/lesson.html" class="nav-link">التالية ←</a>
-      </div>
-    </nav>
-
-    <main class="main-content">
-      <div class="container">
+        <div class="student-welcome">
+          <h3>هدف الجلسة</h3>
+          <p>بدء المشروع النهائي: تحليل المطلوب، بناء هيكل HTML، ثم تصميم الصفحة بـ CSS ودمج ما تعلمته في المرحلتين الأولى والثانية.</p>
+        </div>
 
         <section class="section-block">
           <div class="section-header">
             <div class="section-icon">15</div>
-            <h2>الشرح النظري</h2>
+            <h2>محاور الجلسة</h2>
           </div>
-          <div class="theory-content">
-            <h3>ما هو API؟</h3>
-            <p>
-              <strong>API</strong> (واجهة برمجة التطبيقات) هي طريقة للتواصل بين البرامج.
-              موقعك يرسل <em>طلباً</em> لخادم خارجي، والخادم يرد بـ <em>بيانات جاهزة</em>
-              — مثل الطقس، أسعار العملات، أو قائمة مستخدمين.
-            </p>
-
-            <h3>ما هو JSON؟</h3>
-            <p>
-              <strong>JSON</strong> هو صيغة شائعة لتبادل البيانات على الإنترنت.
-              يشبه كائن JavaScript لكنه نص يمكن إرساله عبر الشبكة:
-            </p>
-            <ul>
-              <li>المفاتيح بين علامتي اقتباس مزدوجتين</li>
-              <li>القيم يمكن أن تكون نصوصاً، أرقاماً، مصفوفات، أو كائنات متداخلة</li>
-              <li>نحوّله لكائن JS باستخدام <span class="inline-code">response.json()</span></li>
-            </ul>
-
-            <div class="highlight-box">
-              <strong>مثال JSON:</strong>
-              <pre style="margin-top:0.5rem; font-family:monospace; direction:ltr; text-align:left;">{ "city": "Damascus", "temp": 28, "unit": "°C" }</pre>
-            </div>
-
-            <h3>Fetch API — جلب البيانات</h3>
-            <p>
-              الدالة <span class="inline-code">fetch(url)</span> ترسل طلب HTTP وترجع
-              <span class="inline-code">Promise</span>. الخطوات الأساسية:
-            </p>
-            <ol>
-              <li>استدعِ <span class="inline-code">fetch</span> مع رابط API</li>
-              <li>تحقق أن الاستجابة ناجحة (<span class="inline-code">response.ok</span>)</li>
-              <li>حوّل الرد إلى JSON بـ <span class="inline-code">response.json()</span></li>
-              <li>استخدم البيانات لتحديث الصفحة</li>
-            </ol>
-
-            <h3>async / await — تبسيط الكود</h3>
-            <p>
-              بدلاً من سلسلة <span class="inline-code">.then()</span> الطويلة، نكتب الكود
-              بشكل متتابع داخل دالة <span class="inline-code">async</span>:
-            </p>
-            <ul>
-              <li><span class="inline-code">async</span> — تعلن أن الدالة تعمل بشكل غير متزامن</li>
-              <li><span class="inline-code">await</span> — تنتظر انتهاء Promise قبل المتابعة</li>
-              <li>نلف الكود بـ <span class="inline-code">try / catch</span> لمعالجة الأخطاء</li>
-            </ul>
-
-            <div class="warning-box">
-              <strong>تذكير:</strong> جلب البيانات من الإنترنت يحتاج اتصالاً فعّالاً.
-              بعض APIs مجانية ولا تحتاج مفتاحاً — مثل Open-Meteo للطقس.
-            </div>
-
-            <h3>عرض البيانات في الصفحة</h3>
-            <p>بعد جلب JSON، نستخدم DOM لعرض النتائج:</p>
-            <ul>
-              <li><span class="inline-code">textContent</span> — لعرض نص آمن</li>
-              <li><span class="inline-code">innerHTML</span> — لبناء عناصر HTML (بحذر)</li>
-              <li>إظهار/إخفاء حالة التحميل والخطأ للمستخدم</li>
-            </ul>
-          </div>
+          <ul class="topic-list">
+            <li>تحليل فكرة المشروع النهائي</li>
+            <li>بناء هيكل الموقع باستخدام HTML</li>
+            <li>استخدام Semantic HTML لتنظيم الأقسام</li>
+            <li>تصميم الصفحة وتوزيع العناصر باستخدام CSS</li>
+            <li>Flexbox وBox Model في سياق مشروع حقيقي</li>
+            <li>تنظيم الملفات وربط HTML مع CSS</li>
+          </ul>
         </section>
 
         <section class="section-block">
           <div class="section-header">
-            <div class="section-icon">💻</div>
-            <h2>أمثلة الكود</h2>
-          </div>
-
-          <h3>مثال 1: جلب بيانات بـ fetch و .then()</h3>
-          <div class="code-block">
-            <div class="code-label">JavaScript — fetch with .then()</div>
-            <pre><code>// Fetch weather data for Damascus from Open-Meteo (free, no API key)
-const apiUrl =
-  'https://api.open-meteo.com/v1/forecast?latitude=33.51&longitude=36.29&current_weather=true';
-
-fetch(apiUrl)
-  .then(function (response) {
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    return response.json();
-  })
-  .then(function (data) {
-    const weather = data.current_weather;
-    console.log('Temperature:', weather.temperature, '°C');
-    console.log('Wind speed:', weather.windspeed, 'km/h');
-  })
-  .catch(function (error) {
-    console.error('Fetch failed:', error.message);
-  });</code></pre>
-          </div>
-
-          <h3>مثال 2: نفس الطلب بـ async/await</h3>
-          <div class="code-block">
-            <div class="code-label">JavaScript — async/await</div>
-            <pre><code>async function getWeather() {
-  const apiUrl =
-    'https://api.open-meteo.com/v1/forecast?latitude=33.51&longitude=36.29&current_weather=true';
-
-  try {
-    const response = await fetch(apiUrl);
-
-    if (!response.ok) {
-      throw new Error('Failed to load weather data');
-    }
-
-    const data = await response.json();
-    const weather = data.current_weather;
-
-    return {
-      temp: weather.temperature,
-      wind: weather.windspeed,
-      code: weather.weathercode
-    };
-  } catch (error) {
-    console.error(error.message);
-    return null;
-  }
-}
-
-// Call the function
-getWeather().then(function (result) {
-  if (result) {
-    console.log(result.temp + '°C');
-  }
-});</code></pre>
-          </div>
-
-          <h3>مثال 3: عرض البيانات في HTML</h3>
-          <div class="code-block">
-            <div class="code-label">HTML + JavaScript — Display on page</div>
-            <pre><code>&lt;!-- HTML structure --&gt;
-&lt;div id="weather-card"&gt;
-  &lt;p id="city-name"&gt;دمشق&lt;/p&gt;
-  &lt;p id="temperature"&gt;--°C&lt;/p&gt;
-  &lt;p id="wind-speed"&gt;-- km/h&lt;/p&gt;
-  &lt;p id="status-msg" class="hidden"&gt;&lt;/p&gt;
-&lt;/div&gt;
-
-&lt;script&gt;
-  async function displayWeather() {
-    const tempEl = document.getElementById('temperature');
-    const windEl = document.getElementById('wind-speed');
-    const statusEl = document.getElementById('status-msg');
-
-    statusEl.textContent = 'جاري التحميل...';
-    statusEl.classList.remove('hidden');
-
-    try {
-      const url =
-        'https://api.open-meteo.com/v1/forecast?latitude=33.51&longitude=36.29&current_weather=true';
-      const response = await fetch(url);
-      const data = await response.json();
-      const w = data.current_weather;
-
-      tempEl.textContent = w.temperature + '°C';
-      windEl.textContent = 'سرعة الرياح: ' + w.windspeed + ' km/h';
-      statusEl.classList.add('hidden');
-    } catch (err) {
-      statusEl.textContent = 'تعذّر جلب البيانات';
-    }
-  }
-
-  displayWeather();
-&lt;/script&gt;</code></pre>
-          </div>
-
-          <div class="tip-box">
-            <strong>Open-Meteo API:</strong> مجاني بالكامل ولا يحتاج تسجيلاً.
-            مثال دمشق:
-            <span class="inline-code">latitude=33.51&amp;longitude=36.29</span>
-          </div>
-        </section>
-
-        <section class="section-block">
-          <div class="section-header">
-            <div class="section-icon">✏️</div>
-            <h2>تمارين عملية</h2>
-          </div>
-
-          <div class="exercise-item">
-            <h4><span class="exercise-number">1</span> جلب وطباعة JSON</h4>
-            <p>استخدم fetch لجلب بيانات الطقس لدمشق واطبع كائن <span class="inline-code">current_weather</span> في Console.</p>
-            <button class="solution-toggle" data-target="sol-1">
-              <span class="toggle-text">عرض الحل</span>
-              <span class="arrow">▼</span>
-            </button>
-            <div class="solution-content" id="sol-1">
-              <div class="code-block">
-                <div class="code-label">Solution</div>
-                <pre><code>fetch('https://api.open-meteo.com/v1/forecast?latitude=33.51&longitude=36.29&current_weather=true')
-  .then(res => res.json())
-  .then(data => console.log(data.current_weather));</code></pre>
-              </div>
-            </div>
-          </div>
-
-          <div class="exercise-item">
-            <h4><span class="exercise-number">2</span> تحويل لـ async/await</h4>
-            <p>أعد كتابة التمرين الأول باستخدام دالة async و try/catch.</p>
-            <button class="solution-toggle" data-target="sol-2">
-              <span class="toggle-text">عرض الحل</span>
-              <span class="arrow">▼</span>
-            </button>
-            <div class="solution-content" id="sol-2">
-              <div class="code-block">
-                <div class="code-label">Solution</div>
-                <pre><code>async function loadWeather() {
-  try {
-    const res = await fetch(
-      'https://api.open-meteo.com/v1/forecast?latitude=33.51&longitude=36.29&current_weather=true'
-    );
-    const data = await res.json();
-    console.log(data.current_weather);
-  } catch (e) {
-    console.error(e);
-  }
-}
-
-loadWeather();</code></pre>
-              </div>
-            </div>
-          </div>
-
-          <div class="exercise-item">
-            <h4><span class="exercise-number">3</span> عرض درجة الحرارة في الصفحة</h4>
-            <p>أنشئ عنصر <span class="inline-code">#temp</span> واعرض درجة الحرارة الحالية بعد الجلب.</p>
-            <button class="solution-toggle" data-target="sol-3">
-              <span class="toggle-text">عرض الحل</span>
-              <span class="arrow">▼</span>
-            </button>
-            <div class="solution-content" id="sol-3">
-              <div class="code-block">
-                <div class="code-label">Solution</div>
-                <pre><code>async function showTemp() {
-  const tempEl = document.getElementById('temp');
-  const res = await fetch(
-    'https://api.open-meteo.com/v1/forecast?latitude=33.51&longitude=36.29&current_weather=true'
-  );
-  const data = await res.json();
-  tempEl.textContent = data.current_weather.temperature + '°C';
-}</code></pre>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="section-block">
-          <div class="section-header">
-            <div class="section-icon">📌</div>
-            <h2>ملخص الجلسة</h2>
+            <div class="section-icon">تعلم</div>
+            <h2>ماذا ستتعلم في هذه الجلسة؟</h2>
           </div>
           <ul class="key-points">
-            <li>API يسمح لموقعك بجلب بيانات من خوادم خارجية</li>
-            <li>JSON صيغة البيانات الأكثر شيوعاً على الويب</li>
-            <li>fetch() ترسل طلب HTTP وترجع Promise</li>
-            <li>async/await تجعل كود الجلب أوضح وأسهل للقراءة</li>
-            <li>استخدم try/catch و response.ok لمعالجة الأخطاء</li>
-            <li>في الجلسة القادمة: مشروع تطبيق الطقس الكامل</li>
+            <li>تحويل فكرة إلى هيكل صفحة واضح</li>
+            <li>كتابة HTML منظم ودلالي</li>
+            <li>تطبيق CSS لتصميم الصفحة وتوزيع العناصر</li>
           </ul>
+        </section>
+
+        <section class="section-block content-slot">
+          <div class="section-header">
+            <div class="section-icon">1</div>
+            <h2>الشرح النظري</h2>
+          </div>
+          <p class="slot-note">سيُضاف الشرح العلمي هنا لاحقاً وفق محاور الجلسة أعلاه.</p>
+        </section>
+
+        <section class="section-block content-slot">
+          <div class="section-header">
+            <div class="section-icon">2</div>
+            <h2>أمثلة عملية</h2>
+          </div>
+          <p class="slot-note">ستُضاف أمثلة الكود هنا. الأمثلة ستستخدم اسم المدرب Osama Bittar كمرجع موحّد.</p>
+        </section>
+
+        <section class="section-block content-slot">
+          <div class="section-header">
+            <div class="section-icon">3</div>
+            <h2>تمارين عملية</h2>
+          </div>
+          <p class="slot-note">ستُضاف التمارين والمهام العملية هنا مع حلول قابلة للإظهار.</p>
         </section>
 
         <section class="homework-box">
-          <h2>واجب اختياري</h2>
-          <ul>
-            <li>جرب جلب بيانات لمدينة أخرى بتغيير الإحداثيات</li>
-            <li>أضف رسالة "جاري التحميل..." قبل ظهور النتيجة</li>
-            <li>اقرأ عن Geocoding API لتحويل اسم المدينة لإحداثيات</li>
-          </ul>
+          <h2>واجب الجلسة</h2>
+          <p>سيُحدد المطلوب العملي لهذه الجلسة بعد اعتماد المحتوى العلمي.</p>
         </section>
 
       </div>
     </main>
 
-    <footer class="site-footer">
-      <div class="container">
-        <p class="footer-course">أساسيات الويب — الكورس الأول</p>
-        <p class="footer-instructor">محمد أسامة بيطار · مهندس معلوماتية · مدرب علوم ويب</p>
-        <p class="footer-copy">الجلسة 15 من 16</p>
-      </div>
-    </footer>
-
+    <div id="layout-footer"></div>
   </div>
+
+  <script src="../shared/course-data.js"></script>
+  <script src="../shared/layout.js"></script>
   <script src="../shared/scripts.js"></script>
 </body>
 </html>

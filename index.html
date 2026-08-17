@@ -3,47 +3,148 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>أساسيات الويب - الكورس الأول | المرجع الدراسي</title>
+  <title>مرجع علوم الويب | محمد أسامة بيطار</title>
+  <meta name="description" content="مرجع دراسي مشترك: أساسيات الويب، React، Git، React المتقدم، VPS، Backend، وهندسة البرمجيات.">
   <link rel="stylesheet" href="shared/styles.css">
 </head>
-<body>
+<body data-page="hub">
   <div class="page-wrapper">
+    <div id="layout-header"></div>
 
-    <header class="site-header">
-      <div class="container">
-        <span class="course-badge">مرجع دراسي شامل</span>
-        <h1>أساسيات الويب — الكورس الأول</h1>
-        <div class="session-meta">
-          <span>HTML · CSS · JavaScript · API</span>
-          <span>16 جلسة · 24 ساعة</span>
-        </div>
-      </div>
-    </header>
+    <main class="main-content" id="main-content">
+      <div class="container-wide">
 
-    <main class="main-content">
-      <div class="container">
-
-        <section class="hero-section">
-          <h1>مرحباً بك في الكورس</h1>
+        <section class="hub-hero">
+          <p class="hub-kicker">مرجع دراسي مشترك</p>
+          <h1>مرجع علوم الويب</h1>
           <p class="hero-subtitle">
-            مرجع دراسي تفاعلي يغطي أساسيات بناء مواقع الويب من الصفر حتى التعامل مع واجهات برمجة التطبيقات
+            منصة تعليمية واحدة لكل طلاب الكورس. نبدأ من أساسيات الويب وReact،
+            نحفظ المشاريع عبر Git، نبني Backend بـ Node.js،
+            نرفعها على سيرفر Ubuntu عبر Hostinger VPS،
+            ونتدرّب على هندسة البرمجيات عبر مشروع منصة توصيل كاملة.
           </p>
-
           <div class="course-stats">
             <div class="stat-item">
-              <span class="stat-number">16</span>
+              <span class="stat-number">7</span>
+              <span class="stat-label">دورات</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">100</span>
               <span class="stat-label">جلسة تدريبية</span>
             </div>
             <div class="stat-item">
-              <span class="stat-number">4</span>
-              <span class="stat-label">مشاريع عملية</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-number">3</span>
-              <span class="stat-label">لغات برمجة</span>
+              <span class="stat-number">200</span>
+              <span class="stat-label">ساعة تعليمية</span>
             </div>
           </div>
         </section>
+
+        <div class="course-grid">
+          <article class="course-panel web">
+            <div class="chip-row">
+              <span class="chip">مبتدئ</span>
+              <span class="chip">20 جلسة</span>
+              <span class="chip">40 ساعة</span>
+            </div>
+            <h2>أساسيات الويب</h2>
+            <p class="panel-meta">الكورس الأول · HTML · CSS · JavaScript</p>
+            <p>
+              ابدأ من الصفر وتعلّم كيف تُبنى مواقع الإنترنت باستخدام HTML وCSS وJavaScript،
+              ثم طبّق مهاراتك في مشروع ويب نهائي متكامل.
+            </p>
+            <a class="btn btn-gold" href="courses/web/index.html">دخول الكورس</a>
+          </article>
+
+          <article class="course-panel react">
+            <div class="chip-row">
+              <span class="chip">متوسط</span>
+              <span class="chip">16 جلسة</span>
+              <span class="chip">32 ساعة</span>
+            </div>
+            <h2>React — تطوير الواجهات الحديثة</h2>
+            <p class="panel-meta">الكورس الثاني · Components · Hooks · Routing · APIs</p>
+            <p>
+              دورة عملية للانتقال من JavaScript إلى تطبيقات React متكاملة:
+              الحالة، التوجيه، جلب البيانات، ثم مشروعان نهائيان كبيران.
+            </p>
+            <a class="btn btn-react" href="courses/react/index.html">دخول الكورس</a>
+          </article>
+
+          <article class="course-panel git">
+            <div class="chip-row">
+              <span class="chip">مبتدئ</span>
+              <span class="chip">5 جلسات</span>
+              <span class="chip">10 ساعات</span>
+            </div>
+            <h2>Git و GitHub</h2>
+            <p class="panel-meta">الكورس الثالث · Commits · Branches · Pull Requests · Pages</p>
+            <p>
+              دورة مركّزة لتعلم أساسيات Git على الجهاز ثم استخدام GitHub بالكامل:
+              المستودعات، التعاون، وطلبات الدمج، ونشر موقع صغير.
+            </p>
+            <a class="btn btn-git" href="courses/git/index.html">دخول الكورس</a>
+          </article>
+
+          <article class="course-panel react-adv">
+            <div class="chip-row">
+              <span class="chip">متقدم</span>
+              <span class="chip">16 جلسة</span>
+              <span class="chip">32 ساعة</span>
+            </div>
+            <h2>React Advanced</h2>
+            <p class="panel-meta">الكورس الرابع · Patterns · Performance · Data · Testing</p>
+            <p>
+              بعد إتقان الأساسيات نتعمّق في أنماط React القوية، الأداء، طبقة البيانات،
+              والاختبارات، ثم نطبّقها في مشروعين عمليين كبيرين.
+            </p>
+            <a class="btn btn-react-adv" href="courses/react-advanced/index.html">دخول الكورس</a>
+          </article>
+
+          <article class="course-panel vps">
+            <div class="chip-row">
+              <span class="chip">متوسط</span>
+              <span class="chip">12 جلسة</span>
+              <span class="chip">24 ساعة</span>
+            </div>
+            <h2>VPS والاستضافة عبر Hostinger</h2>
+            <p class="panel-meta">الكورس الخامس · Ubuntu · SSH · Docker · النطاقات</p>
+            <p>
+              تعلّم اختيار سيرفر Ubuntu المناسب، الوصول إليه، سطر الأوامر،
+              Docker، وشراء الدومين وربطه — حصراً عبر Hostinger.
+            </p>
+            <a class="btn btn-vps" href="courses/vps/index.html">دخول الكورس</a>
+          </article>
+
+          <article class="course-panel backend">
+            <div class="chip-row">
+              <span class="chip">متوسط</span>
+              <span class="chip">15 جلسة</span>
+              <span class="chip">30 ساعة</span>
+            </div>
+            <h2>Node.js Backend مع MongoDB</h2>
+            <p class="panel-meta">الكورس السادس · Express · REST · JWT · Mongoose</p>
+            <p>
+              حوّل معرفتك بـ JavaScript إلى Backend حقيقي:
+              REST APIs وMongoDB والمصادقة والصلاحيات، ثم مشروع نهائي متكامل.
+            </p>
+            <a class="btn btn-backend" href="courses/backend/index.html">دخول الكورس</a>
+          </article>
+
+          <article class="course-panel se">
+            <div class="chip-row">
+              <span class="chip">متوسط</span>
+              <span class="chip">16 جلسة</span>
+              <span class="chip">32 ساعة</span>
+            </div>
+            <h2>هندسة البرمجيات — منصة توصيل مذاق بيطار</h2>
+            <p class="panel-meta">الكورس السابع · متطلبات · تحليل · تصميم · متابعة · تصدير</p>
+            <p>
+              دورة بلا كتابة أكواد تطبيق: نمرّ بمشروع منصة توصيل لمطعم واحد
+              مع إدارة السائقين والنظام المالي عبر دورة حياة التطوير الأكاديمية كاملة.
+            </p>
+            <a class="btn btn-se" href="courses/se/index.html">دخول الكورس</a>
+          </article>
+        </div>
 
         <div class="instructor-card">
           <h3>المعلّم: محمد أسامة بيطار</h3>
@@ -53,140 +154,14 @@
           </p>
         </div>
 
-        <!-- Phase 1: HTML -->
-        <section class="phase-section">
-          <div class="phase-title">
-            <span class="phase-badge">المرحلة 1</span>
-            <h2>HTML — هيكل صفحات الويب</h2>
-          </div>
-          <div class="sessions-grid">
-            <a href="session-01/lesson.html" class="session-card">
-              <div class="session-card-number">الجلسة 01</div>
-              <h3>مقدمة الويب وهيكل HTML</h3>
-              <p>تعرف على الويب، المتصفح، وأول صفحة HTML</p>
-            </a>
-            <a href="session-02/lesson.html" class="session-card">
-              <div class="session-card-number">الجلسة 02</div>
-              <h3>النصوص والروابط والصور</h3>
-              <p>الروابط، الصور، القوائم، وتنسيق النصوص</p>
-            </a>
-            <a href="session-03/lesson.html" class="session-card">
-              <div class="session-card-number">الجلسة 03</div>
-              <h3>الجداول والنماذج</h3>
-              <p>بناء جداول ونماذج إدخال بيانات</p>
-            </a>
-            <a href="session-04/lesson.html" class="session-card project">
-              <div class="session-card-number">الجلسة 04 · مشروع</div>
-              <h3>مشروع HTML: صفحة شخصية</h3>
-              <p>بناء Portfolio كامل بـ HTML فقط</p>
-            </a>
-          </div>
-        </section>
-
-        <!-- Phase 2: CSS -->
-        <section class="phase-section">
-          <div class="phase-title">
-            <span class="phase-badge">المرحلة 2</span>
-            <h2>CSS — تصميم وتنسيق الصفحات</h2>
-          </div>
-          <div class="sessions-grid">
-            <a href="session-05/lesson.html" class="session-card">
-              <div class="session-card-number">الجلسة 05</div>
-              <h3>مقدمة CSS والألوان</h3>
-              <p>المحددات، الألوان، الخطوط، وربط CSS</p>
-            </a>
-            <a href="session-06/lesson.html" class="session-card">
-              <div class="session-card-number">الجلسة 06</div>
-              <h3>Box Model والمسافات</h3>
-              <p>الهوامش، الحشو، الحدود، والظلال</p>
-            </a>
-            <a href="session-07/lesson.html" class="session-card">
-              <div class="session-card-number">الجلسة 07</div>
-              <h3>Flexbox والتخطيط</h3>
-              <p>ترتيب العناصر بمرونة وسهولة</p>
-            </a>
-            <a href="session-08/lesson.html" class="session-card project">
-              <div class="session-card-number">الجلسة 08 · مشروع</div>
-              <h3>مشروع CSS: موقع مصمّم</h3>
-              <p>تطبيق تصميم كامل على صفحة Portfolio</p>
-            </a>
-          </div>
-        </section>
-
-        <!-- Phase 3: JavaScript -->
-        <section class="phase-section">
-          <div class="phase-title">
-            <span class="phase-badge">المرحلة 3</span>
-            <h2>JavaScript — البرمجة والتفاعل</h2>
-          </div>
-          <div class="sessions-grid">
-            <a href="session-09/lesson.html" class="session-card">
-              <div class="session-card-number">الجلسة 09</div>
-              <h3>من الصفر: المتغيرات</h3>
-              <p>أول خطوة — console.log و let و const</p>
-            </a>
-            <a href="session-10/lesson.html" class="session-card">
-              <div class="session-card-number">الجلسة 10</div>
-              <h3>الشروط if و else</h3>
-              <p>اتخاذ القرارات — من الصفر</p>
-            </a>
-            <a href="session-11/lesson.html" class="session-card">
-              <div class="session-card-number">الجلسة 11</div>
-              <h3>الحلقات والتوابع</h3>
-              <p>for و while والدوال — من الصفر</p>
-            </a>
-            <a href="session-12/lesson.html" class="session-card">
-              <div class="session-card-number">الجلسة 12</div>
-              <h3>المصفوفات والأغراض</h3>
-              <p>تخزين البيانات — Arrays و Objects</p>
-            </a>
-            <a href="session-13/lesson.html" class="session-card">
-              <div class="session-card-number">الجلسة 13</div>
-              <h3>Arrow و filter و map</h3>
-              <p>التوابع السهمية وتصفية البيانات</p>
-            </a>
-            <a href="session-14/lesson.html" class="session-card">
-              <div class="session-card-number">الجلسة 14</div>
-              <h3>DOM — ربط JS بالصفحة</h3>
-              <p>تغيير الصفحة + مشروع Todo List</p>
-            </a>
-          </div>
-        </section>
-
-        <!-- Phase 4: API -->
-        <section class="phase-section">
-          <div class="phase-title">
-            <span class="phase-badge">المرحلة 4</span>
-            <h2>API — التعامل مع البيانات الخارجية</h2>
-          </div>
-          <div class="sessions-grid">
-            <a href="session-15/lesson.html" class="session-card">
-              <div class="session-card-number">الجلسة 15</div>
-              <h3>Fetch API و JSON</h3>
-              <p>جلب البيانات من الإنترنت وعرضها</p>
-            </a>
-            <a href="session-16/lesson.html" class="session-card project">
-              <div class="session-card-number">الجلسة 16 · مشروع نهائي</div>
-              <h3>مشروع الطقس Weather App</h3>
-              <p>تطبيق طقس يعتمد على API مجاني</p>
-            </a>
-          </div>
-        </section>
-
       </div>
     </main>
 
-    <footer class="site-footer">
-      <div class="container">
-        <p class="footer-course">أساسيات الويب — الكورس الأول</p>
-        <p class="footer-instructor">
-          محمد أسامة بيطار · مهندس معلوماتية · الجامعة الافتراضية السورية<br>
-          مدرب علوم ويب · مبرمج ومسؤول مشاريع في سورية والوطن العربي
-        </p>
-        <p class="footer-copy">مرجع دراسي للطلاب · 2026</p>
-      </div>
-    </footer>
-
+    <div id="layout-footer"></div>
   </div>
+
+  <script src="shared/course-data.js"></script>
+  <script src="shared/layout.js"></script>
+  <script src="shared/scripts.js"></script>
 </body>
 </html>

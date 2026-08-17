@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 09 — جلب البيانات بلا سباقات</title>
+  <link rel="stylesheet" href="../../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="react-advanced" data-session="09">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+
+        <div class="student-welcome">
+          <h3>هدف الجلسة</h3>
+          <p>نلغي الطلب عند مغادرة الصفحة ونتجاهل الرد القديم حتى لا تُعرض تفاصيل كورس خاطئ.</p>
+        </div>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">09</div>
+            <h2>الشرح النظري</h2>
+          </div>
+          <div class="theory-content">
+            <h3>1) سباق الطلبات</h3>
+            <p>المستخدم يفتح كورس 1 ثم بسرعة 2. إن وصل رد 1 متأخراً قد يستبدل بيانات 2.</p>
+            <h3>2) AbortController</h3>
+            <p>مرّر signal إلى fetch. في cleanup للأثر استدع abort().</p>
+            <h3>3) الإغلاق القديم (stale closure)</h3>
+            <p>أثر يعتمد على id لكن الدالة الداخلية ترى قيمة قديمة إن نقص الاعتماد. ضع courseId في المصفوفة.</p>
+            <h3>4) تجاهل الرد</h3>
+            <p>حتى بلا abort: متغير let cancelled = false في الأثر، وفي النهاية cancelled = true.</p>
+            <div class="warning-box"><strong>لا تترك fetch بلا cleanup</strong> في صفحات التفاصيل الديناميكية.</div>
+  </div>
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">💻</div>
+            <h2>أمثلة عملية</h2>
+          </div>
+          
+          <h3>مثال 1: إلغاء</h3>
+          <div class="code-block"><pre><code>useEffect(() =&gt; {
+  const controller = new AbortController();
+  async function load() {
+    try {
+      const response = await fetch(url, { signal: controller.signal });
+      if (!response.ok) throw new Error("Failed");
+      setCourse(await response.json());
+    } catch (error) {
+      if (error.name === "AbortError") return;
+      setError(error.message);
+    }
+  }
+  load();
+  return () =&gt; controller.abort();
+}, [courseId]);</code></pre></div>
+          <h3>مثال 2: عنوان يعتمد على المعرّف</h3>
+          <div class="code-block"><pre><code>const url = "https://jsonplaceholder.typicode.com/posts/" + courseId;</code></pre></div>
+          <h3>مثال 3: علَم الإلغاء</h3>
+          <div class="code-block"><pre><code>let cancelled = false;
+// after await: if (cancelled) return;
+return () =&gt; { cancelled = true; };</code></pre></div>
+  
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">🎯</div>
+            <h2>اختبار سريع</h2>
+          </div>
+                    <div class="quiz-card" data-correct="a">
+            <p class="quiz-question">AbortError بعد abort يعني:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">تجاهله ولا تعرضه كفشل شبكة للمستخدم</button>
+              <button class="quiz-option" data-value="b">احذف المستودع</button>
+              <button class="quiz-option" data-value="c">أظهر 404 دائماً</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+          <div class="quiz-card" data-correct="b">
+            <p class="quiz-question">تغيير courseId يجب أن:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">يبقي الطلب القديم حتى ينتهي فقط</button>
+              <button class="quiz-option" data-value="b">يعيد تشغيل الأثر ويلغي السابق</button>
+              <button class="quiz-option" data-value="c">يعطّل Router</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">✏️</div>
+            <h2>تمارين عملية</h2>
+          </div>
+                    <div class="exercise-item">
+            <h4><span class="exercise-number">1</span> signal</h4>
+            <p>مرّر AbortSignal في تفاصيل الكورس.</p>
+            <button class="solution-toggle" data-target="ra09-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="ra09-1">
+              <p>انظر مثال 1.</p>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">2</span> لا تعرض abort</h4>
+            <p>تجاهل error.name === "AbortError".</p>
+            <button class="solution-toggle" data-target="ra09-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="ra09-2">
+              <div class="code-block"><pre><code>if (error.name === "AbortError") return;</code></pre></div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">3</span> اعتماد</h4>
+            <p>ضع courseId في مصفوفة useEffect.</p>
+            <button class="solution-toggle" data-target="ra09-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="ra09-3">
+              <div class="code-block"><pre><code>}, [courseId]);</code></pre></div>
+            </div>
+          </div>
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">📌</div>
+            <h2>ملخص الجلسة</h2>
+          </div>
+          <ul class="key-points">
+            <li>الرد المتأخر قد يكون للكورس السابق</li>
+            <li>abort في cleanup</li>
+            <li>الاعتماد الكامل يمنع الإغلاق القديم</li>
+          </ul>
+        </section>
+        <section class="homework-box">
+          <h2>واجب الجلسة</h2>
+          <ul>
+            <li>طبّق الإلغاء على صفحة التفاصيل</li>
+            <li>بدّل المعرّف بسرعة وراقب Network</li>
+            <li>أضف اسم Osama Bittar بعد نجاح الجلب</li>
+          </ul>
+        </section>
+      </div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../../shared/course-data.js"></script>
+  <script src="../../../shared/layout.js"></script>
+  <script src="../../../shared/scripts.js"></script>
+</body>
+</html>

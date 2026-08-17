@@ -6,29 +6,12 @@
   <title>الجلسة 11 — الحلقات والتوابع</title>
   <link rel="stylesheet" href="../shared/styles.css">
 </head>
-<body>
+<body class="lesson-page" data-page="lesson" data-course="web" data-session="11">
   <div class="page-wrapper">
 
-    <header class="site-header">
-      <div class="container">
-        <span class="course-badge">المرحلة 3 — JavaScript · من الصفر</span>
-        <h1>الجلسة 11: الحلقات والتوابع</h1>
-        <div class="session-meta">
-          <span>المدة: ساعة ونصف</span>
-          <span>الجلسة 11 من 16</span>
-        </div>
-      </div>
-    </header>
+    <div id="layout-header"></div>
 
-    <nav class="lesson-nav">
-      <div class="container">
-        <a href="../index.html" class="nav-link">الرئيسية</a>
-        <a href="../session-10/lesson.html" class="nav-link">→ السابقة</a>
-        <a href="../session-12/lesson.html" class="nav-link">التالية ←</a>
-      </div>
-    </nav>
-
-    <main class="main-content">
+    <main class="main-content" id="main-content">
       <div class="container">
 
         <div class="student-welcome">
@@ -192,7 +175,7 @@ for (let n = 1; n &lt;= 7; n++) {
               <li>نكتب <span class="inline-code">function</span> ثم <strong>اسم الدالة</strong> (يفضّل يبدأ بفعل: greet, calculateScore, add)</li>
               <li>أقواس <span class="inline-code">()</span> — فيها <strong>معاملات (parameters)</strong> اختيارية: مدخلات الوصفة</li>
               <li>أقواس <span class="inline-code">{ }</span> — جسم الدالة: الخطوات اللي تنفّذ</li>
-              <li>نستدعيها باسمها + القيم: <span class="inline-code">greet("George")</span></li>
+              <li>نستدعيها باسمها + القيم: <span class="inline-code">greet("Osama")</span></li>
             </ol>
 
             <div class="code-block">
@@ -202,15 +185,14 @@ function greet(name) {
 }
 
 // calls — use it many times with different values
-greet("George");
-greet("Sara");
-greet("Ali");</code></pre>
+greet("Osama");
+greet("Bittar");</code></pre>
             </div>
 
             <h3>7) Parameters و Arguments — مدخلات الدالة</h3>
             <p>
               <strong>Parameters</strong> = الأسماء اللي نكتبها وقت تعريف الدالة (مثل <span class="inline-code">name</span>, <span class="inline-code">wins</span>).
-              <strong>Arguments</strong> = القيم الفعلية اللي نمرّرها وقت الاستدعاء (مثل <span class="inline-code">"George"</span>, <span class="inline-code">7</span>).
+              <strong>Arguments</strong> = القيم الفعلية اللي نمرّرها وقت الاستدعاء (مثل <span class="inline-code">"Osama"</span>, <span class="inline-code">7</span>).
             </p>
 
             <div class="code-block">
@@ -441,13 +423,13 @@ while (true) {
   console.log("مرحباً " + name + "! أهلاً فيك 👋");
 }
 
-greet("George");
-greet("Ziad");</code></pre>
+greet("Osama");
+greet("Bittar");</code></pre>
           </div>
           <div class="expected-output">
             <div class="expected-output-label">📤 المخرجات المتوقعة</div>
-            <pre>مرحباً George! أهلاً فيك 👋
-مرحباً Ziad! أهلاً فيك 👋</pre>
+            <pre>مرحباً Osama! أهلاً فيك 👋
+مرحباً Bittar! أهلاً فيك 👋</pre>
           </div>
 
           <button class="run-demo-btn" data-demo="s11_example7">▶ شغّل المثال 7</button>
@@ -463,10 +445,10 @@ greet("Ziad");</code></pre>
   return total;
 }
 
-const georgeScore = calculateScore(7, 5);
-console.log("النقاط:", georgeScore);
+const playerScore = calculateScore(7, 5);
+console.log("النقاط:", playerScore);
 
-if (georgeScore >= 60) {
+if (playerScore >= 60) {
   console.log("مبروك! نجحت");
 } else {
   console.log("حاول مرة تانية");
@@ -587,11 +569,11 @@ console.log(add(4, 6));</code></pre>
             <p class="quiz-question">سؤال 5: شو الفرق بين parameter و argument؟</p>
             <div class="code-block">
               <pre><code>function greet(name) { ... }
-greet("George");</code></pre>
+greet("Osama");</code></pre>
             </div>
             <div class="quiz-options">
-              <button class="quiz-option" data-value="a">name = parameter · "George" = argument</button>
-              <button class="quiz-option" data-value="b">"George" = parameter · name = argument</button>
+              <button class="quiz-option" data-value="a">name = parameter · "Osama" = argument</button>
+              <button class="quiz-option" data-value="b">"Osama" = parameter · name = argument</button>
               <button class="quiz-option" data-value="c">نفس الشي — ما في فرق</button>
             </div>
             <div class="quiz-feedback"></div>
@@ -738,9 +720,9 @@ console.log("انطلق!");</code></pre>
   console.log("أهلاً " + name);
 }
 
-greet("George");</code></pre>
+greet("Osama");</code></pre>
               </div>
-              <div class="expected-output"><pre>أهلاً George</pre></div>
+              <div class="expected-output"><pre>أهلاً Osama</pre></div>
             </div>
           </div>
 
@@ -847,13 +829,7 @@ console.log("المجموع:", sum, "— توقف عند n =", n);</code></pre>
       </div>
     </main>
 
-    <footer class="site-footer">
-      <div class="container">
-        <p class="footer-course">أساسيات الويب — الكورس الأول</p>
-        <p class="footer-instructor">محمد أسامة بيطار · مهندس معلوماتية · مدرب علوم ويب</p>
-        <p class="footer-copy">الجلسة 11 من 16</p>
-      </div>
-    </footer>
+    <div id="layout-footer"></div>
 
   </div>
 
@@ -928,8 +904,8 @@ console.log("المجموع:", sum, "— توقف عند n =", n);</code></pre>
       function greet(name) {
         console.log("مرحباً " + name + "! أهلاً فيك 👋");
       }
-      greet("George");
-      greet("Ziad");
+      greet("Osama");
+      greet("Bittar");
     }
 
     // Demo: calculate game score with return
@@ -939,9 +915,9 @@ console.log("المجموع:", sum, "— توقف عند n =", n);</code></pre>
         const total = (wins * pointsPerWin) + bonus;
         return total;
       }
-      const georgeScore = calculateScore(7, 5);
-      console.log("النقاط:", georgeScore);
-      if (georgeScore >= 60) {
+      const playerScore = calculateScore(7, 5);
+      console.log("النقاط:", playerScore);
+      if (playerScore >= 60) {
         console.log("مبروك! نجحت");
       } else {
         console.log("حاول مرة تانية");
@@ -964,6 +940,8 @@ console.log("المجموع:", sum, "— توقف عند n =", n);</code></pre>
       }
     }
   </script>
+  <script src="../shared/course-data.js"></script>
+  <script src="../shared/layout.js"></script>
   <script src="../shared/scripts.js"></script>
 </body>
 </html>

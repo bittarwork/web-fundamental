@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 08 — useEffect</title>
+  <link rel="stylesheet" href="../../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="react" data-session="08">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+
+        <div class="student-welcome">
+          <h3>هدف الجلسة</h3>
+          <p>
+            ننفّذ Side Effects بعد الرسم: تغيير عنوان الصفحة، الاشتراك بمؤقت،
+            أو التحضير لجلب بيانات. نفهم مصفوفة الاعتماد ودالة التنظيف.
+          </p>
+        </div>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">08</div>
+            <h2>الشرح النظري</h2>
+          </div>
+          <div class="theory-content">
+            <h3>1) Side Effects</h3>
+            <p>
+              رسم JSX عمل نقي قدر الإمكان. أي تواصل مع الخارج أثر جانبي:
+              <span class="inline-code">document.title</span>،
+              <span class="inline-code">setInterval</span>،
+              <span class="inline-code">fetch</span>،
+              مستمع على النافذة.
+            </p>
+            <p>هذه الأعمال لا تُكتب مباشرة في جسم المكوّن بلا ضوابط — نضعها في useEffect.</p>
+
+            <h3>2) useEffect</h3>
+            <div class="code-block">
+              <pre><code>import { useEffect } from "react";
+
+useEffect(() =&gt; {
+  // runs after render
+}, [dependencies]);</code></pre>
+            </div>
+
+            <h3>3) Dependency Array</h3>
+            <ul>
+              <li><span class="inline-code">[]</span> — مرة بعد أول رسم (يشبه «عند التحميل»).</li>
+              <li><span class="inline-code">[query]</span> — بعد أول رسم وكلما تغيّر query.</li>
+              <li>بدون مصفوفة — بعد <strong>كل</strong> رسم (نادراً ما تريده).</li>
+            </ul>
+            <div class="warning-box">
+              <strong>ضع في المصفوفة كل قيمة من المكوّن تستخدمها داخل الأثر.</strong>
+              إغفالها يسبب قيماً قديمة أو حلقات لا نهائية.
+            </div>
+
+            <h3>4) مفهوم دورة الحياة</h3>
+            <p>
+              المكوّن يُركَّب (mount) ثم يتحدّث (update) ثم يُزال (unmount).
+              useEffect يغطي هذه اللحظات: التشغيل بعد الرسم، وإعادة التشغيل عند تغيّر الاعتماد،
+              والتنظيف قبل الإزالة أو قبل إعادة التشغيل.
+            </p>
+            <div class="compare-grid">
+              <div class="compare-box">
+                <h4>Mount</h4>
+                <p>أول رسم ثم أثر بمصفوفة [] — مناسب لعنوان الصفحة أو بدء الجلب.</p>
+              </div>
+              <div class="compare-box">
+                <h4>Update</h4>
+                <p>تغيّر قيمة في المصفوفة يعيد تشغيل الأثر — مناسب للبحث أو id الصفحة.</p>
+              </div>
+            </div>
+            <div class="tip-box">
+              <strong>React Strict Mode (Vite):</strong> في وضع التطوير قد يُركَّب المكوّن مرتين لاكتشاف الآثار غير النظيفة.
+              لذلك cleanup ضروري حتى لا يتكرر المؤقت. في الإنتاج يعمل مرة واحدة.
+            </div>
+
+            <h3>5) Cleanup Functions</h3>
+            <p>
+              إذا بدأت مؤقتاً أو أضفت مستمعاً، أرجع دالة تلغيه.
+              وإلا يتكرر العداد بعد كل رسم أو بعد مغادرة الصفحة.
+            </p>
+            <div class="warning-box">
+              <strong>حلقة لا نهائية:</strong> استدعاء setState داخل الأثر بدون اعتماد صحيح
+              يعيد الرسم فيعيد الأثر فيعيد setState. راجع المصفوفة فوراً.
+            </div>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">💻</div>
+            <h2>أمثلة عملية</h2>
+          </div>
+
+          <h3>مثال 1: عنوان الصفحة مرة واحدة</h3>
+          <div class="code-block">
+            <pre><code>useEffect(() =&gt; {
+  document.title = "React — Osama Bittar";
+}, []);</code></pre>
+          </div>
+
+          <h3>مثال 2: العنوان يتبع الحالة</h3>
+          <div class="code-block">
+            <pre><code>const [session, setSession] = useState(1);
+
+useEffect(() =&gt; {
+  document.title = "Session " + session;
+}, [session]);</code></pre>
+          </div>
+
+          <h3>مثال 3: مؤقت مع تنظيف</h3>
+          <div class="code-block">
+            <pre><code>useEffect(() =&gt; {
+  const id = setInterval(() =&gt; {
+    console.log("tick");
+  }, 1000);
+
+  return () =&gt; {
+    clearInterval(id);
+  };
+}, []);</code></pre>
+          </div>
+
+          <h3>مثال 4: محاكاة تحميل بيانات عند فتح المكوّن</h3>
+          <div class="code-block">
+            <pre><code>useEffect(() =&gt; {
+  console.log("Load courses for Osama");
+  // fetch will come in the next session
+}, []);</code></pre>
+          </div>
+
+          <h3>مثال 5: مستمع نافذة مع تنظيف</h3>
+          <div class="code-block">
+            <pre><code>useEffect(() =&gt; {
+  function onResize() {
+    console.log(window.innerWidth);
+  }
+
+  window.addEventListener("resize", onResize);
+  return () =&gt; {
+    window.removeEventListener("resize", onResize);
+  };
+}, []);</code></pre>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">🎯</div>
+            <h2>اختبار سريع</h2>
+          </div>
+          <div class="quiz-card" data-correct="c">
+            <p class="quiz-question">useEffect(..., []) يعمل:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">قبل أول return</button>
+              <button class="quiz-option" data-value="b">في كل نقرة زر مهما كانت المصفوفة</button>
+              <button class="quiz-option" data-value="c">بعد أول رسم فقط</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+          <div class="quiz-card" data-correct="a">
+            <p class="quiz-question">دالة التنظيف تُستدعى:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">قبل إلغاء المكوّن أو قبل إعادة تشغيل الأثر</button>
+              <button class="quiz-option" data-value="b">فقط عند npm install</button>
+              <button class="quiz-option" data-value="c">بدلاً من return الـ JSX</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">✏️</div>
+            <h2>تمارين عملية</h2>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">1</span> عنوان ترحيبي</h4>
+            <p>عند التحميل اجعل عنوان التبويب «Welcome Osama».</p>
+            <button class="solution-toggle" data-target="r08-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="r08-1">
+              <div class="code-block">
+                <pre><code>useEffect(() =&gt; {
+  document.title = "Welcome Osama";
+}, []);</code></pre>
+              </div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">2</span> عدّاد ثوانٍ</h4>
+            <p>زد رقماً كل ثانية ونظّف المؤقت عند المغادرة.</p>
+            <button class="solution-toggle" data-target="r08-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="r08-2">
+              <div class="code-block">
+                <pre><code>useEffect(() =&gt; {
+  const id = setInterval(() =&gt; setSeconds((s) =&gt; s + 1), 1000);
+  return () =&gt; clearInterval(id);
+}, []);</code></pre>
+              </div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">3</span> أثر يتبع البحث</h4>
+            <p>كلما تغيّر query اطبع في Console «Search: ...».</p>
+            <button class="solution-toggle" data-target="r08-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="r08-3">
+              <div class="code-block">
+                <pre><code>useEffect(() =&gt; {
+  console.log("Search:", query);
+}, [query]);</code></pre>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">📌</div>
+            <h2>ملخص الجلسة</h2>
+          </div>
+          <ul class="key-points">
+            <li>الآثار الجانبية بعد الرسم عبر useEffect</li>
+            <li>المصفوفة تتحكم بمتى يُعاد التشغيل</li>
+            <li>[] ≈ عند التحميل · [x] عند تغيّر x</li>
+            <li>أرجع cleanup للمؤقتات والمستمعات</li>
+          </ul>
+        </section>
+
+        <section class="homework-box">
+          <h2>واجب الجلسة</h2>
+          <ul>
+            <li>غيّر عنوان الصفحة حسب رقم الجلسة في state</li>
+            <li>أضف مؤقتاً مع clearInterval</li>
+            <li>اكتب في تعليق متى ستستخدم [] ومتى ستضع قيمة داخل المصفوفة</li>
+          </ul>
+        </section>
+
+      </div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../../shared/course-data.js"></script>
+  <script src="../../../shared/layout.js"></script>
+  <script src="../../../shared/scripts.js"></script>
+</body>
+</html>

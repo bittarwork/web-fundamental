@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 10 — ذاكرة مؤقتة على العميل</title>
+  <link rel="stylesheet" href="../../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="react-advanced" data-session="10">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+
+        <div class="student-welcome">
+          <h3>هدف الجلسة</h3>
+          <p>نبني خطافاً صغيراً يخزّن النتائج حسب مفتاح حتى لا نعيد طلب القائمة في كل زيارة خلال الجلسة.</p>
+        </div>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">10</div>
+            <h2>الشرح النظري</h2>
+          </div>
+          <div class="theory-content">
+            <h3>1) لماذا cache؟</h3>
+            <p>التنقّل قائمة → تفاصيل → قائمة يعيد fetch بلا داعٍ. ذاكرة Map بالمفتاح توفر اللقطة الأخيرة.</p>
+            <h3>2) مفاتيح الاستعلام</h3>
+            <p>["courses"] أو ["course", id]. أي تغيّر في المفتاح = خانة مختلفة.</p>
+            <h3>3) الإبطال invalidate</h3>
+            <p>بعد حفظ نموذج احذف المفتاح أو أعد الجلب حتى لا تبقى قائمة قديمة.</p>
+            <h3>4) خطاف مشترك</h3>
+            <p>هذا تبسيط تعليمي لفكرة مكتبات مثل TanStack Query — نفهم الفكرة قبل إضافة مكتبة.</p>
+            <div class="tip-box"><strong>الذاكرة هنا في RAM التبويب.</strong> تحديث الصفحة يفرّغها إلا إذا خزّنت لاحقاً.</div>
+  </div>
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">💻</div>
+            <h2>أمثلة عملية</h2>
+          </div>
+          
+          <h3>مثال 1: مخزن بسيط</h3>
+          <div class="code-block"><pre><code>const memory = new Map();
+
+export function readCache(key) {
+  return memory.get(key);
+}
+
+export function writeCache(key, value) {
+  memory.set(key, value);
+}
+
+export function invalidate(key) {
+  memory.delete(key);
+}</code></pre></div>
+          <h3>مثال 2: useCachedCourses</h3>
+          <div class="code-block"><pre><code>export function useCachedCourses() {
+  const key = "courses";
+  const cached = readCache(key);
+  const [data, setData] = useState(cached || []);
+  const [loading, setLoading] = useState(!cached);
+
+  useEffect(() =&gt; {
+    if (cached) return;
+    let cancelled = false;
+    getCourses().then((rows) =&gt; {
+      if (cancelled) return;
+      writeCache(key, rows);
+      setData(rows);
+      setLoading(false);
+    });
+    return () =&gt; { cancelled = true; };
+  }, [cached]);
+
+  return { data, loading };
+}</code></pre></div>
+          <h3>مثال 3: بعد الحفظ</h3>
+          <div class="code-block"><pre><code>invalidate("courses");</code></pre></div>
+  
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">🎯</div>
+            <h2>اختبار سريع</h2>
+          </div>
+                    <div class="quiz-card" data-correct="b">
+            <p class="quiz-question">مفتاح cache الجيد للتفاصيل:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">نفس المفتاح لكل الصفحات</button>
+              <button class="quiz-option" data-value="b">["course", id]</button>
+              <button class="quiz-option" data-value="c">رقم عشوائي كل رسم</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+          <div class="quiz-card" data-correct="a">
+            <p class="quiz-question">invalidate بعد الإضافة حتى:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">تظهر القائمة المحدّثة في الزيارة التالية</button>
+              <button class="quiz-option" data-value="b">يتغيّر لون CSS</button>
+              <button class="quiz-option" data-value="c">يُحذف React</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">✏️</div>
+            <h2>تمارين عملية</h2>
+          </div>
+                    <div class="exercise-item">
+            <h4><span class="exercise-number">1</span> مفتاح سعر</h4>
+            <p>خزّن قائمة فيها price باليورو.</p>
+            <button class="solution-toggle" data-target="ra10-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="ra10-1">
+              <div class="code-block"><pre><code>writeCache("courses", rows.map((row) =&gt; ({ ...row, price: 39 })));</code></pre></div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">2</span> تخطي الجلب</h4>
+            <p>إن وُجدت الذاكرة لا تعرض Loading كاملاً.</p>
+            <button class="solution-toggle" data-target="ra10-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="ra10-2">
+              <p>loading الابتدائي !cached كما في المثال.</p>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">3</span> إبطال</h4>
+            <p>بعد نموذج تواصل ادعُ invalidate.</p>
+            <button class="solution-toggle" data-target="ra10-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="ra10-3">
+              <div class="code-block"><pre><code>invalidate("courses");</code></pre></div>
+            </div>
+          </div>
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">📌</div>
+            <h2>ملخص الجلسة</h2>
+          </div>
+          <ul class="key-points">
+            <li>المفتاح يحدد الخانة</li>
+            <li>الإبطال بعد الكتابة</li>
+            <li>هذه ذاكرة جلسة لا بديلاً عن السيرفر</li>
+          </ul>
+        </section>
+        <section class="homework-box">
+          <h2>واجب الجلسة</h2>
+          <ul>
+            <li>انقل الـ Map إلى module منفصل</li>
+            <li>خطاف useCachedCourse(id)</li>
+            <li>لا تخزّن كلمات مرور</li>
+          </ul>
+        </section>
+      </div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../../shared/course-data.js"></script>
+  <script src="../../../shared/layout.js"></script>
+  <script src="../../../shared/scripts.js"></script>
+</body>
+</html>

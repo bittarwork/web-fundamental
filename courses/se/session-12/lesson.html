@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 12 — هندسة البرمجيات</title>
+  <link rel="stylesheet" href="../../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="se" data-session="12">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+        <div class="student-welcome"><h3>هدف الجلسة</h3><p>نقترح عمارة قنوات وطبقات ونبرّر خيارات تقنية (خرائط، دفع، إشعارات، استضافة) كمفاهيم بلا كتابة كود.</p></div>
+        <section class="section-block"><div class="section-header"><div class="section-icon">12</div><h2>الشرح النظري</h2></div>
+          <div class="theory-content">
+            <h3>1) القنوات</h3>
+            <p>Customer Web/App، Kitchen Tablet، Driver App، Admin/Finance Web. خلفها Backend واحد ومنطقي حتى لا تتعدد حقائق الطلب.</p>
+            <h3>2) طبقات C4 المبسطة</h3>
+            <p>السياق أخذناه في الجلسة 02. الآن الحاويات: تطبيقات القنوات، API، قاعدة بيانات، عامل خلفية للإشعارات والتعيين، مخزن ملفات للصور.</p>
+            <h3>3) موارد API كمفاهيم</h3>
+            <p>نسمّي الموارد: /orders، /jobs، /menu، /wallet، /shifts. نحدد من يقرأ/يكتب حسب الدور. ليست جلسة Express.</p>
+            <h3>4) قرارات تقنية</h3>
+            <p>كل قرار: مشكلة، خيارات، اختيار، سبب، أثر. مثال الدفع: بوابة بدل حفظ بطاقات. الخرائط: مزوّد لتقدير المسافة. الاستضافة: VPS لاحقاً كما في كورس المنصة، هنا نذكر الحاجة فقط.</p>
+            <h3>5) الزمن الحقيقي</h3>
+            <p>المطبخ والسائق يحتاجان تحديثاً سريعاً: WebSocket أو polling كمفهوم. نوثّق الحاجة (Ready خلال ثوانٍ) لا المكتبة.</p>
+          </div>
+        </section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📐</div><h2>مخططات ووثائق عملية</h2></div>
+          <div class="diagram-box"><div class="diagram-caption">Containers (logical)</div>[Customer app] \
+[Kitchen app]  \  --> [API / application] --> [Database]
+[Driver app]   /            |               --> [File store]
+[Admin web]   /             +--&gt; [Background worker]
+                              +--&gt; Payment / Maps / Push</div>
+          <div class="spec-table-wrap"><table class="spec-table"><thead><tr><th>قرار</th><th>اختيار الدورة</th><th>السبب</th></tr></thead><tbody><tr><td>مدفوعات بطاقة</td><td>Payment gateway</td><td>عدم تخزين بطاقات</td></tr><tr><td>مسافة الأجر</td><td>Maps distance at assign time</td><td>أجر ثابت قابل للتدقيق</td></tr><tr><td>مصدر حقيقة الطلب</td><td>Backend واحد</td><td>لا اختلاف مطبخ/سائق</td></tr><tr><td>صور الأصناف</td><td>مسارات ملفات لا داخل DB كنص ثنائي في التحليل</td><td>بساطة النسخ الاحتياطي</td></tr></tbody></table></div>
+          </section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">🎯</div><h2>اختبار سريع</h2></div><div class="quiz-card" data-correct="c">
+            <p class="quiz-question">حقيقة حالة الطلب يجب أن تسكن:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">في رأس السائق فقط</button>
+              <button class="quiz-option" data-value="b">في ثلاث قواعد منفصلة بلا مزامنة</button>
+              <button class="quiz-option" data-value="c">في نظام خلفي واحد تقرأه كل القنوات</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div><div class="quiz-card" data-correct="b">
+            <p class="quiz-question">ذكر WebSocket في هذه الدورة يعني:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">كتابة كود مكتبة الآن</button>
+              <button class="quiz-option" data-value="b">قرار احتياج تحديث فوري يُوثَّق للفريق لاحقاً</button>
+              <button class="quiz-option" data-value="c">استبدال قاعدة البيانات</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">✏️</div><h2>تمارين عملية</h2></div><div class="exercise-item">
+            <h4><span class="exercise-number">1</span> مصفوفة قرارات</h4>
+            <p>أضف قراراً عن الإشعارات.</p>
+            <button class="solution-toggle" data-target="se12-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="se12-1"><p>Push للسائق إلزامي. SMS للعميل عند Delivered أو فشل الدفع. مزوّد خارجي، أسرار في بيئة التشغيل لا في الملف الأكاديمي العام.</p></div>
+          </div><div class="exercise-item">
+            <h4><span class="exercise-number">2</span> موارد API</h4>
+            <p>اكتب 6 موارد ومن يستدعيها.</p>
+            <button class="solution-toggle" data-target="se12-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="se12-2"><p>menu عام للعميل، orders للعميل والمطبخ والإدارة، jobs للسائق والمشغّل، wallet للسائق والمالية، shifts، incidents.</p></div>
+          </div><div class="exercise-item">
+            <h4><span class="exercise-number">3</span> عامل خلفي</h4>
+            <p>لماذا نحتاج worker؟</p>
+            <button class="solution-toggle" data-target="se12-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="se12-3"><p>مهلة قبول السائق، إعادة التعيين، إرسال الإشعارات، إغلاق ورديات مجدولة، تقارير ليلية.</p></div>
+          </div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📌</div><h2>ملخص الجلسة</h2></div>
+          <ul class="key-points"><li>قناة لكل دور وBackend واحد</li><li>القرارات تُبرَّر</li><li>التحديث الفوري حاجة تشغيل</li><li>التقنية في خدمة القواعد لا العكس</li></ul>
+        </section>
+        <section class="homework-box"><h2>واجب الجلسة</h2><ul><li>مخطط حاويات</li><li>مصفوفة 8 قرارات</li><li>قائمة موارد API مفاهيمية</li></ul></section>
+      </div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../../shared/course-data.js"></script>
+  <script src="../../../shared/layout.js"></script>
+  <script src="../../../shared/scripts.js"></script>
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 02 — التركيب المرن والمكوّنات المركّبة</title>
+  <link rel="stylesheet" href="../../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="react-advanced" data-session="02">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+
+        <div class="student-welcome">
+          <h3>هدف الجلسة</h3>
+          <p>نبني واجهة تُركَّب كقطع واضحة (Tabs، Card) بدل تمرير عشرات الـ props.</p>
+        </div>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">02</div>
+            <h2>الشرح النظري</h2>
+          </div>
+          <div class="theory-content">
+            <h3>1) Composition قبل الإعدادات</h3>
+            <p>كلما زاد عدد الـ props المنطقية (showHeader, headerExtra, footerSlot...) فكّر في children وقطع مسماة.</p>
+            <h3>2) Compound Components</h3>
+            <p>عائلة مكوّنات تتشارك حالة عبر Context داخلي: Tabs.List و Tabs.Panel يقرآن القيمة من Tabs الجذر.</p>
+            <div class="analogy-box"><strong>تشبيه:</strong> HTML الأصلي &lt;select&gt; و &lt;option&gt; — القطع تعرف عائلتها.</div>
+            <h3>3) Context ضيق النطاق</h3>
+            <p>هذا السياق ليس Global State للتطبيق. هو سلك داخلي للمجموعة فقط.</p>
+            <h3>4) Slots عبر children</h3>
+            <p>مرّر رأس البطاقة وتذييلها كأبناء بدل خصائص نصية فقط — أحرار في وضع زر أو سعر €</p>
+            <div class="warning-box"><strong>لا تصدّر عشر قطع لا تعمل وحدها</strong> دون جذر يوفّر السياق.</div>
+    </div>
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">💻</div>
+            <h2>أمثلة عملية</h2>
+          </div>
+          
+          <h3>مثال 1: بطاقة مركّبة</h3>
+          <div class="code-block"><pre><code>function Card({ children }) {
+  return &lt;article className="card"&gt;{children}&lt;/article&gt;;
+}
+Card.Title = function Title({ children }) {
+  return &lt;h2&gt;{children}&lt;/h2&gt;;
+};
+Card.Price = function Price({ amount }) {
+  return &lt;p&gt;{amount} €&lt;/p&gt;;
+};
+
+&lt;Card&gt;
+  &lt;Card.Title&gt;React Advanced&lt;/Card.Title&gt;
+  &lt;Card.Price amount={49} /&gt;
+&lt;/Card&gt;</code></pre></div>
+          <h3>مثال 2: Tabs مع سياق</h3>
+          <div class="code-block"><pre><code>const TabsContext = createContext(null);
+
+function Tabs({ children, defaultValue }) {
+  const [value, setValue] = useState(defaultValue);
+  return (
+    &lt;TabsContext.Provider value={{ value, setValue }}&gt;
+      {children}
+    &lt;/TabsContext.Provider&gt;
+  );
+}</code></pre></div>
+          <h3>مثال 3: زر التبويب</h3>
+          <div class="code-block"><pre><code>function Tab({ id, children }) {
+  const { value, setValue } = useContext(TabsContext);
+  const selected = value === id;
+  return (
+    &lt;button type="button" aria-selected={selected} onClick={() =&gt; setValue(id)}&gt;
+      {children}
+    &lt;/button&gt;
+  );
+}</code></pre></div>
+    
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">🎯</div>
+            <h2>اختبار سريع</h2>
+          </div>
+                    <div class="quiz-card" data-correct="b">
+            <p class="quiz-question">Compound Components تعتمد غالباً على:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">تعديل props من الابن مباشرة</button>
+              <button class="quiz-option" data-value="b">سياق داخلي يشارك الحالة بين القطع</button>
+              <button class="quiz-option" data-value="c">ملف CSS فقط</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+          <div class="quiz-card" data-correct="a">
+            <p class="quiz-question">نفخ props يعني:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">عدد خصائص منطقية كبير يصعب قراءته</button>
+              <button class="quiz-option" data-value="b">زيادة RAM للمتصفح دائماً</button>
+              <button class="quiz-option" data-value="c">حذف children</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">✏️</div>
+            <h2>تمارين عملية</h2>
+          </div>
+                    <div class="exercise-item">
+            <h4><span class="exercise-number">1</span> بطاقة مدرب</h4>
+            <p>Card.Title و Card.Meta يعرضان Osama Bittar ومدينة.</p>
+            <button class="solution-toggle" data-target="ra02-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="ra02-1">
+              <div class="code-block"><pre><code>&lt;Card&gt;
+  &lt;Card.Title&gt;Osama Bittar&lt;/Card.Title&gt;
+  &lt;Card.Meta&gt;Damascus&lt;/Card.Meta&gt;
+&lt;/Card&gt;</code></pre></div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">2</span> تبويبان</h4>
+            <p>تبويب Overview و Pricing (29 €).</p>
+            <button class="solution-toggle" data-target="ra02-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="ra02-2">
+              <p>استخدم Tabs مع defaultValue="overview" ولوحتين.</p>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">3</span> حماية السياق</h4>
+            <p>ارمِ خطأ إن استُدعي Tab خارج Tabs.</p>
+            <button class="solution-toggle" data-target="ra02-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="ra02-3">
+              <div class="code-block"><pre><code>if (!ctx) throw new Error("Tab must be used inside Tabs");</code></pre></div>
+            </div>
+          </div>
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">📌</div>
+            <h2>ملخص الجلسة</h2>
+          </div>
+          <ul class="key-points">
+            <li>التركيب أوضح من قائمة flags</li>
+            <li>سياق المجموعة ≠ حالة التطبيق كله</li>
+            <li>القطع المسماة توثّق الواجهة</li>
+          </ul>
+        </section>
+        <section class="homework-box">
+          <h2>واجب الجلسة</h2>
+          <ul>
+            <li>ابنِ Accordion مركّب (Item, Header, Panel)</li>
+            <li>بطاقة كورس بالسعر € واسم المدرب</li>
+            <li>لا تستخدم prop اسمه renderHeader إن أمكن بالأبناء</li>
+          </ul>
+        </section>
+      </div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../../shared/course-data.js"></script>
+  <script src="../../../shared/layout.js"></script>
+  <script src="../../../shared/scripts.js"></script>
+</body>
+</html>

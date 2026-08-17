@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 11 — هندسة البرمجيات</title>
+  <link rel="stylesheet" href="../../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="se" data-session="11">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+        <div class="student-welcome"><h3>هدف الجلسة</h3><p>ننتج نموذج كيانات وعلاقات وقاموس بيانات يغطي الطلب والسائق والمالية دون إنشاء قاعدة فعلية.</p></div>
+        <section class="section-block"><div class="section-header"><div class="section-icon">11</div><h2>الشرح النظري</h2></div>
+          <div class="theory-content">
+            <h3>1) الكيانات الجوهرية</h3>
+            <p>User، CustomerProfile، DriverProfile، MenuItem، Order، OrderItem، DeliveryJob، WalletTx، Shift، Incident، Address.</p>
+            <h3>2) العلاقات</h3>
+            <p>Order 1—N OrderItem. Order 0..1 DeliveryJob. Driver 1—N Jobs. Driver 1—N WalletTx. كل Job يشير إلى Order واحد في نسخة 1.</p>
+            <h3>3) المفاتيح والتدقيق</h3>
+            <p>معرّفات مستقرة، createdAt/updatedAt، من غيّر الحالة. النقد والمالية يحتاجان أثر من فعل ماذا ومتى.</p>
+            <h3>4) قاموس البيانات</h3>
+            <p>لكل حقل: الاسم الإنجليزي، المعنى، النوع المفاهيمي، إلزامي؟ مثال. لا SQL هنا؛ هذا عقد للمصمّم لاحقاً.</p>
+            <div class="tip-box"><strong>عملة:</strong> المبالغ <span class="inline-code">amountEUR</span> بقيمتين عشريتين. لا تخلط سنتات ضمنية بلا توثيق.</div>
+          </div>
+        </section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📐</div><h2>مخططات ووثائق عملية</h2></div>
+          <div class="diagram-box"><div class="diagram-caption">ERD sketch</div>User 1--1 CustomerProfile
+User 1--1 DriverProfile
+User 1--N Address
+MenuItem 1--N OrderItem N--1 Order
+Order 1--0..1 DeliveryJob N--1 DriverProfile
+DriverProfile 1--N WalletTx
+DriverProfile 1--N Shift
+DeliveryJob 1--N Incident</div>
+          <div class="spec-table-wrap"><table class="spec-table"><thead><tr><th>Entity.field</th><th>المعنى</th><th>نوع مفاهيمي</th></tr></thead><tbody><tr><td>Order.status</td><td>حالة الطلب</td><td>enum</td></tr><tr><td>Order.totalEUR</td><td>مجموع العميل</td><td>decimal(12,2)</td></tr><tr><td>DeliveryJob.distanceKm</td><td>مسافة مثبتة</td><td>decimal(8,2)</td></tr><tr><td>WalletTx.reason</td><td>سبب الحركة</td><td>string/enum</td></tr><tr><td>Shift.expectedCodEUR</td><td>نقد متوقع</td><td>decimal(12,2)</td></tr></tbody></table></div>
+          </section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">🎯</div><h2>اختبار سريع</h2></div><div class="quiz-card" data-correct="b">
+            <p class="quiz-question">في نسخة 1 كل طلب توصيل له:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">عدة DeliveryJob متزامنة لنفس السائق بلا حد</button>
+              <button class="quiz-option" data-value="b">صفر أو واحد DeliveryJob نشط حسب الحالة</button>
+              <button class="quiz-option" data-value="c">لا حاجة لكيان رحلة</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div><div class="quiz-card" data-correct="a">
+            <p class="quiz-question">قاموس البيانات يُكتب:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">قبل تنفيذ الجداول حتى يتفق الفريق على المعنى</button>
+              <button class="quiz-option" data-value="b">بعد حذف الإنتاج فقط</button>
+              <button class="quiz-option" data-value="c">بالعربية فقط بلا أسماء حقول</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">✏️</div><h2>تمارين عملية</h2></div><div class="exercise-item">
+            <h4><span class="exercise-number">1</span> كيان MenuItem</h4>
+            <p>عدّد حقولاً تشمل السعر باليورو والتوفر.</p>
+            <button class="solution-toggle" data-target="se11-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="se11-1"><p>id, nameAr, nameEn, priceEUR, isAvailable, prepMinutes, category.</p></div>
+          </div><div class="exercise-item">
+            <h4><span class="exercise-number">2</span> علاقة عنوان</h4>
+            <p>كيف ترتبط Address بالطلب؟</p>
+            <button class="solution-toggle" data-target="se11-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="se11-2"><p>Order يخزن addressId وقت الطلب أو نسخة ثابتة من النص والإحداثيات حتى لا يغيّر العميل العنوان بأثر رجعي.</p></div>
+          </div><div class="exercise-item">
+            <h4><span class="exercise-number">3</span> قاموس WalletTx</h4>
+            <p>خمسة حقول إلزامية.</p>
+            <button class="solution-toggle" data-target="se11-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="se11-3"><p>id, driverId, orderId nullable for adjustments, type, amountEUR, reason, createdAt.</p></div>
+          </div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📌</div><h2>ملخص الجلسة</h2></div>
+          <ul class="key-points"><li>ERD لغة مشتركة مع المطوّر لاحقاً</li><li>ثبّت المبالغ والمسافات</li><li>أثر التدقيق للحالات المالية</li><li>لا تنفيذ SQL في الدورة</li></ul>
+        </section>
+        <section class="homework-box"><h2>واجب الجلسة</h2><ul><li>ERD لكل الكيانات المذكورة</li><li>قاموس لعشرة كيانات</li><li>قائمة enums للحالات</li></ul></section>
+      </div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../../shared/course-data.js"></script>
+  <script src="../../../shared/layout.js"></script>
+  <script src="../../../shared/scripts.js"></script>
+</body>
+</html>

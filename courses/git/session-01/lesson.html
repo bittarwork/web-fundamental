@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 01 — أساسيات Git واللقطات</title>
+  <link rel="stylesheet" href="../../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="git" data-session="01">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+
+        <div class="student-welcome">
+          <h3>هدف الجلسة</h3>
+          <p>
+            نفهم لماذا نحتاج Git، نفرّق بينه وبين GitHub،
+            نثبّت الأداة ونضبط الاسم، ثم نحفظ أول لقطة بـ add وcommit.
+          </p>
+        </div>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">01</div>
+            <h2>الشرح النظري</h2>
+          </div>
+          <div class="theory-content">
+            <div class="tip-box">
+              <strong>ملاحظة:</strong> أمثلة الدورة تستخدم اسم
+              <span class="inline-code">Osama Bittar</span> كمرجع موحّد لجميع الطلاب.
+            </div>
+
+            <h3>1) ما هو Version Control؟</h3>
+            <p>
+              نظام التحكم بالإصدارات يحفظ تاريخ الملفات: ماذا تغيّر، متى، ومن الذي حفظ اللقطة.
+              بدل مجلدات مثل <span class="inline-code">site-final</span> و
+              <span class="inline-code">site-final-2</span>
+              يكون لديك سجل واحد يمكن الرجوع إليه.
+            </p>
+            <div class="analogy-box">
+              <strong>تشبيه:</strong> Git ألبوم صور للمشروع.
+              كل commit صورة واضحة للكود في لحظة معينة، مع تعليق يشرح لماذا التُقطت.
+            </div>
+
+            <h3>2) الفرق بين Git و GitHub</h3>
+            <div class="compare-grid">
+              <div class="compare-box">
+                <h4>Git</h4>
+                <p>برنامج على جهازك. يعمل بلا إنترنت بعد التثبيت. يحفظ المستودع في مجلد
+                  <span class="inline-code">.git</span>.</p>
+              </div>
+              <div class="compare-box">
+                <h4>GitHub</h4>
+                <p>موقع على الشبكة يستضيف نسخاً من المستودعات، ويعطي قضايا وطلبات دمج وصفحات نشر.
+                  نصل إليه من الجلسة 03.</p>
+              </div>
+            </div>
+            <p>
+              يمكن استخدام Git وحدك على الجهاز. GitHub اختياري للتخزين السحابي والتعاون،
+              وهو الأشهر في سوق العمل بجانب خدمات مشابهة.
+            </p>
+
+            <h3>3) تثبيت Git وإعداد الاسم والبريد</h3>
+            <p>بعد التثبيت افحص الإصدار، ثم عرّف من أنت. كل commit يحمل هذا الاسم.</p>
+            <div class="code-block">
+              <pre><code>git --version
+
+git config --global user.name "Osama Bittar"
+git config --global user.email "osama.bittar@example.com"
+git config --global init.defaultBranch main
+git config --list</code></pre>
+            </div>
+            <div class="tip-box">
+              <strong>--global</strong> يعني لكل المستودعات على هذا الجهاز.
+              غيّر البريد لاحقاً إلى بريد حساب GitHub الحقيقي عند الربط في الجلسة 03.
+            </div>
+
+            <h3>4) مناطق العمل الثلاث</h3>
+            <ul>
+              <li><strong>Working tree:</strong> الملفات كما تراها في المجلد.</li>
+              <li><strong>Staging (Index):</strong> ما اخترته للصورة التالية عبر <span class="inline-code">git add</span>.</li>
+              <li><strong>Repository:</strong> التاريخ المحفوظ بعد <span class="inline-code">git commit</span>.</li>
+            </ul>
+            <p>لا تُحفظ اللقطة حتى تمرّ بالمرحلتين: اختيار ثم تثبيت.</p>
+
+            <h3>5) git init و git status</h3>
+            <p>
+              <span class="inline-code">git init</span> ينشئ مستودعاً جديداً داخل المجلد الحالي.
+              <span class="inline-code">git status</span> يخبرك: ما تغيّر، وما في الانتظار، وعلى أي فرع أنت.
+            </p>
+            <div class="warning-box">
+              <strong>لا تنفّذ init داخل مجلد أب فيه Git مسبقاً</strong>
+              إلا إذا كنت تقصد مستودعاً متداخلاً — للمبتدئ: مجلد مشروع واحد = مستودع واحد.
+            </div>
+
+            <h3>6) git add و git commit</h3>
+            <p>
+              <span class="inline-code">git add file</span> يضع ملفاً في الانتظار.
+              <span class="inline-code">git add .</span> يضيف كل التغييرات في المجلد الحالي.
+              ثم <span class="inline-code">git commit -m "message"</span> يثبّت اللقطة.
+            </p>
+            <p>رسالة الـ commit جملة قصيرة بالإنجليزية توضّح السبب لا قائمة الملفات.</p>
+
+            <h3>7) git log</h3>
+            <p>
+              يعرض التاريخ من الأحدث إلى الأقدم: المعرّف، المؤلف، التاريخ، الرسالة.
+              <span class="inline-code">git log --oneline</span> عرض مختصر سطر لكل لقطة.
+            </p>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">💻</div>
+            <h2>أمثلة عملية</h2>
+          </div>
+
+          <h3>مثال 1: إنشاء مجلد المشروع</h3>
+          <div class="code-block">
+            <pre><code>mkdir academy-notes
+cd academy-notes
+git init
+git status</code></pre>
+          </div>
+          <p>يفترض أن ترى فرعاً اسمه <span class="inline-code">main</span> ولا commits بعد.</p>
+
+          <h3>مثال 2: أول ملف وأول لقطة</h3>
+          <div class="code-block">
+            <pre><code>echo "Trainer: Osama Bittar" > notes.txt
+git add notes.txt
+git status
+git commit -m "Add trainer notes file"
+git log --oneline</code></pre>
+          </div>
+
+          <h3>مثال 3: تعديل ثم لقطة ثانية</h3>
+          <div class="code-block">
+            <pre><code>echo "Course: Git and GitHub" >> notes.txt
+git add notes.txt
+git commit -m "Document the Git course title"
+git log --oneline</code></pre>
+          </div>
+
+          <h3>مثال 4: إضافة ملفين دفعة واحدة</h3>
+          <div class="code-block">
+            <pre><code>echo "&lt;h1&gt;Osama Bittar&lt;/h1&gt;" > index.html
+echo "body { font-family: sans-serif; }" > style.css
+git add index.html style.css
+git commit -m "Add starter HTML and CSS"</code></pre>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">🎯</div>
+            <h2>اختبار سريع</h2>
+          </div>
+          <div class="quiz-card" data-correct="b">
+            <p class="quiz-question">Git يعمل أساساً:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">على GitHub فقط ولا يُثبَّت محلياً</button>
+              <button class="quiz-option" data-value="b">على جهازك، ويمكن ربطه لاحقاً بـ GitHub</button>
+              <button class="quiz-option" data-value="c">داخل ملف CSS</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+          <div class="quiz-card" data-correct="a">
+            <p class="quiz-question">ترتيب اللقطة الصحيح:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">تعديل الملف ثم git add ثم git commit</button>
+              <button class="quiz-option" data-value="b">git commit ثم git add</button>
+              <button class="quiz-option" data-value="c">git log ثم حذف مجلد .git دائماً</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">✏️</div>
+            <h2>تمارين عملية</h2>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">1</span> إعداد الهوية</h4>
+            <p>اضبط user.name إلى Osama Bittar واعرض الإعدادات بـ git config --list.</p>
+            <button class="solution-toggle" data-target="g01-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="g01-1">
+              <div class="code-block">
+                <pre><code>git config --global user.name "Osama Bittar"
+git config --list</code></pre>
+              </div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">2</span> مستودع notes</h4>
+            <p>أنشئ مجلداً، نفّذ init، أضف ملفاً hello.txt فيه سطر واحد، ثم commit.</p>
+            <button class="solution-toggle" data-target="g01-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="g01-2">
+              <div class="code-block">
+                <pre><code>mkdir hello-git
+cd hello-git
+git init
+echo "Hello from Osama" > hello.txt
+git add hello.txt
+git commit -m "Add hello file"</code></pre>
+              </div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">3</span> قراءة السجل</h4>
+            <p>بعد لقطتين اعرض التاريخ المختصر.</p>
+            <button class="solution-toggle" data-target="g01-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="g01-3">
+              <div class="code-block">
+                <pre><code>git log --oneline</code></pre>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">📌</div>
+            <h2>ملخص الجلسة</h2>
+          </div>
+          <ul class="key-points">
+            <li>Git يحفظ تاريخ المشروع على الجهاز</li>
+            <li>GitHub خدمة شبكة للعرض والتعاون — ليست Git نفسه</li>
+            <li>ثلاث مناطق: العمل، الانتظار، المستودع</li>
+            <li>الدورة اليومية: status ثم add ثم commit ثم log</li>
+          </ul>
+        </section>
+
+        <section class="homework-box">
+          <h2>واجب الجلسة</h2>
+          <ul>
+            <li>ثبّت Git واضبط الاسم والبريد وفرع main الافتراضي</li>
+            <li>أنشئ مستودع academy-notes بثلاث لقطات على الأقل</li>
+            <li>أضف ملفاً يذكر المدرب Osama Bittar واحفظه في commit مستقل</li>
+          </ul>
+        </section>
+
+      </div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../../shared/course-data.js"></script>
+  <script src="../../../shared/layout.js"></script>
+  <script src="../../../shared/scripts.js"></script>
+</body>
+</html>

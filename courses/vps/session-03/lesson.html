@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 03 — شراء وإنشاء VPS أوبونتو</title>
+  <link rel="stylesheet" href="../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="vps" data-session="03">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+        <div class="student-welcome"><h3>هدف الجلسة</h3><p>نشتري الخطة من Hostinger، نختار قالب Ubuntu، نضبط كلمة root، ونسجّل عنوان IP.</p></div>
+        <section class="section-block"><div class="section-header"><div class="section-icon">03</div><h2>الشرح النظري</h2></div><div class="theory-content">
+      <h3>1) مسار الشراء</h3>
+      <ol>
+        <li>hPanel أو صفحة VPS → اختر KVM 2 (أو ما قررته).</li>
+        <li>مدة العقد: 12 أو 24 شهراً أوفر للشهر، لكن التزم فقط بما تتحمله باليورو.</li>
+        <li>أتمم الدفع. انتظر ظهور السيرفر في قائمة VPS.</li>
+      </ol>
+      <h3>2) إعداد نظام التشغيل</h3>
+      <p>VPS → السيرفر → <strong>OS &amp; Panel → Operating System</strong>. اختر Ubuntu (ليس قالباً مع لوحة مدفوعة). أكّد أن العملية تمسح القرص إن أعدت التثبيت لاحقاً.</p>
+      <h3>3) كلمة root</h3>
+      <p>أثناء الإعداد تضع كلمة مرور المستخدم root. احفظها في مدير كلمات مرور لا في ملف المشروع على GitHub.</p>
+      <div class="warning-box"><strong>لا تلصق كلمة root في الدردشة أو الواجب.</strong> يكفي القول: «تم الضبط».</div>
+      <h3>4) Overview</h3>
+      <ul>
+        <li><strong>Status:</strong> Running</li>
+        <li><strong>IP:</strong> عنوان عام مثل 203.0.113.10 (مثال تعليمي)</li>
+        <li><strong>SSH Access:</strong> المستخدم root والمنفذ 22</li>
+        <li>زر Browser Terminal</li>
+      </ul>
+      <h3>5) إعادة التثبيت</h3>
+      <p>إن اخترت نظاماً خطأ: غيّر نظام التشغيل من اللوحة. هذا يحذف الملفات. التقط Snapshot قبل التجارب الخطرة لاحقاً.</p>
+    </div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">💻</div><h2>أمثلة عملية</h2></div>
+      <h3>مثال 1: بيانات تتسخّن في دفتر العمل</h3>
+      <div class="code-block"><pre><code>Provider: Hostinger
+Plan: KVM 2
+OS: Ubuntu 24.04 LTS
+IP: (copy from Overview)
+SSH: root@IP -p 22
+Trainer: Osama Bittar</code></pre></div>
+      <h3>مثال 2: فحص الحالة</h3>
+      <p>إن بقي Installing انتظر دقائق. إن Stopped استخدم Start من hPanel.</p>
+      <h3>مثال 3: قالب Docker من الكتالوج</h3>
+      <p>Hostinger يوفّر قوالب تطبيقات. في الدورة نثبّت Docker يدوياً لاحقاً لنفهم الأوامر. لا تختر قالباً يغيّر المسار إن كنت تتبع الجلسات حرفياً.</p>
+    </section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">🎯</div><h2>اختبار سريع</h2></div><div class="quiz-card" data-correct="a"><p class="quiz-question">بعد الإنشاء نسجّل من Overview:</p><div class="quiz-options"><button class="quiz-option" data-value="a">IP وحالة Running</button><button class="quiz-option" data-value="b">مفتاح SSH الخاص للآخرين</button><button class="quiz-option" data-value="c">كلمة root في Git</button></div><div class="quiz-feedback"></div></div><div class="quiz-card" data-correct="b"><p class="quiz-question">تغيير نظام التشغيل:</p><div class="quiz-options"><button class="quiz-option" data-value="a">لا يمس الملفات أبداً</button><button class="quiz-option" data-value="b">يمسح القرص غالباً — خذ نسخة أولاً</button><button class="quiz-option" data-value="c">يحذف حساب Hostinger</button></div><div class="quiz-feedback"></div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">✏️</div><h2>تمارين عملية</h2></div><div class="exercise-item"><h4><span class="exercise-number">1</span> اشترِ وأنشئ</h4><p>KVM الذي اخترته + Ubuntu LTS.</p><button class="solution-toggle" data-target="v03-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="v03-1"><p>Overview → Running وIP ظاهر.</p></div></div><div class="exercise-item"><h4><span class="exercise-number">2</span> دفتر الوصول</h4><p>اكتب IP والمنفذ 22 بدون كلمة المرور.</p><button class="solution-toggle" data-target="v03-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="v03-2"><div class="code-block"><pre><code>ssh root@YOUR_IP</code></pre></div></div></div><div class="exercise-item"><h4><span class="exercise-number">3</span> لقطة ذهنية</h4><p>أين زر Browser Terminal؟</p><button class="solution-toggle" data-target="v03-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="v03-3"><p>VPS → اختر السيرفر → Overview.</p></div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📌</div><h2>ملخص الجلسة</h2></div><ul class="key-points"><li>Ubuntu من قالب Hostinger</li><li>root محلي سري</li><li>IP هو عنوان السيرفر على الشبكة</li></ul></section>
+        <section class="homework-box"><h2>واجب الجلسة</h2><ul><li>أكمل الإنشاء قبل جلسة الوصول</li><li>لا ترفع كلمة المرور</li><li>تأكد أن الفاتورة باليورو</li></ul></section></div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../shared/course-data.js"></script>
+  <script src="../../shared/layout.js"></script>
+  <script src="../../shared/scripts.js"></script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 11 — الواجهة المتفائلة</title>
+  <link rel="stylesheet" href="../../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="react-advanced" data-session="11">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+
+        <div class="student-welcome">
+          <h3>هدف الجلسة</h3>
+          <p>نحدّث القائمة فوراً عند الإضافة أو الحذف، ونرجع للحالة السابقة إن فشلت الشبكة.</p>
+        </div>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">11</div>
+            <h2>الشرح النظري</h2>
+          </div>
+          <div class="theory-content">
+            <h3>1) الشعور بالسرعة</h3>
+            <p>انتظار round-trip لكل نقرة يجعل اللوحة ثقيلة. التفاؤل يعرض النتيجة المتوقعة ثم يؤكدها السيرفر.</p>
+            <h3>2) Rollback</h3>
+            <p>احفظ لقطة الحالة قبل التحديث. في catch أعدها واعرض خطأ.</p>
+            <h3>3) علامات الانتظار</h3>
+            <p>يمكنك تعطيل الزر أو إظهار نقطة صغيرة دون تجميد الصفحة كلها.</p>
+            <h3>4) التطابق مع المعرّفات</h3>
+            <p>عنصر مؤقت يحتاج id مؤقت (temp-...) يُستبدل برد السيرفر حتى لا يتكرر الصف.</p>
+            <div class="warning-box"><strong>لا تتفاءل بعمليات مالية حقيقية</strong> دون تأكيد. في الدورة الحجز رمزي باليورو.</div>
+  </div>
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">💻</div>
+            <h2>أمثلة عملية</h2>
+          </div>
+          
+          <h3>مثال 1: إضافة متفائلة</h3>
+          <div class="code-block"><pre><code>async function addCourse(title) {
+  const snapshot = items;
+  const temp = { id: "temp-" + Date.now(), title, price: 29, trainer: "Osama Bittar" };
+  setItems((current) =&gt; [...current, temp]);
+  try {
+    const saved = await apiCreate(temp);
+    setItems((current) =&gt; current.map((row) =&gt; (row.id === temp.id ? saved : row)));
+  } catch (error) {
+    setItems(snapshot);
+    setError(error.message);
+  }
+}</code></pre></div>
+          <h3>مثال 2: حذف متفائل</h3>
+          <div class="code-block"><pre><code>const snapshot = items;
+setItems((current) =&gt; current.filter((row) =&gt; row.id !== id));
+try {
+  await apiDelete(id);
+} catch (error) {
+  setItems(snapshot);
+}</code></pre></div>
+  
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">🎯</div>
+            <h2>اختبار سريع</h2>
+          </div>
+                    <div class="quiz-card" data-correct="a">
+            <p class="quiz-question">عند فشل الطلب المتفائل:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">أعد لقطة الحالة السابقة</button>
+              <button class="quiz-option" data-value="b">احذف Git</button>
+              <button class="quiz-option" data-value="c">أخفِ Error Boundary للأبد</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+          <div class="quiz-card" data-correct="b">
+            <p class="quiz-question">id مؤقت يفيد حتى:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">يتغيّر لون الصفحة</button>
+              <button class="quiz-option" data-value="b">لا نخلط العنصر قبل رد السيرفر</button>
+              <button class="quiz-option" data-value="c">نوقف Router</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">✏️</div>
+            <h2>تمارين عملية</h2>
+          </div>
+                    <div class="exercise-item">
+            <h4><span class="exercise-number">1</span> إضافة</h4>
+            <p>زر يضيف كورساً بـ 29 € تفاؤلياً.</p>
+            <button class="solution-toggle" data-target="ra11-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="ra11-1">
+              <p>انظر مثال 1. محاكاة api بـ Promise.</p>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">2</span> فشل مقصود</h4>
+            <p>اجعل api يرفض مرة ولاحظ الرجوع.</p>
+            <button class="solution-toggle" data-target="ra11-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="ra11-2">
+              <div class="code-block"><pre><code>if (Math.random() &lt; 0.3) throw new Error("Network");</code></pre></div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">3</span> تعطيل مزدوج</h4>
+            <p>disabled أثناء pending حتى لا تُضاف صفّان.</p>
+            <button class="solution-toggle" data-target="ra11-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="ra11-3">
+              <div class="code-block"><pre><code>&lt;button disabled={pending}&gt;Add&lt;/button&gt;</code></pre></div>
+            </div>
+          </div>
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">📌</div>
+            <h2>ملخص الجلسة</h2>
+          </div>
+          <ul class="key-points">
+            <li>لقطة قبل التغيير</li>
+            <li>rollback عند الفشل</li>
+            <li>لا تفاؤل أعمى بالمدفوعات</li>
+          </ul>
+        </section>
+        <section class="homework-box">
+          <h2>واجب الجلسة</h2>
+          <ul>
+            <li>طبّق إضافة وحذف على قائمة كورسات</li>
+            <li>اعرض السعر € واسم المدرب</li>
+            <li>رسالة خطأ واضحة عند الرجوع</li>
+          </ul>
+        </section>
+      </div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../../shared/course-data.js"></script>
+  <script src="../../../shared/layout.js"></script>
+  <script src="../../../shared/scripts.js"></script>
+</body>
+</html>

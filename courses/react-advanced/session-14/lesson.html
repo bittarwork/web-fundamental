@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 14 — هيكل الميزات وجلسة المستخدم</title>
+  <link rel="stylesheet" href="../../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="react-advanced" data-session="14">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+
+        <div class="student-welcome">
+          <h3>هدف الجلسة</h3>
+          <p>ننظّم المشروع حسب الميزات لا حسب نوع الملف فقط، ونجهّز نمط جلسة بسيط وProfiler للمشروعين.</p>
+        </div>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">14</div>
+            <h2>الشرح النظري</h2>
+          </div>
+          <div class="theory-content">
+            <h3>1) Feature folders</h3>
+            <p>features/courses فيها الصفحات والمكوّنات وhooks الخاصة بالكورسات. shared للأشياء العامة.</p>
+            <h3>2) نمط الجلسة</h3>
+            <p>SessionProvider يقرأ user من memory أو localStorage للتدريب. RequireSession يستهلكه. لا تخزّن توكنات حقيقية في هذا الكورس.</p>
+            <h3>3) Profiler قبل المشروع</h3>
+            <p>اعرف خط الأساس: أي صفحة بطيئة قبل أن تضيف memo عشوائي.</p>
+            <h3>4) البيئة</h3>
+            <p>VITE_API_URL كما في الكورس الأساسي. ف bulk import للمسارات.</p>
+            <div class="analogy-box"><strong>تشبيه:</strong> كل ميزة شقة في المبنى · المشتركة الممر والكهرباء.</div>
+  </div>
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">💻</div>
+            <h2>أمثلة عملية</h2>
+          </div>
+          
+          <h3>مثال 1: شجرة مقترحة</h3>
+          <div class="code-block"><pre><code>src/
+  app/          // routes, providers
+  features/
+    courses/
+    booking/
+    session/
+  shared/
+    ui/
+    lib/</code></pre></div>
+          <h3>مثال 2: جلسة تدريبية</h3>
+          <div class="code-block"><pre><code>const SessionContext = createContext(null);
+
+export function SessionProvider({ children }) {
+  const [user, setUser] = useState(null);
+  function signIn() {
+    setUser({ name: "Osama Bittar" });
+  }
+  function signOut() {
+    setUser(null);
+  }
+  return (
+    &lt;SessionContext.Provider value={{ user, signIn, signOut }}&gt;
+      {children}
+    &lt;/SessionContext.Provider&gt;
+  );
+}</code></pre></div>
+          <h3>مثال 3: تصدير المسارات</h3>
+          <div class="code-block"><pre><code>export const deskRoutes = [
+  { path: "courses", element: &lt;CoursesPage /&gt; }
+];</code></pre></div>
+  
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">🎯</div>
+            <h2>اختبار سريع</h2>
+          </div>
+                    <div class="quiz-card" data-correct="b">
+            <p class="quiz-question">مجلد الميزة يجمع:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">كل ملفات CSS في الموقع فقط</button>
+              <button class="quiz-option" data-value="b">صفحات ومكوّنات وhooks لنفس الموضوع</button>
+              <button class="quiz-option" data-value="c">أسرار السيرفر</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+          <div class="quiz-card" data-correct="a">
+            <p class="quiz-question">signIn التدريبي هنا:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">يضع مستخدماً وهمياً في السياق</button>
+              <button class="quiz-option" data-value="b">يفتح قاعدة بيانات البنك</button>
+              <button class="quiz-option" data-value="c">يجبر force push</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">✏️</div>
+            <h2>تمارين عملية</h2>
+          </div>
+                    <div class="exercise-item">
+            <h4><span class="exercise-number">1</span> انقل الكورسات</h4>
+            <p>انقل صفحات الكورسات إلى features/courses.</p>
+            <button class="solution-toggle" data-target="ra14-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="ra14-1">
+              <p>حدّث مسارات الاستيراد في Router.</p>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">2</span> زر دخول</h4>
+            <p>signIn يضع Osama Bittar ويظهر الاسم في الهيدر.</p>
+            <button class="solution-toggle" data-target="ra14-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="ra14-2">
+              <div class="code-block"><pre><code>&lt;button onClick={signIn}&gt;Enter desk&lt;/button&gt;</code></pre></div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">3</span> Profiler</h4>
+            <p>سجّل فتح قائمة الكورسات مرة.</p>
+            <button class="solution-toggle" data-target="ra14-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="ra14-3">
+              <p>احفظ ملاحظة: أي مكوّن كان الأغلى.</p>
+            </div>
+          </div>
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">📌</div>
+            <h2>ملخص الجلسة</h2>
+          </div>
+          <ul class="key-points">
+            <li>الميزة وحدة متماسكة</li>
+            <li>الجلسة التدريبية في Context</li>
+            <li>قِس قبل المشروع النهائي</li>
+          </ul>
+        </section>
+        <section class="homework-box">
+          <h2>واجب الجلسة</h2>
+          <ul>
+            <li>جهّز الهيكل للجلستين 15 و16</li>
+            <li>حارس مسار يعمل</li>
+            <li>ملف env لعنوان API</li>
+          </ul>
+        </section>
+      </div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../../shared/course-data.js"></script>
+  <script src="../../../shared/layout.js"></script>
+  <script src="../../../shared/scripts.js"></script>
+</body>
+</html>

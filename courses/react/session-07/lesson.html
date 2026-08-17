@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 07 — رفع الحالة</title>
+  <link rel="stylesheet" href="../../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="react" data-session="07">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+
+        <div class="student-welcome">
+          <h3>هدف الجلسة</h3>
+          <p>
+            عندما يحتاج أخوة مكوّنات لنفس البيانات، نرفع الـ State إلى الأب المشترك
+            ونمرّر القيم ودوال التحديث للأسفل.
+          </p>
+        </div>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">07</div>
+            <h2>الشرح النظري</h2>
+          </div>
+          <div class="theory-content">
+            <h3>1) مشاركة State</h3>
+            <p>
+              مثال: حقل بحث ومكوّن قائمة نتائج. الاثنان يحتاجان نص البحث.
+              لا نضع نسختين من النص — نضعها في الأب.
+            </p>
+
+            <h3>2) Lifting State Up</h3>
+            <p>
+              ارفع الحالة إلى أقرب أب مشترك. الأب يحتفظ بـ state ويمرّر:
+            </p>
+            <ul>
+              <li>القيمة للعرض: <span class="inline-code">query={query}</span></li>
+              <li>دالة التغيير: <span class="inline-code">onQueryChange={setQuery}</span></li>
+            </ul>
+            <div class="analogy-box">
+              <strong>تشبيه:</strong> الأب = لوحة التحكم · الأبناء = شاشات تعرض الأزرار لكنها لا تخزّن القرار وحدها.
+            </div>
+
+            <h3>3) Parent / Child Communication</h3>
+            <ul>
+              <li>أب ← ابن: Props (بيانات أو دوال).</li>
+              <li>ابن ← أب: الابن يستدعي دالة مرّرها الأب، مثل <span class="inline-code">onSelect(id)</span>.</li>
+            </ul>
+
+            <h3>4) تصميم أفضل للمكوّنات</h3>
+            <p>
+              اسأل: من يحتاج هذه القيمة؟ إذا كان أكثر من مكوّن — المكان الصحيح للأب.
+              إذا كان مكوّن واحد فقط — أبقِ الحالة محلية (حقل مؤقت داخل النموذج مثلاً).
+            </p>
+            <div class="tip-box">
+              <strong>لا ترفع كل شيء.</strong> الرفع الزائد يجعل App مثقلاً ويصعّب القراءة.
+            </div>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">💻</div>
+            <h2>أمثلة عملية</h2>
+          </div>
+
+          <h3>مثال 1: بحث مشترك</h3>
+          <div class="code-block">
+            <pre><code>function SearchInput({ value, onChange }) {
+  return (
+    &lt;input
+      value={value}
+      onChange={(e) =&gt; onChange(e.target.value)}
+      placeholder="Search courses"
+    /&gt;
+  );
+}
+
+function Results({ query }) {
+  return &lt;p&gt;Looking for: {query}&lt;/p&gt;;
+}
+
+function CourseSearch() {
+  const [query, setQuery] = useState("");
+  return (
+    &lt;section&gt;
+      &lt;SearchInput value={query} onChange={setQuery} /&gt;
+      &lt;Results query={query} /&gt;
+    &lt;/section&gt;
+  );
+}</code></pre>
+          </div>
+
+          <h3>مثال 2: الابن يخبر الأب بالاختيار</h3>
+          <div class="code-block">
+            <pre><code>function SessionItem({ title, onPick }) {
+  return (
+    &lt;button type="button" onClick={() =&gt; onPick(title)}&gt;
+      {title}
+    &lt;/button&gt;
+  );
+}
+
+function SessionBoard() {
+  const [picked, setPicked] = useState("JSX");
+
+  return (
+    &lt;div&gt;
+      &lt;p&gt;Osama selected: {picked}&lt;/p&gt;
+      &lt;SessionItem title="Components" onPick={setPicked} /&gt;
+      &lt;SessionItem title="Hooks" onPick={setPicked} /&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+          </div>
+
+          <h3>مثال 3: عداد في الأب، أزرار في الأبناء</h3>
+          <div class="code-block">
+            <pre><code>function Controls({ onInc, onDec }) {
+  return (
+    &lt;&gt;
+      &lt;button onClick={onDec}&gt;-&lt;/button&gt;
+      &lt;button onClick={onInc}&gt;+&lt;/button&gt;
+    &lt;/&gt;
+  );
+}
+
+function SeatCounter() {
+  const [seats, setSeats] = useState(12);
+  return (
+    &lt;div&gt;
+      &lt;p&gt;Seats left: {seats}&lt;/p&gt;
+      &lt;Controls
+        onInc={() =&gt; setSeats((n) =&gt; n + 1)}
+        onDec={() =&gt; setSeats((n) =&gt; n - 1)}
+      /&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">🎯</div>
+            <h2>اختبار سريع</h2>
+          </div>
+          <div class="quiz-card" data-correct="b">
+            <p class="quiz-question">نرفع state عندما:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">كل قيمة حتى الألوان المؤقتة</button>
+              <button class="quiz-option" data-value="b">أكثر من مكوّن يحتاج نفس البيانات</button>
+              <button class="quiz-option" data-value="c">المكوّن ابن واحد فقط ولا يشارك أحداً</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+          <div class="quiz-card" data-correct="a">
+            <p class="quiz-question">الابن يرسل حدثاً للأب عبر:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">استدعاء دالة وصلت كـ prop مثل onPick</button>
+              <button class="quiz-option" data-value="b">تعديل props مباشرة</button>
+              <button class="quiz-option" data-value="c">window.parentState</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">✏️</div>
+            <h2>تمارين عملية</h2>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">1</span> درجة حرارة</h4>
+            <p>Input في الابن، وعرض «X °C» في ابن آخر. الحالة في الأب.</p>
+            <button class="solution-toggle" data-target="r07-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="r07-1">
+              <div class="code-block">
+                <pre><code>const [celsius, setCelsius] = useState(20);
+&lt;TempInput value={celsius} onChange={setCelsius} /&gt;
+&lt;TempLabel value={celsius} /&gt;</code></pre>
+              </div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">2</span> اختيار جلسة</h4>
+            <p>قائمة أزرار جلسات، والأب يعرض الجلسة المختارة باسم Osama.</p>
+            <button class="solution-toggle" data-target="r07-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="r07-2">
+              <div class="code-block">
+                <pre><code>&lt;p&gt;Osama is in: {session}&lt;/p&gt;
+&lt;SessionButton label="useState" onPick={setSession} /&gt;</code></pre>
+              </div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">3</span> متى لا نرفع؟</h4>
+            <p>اكتب جملة: حالة «القائمة مفتوحة» لأيقونة همبرغر تخص الهيدر فقط تبقى في Header.</p>
+            <button class="solution-toggle" data-target="r07-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="r07-3">
+              <p>لأن لا مكوّن آخر يحتاج معرفة فتح القائمة — الحالة محلية في Header.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">📌</div>
+            <h2>ملخص الجلسة</h2>
+          </div>
+          <ul class="key-points">
+            <li>ارفع الحالة لأقرب أب مشترك فقط</li>
+            <li>الأب يمرّر القيمة ودالة التحديث</li>
+            <li>الابن يبلغ الأب باستدعاء onSomething</li>
+            <li>الحالة الخاصة تبقى محلية</li>
+          </ul>
+        </section>
+
+        <section class="homework-box">
+          <h2>واجب الجلسة</h2>
+          <ul>
+            <li>ابنِ فلتر كورسات: حقل بحث + قائمة نتائج يشاركان query</li>
+            <li>زر في عنصر القائمة يحدّث «الكورس المختار» في الأب</li>
+          </ul>
+        </section>
+
+      </div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../../shared/course-data.js"></script>
+  <script src="../../../shared/layout.js"></script>
+  <script src="../../../shared/scripts.js"></script>
+</body>
+</html>

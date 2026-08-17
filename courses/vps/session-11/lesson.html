@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 11 — البروكسي والشهادة والنشر الحي</title>
+  <link rel="stylesheet" href="../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="vps" data-session="11">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+        <div class="student-welcome"><h3>هدف الجلسة</h3><p>نضع Nginx على المنفذ 80/443 أمام حاوية Docker، ونفعّل HTTPS بعد ربط نطاق Hostinger.</p></div>
+        <section class="section-block"><div class="section-header"><div class="section-icon">11</div><h2>الشرح النظري</h2></div><div class="theory-content">
+      <h3>1) Reverse proxy</h3>
+      <p>الزائر يصل إلى النطاق على 443. Nginx يمرّر الطلب إلى الحاوية على 127.0.0.1:8080. الحاوية لا تُفتح على الإنترنت مباشرة.</p>
+      <h3>2) موقع Nginx</h3>
+      <div class="code-block"><pre><code># /etc/nginx/sites-available/academy
+server {
+  listen 80;
+  server_name example.com www.example.com;
+
+  location / {
+    proxy_pass http://127.0.0.1:8080;
+    proxy_set_header Host $host;
+    proxy_set_header X-Forwarded-For $remote_addr;
+  }
+}</code></pre></div>
+      <div class="code-block"><pre><code>ln -s /etc/nginx/sites-available/academy /etc/nginx/sites-enabled/
+nginx -t
+systemctl reload nginx</code></pre></div>
+      <p>استبدل example.com بنطاقك من Hostinger. أزل الموقع الافتراضي إن تعارض.</p>
+      <h3>3) شهادة Let's Encrypt</h3>
+      <div class="code-block"><pre><code>apt install -y certbot python3-certbot-nginx
+certbot --nginx -d example.com -d www.example.com</code></pre></div>
+      <p>البريد لرسائل التجديد. وافق على الشروط. Certbot يضبط 443 وإعادة التوجيه من 80.</p>
+      <div class="warning-box"><strong>DNS يجب أن يشير للنطاق قبل الشهادة.</strong> وإلا يفشل التحقق.</div>
+      <h3>4) جدار ناري</h3>
+      <p>80 و443 مفتوحان من الجلسة 07. الحاوية تبقى على localhost:8080.</p>
+      <h3>5) Hostinger</h3>
+      <p>لا حاجة لنقل النطاق خارج Hostinger. أبقِ DNS هناك. إن وفّر Hostinger SSL في اللوحة للمواقع المشتركة فذلك مسار مختلف؛ على VPS نستخدم certbot كما فوق.</p>
+    </div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">💻</div><h2>أمثلة عملية</h2></div>
+      <h3>مثال 1: تحقق الشهادة</h3>
+      <p>المتصفح https://نطاقك يظهر قفلاً. <span class="inline-code">curl -I https://example.com</span> يرجع 200.</p>
+      <h3>مثال 2: تجديد</h3>
+      <div class="code-block"><pre><code>certbot renew --dry-run</code></pre></div>
+    </section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">🎯</div><h2>اختبار سريع</h2></div><div class="quiz-card" data-correct="a"><p class="quiz-question">proxy_pass إلى 8080 يعني:</p><div class="quiz-options"><button class="quiz-option" data-value="a">Nginx يستقبل 80/443 ويمرّر للحاوية</button><button class="quiz-option" data-value="b">إغلاق Docker</button><button class="quiz-option" data-value="c">حذف سجل A</button></div><div class="quiz-feedback"></div></div><div class="quiz-card" data-correct="b"><p class="quiz-question">قبل certbot تأكد من:</p><div class="quiz-options"><button class="quiz-option" data-value="a">إيقاف الإنترنت</button><button class="quiz-option" data-value="b">سجل A الصحيح وانتشار DNS</button><button class="quiz-option" data-value="c">حذف ufw</button></div><div class="quiz-feedback"></div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">✏️</div><h2>تمارين عملية</h2></div><div class="exercise-item"><h4><span class="exercise-number">1</span> ملف موقع</h4><p>أنشئ موقع Nginx بنطاقك.</p><button class="solution-toggle" data-target="v11-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="v11-1"><p>nginx -t ينجح ثم reload.</p></div></div><div class="exercise-item"><h4><span class="exercise-number">2</span> HTTP</h4><p>افتح http://النطاق وشاهد صفحة الأكاديمية.</p><button class="solution-toggle" data-target="v11-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="v11-2"><p>إن ظهر افتراضي راجع sites-enabled.</p></div></div><div class="exercise-item"><h4><span class="exercise-number">3</span> HTTPS</h4><p>شغّل certbot للنطاق وwww.</p><button class="solution-toggle" data-target="v11-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="v11-3"><p>https يعمل والقفل ظاهر.</p></div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📌</div><h2>ملخص الجلسة</h2></div><ul class="key-points"><li>Nginx باب عام · Docker داخلي</li><li>DNS قبل SSL</li><li>443 هو الوجهة النهائية للزائر</li></ul></section>
+        <section class="homework-box"><h2>واجب الجلسة</h2><ul><li>موقع حي على HTTPS</li><li>اسم Osama Bittar ظاهر</li><li>لا أخطاء شهادة في المتصفح</li></ul></section></div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../shared/course-data.js"></script>
+  <script src="../../shared/layout.js"></script>
+  <script src="../../shared/scripts.js"></script>
+</body>
+</html>

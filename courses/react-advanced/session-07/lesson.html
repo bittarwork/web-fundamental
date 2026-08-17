@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 07 — حدود الأخطاء واستعادة الواجهة</title>
+  <link rel="stylesheet" href="../../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="react-advanced" data-session="07">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+
+        <div class="student-welcome">
+          <h3>هدف الجلسة</h3>
+          <p>نعزل خطأ رسم في فرع من الشجرة حتى لا تسقط الأكاديمية كلها، ونوفّر إعادة محاولة.</p>
+        </div>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">07</div>
+            <h2>الشرح النظري</h2>
+          </div>
+          <div class="theory-content">
+            <h3>1) لماذا Error Boundary؟</h3>
+            <p>خطأ غير ملتقط أثناء الرسم يفرّغ الشاشة. الحد يمسك الخطأ في الأبناء ويعرض بديلاً.</p>
+            <h3>2) قيد React</h3>
+            <p>حتى الآن الحدود تُكتب كـ class: getDerivedStateFromError و componentDidCatch. الـ hooks لا تستبدلها هنا.</p>
+            <h3>3) ماذا تمسك؟</h3>
+            <p>أخطاء الرسم ودورة الحياة في الأبناء. لا تمسك أخطاء معالجات الأحداث أو الوعود — تلك بـ try/catch.</p>
+            <h3>4) استعادة</h3>
+            <p>زر Retry يصفّر hasError. غيّر key للحد لإعادة تركيب الشجرة.</p>
+      </div>
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">💻</div>
+            <h2>أمثلة عملية</h2>
+          </div>
+          
+          <h3>مثال 1: حد بسيط</h3>
+          <div class="code-block"><pre><code>class SectionBoundary extends Component {
+  state = { hasError: false };
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+  componentDidCatch(error) {
+    console.error("Section failed", error);
+  }
+  render() {
+    if (this.state.hasError) {
+      return (
+        &lt;div&gt;
+          &lt;p&gt;This block failed.&lt;/p&gt;
+          &lt;button onClick={() =&gt; this.setState({ hasError: false })}&gt;Retry&lt;/button&gt;
+        &lt;/div&gt;
+      );
+    }
+    return this.props.children;
+  }
+}</code></pre></div>
+          <h3>مثال 2: عزل التفاصيل</h3>
+          <div class="code-block"><pre><code>&lt;SectionBoundary&gt;
+  &lt;CourseDetails /&gt;
+&lt;/SectionBoundary&gt;</code></pre></div>
+          <h3>مثال 3: مكوّن يتعمد العطل للتدريب</h3>
+          <div class="code-block"><pre><code>function Boom({ crash }) {
+  if (crash) throw new Error("Demo crash for Osama");
+  return &lt;p&gt;Details ok&lt;/p&gt;;
+}</code></pre></div>
+      
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">🎯</div>
+            <h2>اختبار سريع</h2>
+          </div>
+                    <div class="quiz-card" data-correct="b">
+            <p class="quiz-question">Error Boundary يمسك:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">كل أخطاء setTimeout تلقائياً</button>
+              <button class="quiz-option" data-value="b">أخطاء الرسم في الأبناء</button>
+              <button class="quiz-option" data-value="c">أخطاء CSS فقط</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+          <div class="quiz-card" data-correct="a">
+            <p class="quiz-question">حدود الأخطاء تُكتب حالياً كـ:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">class component</button>
+              <button class="quiz-option" data-value="b">فقط CSS module</button>
+              <button class="quiz-option" data-value="c">git hook</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">✏️</div>
+            <h2>تمارين عملية</h2>
+          </div>
+                    <div class="exercise-item">
+            <h4><span class="exercise-number">1</span> غلّف التفاصيل</h4>
+            <p>ضع SectionBoundary حول صفحة التفاصيل.</p>
+            <button class="solution-toggle" data-target="ra07-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="ra07-1">
+              <p>إن رمى الابن خطأ تبقى القائمة ظاهرة.</p>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">2</span> سجل</h4>
+            <p>في componentDidCatch اطبع اسم المدرب مع الخطأ.</p>
+            <button class="solution-toggle" data-target="ra07-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="ra07-2">
+              <div class="code-block"><pre><code>console.error("Osama Bittar desk", error);</code></pre></div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">3</span> إعادة تركيب</h4>
+            <p>مرّر key={courseId} للحد حتى ينظف الخطأ عند تغيّر الكورس.</p>
+            <button class="solution-toggle" data-target="ra07-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="ra07-3">
+              <div class="code-block"><pre><code>&lt;SectionBoundary key={courseId}&gt;</code></pre></div>
+            </div>
+          </div>
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">📌</div>
+            <h2>ملخص الجلسة</h2>
+          </div>
+          <ul class="key-points">
+            <li>اعزل الفروع الهشة</li>
+            <li>الأحداث غير المتزامنة تحتاج try/catch</li>
+            <li>Retry يصفّر الحالة أو يغيّر key</li>
+          </ul>
+        </section>
+        <section class="homework-box">
+          <h2>واجب الجلسة</h2>
+          <ul>
+            <li>أضف حداً حول Outlet اللوحة</li>
+            <li>زر يفعّل Boom للتدريب ثم Retry</li>
+            <li>لا تبتلع الأخطاء بصمت بلا سجل</li>
+          </ul>
+        </section>
+      </div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../../shared/course-data.js"></script>
+  <script src="../../../shared/layout.js"></script>
+  <script src="../../../shared/scripts.js"></script>
+</body>
+</html>

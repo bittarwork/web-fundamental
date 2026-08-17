@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 10 — هندسة البرمجيات</title>
+  <link rel="stylesheet" href="../../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="se" data-session="10">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+        <div class="student-welcome"><h3>هدف الجلسة</h3><p>نرسم مخططات نشاط وتسلسل للمسارات الحرجة: إنشاء طلب، تعيين سائق، وتسليم مع استثناءات.</p></div>
+        <section class="section-block"><div class="section-header"><div class="section-icon">10</div><h2>الشرح النظري</h2></div>
+          <div class="theory-content">
+            <h3>1) Activity</h3>
+            <p>يصف تدفق العمل والقرارات: هل الدفع إلكتروني نجح؟ هل يوجد سائق؟ مناسب للمطبخ والمشغّل.</p>
+            <h3>2) Sequence</h3>
+            <p>يرتب الرسائل بين كيانات: CustomerApp، API، KitchenApp، Dispatch، DriverApp، Payment، Maps. بلا كود؛ أسهم معنوية.</p>
+            <h3>3) المسار السعيد لا يكفي</h3>
+            <p>ارسم فشل الدفع، صمت السائق، رفض COD عند الباب. الاستثناء هو ما يكسر التشغيل الحقيقي.</p>
+            <h3>4) الإشعارات</h3>
+            <p>كل انتقال حالة يولّد إشعاراً لممثل. وثّق القناة: Push للسائق، SMS اختياري للعميل. هذا تصميم معلوماتي لا تنفيذ SDK.</p>
+          </div>
+        </section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📐</div><h2>مخططات ووثائق عملية</h2></div>
+          <div class="diagram-box"><div class="diagram-caption">Sequence — assign driver (happy path)</div>Kitchen    API         Dispatch      DriverApp     Maps
+  | Ready    |            |             |            |
+  |---------&gt;| find avail |             |            |
+  |          |-----------&gt;|             |            |
+  |          |            | distance    |            |
+  |          |            |-------------------------&gt;|
+  |          |            | offer job   |            |
+  |          |            |------------&gt;|            |
+  |          |            | accept      |            |
+  |          |            |&lt;------------|            |
+  |          | Assigned   |             |            |
+  |&lt;---------|            |             |            |</div>
+          <div class="diagram-box"><div class="diagram-caption">Activity — place order</div>[Browse menu] -&gt; [Add to cart] -&gt; [Choose address in zone?]
+     no -&gt; message out of zone
+     yes -&gt; [Pay card or COD]
+        card fail -&gt; stop
+        ok -&gt; [Placed] -&gt; notify kitchen</div>
+          </section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">🎯</div><h2>اختبار سريع</h2></div><div class="quiz-card" data-correct="c">
+            <p class="quiz-question">مخطط التسلسل يركز على:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">ألوان CSS</button>
+              <button class="quiz-option" data-value="b">فواتير السنة الماضية فقط</button>
+              <button class="quiz-option" data-value="c">ترتيب الرسائل بين المكوّنات والممثلين</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div><div class="quiz-card" data-correct="a">
+            <p class="quiz-question">صمت السائق 45 ثانية في التسلسل:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">فرع استثناء يعيد العرض لسائق آخر</button>
+              <button class="quiz-option" data-value="b">يُتجاهل</button>
+              <button class="quiz-option" data-value="c">يحذف الطلب من المطبخ</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">✏️</div><h2>تمارين عملية</h2></div><div class="exercise-item">
+            <h4><span class="exercise-number">1</span> Activity إلغاء</h4>
+            <p>ارسم قرارات الإلغاء حسب الحالة.</p>
+            <button class="solution-toggle" data-target="se10-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="se10-1"><p>Placed/Preparing: نعم مع قاعدة المطبخ. Ready/Assigned: قرار مشغّل. PickedUp: دعم فقط.</p></div>
+          </div><div class="exercise-item">
+            <h4><span class="exercise-number">2</span> Sequence تسليم COD</h4>
+            <p>عدّد الرسائل حتى إغلاق النقد.</p>
+            <button class="solution-toggle" data-target="se10-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="se10-2"><p>Driver confirm delivered → API record COD collected → customer receipt → later shift close compares expected vs handed.</p></div>
+          </div><div class="exercise-item">
+            <h4><span class="exercise-number">3</span> إشعارات</h4>
+            <p>جدول حالة → مستقبل → قناة.</p>
+            <button class="solution-toggle" data-target="se10-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="se10-3"><p>Placed: مطبخ Push. Assigned: سائق Push. Delivered: عميل Push/SMS. Shortage: إدارة مالية.</p></div>
+          </div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📌</div><h2>ملخص الجلسة</h2></div>
+          <ul class="key-points"><li>Activity للقرارات، Sequence للرسائل</li><li>الاستثناءات جزء من التصميم</li><li>الإشعار تابع للحالة</li><li>لا حاجة لكود لرسم التفاعل</li></ul>
+        </section>
+        <section class="homework-box"><h2>واجب الجلسة</h2><ul><li>Activity كامل للطلب</li><li>Sequence للتعيين مع timeout</li><li>Sequence للتسليم</li></ul></section>
+      </div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../../shared/course-data.js"></script>
+  <script src="../../../shared/layout.js"></script>
+  <script src="../../../shared/scripts.js"></script>
+</body>
+</html>

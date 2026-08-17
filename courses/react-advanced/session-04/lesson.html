@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 04 — Refs وPortals ومعرّفات مستقرة</title>
+  <link rel="stylesheet" href="../../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="react-advanced" data-session="04">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+
+        <div class="student-welcome">
+          <h3>هدف الجلسة</h3>
+          <p>نمرّر مراجع للمدخلات، نعرض النوافذ فوق الشجرة، ونولّد معرّفات وصول مستقرة.</p>
+        </div>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">04</div>
+            <h2>الشرح النظري</h2>
+          </div>
+          <div class="theory-content">
+            <h3>1) forwardRef</h3>
+            <p>المكوّن الدالة لا يستقبل ref كـ prop عادي. forwardRef يمرّر المرجع إلى عنصر DOM داخلي — أساس حقل Accordion أو Input في مكتبة.</p>
+            <h3>2) useImperativeHandle</h3>
+            <p>تعرّض واجهة محدودة للأب (focus, clear) بدل العنصر الخام. استخدمه نادراً.</p>
+            <h3>3) Portals</h3>
+            <p>createPortal يرسم الأبناء في عقدة DOM خارج الأب — ضروري للـ Modal حتى لا يقصّه overflow.</p>
+            <div class="analogy-box"><strong>تشبيه:</strong> المحتوى يعيش في React تحت App، لكن النافذة تُعلَّق على document.body.</div>
+            <h3>4) useId</h3>
+            <p>معرّف مستقر يربط label بالحقل ويتوافق مع التصيير على السيرفر لاحقاً. لا تستخدمه كمفتاح قائمة.</p>
+    </div>
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">💻</div>
+            <h2>أمثلة عملية</h2>
+          </div>
+          
+          <h3>مثال 1: Input مع ref</h3>
+          <div class="code-block"><pre><code>const TextField = forwardRef(function TextField({ label, ...props }, ref) {
+  const id = useId();
+  return (
+    &lt;div&gt;
+      &lt;label htmlFor={id}&gt;{label}&lt;/label&gt;
+      &lt;input id={id} ref={ref} {...props} /&gt;
+    &lt;/div&gt;
+  );
+});</code></pre></div>
+          <h3>مثال 2: تركيز من الأب</h3>
+          <div class="code-block"><pre><code>const inputRef = useRef(null);
+&lt;button type="button" onClick={() =&gt; inputRef.current.focus()}&gt;Focus&lt;/button&gt;
+&lt;TextField ref={inputRef} label="Trainer" defaultValue="Osama Bittar" /&gt;</code></pre></div>
+          <h3>مثال 3: Modal عبر Portal</h3>
+          <div class="code-block"><pre><code>function Modal({ children }) {
+  return createPortal(
+    &lt;div className="modal-root"&gt;{children}&lt;/div&gt;,
+    document.getElementById("modal-root")
+  );
+}</code></pre></div>
+    
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">🎯</div>
+            <h2>اختبار سريع</h2>
+          </div>
+                    <div class="quiz-card" data-correct="b">
+            <p class="quiz-question">Portal يُستخدم غالباً لـ:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">استبدال useState</button>
+              <button class="quiz-option" data-value="b">النوافذ المنبثقة خارج قصّ overflow</button>
+              <button class="quiz-option" data-value="c">حذف المفاتيح</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+          <div class="quiz-card" data-correct="a">
+            <p class="quiz-question">useId مناسب لـ:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">ربط label بحقل</button>
+              <button class="quiz-option" data-value="b">مفتاح map لقائمة تُحذف</button>
+              <button class="quiz-option" data-value="c">سعر الكورس</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">✏️</div>
+            <h2>تمارين عملية</h2>
+          </div>
+                    <div class="exercise-item">
+            <h4><span class="exercise-number">1</span> حقل مع label</h4>
+            <p>ابنِ TextField بـ forwardRef وuseId.</p>
+            <button class="solution-toggle" data-target="ra04-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="ra04-1">
+              <p>انظر مثال 1 ثم صدّر المكوّن.</p>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">2</span> نافذة سعر</h4>
+            <p>Modal يعرض «React Advanced — 49 €».</p>
+            <button class="solution-toggle" data-target="ra04-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="ra04-2">
+              <div class="code-block"><pre><code>&lt;Modal&gt;&lt;p&gt;React Advanced — 49 €&lt;/p&gt;&lt;/Modal&gt;</code></pre></div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">3</span> واجهة محدودة</h4>
+            <p>عرّض clear() عبر useImperativeHandle.</p>
+            <button class="solution-toggle" data-target="ra04-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="ra04-3">
+              <div class="code-block"><pre><code>useImperativeHandle(ref, () =&gt; ({
+  clear() { inputRef.current.value = ""; }
+}));</code></pre></div>
+            </div>
+          </div>
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">📌</div>
+            <h2>ملخص الجلسة</h2>
+          </div>
+          <ul class="key-points">
+            <li>forwardRef للمكتبات والحقول</li>
+            <li>Portal يفك الارتباط البصري بالأب</li>
+            <li>useId للوصولية لا للقوائم</li>
+          </ul>
+        </section>
+        <section class="homework-box">
+          <h2>واجب الجلسة</h2>
+          <ul>
+            <li>أضف div#modal-root في index.html</li>
+            <li>ابنِ Dialog يُغلق بزر ويُركّز الحقل عند الفتح</li>
+            <li>لا تستخدم id ثابت مكرر في القائمة</li>
+          </ul>
+        </section>
+      </div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../../shared/course-data.js"></script>
+  <script src="../../../shared/layout.js"></script>
+  <script src="../../../shared/scripts.js"></script>
+</body>
+</html>

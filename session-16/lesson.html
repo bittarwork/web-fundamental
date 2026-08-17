@@ -3,295 +3,89 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>الجلسة 16 — مشروع تطبيق الطقس</title>
+  <title>الجلسة 16 — المشروع النهائي — التفاعل</title>
   <link rel="stylesheet" href="../shared/styles.css">
 </head>
-<body>
+<body class="lesson-page" data-page="lesson" data-course="web" data-session="16">
   <div class="page-wrapper">
+    <div id="layout-header"></div>
 
-    <header class="site-header">
+    <main class="main-content" id="main-content">
       <div class="container">
-        <span class="course-badge">المرحلة 4 — API</span>
-        <h1>الجلسة 16: المشروع النهائي — تطبيق الطقس Weather App</h1>
-        <div class="session-meta">
-          <span>المدة: ساعتان ونصف</span>
-          <span>الجلسة 16 من 16</span>
+
+        <div class="session-status">
+          أفكار الجلسة جاهزة — الشرح العلمي التفصيلي والأمثلة والتمارين سيُضاف في المرحلة التالية.
         </div>
-      </div>
-    </header>
 
-    <nav class="lesson-nav">
-      <div class="container">
-        <a href="../index.html" class="nav-link">الرئيسية</a>
-        <a href="../session-15/lesson.html" class="nav-link">→ السابقة</a>
-        <a href="#" class="nav-link disabled">التالية</a>
-      </div>
-    </nav>
-
-    <main class="main-content">
-      <div class="container">
+        <div class="student-welcome">
+          <h3>هدف الجلسة</h3>
+          <p>إضافة التفاعل باستخدام JavaScript، ربط HTML وCSS وJS ضمن مشروع واحد، ثم مراجعة الكود واكتشاف الأخطاء عبر Developer Tools.</p>
+        </div>
 
         <section class="section-block">
           <div class="section-header">
             <div class="section-icon">16</div>
-            <h2>الشرح النظري</h2>
+            <h2>محاور الجلسة</h2>
           </div>
-          <div class="theory-content">
-            <h3>هدف المشروع</h3>
-            <p>
-              في هذه الجلسة نبني <strong>تطبيق طقس تفاعلي</strong> يجمع كل ما تعلمناه:
-              HTML للهيكل، CSS للتصميم، JavaScript للتفاعل، و Fetch API لجلب بيانات حقيقية.
-            </p>
-
-            <h3>APIs المستخدمة (مجانية — بدون مفتاح)</h3>
-            <ol>
-              <li>
-                <strong>Geocoding API</strong> — تحويل اسم المدينة إلى إحداثيات:
-                <br>
-                <span class="inline-code">https://geocoding-api.open-meteo.com/v1/search?name=CITY</span>
-              </li>
-              <li>
-                <strong>Forecast API</strong> — جلب الطقس الحالي بالإحداثيات:
-                <br>
-                <span class="inline-code">https://api.open-meteo.com/v1/forecast?latitude=LAT&longitude=LON&current_weather=true</span>
-              </li>
-            </ol>
-
-            <div class="highlight-box">
-              <strong>مثال دمشق:</strong>
-              <span class="inline-code">latitude=33.51&amp;longitude=36.29&amp;current_weather=true</span>
-            </div>
-
-            <h3>متطلبات المشروع</h3>
-            <ul>
-              <li>حقل بحث لإدخال اسم المدينة</li>
-              <li>زر "بحث" لجلب الطقس</li>
-              <li>عرض: اسم المدينة، درجة الحرارة، سرعة الرياح، رمز الطقس</li>
-              <li>رسائل تحميل وخطأ واضحة للمستخدم</li>
-              <li>تصميم responsive يعمل على الجوال</li>
-            </ul>
-
-            <h3>خطوات العمل</h3>
-            <ol>
-              <li>أنشئ هيكل HTML: بحث + بطاقة عرض النتائج</li>
-              <li>صمّم الواجهة بـ CSS (ألوان، بطاقة، responsive)</li>
-              <li>اكتب دالة <span class="inline-code">searchCity(name)</span> للـ Geocoding</li>
-              <li>اكتب دالة <span class="inline-code">getWeather(lat, lon)</span> للـ Forecast</li>
-              <li>اربط زر البحث بالدوال واعرض النتائج في DOM</li>
-              <li>اختبر بمدن: دمشق، حلب، بيروت، عمان</li>
-            </ol>
-
-            <div class="tip-box">
-              <strong>ملف المشروع الجاهز:</strong>
-              <span class="inline-code">projects/weather-app/</span>
-              — يحتوي index.html و style.css و app.js
-            </div>
-          </div>
+          <ul class="topic-list">
+            <li>إضافة السلوك البرمجي باستخدام JavaScript</li>
+            <li>التعامل مع DOM وEvents</li>
+            <li>ربط HTML وCSS وJavaScript ضمن مشروع واحد</li>
+            <li>استخدام Developer Tools</li>
+            <li>أساسيات اكتشاف وتصحيح الأخطاء</li>
+            <li>مراجعة المشروع النهائي وتحسينه</li>
+          </ul>
         </section>
 
         <section class="section-block">
           <div class="section-header">
-            <div class="section-icon">💻</div>
-            <h2>الكود المرجعي للمشروع</h2>
-          </div>
-
-          <h3>HTML — هيكل التطبيق</h3>
-          <div class="code-block">
-            <div class="code-label">HTML — Weather App Structure</div>
-            <pre><code>&lt;!DOCTYPE html&gt;
-&lt;html lang="ar" dir="rtl"&gt;
-&lt;head&gt;
-  &lt;meta charset="UTF-8"&gt;
-  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
-  &lt;title&gt;تطبيق الطقس&lt;/title&gt;
-  &lt;link rel="stylesheet" href="style.css"&gt;
-&lt;/head&gt;
-&lt;body&gt;
-
-  &lt;div class="app"&gt;
-    &lt;header class="app-header"&gt;
-      &lt;h1&gt;تطبيق الطقس&lt;/h1&gt;
-      &lt;p&gt;ابحث عن أي مدينة في العالم&lt;/p&gt;
-    &lt;/header&gt;
-
-    &lt;form id="search-form" class="search-box"&gt;
-      &lt;input type="text" id="city-input" placeholder="مثال: دمشق" required&gt;
-      &lt;button type="submit"&gt;بحث&lt;/button&gt;
-    &lt;/form&gt;
-
-    &lt;div id="status" class="status hidden"&gt;&lt;/div&gt;
-
-    &lt;section id="weather-card" class="weather-card hidden"&gt;
-      &lt;h2 id="city-name"&gt;&lt;/h2&gt;
-      &lt;p id="country-name"&gt;&lt;/p&gt;
-      &lt;div class="temp-display" id="temperature"&gt;&lt;/div&gt;
-      &lt;p id="wind-speed"&gt;&lt;/p&gt;
-      &lt;p id="weather-desc"&gt;&lt;/p&gt;
-    &lt;/section&gt;
-  &lt;/div&gt;
-
-  &lt;script src="app.js"&gt;&lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
-          </div>
-
-          <h3>JavaScript — منطق الجلب والعرض</h3>
-          <div class="code-block">
-            <div class="code-label">JavaScript — app.js (core logic)</div>
-            <pre><code>// DOM elements
-const searchForm = document.getElementById('search-form');
-const cityInput = document.getElementById('city-input');
-const statusEl = document.getElementById('status');
-const weatherCard = document.getElementById('weather-card');
-
-// Search city name and return coordinates
-async function searchCity(cityName) {
-  const url =
-    'https://geocoding-api.open-meteo.com/v1/search?name=' +
-    encodeURIComponent(cityName) +
-    '&count=1&language=ar&format=json';
-
-  const response = await fetch(url);
-  const data = await response.json();
-
-  if (!data.results || data.results.length === 0) {
-    throw new Error('City not found');
-  }
-
-  return data.results[0];
-}
-
-// Fetch current weather by latitude and longitude
-async function getWeather(lat, lon) {
-  const url =
-    'https://api.open-meteo.com/v1/forecast?latitude=' +
-    lat +
-    '&longitude=' +
-    lon +
-    '&current_weather=true';
-
-  const response = await fetch(url);
-  const data = await response.json();
-  return data.current_weather;
-}
-
-// Handle form submit
-searchForm.addEventListener('submit', async function (e) {
-  e.preventDefault();
-  const city = cityInput.value.trim();
-
-  statusEl.textContent = 'جاري البحث...';
-  statusEl.classList.remove('hidden');
-  weatherCard.classList.add('hidden');
-
-  try {
-    const location = await searchCity(city);
-    const weather = await getWeather(location.latitude, location.longitude);
-
-    document.getElementById('city-name').textContent = location.name;
-    document.getElementById('country-name').textContent = location.country || '';
-    document.getElementById('temperature').textContent = weather.temperature + '°C';
-    document.getElementById('wind-speed').textContent =
-      'سرعة الرياح: ' + weather.windspeed + ' km/h';
-
-    statusEl.classList.add('hidden');
-    weatherCard.classList.remove('hidden');
-  } catch (err) {
-    statusEl.textContent = 'لم يتم العثور على المدينة. حاول مرة أخرى.';
-  }
-});</code></pre>
-          </div>
-        </section>
-
-        <section class="section-block">
-          <div class="section-header">
-            <div class="section-icon">✏️</div>
-            <h2>تمارين المشروع</h2>
-          </div>
-
-          <div class="exercise-item">
-            <h4><span class="exercise-number">1</span> بناء الواجهة</h4>
-            <p>أنشئ HTML مع حقل بحث، زر، وبطاقة عرض مخفية افتراضياً.</p>
-            <button class="solution-toggle" data-target="sol-1">
-              <span class="toggle-text">عرض الحل</span>
-              <span class="arrow">▼</span>
-            </button>
-            <div class="solution-content" id="sol-1">
-              <p>راجع ملف <span class="inline-code">projects/weather-app/index.html</span> — استخدم class <span class="inline-code">hidden</span> لإخفاء البطاقة حتى تظهر النتائج.</p>
-            </div>
-          </div>
-
-          <div class="exercise-item">
-            <h4><span class="exercise-number">2</span> ربط Geocoding API</h4>
-            <p>اكتب دالة تحوّل اسم المدينة لإحداثيات وترجع أول نتيجة.</p>
-            <button class="solution-toggle" data-target="sol-2">
-              <span class="toggle-text">عرض الحل</span>
-              <span class="arrow">▼</span>
-            </button>
-            <div class="solution-content" id="sol-2">
-              <div class="code-block">
-                <div class="code-label">Solution</div>
-                <pre><code>async function searchCity(name) {
-  const res = await fetch(
-    'https://geocoding-api.open-meteo.com/v1/search?name=' + encodeURIComponent(name)
-  );
-  const data = await res.json();
-  if (!data.results) throw new Error('Not found');
-  return data.results[0];
-}</code></pre>
-              </div>
-            </div>
-          </div>
-
-          <div class="exercise-item">
-            <h4><span class="exercise-number">3</span> إكمال التطبيق والاختبار</h4>
-            <p>اجمع Geocoding + Forecast، اعرض النتائج، واختبر بثلاث مدن مختلفة.</p>
-            <button class="solution-toggle" data-target="sol-3">
-              <span class="toggle-text">عرض الحل</span>
-              <span class="arrow">▼</span>
-            </button>
-            <div class="solution-content" id="sol-3">
-              <p>الحل الكامل في <span class="inline-code">projects/weather-app/app.js</span>. جرب: دمشق، Istanbul، London.</p>
-            </div>
-          </div>
-        </section>
-
-        <section class="section-block">
-          <div class="section-header">
-            <div class="section-icon">📌</div>
-            <h2>ملخص الكورس</h2>
+            <div class="section-icon">تعلم</div>
+            <h2>ماذا ستتعلم في هذه الجلسة؟</h2>
           </div>
           <ul class="key-points">
-            <li>أكملت 16 جلسة من HTML إلى CSS إلى JavaScript إلى API</li>
-            <li>بنيت 4 مشاريع: Portfolio HTML، Portfolio مصمّم، Todo List، Weather App</li>
-            <li>تعلمت جلب بيانات حقيقية من الإنترنت بدون مفتاح API</li>
-            <li>الخطوة التالية: تعلم إطار عمل مثل React أو بناء Backend</li>
-            <li>استمر بالممارسة — كل مشروع يقوّي مهاراتك</li>
+            <li>إضافة تفاعل حقيقي للصفحة</li>
+            <li>ربط اللغات الثلاث في مشروع واحد</li>
+            <li>مراجعة الكود وتصحيح الأخطاء الأساسية</li>
           </ul>
+        </section>
+
+        <section class="section-block content-slot">
+          <div class="section-header">
+            <div class="section-icon">1</div>
+            <h2>الشرح النظري</h2>
+          </div>
+          <p class="slot-note">سيُضاف الشرح العلمي هنا لاحقاً وفق محاور الجلسة أعلاه.</p>
+        </section>
+
+        <section class="section-block content-slot">
+          <div class="section-header">
+            <div class="section-icon">2</div>
+            <h2>أمثلة عملية</h2>
+          </div>
+          <p class="slot-note">ستُضاف أمثلة الكود هنا. الأمثلة ستستخدم اسم المدرب Osama Bittar كمرجع موحّد.</p>
+        </section>
+
+        <section class="section-block content-slot">
+          <div class="section-header">
+            <div class="section-icon">3</div>
+            <h2>تمارين عملية</h2>
+          </div>
+          <p class="slot-note">ستُضاف التمارين والمهام العملية هنا مع حلول قابلة للإظهار.</p>
         </section>
 
         <section class="homework-box">
-          <h2>تحديات إضافية</h2>
-          <ul>
-            <li>أضف أيقونة طقس حسب weathercode</li>
-            <li>احفظ آخر مدينة بحثت عنها في localStorage</li>
-            <li>اعرض توقعات الأيام القادمة من نفس API</li>
-            <li>ارفع المشروع على GitHub Pages لمشاركته</li>
-          </ul>
+          <h2>واجب الجلسة</h2>
+          <p>سيُحدد المطلوب العملي لهذه الجلسة بعد اعتماد المحتوى العلمي.</p>
         </section>
 
       </div>
     </main>
 
-    <footer class="site-footer">
-      <div class="container">
-        <p class="footer-course">أساسيات الويب — الكورس الأول</p>
-        <p class="footer-instructor">محمد أسامة بيطار · مهندس معلوماتية · مدرب علوم ويب</p>
-        <p class="footer-copy">الجلسة 16 من 16 — مشروع نهائي</p>
-      </div>
-    </footer>
-
+    <div id="layout-footer"></div>
   </div>
+
+  <script src="../shared/course-data.js"></script>
+  <script src="../shared/layout.js"></script>
   <script src="../shared/scripts.js"></script>
 </body>
 </html>

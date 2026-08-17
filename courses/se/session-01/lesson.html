@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 01 — هندسة البرمجيات</title>
+  <link rel="stylesheet" href="../../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="se" data-session="01">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+        <div class="student-welcome"><h3>هدف الجلسة</h3><p>نفهم هندسة البرمجيات ودورة الحياة الأكاديمية، ونعرّف رؤية منصة مذاق بيطار وما الذي نسلّمه في نهاية الدورة دون كتابة كود تطبيق.</p></div>
+        <section class="section-block"><div class="section-header"><div class="section-icon">01</div><h2>الشرح النظري</h2></div>
+          <div class="theory-content">
+            <div class="tip-box"><strong>قاعدة الدورة:</strong> لا نكتب أكواد تطبيق (لا Express ولا React). نكتب وثائق، جداول، ومخططات. المعرّفات التقنية بالإنجليزية، والنقد في الأمثلة باليورو (€)، واسم المطعم والمالك <span class="inline-code">Osama Bittar</span>.</div>
+            <h3>1) ما هي هندسة البرمجيات؟</h3>
+            <p>هندسة البرمجيات ليست «كتابة كود بسرعة». هي طريقة منظّمة لتحويل حاجة عمل إلى نظام يمكن بناؤه واختباره وتشغيله وتسليمه. في مشروع توصيل الطعام، الخطأ في التحليل يظهر لاحقاً كطلب ضائع أو سائق بلا أجر أو نقد غير مطابق للصندوق.</p>
+            <div class="analogy-box"><strong>تشبيه:</strong> المطعم لا يطبخ قبل قائمة الطعام والمطبخ والموردين. كذلك المنصة لا تُبرمج قبل الرؤية والنطاق والمتطلبات.</div>
+            <h3>2) دورة الحياة الأكاديمية (SDLC)</h3>
+            <p>النموذج الأكاديمي الذي نتّبعه متسلسل وواضح للمراجعة الجامعية والتسليم للعميل:</p>
+            <div class="flow-steps"><div class="flow-step"><strong>1. دراسة المتطلبات</strong><p>ماذا يريد المطعم والعميل والسائق؟ وما الجودة المطلوبة؟</p></div><div class="flow-step"><strong>2. التحليل</strong><p>كيف تجري الأعمال؟ الحالات، القواعد، المال، والتعارضات.</p></div><div class="flow-step"><strong>3. التصميم</strong><p>كيف سيبدو النظام تقنياً ومعلوماتياً دون تنفيذ؟</p></div><div class="flow-step"><strong>4. التنفيذ المخطط</strong><p>خطة عمل ومراحل لفريق تطوير لاحق — ليست جلسة برمجة.</p></div><div class="flow-step"><strong>5. المتابعة</strong><p>اختبار، قبول، مؤشرات تشغيل بعد الإطلاق.</p></div><div class="flow-step"><strong>6. التصدير</strong><p>حزمة وثائق جاهزة للتسليم والعرض.</p></div></div>
+            <h3>3) لماذا بلا كود في هذا الكورس؟</h3>
+            <p>كثير من الأفكار تفشل لأن الفريق قفز إلى الشاشات. هنا ندرّب العقل على السؤال الصحيح: من الفاعل؟ ما الحالة؟ من يدفع باليورو؟ ماذا يحدث إذا رفض السائق؟ هذه الأسئلة تصلح لأي فكرة لاحقاً: عيادة، متجر، حجز قاعات.</p>
+            <h3>4) مشروع الدورة: مذاق بيطار</h3>
+            <p>مطعم واحد في دمشق، ليس سوق مطاعم متعددة. المنصة خاصة بهذا المطعم: قائمة طعام، طلب، تحضير، سائق، تحصيل، وتسوية مالية. القنوات أربع: عميل، مطبخ، سائق، إدارة/مالية.</p>
+            <div class="compare-grid">
+              <div class="compare-box"><h4>ما نبنيه فكرياً</h4><p>منصة مطعم واحد مع أسطول سائقين ونظام أجور وتقارير يورو.</p></div>
+              <div class="compare-box"><h4>ما لا نبنيه</h4><p>سوق متعدد البائعين، إعلانات، أو تطبيق تواصل اجتماعي.</p></div>
+            </div>
+            <h3>5) نواتج الملف الهندسي</h3>
+            <p>من الجلسة 01 حتى 16 يتجمّع ملف واحد: ميثاق، نطاق، SRS، تحليل عمليات، مالية، UML، ERD، عمارة، صلاحيات، خطة، اختبار، حزمة تسليم.</p>
+          </div>
+        </section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📐</div><h2>مخططات ووثائق عملية</h2></div>
+          <h3>ميثاق المشروع (نموذج)</h3>
+          <div class="spec-table-wrap"><table class="spec-table"><thead><tr><th>الحقل</th><th>القيمة</th></tr></thead><tbody><tr><td>Project name</td><td>Bittar Kitchen Delivery</td></tr><tr><td>Owner</td><td>Osama Bittar</td></tr><tr><td>City</td><td>Damascus</td></tr><tr><td>Currency</td><td>EUR (€)</td></tr><tr><td>Goal</td><td>استقبال الطلبات وتوصيلها مع أجور سائقين شفافة</td></tr><tr><td>Success metric</td><td>تسليم الطلب في أقل من 45 دقيقة في 90% من الحالات داخل نطاق التوصيل</td></tr></tbody></table></div>
+          <div class="diagram-box"><div class="diagram-caption">حدود الدورة مقابل التنفيذ لاحقاً</div>This course                  Later development team
+-----------                  -----------------------
+Vision / SRS                 React / Node / DB code
+UML / ERD / IA               CI, servers, app stores
+Test & handover pack         Production release</div>
+          </section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">🎯</div><h2>اختبار سريع</h2></div><div class="quiz-card" data-correct="b">
+            <p class="quiz-question">هذه الدورة تركّز أساساً على:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">كتابة تطبيق Express كامل داخل الجلسات</button>
+              <button class="quiz-option" data-value="b">الوثائق والمخططات ودورة الحياة قبل الكود</button>
+              <button class="quiz-option" data-value="c">تصميم شعار المطعم فقط</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div><div class="quiz-card" data-correct="a">
+            <p class="quiz-question">مشروع مذاق بيطار هو:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">منصة لمطعم واحد مع سائقين ومالية</button>
+              <button class="quiz-option" data-value="b">سوق لكل مطاعم المدينة</button>
+              <button class="quiz-option" data-value="c">تطبيق محادثة بين السائقين</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">✏️</div><h2>تمارين عملية</h2></div><div class="exercise-item">
+            <h4><span class="exercise-number">1</span> ميثاق من صفحة</h4>
+            <p>اكتب ميثاق مشروع لمنصة مذاق بيطار: الاسم، المالك، الهدف، مقياس نجاح واحد بالدقائق، والعملة.</p>
+            <button class="solution-toggle" data-target="se01-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="se01-1"><p>الاسم Bittar Kitchen Delivery، المالك Osama Bittar، الهدف توصيل طلبات المطعم مع تسوية سائقين باليورو، مقياس: 90% من الطلبات داخل النطاق خلال 45 دقيقة.</p></div>
+          </div><div class="exercise-item">
+            <h4><span class="exercise-number">2</span> قائمة النواتج</h4>
+            <p>عدّد ثمانية مخرجات ستضعها في ملفك حتى الجلسة 16.</p>
+            <button class="solution-toggle" data-target="se01-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="se01-2"><p>ميثاق، سياق، FR، NFR، Use Cases، دورة طلب، تشغيل سائق، مالية، UML، ERD، عمارة، صلاحيات، خطة، اختبار، حزمة تسليم.</p></div>
+          </div><div class="exercise-item">
+            <h4><span class="exercise-number">3</span> فكرة أخرى بنفس الأسلوب</h4>
+            <p>اختر فكرة ليست توصيلاً (مثلاً حجز طاولة) واكتب جملة رؤية واحدة بأسلوب الميثاق.</p>
+            <button class="solution-toggle" data-target="se01-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="se01-3"><p>مثال: نظام حجز طاولات لمطعم مذاق بيطار يقلّل الانتظار ويؤكد الحجز برسالة، بدون توصيل.</p></div>
+          </div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📌</div><h2>ملخص الجلسة</h2></div>
+          <ul class="key-points"><li>هندسة البرمجيات تنظّم التحويل من حاجة إلى نظام</li><li>نتّبع متطلبات ثم تحليل ثم تصميم ثم خطة ثم متابعة ثم تصدير</li><li>المشروع مطعم واحد لا سوق متعدد</li><li>لا كود تطبيق في الجلسات</li></ul>
+        </section>
+        <section class="homework-box"><h2>واجب الجلسة</h2><ul><li>أنشئ مجلد ملفك الهندسي باسم bittar-kitchen-se</li><li>اكتب ميثاق صفحة واحدة</li><li>اكتب فقرة تشرح لماذا لا تبدأ بالكود</li></ul></section>
+      </div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../../shared/course-data.js"></script>
+  <script src="../../../shared/layout.js"></script>
+  <script src="../../../shared/scripts.js"></script>
+</body>
+</html>

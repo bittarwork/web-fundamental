@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 13 — اختبار المكوّنات</title>
+  <link rel="stylesheet" href="../../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="react-advanced" data-session="13">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+
+        <div class="student-welcome">
+          <h3>هدف الجلسة</h3>
+          <p>نكتب اختبارات Vitest تحاكي المستخدم: يرى النص، ينقر، ويظهر الخطأ — لا تفاصيل الـ state الداخلية.</p>
+        </div>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">13</div>
+            <h2>الشرح النظري</h2>
+          </div>
+          <div class="theory-content">
+            <h3>1) Testing Library</h3>
+            <p>ابحث كما يبحث المستخدم: getByRole, getByLabelText. تجنّب test-id إلا للضرورة.</p>
+            <h3>2) Vitest + jsdom</h3>
+            <p>Vite يدعم vitest. render من @testing-library/react ثم userEvent.</p>
+            <h3>3) غير متزامن</h3>
+            <p>findBy ينتظر ظهور العنصر بعد fetch. استخدم waitFor عند الحاجة.</p>
+            <h3>4) ماذا نختبر؟</h3>
+            <p>السلوك الظاهر: رسالة خطأ، تعطيل زر، ظهور السعر €. لا تختبر أن useState استُدعي.</p>
+            <div class="tip-box"><strong>اختبار واحد جيد</strong> أفضل من عشرة هشة ترتبط بأسماء class.</div>
+  </div>
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">💻</div>
+            <h2>أمثلة عملية</h2>
+          </div>
+          
+          <h3>مثال 1: عداد</h3>
+          <div class="code-block"><pre><code>import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+
+test("increments seats", async () =&gt; {
+  const user = userEvent.setup();
+  render(&lt;SeatCounter /&gt;);
+  await user.click(screen.getByRole("button", { name: "+" }));
+  expect(screen.getByText("Seats: 1")).toBeInTheDocument();
+});</code></pre></div>
+          <h3>مثال 2: خطأ نموذج</h3>
+          <div class="code-block"><pre><code>await user.click(screen.getByRole("button", { name: "Save" }));
+expect(screen.getByText(/name is required/i)).toBeInTheDocument();</code></pre></div>
+          <h3>مثال 3: السعر</h3>
+          <div class="code-block"><pre><code>render(&lt;Price amount={49} /&gt;);
+expect(screen.getByText("49 €")).toBeInTheDocument();</code></pre></div>
+  
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">🎯</div>
+            <h2>اختبار سريع</h2>
+          </div>
+                    <div class="quiz-card" data-correct="a">
+            <p class="quiz-question">نفضّل الاستعلام بـ:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">الدور والاسم الظاهر</button>
+              <button class="quiz-option" data-value="b">الوصول المباشر لـ state</button>
+              <button class="quiz-option" data-value="c">قراءة ملف .git</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+          <div class="quiz-card" data-correct="b">
+            <p class="quiz-question">findBy مناسب عندما:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">العنصر موجود فوراً دائماً</button>
+              <button class="quiz-option" data-value="b">العنصر يظهر بعد انتظار</button>
+              <button class="quiz-option" data-value="c">لا يوجد DOM</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">✏️</div>
+            <h2>تمارين عملية</h2>
+          </div>
+                    <div class="exercise-item">
+            <h4><span class="exercise-number">1</span> اختبار ترحيب</h4>
+            <p>يرندر Hello Osama.</p>
+            <button class="solution-toggle" data-target="ra13-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="ra13-1">
+              <div class="code-block"><pre><code>expect(screen.getByText(/osama/i)).toBeInTheDocument();</code></pre></div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">2</span> نقر</h4>
+            <p>زر Enroll يظهر Confirmed.</p>
+            <button class="solution-toggle" data-target="ra13-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="ra13-2">
+              <p>userEvent.click ثم expect النص.</p>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">3</span> نموذج</h4>
+            <p>إرسال فارغ يظهر خطأ.</p>
+            <button class="solution-toggle" data-target="ra13-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="ra13-3">
+              <p>انظر مثال 2.</p>
+            </div>
+          </div>
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">📌</div>
+            <h2>ملخص الجلسة</h2>
+          </div>
+          <ul class="key-points">
+            <li>اختبر ما يراه المستخدم</li>
+            <li>userEvent أقرب للواقع من fireEvent</li>
+            <li>لا تربط الاختبار بـ class هش</li>
+          </ul>
+        </section>
+        <section class="homework-box">
+          <h2>واجب الجلسة</h2>
+          <ul>
+            <li>ثبّت vitest وtesting-library</li>
+            <li>اختباران لبطاقة السعر واختبار نموذج</li>
+            <li>شغّل npm test قبل الواجب</li>
+          </ul>
+        </section>
+      </div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../../shared/course-data.js"></script>
+  <script src="../../../shared/layout.js"></script>
+  <script src="../../../shared/scripts.js"></script>
+</body>
+</html>

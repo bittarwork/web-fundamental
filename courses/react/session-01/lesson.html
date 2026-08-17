@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 01 — مقدمة إلى React و Vite</title>
+  <link rel="stylesheet" href="../../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="react" data-session="01">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+
+    <main class="main-content" id="main-content">
+      <div class="container">
+
+        <div class="student-welcome">
+          <h3>هدف الجلسة</h3>
+          <p>
+            ننتقل من صفحات HTML/CSS/JS التقليدية إلى React:
+            نفهم المكتبة، مفهوم SPA، ننشئ أول مشروع بـ Vite، ونكتب أول JSX.
+          </p>
+        </div>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">01</div>
+            <h2>الشرح النظري</h2>
+          </div>
+          <div class="theory-content">
+            <div class="tip-box">
+              <strong>ملاحظة:</strong> أمثلة الكورس تستخدم اسم
+              <span class="inline-code">Osama Bittar</span> كمرجع موحّد لجميع الطلاب.
+            </div>
+
+            <h3>1) ما هي React؟</h3>
+            <p>
+              React مكتبة JavaScript لبناء واجهات المستخدم من قطع صغيرة اسمها
+              <strong>Components</strong>. بدل ما تكتب صفحة طويلة في ملف واحد،
+              تقسّم الواجهة إلى أجزاء: رأس، بطاقة، زر، نموذج — وكل جزء له ملف وكود واضح.
+            </p>
+            <div class="analogy-box">
+              <strong>تشبيه:</strong> HTML التقليدي = بناء البيت حجراً حجراً في مكانه.
+              React = تصنيع غرف جاهزة (مكوّنات) ثم تركيبها في الصفحة.
+            </div>
+
+            <h3>2) لماذا نستخدم React؟</h3>
+            <ul>
+              <li><strong>إعادة الاستخدام:</strong> الزر أو البطاقة يُكتبان مرة ويُستخدمان في أكثر من مكان.</li>
+              <li><strong>تحديث الواجهة:</strong> لما تتغير البيانات، React تعيد رسم الجزء المطلوب.</li>
+              <li><strong>تنظيم المشروع:</strong> كل مكوّن مسؤول عن جزء واحد — أسهل للقراءة والتعديل.</li>
+              <li><strong>منظومة واسعة:</strong> Routing، نماذج، جلب بيانات — كلها تُبنى فوق نفس الفكرة.</li>
+            </ul>
+
+            <h3>3) مفهوم SPA — Single Page Application</h3>
+            <p>
+              في الموقع التقليدي كل رابط يحمّل صفحة HTML جديدة من السيرفر.
+              في SPA المتصفح يحمّل التطبيق مرة، وبعدها التنقّل يبدّل المحتوى
+              <strong>بدون إعادة تحميل كاملة للصفحة</strong>.
+            </p>
+            <div class="compare-grid">
+              <div class="compare-box">
+                <h4>موقع متعدد الصفحات</h4>
+                <p>كل رابط = طلب جديد + وميض أبيض + إعادة تحميل CSS وJS.</p>
+              </div>
+              <div class="compare-box">
+                <h4>SPA</h4>
+                <p>رابط يتغير، والمحتوى يتبدّل داخل نفس الصفحة — أسرع وأسلس.</p>
+              </div>
+            </div>
+            <div class="highlight-box">
+              <strong>مهم:</strong> SPA لا تعني أن التطبيق صفحة واحدة بالمعنى البصري.
+              تعني أن المتصفح يدير عدة «شاشات» داخل تطبيق واحد.
+            </div>
+
+            <h3>4) إنشاء المشروع باستخدام Vite</h3>
+            <p>
+              Vite أداة حديثة لتشغيل مشروع React بسرعة أثناء التطوير.
+              نستخدمها بدل الإعداد اليدوي المعقّد.
+            </p>
+            <ol class="step-list">
+              <li>افتح Terminal داخل مجلد مشاريعك.</li>
+              <li>نفّذ: <span class="inline-code">npm create vite@latest osama-react -- --template react</span></li>
+              <li>ادخل للمجلد: <span class="inline-code">cd osama-react</span></li>
+              <li>ثبّت الحزم: <span class="inline-code">npm install</span></li>
+              <li>شغّل المشروع: <span class="inline-code">npm run dev</span> وافتح الرابط في المتصفح.</li>
+            </ol>
+            <div class="warning-box">
+              <strong>تذكير:</strong> تحتاج Node.js مثبتاً على الجهاز قبل Vite.
+              تأكد بكتابة <span class="inline-code">node -v</span> في Terminal.
+            </div>
+
+            <h3>5) Project Structure — هيكل الملفات</h3>
+            <ul>
+              <li><span class="inline-code">index.html</span> — الصفحة الوحيدة التي يفتحها المتصفح.</li>
+              <li><span class="inline-code">src/main.jsx</span> — نقطة الدخول: تربط React بعنصر في الصفحة.</li>
+              <li><span class="inline-code">src/App.jsx</span> — المكوّن الرئيسي للتطبيق.</li>
+              <li><span class="inline-code">src/index.css</span> — تنسيقات عامة.</li>
+              <li><span class="inline-code">package.json</span> — اسم المشروع والحزم والأوامر.</li>
+              <li><span class="inline-code">public/</span> — ملفات ثابتة مثل الأيقونات.</li>
+            </ul>
+
+            <h3>6) JSX — JavaScript + XML</h3>
+            <p>
+              JSX يسمح بكتابة شكل الواجهة داخل JavaScript، فيبدو مثل HTML
+              لكنه <strong>ليس HTML</strong>. المتصفح لا يفهم JSX مباشرة؛ Vite يحوّله إلى
+              استدعاءات JavaScript قبل التشغيل.
+            </p>
+            <ul>
+              <li>يجب إرجاع عنصر واحد جذر (أو Fragment <span class="inline-code">&lt;&gt;...&lt;/&gt;</span>).</li>
+              <li>استخدم <span class="inline-code">className</span> بدل <span class="inline-code">class</span>.</li>
+              <li>التعابير تُكتب بين أقواس: <span class="inline-code">{name}</span>.</li>
+              <li>معظم الوسوم تُغلق: <span class="inline-code">&lt;img /&gt;</span>.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">💻</div>
+            <h2>أمثلة عملية</h2>
+          </div>
+
+          <h3>مثال 1: ربط React بالصفحة</h3>
+          <div class="code-block">
+            <div class="code-label">src/main.jsx</div>
+            <pre><code>import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import App from "./App.jsx";
+
+createRoot(document.getElementById("root")).render(
+  &lt;StrictMode&gt;
+    &lt;App /&gt;
+  &lt;/StrictMode&gt;
+);</code></pre>
+          </div>
+          <p>العنصر <span class="inline-code">#root</span> موجود في <span class="inline-code">index.html</span> — React ترسم داخله كل التطبيق.</p>
+
+          <h3>مثال 2: أول مكوّن</h3>
+          <div class="code-block">
+            <div class="code-label">src/App.jsx</div>
+            <pre><code>function App() {
+  return (
+    &lt;main&gt;
+      &lt;h1&gt;Welcome Osama Bittar&lt;/h1&gt;
+      &lt;p&gt;This is my first React app.&lt;/p&gt;
+    &lt;/main&gt;
+  );
+}
+
+export default App;</code></pre>
+          </div>
+          <div class="expected-output">
+            <div class="expected-output-label">📤 النتيجة على الشاشة</div>
+            <pre>Welcome Osama Bittar
+This is my first React app.</pre>
+          </div>
+
+          <h3>مثال 3: تعابير داخل JSX</h3>
+          <div class="code-block">
+            <div class="code-label">JSX expressions</div>
+            <pre><code>const trainer = "Osama Bittar";
+const hours = 32;
+
+function App() {
+  return (
+    &lt;p&gt;
+      Trainer: {trainer} — Course hours: {hours + 8}
+    &lt;/p&gt;
+  );
+}</code></pre>
+          </div>
+          <div class="expected-output">
+            <div class="expected-output-label">📤 النتيجة</div>
+            <pre>Trainer: Osama Bittar — Course hours: 40</pre>
+          </div>
+
+          <h3>مثال 4: className وليس class</h3>
+          <div class="code-block">
+            <div class="code-label">JSX attribute</div>
+            <pre><code>function Badge() {
+  return &lt;span className="chip"&gt;React Course&lt;/span&gt;;
+}</code></pre>
+          </div>
+          <div class="warning-box">
+            <strong>خطأ شائع:</strong> <span class="inline-code">class</span> كلمة محجوزة في JavaScript.
+            لذلك JSX يستخدم <span class="inline-code">className</span>.
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">🎯</div>
+            <h2>اختبار سريع</h2>
+          </div>
+
+          <div class="quiz-card" data-correct="b">
+            <p class="quiz-question">سؤال 1: SPA تعني أن التطبيق:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">يملك ملف HTML منفصل لكل زر</button>
+              <button class="quiz-option" data-value="b">يبدّل المحتوى داخل صفحة واحدة بدون إعادة تحميل كاملة</button>
+              <button class="quiz-option" data-value="c">لا يستخدم JavaScript أبداً</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-card" data-correct="a">
+            <p class="quiz-question">سؤال 2: في JSX نكتب اسم الـ CSS class عبر:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">className</button>
+              <button class="quiz-option" data-value="b">class</button>
+              <button class="quiz-option" data-value="c">css-class</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">✏️</div>
+            <h2>تمارين عملية</h2>
+          </div>
+
+          <div class="exercise-item">
+            <h4><span class="exercise-number">1</span> إنشاء المشروع</h4>
+            <p>أنشئ مشروع Vite بالقالب <span class="inline-code">react</span> وشغّله محلياً حتى تظهر الصفحة الافتراضية.</p>
+            <button class="solution-toggle" data-target="sol-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="sol-1">
+              <div class="code-block">
+                <pre><code>npm create vite@latest osama-react -- --template react
+cd osama-react
+npm install
+npm run dev</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="exercise-item">
+            <h4><span class="exercise-number">2</span> تخصيص App</h4>
+            <p>عدّل <span class="inline-code">App.jsx</span> ليعرض عنواناً باسم المدرب وفقرة عن كورس React.</p>
+            <button class="solution-toggle" data-target="sol-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="sol-2">
+              <div class="code-block">
+                <pre><code>function App() {
+  const name = "Osama Bittar";
+  return (
+    &lt;section&gt;
+      &lt;h1&gt;{name}&lt;/h1&gt;
+      &lt;p&gt;Modern Front-End with React.&lt;/p&gt;
+    &lt;/section&gt;
+  );
+}
+
+export default App;</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="exercise-item">
+            <h4><span class="exercise-number">3</span> تعبير حسابي في JSX</h4>
+            <p>اعرض عدد الجلسات 16 ومدة كل جلسة 120، واطبع إجمالي الدقائق بين أقواس JSX.</p>
+            <button class="solution-toggle" data-target="sol-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="sol-3">
+              <div class="code-block">
+                <pre><code>const sessions = 16;
+const minutes = 120;
+
+&lt;p&gt;Total minutes: {sessions * minutes}&lt;/p&gt;
+// Total minutes: 1920</code></pre>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">📌</div>
+            <h2>ملخص الجلسة</h2>
+          </div>
+          <ul class="key-points">
+            <li>React تبني الواجهة من Components قابلة لإعادة الاستخدام</li>
+            <li>SPA تبدّل المحتوى دون إعادة تحميل كاملة للصفحة</li>
+            <li>Vite هو أداة التطوير الحديثة لإنشاء وتشغيل مشروع React</li>
+            <li>المهم في الهيكل: <span class="inline-code">main.jsx</span> و <span class="inline-code">App.jsx</span></li>
+            <li>JSX يشبه HTML لكن يستخدم <span class="inline-code">className</span> و <span class="inline-code">{ }</span></li>
+          </ul>
+        </section>
+
+        <section class="homework-box">
+          <h2>واجب الجلسة</h2>
+          <ul>
+            <li>ثبّت Node.js وتأكد من <span class="inline-code">node -v</span></li>
+            <li>أنشئ مشروع Vite واحفظ رابطه وهو يعمل على جهازك</li>
+            <li>احذف المحتوى الافتراضي من <span class="inline-code">App.jsx</span> واكتب ترحيباً باسم Osama Bittar</li>
+            <li>اقرأ ملفات <span class="inline-code">index.html</span> و <span class="inline-code">main.jsx</span> وحدّد أين يظهر <span class="inline-code">root</span></li>
+          </ul>
+        </section>
+
+      </div>
+    </main>
+
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../../shared/course-data.js"></script>
+  <script src="../../../shared/layout.js"></script>
+  <script src="../../../shared/scripts.js"></script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 05 — تقسيم الكود وSuspense</title>
+  <link rel="stylesheet" href="../../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="react-advanced" data-session="05">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+
+        <div class="student-welcome">
+          <h3>هدف الجلسة</h3>
+          <p>نحمّل صفحات ثقيلة عند الحاجة مع واجهة انتظار واضحة عبر lazy وSuspense.</p>
+        </div>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">05</div>
+            <h2>الشرح النظري</h2>
+          </div>
+          <div class="theory-content">
+            <h3>1) لماذا التقسيم؟</h3>
+            <p>حزمة واحدة ضخمة تبطئ أول رسم. قسّم صفحات لوحة التحكم عن صفحة الحجز.</p>
+            <h3>2) React.lazy</h3>
+            <p>يستورد المكوّن كـ Promise عند أول رسم. يحتاج default export.</p>
+            <h3>3) Suspense</h3>
+            <p>يغلف الحدود ويعرض fallback إلى أن يجهز الكود. يمكن تداخل الحدود.</p>
+            <h3>4) تقسيم المسارات</h3>
+            <p>كل Route ثقيل = ملف صفحة lazy. التخطيط الخفيف يبقى في الحزمة الأولى.</p>
+            <div class="tip-box"><strong>Fallback:</strong> هيكل بطاقات رمادي أهدأ من كلمة Loading وحدها.</div>
+      </div>
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">💻</div>
+            <h2>أمثلة عملية</h2>
+          </div>
+          
+          <h3>مثال 1: صفحة كسولة</h3>
+          <div class="code-block"><pre><code>const DashboardPage = lazy(() =&gt; import("./pages/DashboardPage"));
+
+&lt;Suspense fallback={&lt;p&gt;Loading academy desk...&lt;/p&gt;}&gt;
+  &lt;DashboardPage /&gt;
+&lt;/Suspense&gt;</code></pre></div>
+          <h3>مثال 2: مع Router</h3>
+          <div class="code-block"><pre><code>&lt;Route path="dashboard" element={
+  &lt;Suspense fallback={&lt;Skeleton /&gt;}&gt;
+    &lt;DashboardPage /&gt;
+  &lt;/Suspense&gt;
+} /&gt;</code></pre></div>
+          <h3>مثال 3: تصدير افتراضي</h3>
+          <div class="code-block"><pre><code>export default function DashboardPage() {
+  return &lt;h1&gt;Desk of Osama Bittar&lt;/h1&gt;;
+}</code></pre></div>
+      
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">🎯</div>
+            <h2>اختبار سريع</h2>
+          </div>
+                    <div class="quiz-card" data-correct="a">
+            <p class="quiz-question">lazy يحتاج:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">default export للصفحة</button>
+              <button class="quiz-option" data-value="b">حذف Router</button>
+              <button class="quiz-option" data-value="c">useReducer إلزامي</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+          <div class="quiz-card" data-correct="b">
+            <p class="quiz-question">Suspense يعرض fallback عندما:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">يفشل CSS</button>
+              <button class="quiz-option" data-value="b">الكود أو المورد المغلف لم يجهز</button>
+              <button class="quiz-option" data-value="c">السعر ليس €</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">✏️</div>
+            <h2>تمارين عملية</h2>
+          </div>
+                    <div class="exercise-item">
+            <h4><span class="exercise-number">1</span> قسّم About</h4>
+            <p>lazy لصفحة About فيها اسم المدرب.</p>
+            <button class="solution-toggle" data-target="ra05-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="ra05-1">
+              <div class="code-block"><pre><code>const AboutPage = lazy(() =&gt; import("./pages/AboutPage"));</code></pre></div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">2</span> هيكل انتظار</h4>
+            <p>fallback مكوّن Skeleton بثلاث بطاقات.</p>
+            <button class="solution-toggle" data-target="ra05-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="ra05-2">
+              <p>ثلاث div بخلفية رمادية أفضل من نص فقط.</p>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">3</span> حدّان</h4>
+            <p>Suspense حول لوحة وآخر حول إعدادات.</p>
+            <button class="solution-toggle" data-target="ra05-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="ra05-3">
+              <p>خطأ في أحدهما لا يجب أن يمنع ظهور الآخر إن فصلت الحدود لاحقاً مع Error Boundary.</p>
+            </div>
+          </div>
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">📌</div>
+            <h2>ملخص الجلسة</h2>
+          </div>
+          <ul class="key-points">
+            <li>lazy يؤجّل الكود</li>
+            <li>Suspense حدود انتظار</li>
+            <li>التخطيط الخفيف يبقى في الحزمة الأولى</li>
+          </ul>
+        </section>
+        <section class="homework-box">
+          <h2>واجب الجلسة</h2>
+          <ul>
+            <li>قسّم صفحتين في مشروع Vite</li>
+            <li>قِس حجم الحزمة قبل/بعد إن أمكن</li>
+            <li>أبقِ Header خارج lazy</li>
+          </ul>
+        </section>
+      </div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../../shared/course-data.js"></script>
+  <script src="../../../shared/layout.js"></script>
+  <script src="../../../shared/scripts.js"></script>
+</body>
+</html>

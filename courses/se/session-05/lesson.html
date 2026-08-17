@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 05 — هندسة البرمجيات</title>
+  <link rel="stylesheet" href="../../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="se" data-session="05">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+        <div class="student-welcome"><h3>هدف الجلسة</h3><p>نوثّق المتطلبات غير الوظيفية والقيود بشكل قابل للقياس: أداء، توفر، أمان، لغة، وعملة اليورو.</p></div>
+        <section class="section-block"><div class="section-header"><div class="section-icon">05</div><h2>الشرح النظري</h2></div>
+          <div class="theory-content">
+            <h3>1) NFR ليست ديكوراً</h3>
+            <p>إذا وصل إشعار السائق بعد عشر دقائق، ينهار التشغيل حتى لو كانت الوظائف مكتوبة. غير الوظيفي يصف كيف يعمل النظام لا ماذا يفعل.</p>
+            <h3>2) قابلية القياس</h3>
+            <p>«سريع» مرفوض. المقبول: زمن تأكيد إنشاء الطلب تحت 3 ثوانٍ في 95% من الحالات تحت حمل 200 طلب/ساعة (هدف تصميمي).</p>
+            <h3>3) فئات أساسية</h3>
+            <p>أداء، توفر، أمان وخصوصية، قابلية استخدام، توافق أجهزة السائق، تدويل (عربية الواجهة للطلاب، معرّفات إنجليزية)، قيود قانونية للدفع والنقد.</p>
+            <h3>4) العملة والتوطين</h3>
+            <p>كل الأسعار والأجور والتقارير باليورو. التاريخ ميلادي. هذا NFR/قيد يظهر في التقارير والشاشات حتى لا يخلط فريق لاحق ليرات في مكان ويورو في آخر.</p>
+            <div class="warning-box"><strong>أمان:</strong> لا نخزّن أرقام بطاقات. الدفع الإلكتروني عبر بوابة. النقد يُتتبع كالتزام على السائق لا كـ «ثقة شخصية» فقط.</div>
+          </div>
+        </section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📐</div><h2>مخططات ووثائق عملية</h2></div>
+          <div class="spec-table-wrap"><table class="spec-table"><thead><tr><th>ID</th><th>الفئة</th><th>المتطلب</th><th>قياس</th></tr></thead><tbody><tr><td>NFR-PER-01</td><td>أداء</td><td>إنشاء الطلب</td><td>&lt; 3s لـ 95% تحت الحمل المستهدف</td></tr><tr><td>NFR-AVL-01</td><td>توفر</td><td>المنصة وقت الغداء</td><td>هدف 99% شهرياً مع نافذة صيانة معلنة</td></tr><tr><td>NFR-SEC-01</td><td>أمان</td><td>كلمات المرور والجلسات</td><td>تجزئة، صلاحيات حسب الدور، لا أسرار في الوثائق العامة</td></tr><tr><td>NFR-USE-01</td><td>استخدام</td><td>تطبيق السائق</td><td>إتمام استلام الطلب بثلاث نقرات أو أقل</td></tr><tr><td>NFR-CUR-01</td><td>أعمال</td><td>العملة</td><td>EUR في الواجهات والتقارير</td></tr></tbody></table></div>
+          <div class="diagram-box"><div class="diagram-caption">Quality vs function</div>FR-DRV-01  assign driver        ---- what
+NFR-PER-02  assignment &lt; 10s    ---- how well
+NFR-SEC-02  only dispatcher role ---- how safely</div>
+          </section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">🎯</div><h2>اختبار سريع</h2></div><div class="quiz-card" data-correct="c">
+            <p class="quiz-question">جملة NFR جيدة:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">النظام يجب أن يكون ممتازاً</button>
+              <button class="quiz-option" data-value="b">الواجهة جميلة</button>
+              <button class="quiz-option" data-value="c">تحديث موقع السائق كل 10 ثوانٍ أثناء الرحلة النشطة</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div><div class="quiz-card" data-correct="b">
+            <p class="quiz-question">تخزين رقم البطاقة الكامل في قاعدة المطعم:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">مطلوب للتقارير</button>
+              <button class="quiz-option" data-value="b">خارج الممارسة الآمنة؛ نستخدم بوابة دفع</button>
+              <button class="quiz-option" data-value="c">بديل عن COD</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">✏️</div><h2>تمارين عملية</h2></div><div class="exercise-item">
+            <h4><span class="exercise-number">1</span> NFR أداء للخرائط</h4>
+            <p>اكتب قياساً لتقدير زمن الوصول.</p>
+            <button class="solution-toggle" data-target="se05-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="se05-1"><p>NFR-MAP-01: تقدير ETA يُحسب ويُعرض خلال 2 ثانية من جاهزية الطلب، مع مصدر خرائط موثّق.</p></div>
+          </div><div class="exercise-item">
+            <h4><span class="exercise-number">2</span> NFR أمان للأدوار</h4>
+            <p>صغ متطلباً يمنع السائق من رؤية أجور زملائه.</p>
+            <button class="solution-toggle" data-target="se05-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="se05-2"><p>NFR-SEC-03: السائق يرى محفظته فقط. كشف كل الأسطول للدور Finance أو Admin.</p></div>
+          </div><div class="exercise-item">
+            <h4><span class="exercise-number">3</span> قيد تشغيلي</h4>
+            <p>اكتب قيداً عن ساعات التوصيل.</p>
+            <button class="solution-toggle" data-target="se05-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="se05-3"><p>Constraint: التوصيل يومياً 11:00–23:00 بتوقيت دمشق. خارج النافذة يُغلق إنشاء الطلب مع رسالة واضحة.</p></div>
+          </div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📌</div><h2>ملخص الجلسة</h2></div>
+          <ul class="key-points"><li>NFR يُقاس أو يُعاد كتابته</li><li>الأمان والخصوصية جزء من التحليل لا لاحقاً</li><li>اليورو والتاريخ الميلادي قيد واجهات وتقارير</li><li>كل NFR سيُختبر في الجلسة 15</li></ul>
+        </section>
+        <section class="homework-box"><h2>واجب الجلسة</h2><ul><li>جدول 10 NFR على الأقل</li><li>اربط كل NFR بفئة</li><li>أضف قسم قيود إلى SRS</li></ul></section>
+      </div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../../shared/course-data.js"></script>
+  <script src="../../../shared/layout.js"></script>
+  <script src="../../../shared/scripts.js"></script>
+</body>
+</html>

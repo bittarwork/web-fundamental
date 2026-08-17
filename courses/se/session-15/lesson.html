@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 15 — هندسة البرمجيات</title>
+  <link rel="stylesheet" href="../../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="se" data-session="15">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+        <div class="student-welcome"><h3>هدف الجلسة</h3><p>نربط المتطلبات بحالات اختبار وقبول، ونعرّف متابعة التشغيل بعد الإطلاق: عيوب، SLA، ومؤشرات خدمة.</p></div>
+        <section class="section-block"><div class="section-header"><div class="section-icon">15</div><h2>الشرح النظري</h2></div>
+          <div class="theory-content">
+            <h3>1) الاستراتيجية</h3>
+            <p>اختبار وظائف حسب FR، واختبار جودة حسب NFR، واختبار قبول مع المالك Osama Bittar على سيناريوهات يوم حقيقي (غداء الخميس).</p>
+            <h3>2) حالة الاختبار</h3>
+            <p>معرّف، FR، خطوات، بيانات (أسعار €)، نتيجة متوقعة، حالة (Pass/Fail). بلا أدوات أتمتة إلزامية؛ الوثيقة هي الأصل الأكاديمي.</p>
+            <h3>3) خطورة العيب</h3>
+            <p>حرج: لا يمكن الطلب أو ضياع نقد. عالٍ: تعيين لا يعمل. متوسط: نص. منخفض: تجميل. الأولوية للإطلاق ليست عدد العيوب بل خطورة المال والطلب.</p>
+            <h3>4) المتابعة التشغيلية</h3>
+            <p>بعد الإطلاق نراقب: نسبة التسليم خلال 45 دقيقة، فروقات COD، طلبات بلا سائق أكثر من 10 دقائق، إلغاءات بعد Placed. لوحة مؤشرات للإدارة لا للزينة.</p>
+            <h3>5) UAT</h3>
+            <p>المالك يوقّع: قائمة الحالات الحرجة نُفّذت. التوقيع وثيقة تسليم لا إعجاب بالواجهة.</p>
+          </div>
+        </section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📐</div><h2>مخططات ووثائق عملية</h2></div>
+          <div class="spec-table-wrap"><table class="spec-table"><thead><tr><th>TC</th><th>FR</th><th>المتوقّع</th></tr></thead><tbody><tr><td>TC-ORD-01</td><td>FR-ORD-01</td><td>طلب Placed برقم ومجموع € صحيح</td></tr><tr><td>TC-DRV-04</td><td>FR-DRV-01</td><td>صمت 45 ثانية يعيد التعيين</td></tr><tr><td>TC-FIN-03</td><td>FR-FIN-01</td><td>بعد Delivered يزيد الرصيد وفق القاعدة</td></tr><tr><td>TC-FIN-07</td><td>FR-FIN-02</td><td>الكشف الأسبوعي يطابق مجموع الحركات</td></tr></tbody></table></div>
+          <div class="diagram-box"><div class="diagram-caption">Follow-up loop</div>Operate --&gt; Measure KPIs --&gt; Detect incident
+    ^                              |
+    +--------- Change request &lt;----+
+Documents stay the baseline; changes go through the file</div>
+          </section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">🎯</div><h2>اختبار سريع</h2></div><div class="quiz-card" data-correct="c">
+            <p class="quiz-question">عيب ضياع مطابقة COD:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">منخفض تجميلي</button>
+              <button class="quiz-option" data-value="b">يُتجاهل إن كانت الواجهة جميلة</button>
+              <button class="quiz-option" data-value="c">حرج مالي يُصلح قبل الإطلاق</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div><div class="quiz-card" data-correct="a">
+            <p class="quiz-question">UAT يوقّعه:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">المالك/ممثل العمل بعد سيناريوهات حقيقية</button>
+              <button class="quiz-option" data-value="b">مزوّد الخرائط</button>
+              <button class="quiz-option" data-value="c">السائق فقط</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">✏️</div><h2>تمارين عملية</h2></div><div class="exercise-item">
+            <h4><span class="exercise-number">1</span> اكتب TC</h4>
+            <p>لحالة FailedDelivery مع COD.</p>
+            <button class="solution-toggle" data-target="se15-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="se15-1"><p>خطوات: طلب COD، استلام، رفض العميل. متوقع: لا محفظة كاملة حسب السياسة، expectedCash غير محصّل، Incident مفتوح.</p></div>
+          </div><div class="exercise-item">
+            <h4><span class="exercise-number">2</span> NFR اختبار</h4>
+            <p>كيف تفحص NFR-USE-01؟</p>
+            <button class="solution-toggle" data-target="se15-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="se15-2"><p>عدّ النقرات من الإشعار إلى Confirm pickup على النموذج الشبكي/سيناريو القبول: ≤ 3.</p></div>
+          </div><div class="exercise-item">
+            <h4><span class="exercise-number">3</span> لوحة مؤشرات</h4>
+            <p>أربعة مؤشرات أسبوعية.</p>
+            <button class="solution-toggle" data-target="se15-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="se15-3"><p>٪ ضمن 45 د، متوسط انتظار سائق، مجموع shortage €، عدد Incident المفتوحة.</p></div>
+          </div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📌</div><h2>ملخص الجلسة</h2></div>
+          <ul class="key-points"><li>كل FR الحرجة لها TC</li><li>خطورة العيب قبل عدّه</li><li>المؤشرات تغلق حلقة المتابعة</li><li>UAT توقيع أعمال</li></ul>
+        </section>
+        <section class="homework-box"><h2>واجب الجلسة</h2><ul><li>10 حالات اختبار مكتوبة</li><li>تصنيف خطورة لعيوب مفترضة</li><li>تعريف لوحة متابعة</li></ul></section>
+      </div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../../shared/course-data.js"></script>
+  <script src="../../../shared/layout.js"></script>
+  <script src="../../../shared/scripts.js"></script>
+</body>
+</html>

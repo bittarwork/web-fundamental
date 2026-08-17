@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 06 — أساسيات MongoDB</title>
+  <link rel="stylesheet" href="../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="backend" data-session="06">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+        <div class="student-welcome"><h3>هدف الجلسة</h3><p>نفهم NoSQL والمستندات والمجموعات وObjectId، ونصمّم قاعدة لأكاديمية.</p></div>
+        <section class="section-block"><div class="section-header"><div class="section-icon">06</div><h2>الشرح النظري</h2></div><div class="theory-content"><h3>1) NoSQL مقابل الجداول</h3>
+  <p>MongoDB يخزّن مستندات JSON-like مرنة. مناسب للمنتجات التي تتطور حقولها، مع بقاء التصميم واعياً لا فوضوياً.</p>
+  <h3>2) Database · Collections · Documents</h3>
+  <p>قاعدة academy تحتوي مجموعات users وcourses. كل كورس مستند فيه حقول title وprice وtrainerName.</p>
+  <h3>3) ObjectId</h3>
+  <p>المعرّف الافتراضي _id. عند القراءة من الرابط تحقّق أنه صالح قبل الاستعلام حتى لا ينهار السائق.</p>
+  <h3>4) Database Design للدورة</h3>
+  <ul>
+    <li>users: name, email, passwordHash, role</li>
+    <li>courses: title, price (EUR), trainer, owner, imageUrl</li>
+    <li>لاحقاً enrollments كعلاقة</li>
+  </ul>
+  <div class="tip-box"><strong>للتطوير المحلي:</strong> MongoDB Community أو MongoDB Atlas. السلسلة في .env فقط.</div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">💻</div><h2>أمثلة عملية</h2></div><h3>مثال 1: مستند كورس</h3><div class="code-block"><pre><code>{
+  "title": "Node.js Backend",
+  "price": 55,
+  "currency": "EUR",
+  "trainer": "Osama Bittar"
+}</code></pre></div>
+  <h3>مثال 2: تفكير بالعلاقات</h3>
+  <p>owner يحفظ ObjectId للمستخدم بدل تكرار كل بيانات الأدمن في كل كورس.</p></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">🎯</div><h2>اختبار سريع</h2></div><div class="quiz-card" data-correct="b"><p class="quiz-question">المجموعة في MongoDB تشبه تقريباً:</p><div class="quiz-options"><button class="quiz-option" data-value="a">ملف CSS</button><button class="quiz-option" data-value="b">جدولاً من المستندات</button><button class="quiz-option" data-value="c">منفذ HTTP</button></div><div class="quiz-feedback"></div></div><div class="quiz-card" data-correct="a"><p class="quiz-question">ObjectId هو:</p><div class="quiz-options"><button class="quiz-option" data-value="a">المعرّف الافتراضي للمستند</button><button class="quiz-option" data-value="b">سعر الكورس</button><button class="quiz-option" data-value="c">اسم npm</button></div><div class="quiz-feedback"></div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">✏️</div><h2>تمارين عملية</h2></div><div class="exercise-item"><h4><span class="exercise-number">1</span> ارسم</h4><p>اكتب حقول users وcourses على ورقة أو تعليق.</p><button class="solution-toggle" data-target="b06-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="b06-1"><p>email فريد · price رقم · trainer نص.</p></div></div><div class="exercise-item"><h4><span class="exercise-number">2</span> Atlas أو محلي</h4><p>جهّز اتصال تجريبي واحفظ URI في .env.</p><button class="solution-toggle" data-target="b06-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="b06-2"><p>لا ترفع كلمة المرور.</p></div></div><div class="exercise-item"><h4><span class="exercise-number">3</span> مستند عيّنة</h4><p>JSON لكورس بـ 49 €.</p><button class="solution-toggle" data-target="b06-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="b06-3"><div class="code-block"><pre><code>{ "title": "React", "price": 49, "trainer": "Osama Bittar" }</code></pre></div></div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📌</div><h2>ملخص الجلسة</h2></div><ul class="key-points"><li>المستند وحدة التخزين</li><li>صمم المجموعات قبل الكود</li><li>الأسرار في .env</li></ul></section>
+        <section class="homework-box"><h2>واجب الجلسة</h2><ul><li>مخطط قاعدة الأكاديمية جاهز</li><li>URI يعمل</li><li>لا بيانات إنتاج وهمية بكلمات سر حقيقية</li></ul></section></div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../shared/course-data.js"></script>
+  <script src="../../shared/layout.js"></script>
+  <script src="../../shared/scripts.js"></script>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 12 — نماذج متعددة الخطوات</title>
+  <link rel="stylesheet" href="../../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="react-advanced" data-session="12">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+
+        <div class="student-welcome">
+          <h3>هدف الجلسة</h3>
+          <p>نبني معالج تسجيل/حجز من ثلاث خطوات مع تحقق لكل خطوة ومسودة في state واحد.</p>
+        </div>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">12</div>
+            <h2>الشرح النظري</h2>
+          </div>
+          <div class="theory-content">
+            <h3>1) State واحد للمعالج</h3>
+            <p>غرض draft: الخطوة الحالية، الحقول، الأخطاء. أو useReducer إن تشعّب المنطق.</p>
+            <h3>2) تحقق لكل خطوة</h3>
+            <p>لا تنتقل من الهوية إلى الدفع إن كان الاسم فارغاً. تحقق الخطوة الأخيرة قبل الإرسال.</p>
+            <h3>3) مصفوفة حقول</h3>
+            <p>قائمة مقاعد أو مشاركين: أضف/احذف صفوفاً في المصفوفة بنسخ جديدة.</p>
+            <h3>4) ملخص قبل التأكيد</h3>
+            <p>اعرض الاسم، التاريخ، والسعر الإجمالي باليورو.</p>
+  </div>
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">💻</div>
+            <h2>أمثلة عملية</h2>
+          </div>
+          
+          <h3>مثال 1: خطوات</h3>
+          <div class="code-block"><pre><code>const [step, setStep] = useState(1);
+const [draft, setDraft] = useState({
+  name: "Osama Bittar",
+  seats: 1,
+  email: ""
+});</code></pre></div>
+          <h3>مثال 2: منع التقدم</h3>
+          <div class="code-block"><pre><code>function next() {
+  if (step === 1 && !draft.name.trim()) {
+    setError("Name is required");
+    return;
+  }
+  setError("");
+  setStep((n) =&gt; n + 1);
+}</code></pre></div>
+          <h3>مثال 3: الإجمالي</h3>
+          <div class="code-block"><pre><code>const price = 29;
+const total = price * draft.seats;</code></pre></div>
+  
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">🎯</div>
+            <h2>اختبار سريع</h2>
+          </div>
+                    <div class="quiz-card" data-correct="b">
+            <p class="quiz-question">التحقق المتدرج يعني:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">التحقق مرة بعد سنة</button>
+              <button class="quiz-option" data-value="b">فحص حقول الخطوة الحالية قبل next</button>
+              <button class="quiz-option" data-value="c">تعطيل HTML</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+          <div class="quiz-card" data-correct="a">
+            <p class="quiz-question">مصفوفة المقاعد تُحدَّث بـ:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">نسخة جديدة من المصفوفة</button>
+              <button class="quiz-option" data-value="b">push على نفس المرجع فقط</button>
+              <button class="quiz-option" data-value="c">ملف CSS</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">✏️</div>
+            <h2>تمارين عملية</h2>
+          </div>
+                    <div class="exercise-item">
+            <h4><span class="exercise-number">1</span> ثلاث خطوات</h4>
+            <p>هوية → مقاعد → ملخص.</p>
+            <button class="solution-toggle" data-target="ra12-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="ra12-1">
+              <p>step 1/2/3 مع أزرار Back/Next.</p>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">2</span> سعر</h4>
+            <p>29 € لكل مقعد واعرض الإجمالي.</p>
+            <button class="solution-toggle" data-target="ra12-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="ra12-2">
+              <div class="code-block"><pre><code>&lt;p&gt;Total: {29 * draft.seats} €&lt;/p&gt;</code></pre></div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">3</span> بريد</h4>
+            <p>الخطوة 1 تتطلب @ في البريد قبل التقدم.</p>
+            <button class="solution-toggle" data-target="ra12-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="ra12-3">
+              <div class="code-block"><pre><code>if (!draft.email.includes("@")) return;</code></pre></div>
+            </div>
+          </div>
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">📌</div>
+            <h2>ملخص الجلسة</h2>
+          </div>
+          <ul class="key-points">
+            <li>مسودة واحدة</li>
+            <li>لا تتخطّ خطوة غير صالحة</li>
+            <li>الملخص يعرض السعر €</li>
+          </ul>
+        </section>
+        <section class="homework-box">
+          <h2>واجب الجلسة</h2>
+          <ul>
+            <li>معالج حجز استوديو باسم Osama Bittar</li>
+            <li>حد أقصى 8 مقاعد</li>
+            <li>بعد النجاح امسح المسودة أو انتقل لصفحة شكر</li>
+          </ul>
+        </section>
+      </div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../../shared/course-data.js"></script>
+  <script src="../../../shared/layout.js"></script>
+  <script src="../../../shared/scripts.js"></script>
+</body>
+</html>

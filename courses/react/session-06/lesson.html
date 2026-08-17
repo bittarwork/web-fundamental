@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 06 — النماذج والحالة</title>
+  <link rel="stylesheet" href="../../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="react" data-session="06">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+
+        <div class="student-welcome">
+          <h3>هدف الجلسة</h3>
+          <p>
+            نبني نماذج Controlled Components: قيمة الحقل من State،
+            والتحديث من onChange، مع تحقق أساسي قبل الإرسال.
+          </p>
+        </div>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">06</div>
+            <h2>الشرح النظري</h2>
+          </div>
+          <div class="theory-content">
+            <h3>1) Forms في React</h3>
+            <p>
+              النموذج يجمع بيانات المستخدم: اسم، بريد، رسالة.
+              في React نربط كل حقل بـ state حتى تبقى الواجهة والكود على نفس القيمة.
+            </p>
+
+            <h3>2) Inputs و onChange</h3>
+            <p>
+              <span class="inline-code">event.target.value</span> يعطي النص الحالي.
+              نحدّث state في <span class="inline-code">onChange</span> فيظهر فوراً في الحقل.
+            </p>
+
+            <h3>3) Controlled Components</h3>
+            <p>
+              الحقل مُتحكَّم به عندما تكون
+              <span class="inline-code">value={state}</span>
+              و<span class="inline-code">onChange</span> يحدّث ذلك الـ state.
+              React هي مصدر الحقيقة، لا المتصفح وحده.
+            </p>
+            <div class="compare-grid">
+              <div class="compare-box">
+                <h4>Controlled</h4>
+                <p>value من React · سهل التحقق والعرض والمعاينة الحية.</p>
+              </div>
+              <div class="compare-box">
+                <h4>Uncontrolled</h4>
+                <p>المتصفح يمسك القيمة · نقرأه أحياناً بـ ref (جلسة لاحقة).</p>
+              </div>
+            </div>
+
+            <h3>4) التعامل مع بيانات المستخدم</h3>
+            <p>
+              امنع السلوك الافتراضي للإرسال بـ
+              <span class="inline-code">event.preventDefault()</span>
+              حتى لا تُحدَّث الصفحة وتضيع الحالة.
+            </p>
+
+            <h3>5) Form Validation أساسي</h3>
+            <ul>
+              <li>حقل فارغ بعد القصّ: <span class="inline-code">trim()</span></li>
+              <li>البريد يحتوي <span class="inline-code">@</span></li>
+              <li>عرض رسالة خطأ تحت الحقل من state مثل <span class="inline-code">error</span></li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">💻</div>
+            <h2>أمثلة عملية</h2>
+          </div>
+
+          <h3>مثال 1: حقل اسم متحكم به</h3>
+          <div class="code-block">
+            <pre><code>function NameField() {
+  const [name, setName] = useState("Osama");
+
+  return (
+    &lt;label&gt;
+      Name
+      &lt;input
+        value={name}
+        onChange={(event) =&gt; setName(event.target.value)}
+      /&gt;
+    &lt;/label&gt;
+  );
+}</code></pre>
+          </div>
+
+          <h3>مثال 2: إرسال نموذج تواصل</h3>
+          <div class="code-block">
+            <pre><code>function ContactForm() {
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    console.log({ email, message, trainer: "Osama Bittar" });
+  }
+
+  return (
+    &lt;form onSubmit={handleSubmit}&gt;
+      &lt;input
+        type="email"
+        value={email}
+        onChange={(e) =&gt; setEmail(e.target.value)}
+        placeholder="email"
+      /&gt;
+      &lt;textarea
+        value={message}
+        onChange={(e) =&gt; setMessage(e.target.value)}
+      /&gt;
+      &lt;button type="submit"&gt;Send&lt;/button&gt;
+    &lt;/form&gt;
+  );
+}</code></pre>
+          </div>
+
+          <h3>مثال 3: تحقق أساسي</h3>
+          <div class="code-block">
+            <pre><code>function handleSubmit(event) {
+  event.preventDefault();
+  if (!name.trim()) {
+    setError("Name is required");
+    return;
+  }
+  if (!email.includes("@")) {
+    setError("Enter a valid email");
+    return;
+  }
+  setError("");
+  console.log("Saved", name);
+}</code></pre>
+          </div>
+          <p>اعرض <span class="inline-code">{error}</span> تحت النموذج بلون واضح.</p>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">🎯</div>
+            <h2>اختبار سريع</h2>
+          </div>
+          <div class="quiz-card" data-correct="b">
+            <p class="quiz-question">Controlled input يحتاج:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">value فقط بدون onChange</button>
+              <button class="quiz-option" data-value="b">value من state و onChange يحدّثه</button>
+              <button class="quiz-option" data-value="c">innerHTML</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+          <div class="quiz-card" data-correct="a">
+            <p class="quiz-question">preventDefault عند الإرسال:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">يمنع إعادة تحميل الصفحة</button>
+              <button class="quiz-option" data-value="b">يمسح الـ state تلقائياً</button>
+              <button class="quiz-option" data-value="c">يرسل البيانات إلى CSS</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">✏️</div>
+            <h2>تمارين عملية</h2>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">1</span> معاينة حية</h4>
+            <p>حقل اسم قيمته الابتدائية Osama، وتحت الحقل فقرة تعرض نفس النص مباشرة.</p>
+            <button class="solution-toggle" data-target="r06-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="r06-1">
+              <div class="code-block">
+                <pre><code>&lt;input value={name} onChange={(e) =&gt; setName(e.target.value)} /&gt;
+&lt;p&gt;Hello {name}&lt;/p&gt;</code></pre>
+              </div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">2</span> تسجيل كورس</h4>
+            <p>نموذج: الاسم + اختيار المستوى (select) + زر إرسال يطبع البيانات.</p>
+            <button class="solution-toggle" data-target="r06-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="r06-2">
+              <div class="code-block">
+                <pre><code>&lt;select value={level} onChange={(e) =&gt; setLevel(e.target.value)}&gt;
+  &lt;option value="beginner"&gt;Beginner&lt;/option&gt;
+  &lt;option value="intermediate"&gt;Intermediate&lt;/option&gt;
+&lt;/select&gt;</code></pre>
+              </div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">3</span> رسالة خطأ</h4>
+            <p>إذا كان الاسم أقصر من 3 أحرف امنع الإرسال وأظهر خطأ.</p>
+            <button class="solution-toggle" data-target="r06-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="r06-3">
+              <div class="code-block">
+                <pre><code>if (name.trim().length &lt; 3) {
+  setError("Name must be at least 3 characters");
+  return;
+}</code></pre>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">📌</div>
+            <h2>ملخص الجلسة</h2>
+          </div>
+          <ul class="key-points">
+            <li>Controlled = value + onChange مرتبطان بـ state</li>
+            <li>preventDefault عند submit</li>
+            <li>تحقق بسيط قبل حفظ البيانات</li>
+            <li>اعرض الأخطاء من state تحت الحقول</li>
+          </ul>
+        </section>
+
+        <section class="homework-box">
+          <h2>واجب الجلسة</h2>
+          <ul>
+            <li>نموذج تسجيل: الاسم الكامل، البريد، رسالة</li>
+            <li>تحقق: لا فراغ، بريد فيه @</li>
+            <li>بعد النجاح امسح الحقول واطبع «Saved Osama Bittar»</li>
+          </ul>
+        </section>
+
+      </div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../../shared/course-data.js"></script>
+  <script src="../../../shared/layout.js"></script>
+  <script src="../../../shared/scripts.js"></script>
+</body>
+</html>

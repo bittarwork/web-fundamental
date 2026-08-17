@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 05 — التعارضات والنشر والإصدار</title>
+  <link rel="stylesheet" href="../../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="git" data-session="05">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+
+        <div class="student-welcome">
+          <h3>هدف الجلسة</h3>
+          <p>
+            نحل تعارض دمج بسيط، ننشر صفحة عبر GitHub Pages،
+            نتعرّف على SSH والوسوم والإصدارات، ونسلّم مستودعاً نظيفاً.
+          </p>
+        </div>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">05</div>
+            <h2>الشرح النظري</h2>
+          </div>
+          <div class="theory-content">
+            <h3>1) تعارضات الدمج</h3>
+            <p>
+              يحدث التعارض عندما يغيّر فرعان نفس الأسطر بطريقتين مختلفتين.
+              Git يتوقف ويضع علامات في الملف:
+            </p>
+            <div class="code-block">
+              <pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+Price: 29 €
+=======
+Price: 39 €
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; feature/price</code></pre>
+            </div>
+            <p>خطوات الحل:</p>
+            <ol>
+              <li>افتح الملف واختر النص النهائي (أو ادمج المعنيين يدوياً).</li>
+              <li>احذف علامات التعارض بالكامل.</li>
+              <li><span class="inline-code">git add</span> للملف.</li>
+              <li>أكمل الدمج بـ <span class="inline-code">git commit</span> (غالباً يفتح رسالة دمج جاهزة).</li>
+            </ol>
+            <div class="tip-box">
+              <strong>للوقاية:</strong> pull كثيراً، وفروع قصيرة العمر، وتجنب أن يعدّل شخصان نفس الفقرة بلا تنسيق.
+            </div>
+
+            <h3>2) GitHub Pages</h3>
+            <p>
+              خدمة تنشر ملفات HTML/CSS/JS من المستودع كموقع عام.
+              لمستودع <span class="inline-code">username.github.io</span>
+              يكون العنوان على جذر الحساب،
+              ولمستودع عادي غالباً:
+              <span class="inline-code">https://username.github.io/repo-name/</span>.
+            </p>
+            <p>
+              من Settings → Pages اختر الفرع (غالباً main) والمجلد
+              <span class="inline-code">/</span> أو
+              <span class="inline-code">/docs</span>.
+              الملف الافتراضي <span class="inline-code">index.html</span>.
+            </p>
+            <div class="analogy-box">
+              <strong>مثال حي:</strong> مرجع هذه الأكاديمية منشور بأسلوب GitHub Pages —
+              الفكرة نفسها: ملفات ثابتة من مستودع عام.
+            </div>
+
+            <h3>3) SSH مقابل HTTPS</h3>
+            <div class="compare-grid">
+              <div class="compare-box">
+                <h4>HTTPS</h4>
+                <p>سهل البداية. يحتاج Token عند الدفع. مناسب إن لم تضبط المفاتيح بعد.</p>
+              </div>
+              <div class="compare-box">
+                <h4>SSH</h4>
+                <p>زوج مفاتيح على الجهاز. تضيف المفتاح العام في GitHub → SSH keys ثم تستخدم
+                  <span class="inline-code">git@github.com:USER/REPO.git</span>.</p>
+              </div>
+            </div>
+            <div class="code-block">
+              <pre><code>ssh-keygen -t ed25519 -C "osama.bittar@example.com"
+# press Enter to accept the default file
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+cat ~/.ssh/id_ed25519.pub</code></pre>
+            </div>
+            <p>انسخ المفتاح العام فقط (ملف .pub) إلى GitHub. لا تشارك الملف الخاص.</p>
+            <div class="code-block">
+              <pre><code>ssh -T git@github.com
+git remote set-url origin git@github.com:USERNAME/academy-notes.git</code></pre>
+            </div>
+
+            <h3>4) Tags و Releases</h3>
+            <p>
+              الوسم علامة على commit معيّن، مثل إصدار
+              <span class="inline-code">v1.0.0</span>.
+              Release على GitHub صفحة عامة لذلك الوسم مع ملاحظات التحميل.
+            </p>
+            <div class="code-block">
+              <pre><code>git tag -a v1.0.0 -m "First public academy notes"
+git push origin v1.0.0</code></pre>
+            </div>
+            <p>ثم GitHub → Releases → Draft a new release واختر الوسم واكتب الملاحظات بالإنجليزية.</p>
+
+            <h3>5) رسائل الـ commit الجيدة</h3>
+            <ul>
+              <li>أمر قصير في المضارع: <span class="inline-code">Add contact page</span> لا «fixed stuff».</li>
+              <li>لقطة واحدة لفكرة واحدة قدر الإمكان.</li>
+              <li>لا تحفظ ملفات لا علاقة لها بالتغيير.</li>
+            </ul>
+
+            <h3>6) حماية فرع main</h3>
+            <p>
+              من Settings → Branches يمكن منع الدفع المباشر إلى main وإلزام Pull Request.
+              حتى بدون تفعيل القواعد: اتفاق الفريق يكفي في الدورة —
+              لا <span class="inline-code">git push --force</span> على main.
+            </p>
+            <div class="warning-box">
+              <strong>force push</strong> يعيد كتابة التاريخ البعيد وقد يمسح عمل الزملاء.
+              خارج هذه الدورة لا تستخدمه إلا بفهم كامل وعلى فرعك الخاص.
+            </div>
+
+            <h3>7) مشروع ختامي</h3>
+            <p>مستودع واحد جاهز للتسليم:</p>
+            <ul>
+              <li>صفحة <span class="inline-code">index.html</span> باسم Osama Bittar.</li>
+              <li>ملف تجاهل مناسب وبدون أسرار.</li>
+              <li>تاريخ commits واضح على main بعد دمج PR واحد على الأقل.</li>
+              <li>GitHub Pages يعمل ويظهر الموقع.</li>
+              <li>وسم <span class="inline-code">v1.0.0</span> اختياري ومستحسن.</li>
+            </ul>
+            <p>
+              GitHub Actions (التشغيل التلقائي عند الدفع) موضوع لاحق؛ يكفي أن تعرف أنه موجود في تبويب Actions.
+              GitHub Desktop واجهة رسومية اختيارية — الأوامر في هذه الدورة هي الأساس.
+            </p>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">💻</div>
+            <h2>أمثلة عملية</h2>
+          </div>
+
+          <h3>مثال 1: صفحة جاهزة للنشر</h3>
+          <div class="code-block">
+            <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8" /&gt;
+    &lt;title&gt;Osama Bittar — Academy&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Osama Bittar&lt;/h1&gt;
+    &lt;p&gt;Git and GitHub course notes.&lt;/p&gt;
+    &lt;p&gt;Sample price: 29 €&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+          </div>
+
+          <h3>مثال 2: تفعيل Pages بعد الدفع</h3>
+          <p>Settings → Pages → Branch: main → folder: / (root) → Save. انتظر دقيقة ثم افتح الرابط.</p>
+
+          <h3>مثال 3: حل تعارض مبسّط</h3>
+          <div class="code-block">
+            <pre><code>git switch main
+git merge feature/price
+# if conflict: edit the file, remove markers
+git add index.html
+git commit -m "Merge price update for academy page"</code></pre>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">🎯</div>
+            <h2>اختبار سريع</h2>
+          </div>
+          <div class="quiz-card" data-correct="b">
+            <p class="quiz-question">بعد حل التعارض يجب:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">حذف مجلد .git فوراً</button>
+              <button class="quiz-option" data-value="b">إزالة العلامات ثم git add ثم إكمال الـ commit</button>
+              <button class="quiz-option" data-value="c">إغلاق الجهاز دون حفظ</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+          <div class="quiz-card" data-correct="a">
+            <p class="quiz-question">GitHub Pages ينشر عادة:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">ملفات الموقع الثابتة من فرع تختاره</button>
+              <button class="quiz-option" data-value="b">قاعدة بيانات SQL فقط</button>
+              <button class="quiz-option" data-value="c">مفاتيح SSH الخاصة</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">✏️</div>
+            <h2>تمارين عملية</h2>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">1</span> نشر الصفحة</h4>
+            <p>ادفع index.html إلى main وفعّل Pages. افتح الرابط العام.</p>
+            <button class="solution-toggle" data-target="g05-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="g05-1">
+              <p>Settings → Pages → Source: Deploy from a branch → main → / → Save. الرابط يظهر في نفس الصفحة.</p>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">2</span> وسم الإصدار</h4>
+            <p>أنشئ الوسم v1.0.0 وادفعه.</p>
+            <button class="solution-toggle" data-target="g05-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="g05-2">
+              <div class="code-block">
+                <pre><code>git tag -a v1.0.0 -m "First public academy notes"
+git push origin v1.0.0</code></pre>
+              </div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">3</span> قائمة تسليم</h4>
+            <p>تحقق: لا .env في الملفات، main محدّث، Pages يعمل، اسم المدرب ظاهر في الصفحة.</p>
+            <button class="solution-toggle" data-target="g05-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="g05-3">
+              <div class="code-block">
+                <pre><code>git status
+git log --oneline
+# confirm .gitignore includes .env
+# open the Pages URL in the browser</code></pre>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">📌</div>
+            <h2>ملخص الجلسة والدورة</h2>
+          </div>
+          <ul class="key-points">
+            <li>التعارض يُحل يدوياً ثم add ثم commit الدمج</li>
+            <li>Pages تحوّل المستودع إلى موقع عام</li>
+            <li>SSH مريح بعد ضبط المفتاح · لا ترفع المفتاح الخاص</li>
+            <li>الوسوم والإصدارات توثّق نسخة جاهزة للتسليم</li>
+          </ul>
+        </section>
+
+        <section class="homework-box">
+          <h2>تسليم نهاية الدورة</h2>
+          <ul>
+            <li>رابط مستودع GitHub العام</li>
+            <li>رابط GitHub Pages يعمل</li>
+            <li>صفحة تظهر Osama Bittar وسعر عيّنة باليورو إن ناسب التمرين</li>
+            <li>PR واحد على الأقل في تاريخ المستودع</li>
+          </ul>
+        </section>
+
+      </div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../../shared/course-data.js"></script>
+  <script src="../../../shared/layout.js"></script>
+  <script src="../../../shared/scripts.js"></script>
+</body>
+</html>

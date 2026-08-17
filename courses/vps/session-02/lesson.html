@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 02 — اختيار السيرفر المناسب للمشروع</title>
+  <link rel="stylesheet" href="../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="vps" data-session="02">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+        <div class="student-welcome"><h3>هدف الجلسة</h3><p>نطابق خطة KVM مع حجم المشروع: المعالج، الذاكرة، القرص، الموقع، وإصدار Ubuntu.</p></div>
+        <section class="section-block"><div class="section-header"><div class="section-icon">02</div><h2>الشرح النظري</h2></div><div class="theory-content">
+      <h3>1) الموارد الأربعة</h3>
+      <ul>
+        <li><strong>vCPU:</strong> نوى الحساب. البناء وNode وDocker يستفيدون من نواتين فأكثر.</li>
+        <li><strong>RAM:</strong> الأهم للتطبيقات. Docker + Node يزدحم بسرعة على 4 GB إن شغّلت أكثر من خدمة.</li>
+        <li><strong>NVMe:</strong> مساحة الصور والسجلات وnode_modules على السيرفر. 50 GB تكفي للبداية.</li>
+        <li><strong>Bandwidth:</strong> حجم النقل الشهري. مواقع الدورة التعليمية نادراً ما تصل للحد.</li>
+      </ul>
+      <h3>2) خطط Hostinger KVM (مرجع)</h3>
+      <p>تحقق من الأرقام الحالية على صفحة VPS. كمرجع شائع:</p>
+      <ul>
+        <li><strong>KVM 1:</strong> 1 vCPU · 4 GB RAM · 50 GB — صفحة ثابتة أو تجربة أولى. تقريباً من 6 €/شهر في العرض.</li>
+        <li><strong>KVM 2:</strong> 2 vCPU · 8 GB · 100 GB — الأنسب لمشروع أكاديمية + Docker في هذه الدورة. تقريباً 8–9 €/شهر في العرض.</li>
+        <li><strong>KVM 4:</strong> 4 vCPU · 16 GB — عدة مواقع أو قاعدة بيانات أثقل. تقريباً 12 €/شهر في العرض.</li>
+        <li><strong>KVM 8:</strong> موارد عالية لأحمال كبيرة. فوق 20 €/شهر تقريباً.</li>
+      </ul>
+      <div class="warning-box"><strong>العرض ≠ التجديد.</strong> احسب 24 شهراً باليورو لا شهر الإطلاق فقط.</div>
+      <h3>3) الموقع الجغرافي</h3>
+      <p>اختر مركز بيانات في أوروبا إن كان جمهورك عربي/أوروبي لتقليل التأخير. Hostinger يوفّر مواقع في أوروبا وآسيا وأمريكا. يمكن تغيير الموقع لاحقاً من اللوحة مع إعادة إنشاء أحياناً — ثبّت الاختيار من البداية إن أمكن.</p>
+      <h3>4) نظام Ubuntu LTS</h3>
+      <p>اختر Ubuntu 24.04 أو 22.04 LTS وليس نسخة قصيرة الدعم. LTS تعني تحديثات أمنية لسنوات. لا تثبّت لوحة cPanel في هذه الدورة؛ نتعلّم السيرفر مباشرة.</p>
+      <h3>5) مطابقة المشروع</h3>
+      <ul>
+        <li>HTML/CSS فقط: KVM 1 يكفي، لكن الدورة تستخدم Docker → فضّل KVM 2.</li>
+        <li>React مبنى + Nginx: KVM 1–2.</li>
+        <li>Node API + حاويات: KVM 2 كحد أدنى مريح.</li>
+      </ul>
+    </div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">💻</div><h2>أمثلة عملية</h2></div>
+      <h3>مثال 1: مشروع Osama Bittar</h3>
+      <p>موقع أكاديمية (واجهة + لاحقاً حاوية Nginx). القرار: <strong>KVM 2 · Ubuntu 24.04 LTS · داتاسينتر أوروبا</strong>.</p>
+      <h3>مثال 2: لا تشترِ الزائد</h3>
+      <p>KVM 8 لموقع تعريفي يهدر المال باليورو. ابدأ أصغر ووسّع من hPanel عند الحاجة.</p>
+      <h3>مثال 3: جدول قرار سريع</h3>
+      <div class="code-block"><pre><code>Static site          -> KVM 1
+React + Docker       -> KVM 2
+Several apps + DB    -> KVM 4</code></pre></div>
+    </section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">🎯</div><h2>اختبار سريع</h2></div><div class="quiz-card" data-correct="b"><p class="quiz-question">لمشروع Docker تعليمي نفضّل غالباً:</p><div class="quiz-options"><button class="quiz-option" data-value="a">KVM 8 مباشرة</button><button class="quiz-option" data-value="b">KVM 2 كبداية متوازنة</button><button class="quiz-option" data-value="c">استضافة مشتركة بلا root</button></div><div class="quiz-feedback"></div></div><div class="quiz-card" data-correct="a"><p class="quiz-question">Ubuntu LTS يعني:</p><div class="quiz-options"><button class="quiz-option" data-value="a">دعماً طويلاً مناسباً للسيرفر</button><button class="quiz-option" data-value="b">نسخة ألعاب</button><button class="quiz-option" data-value="c">ويندوز</button></div><div class="quiz-feedback"></div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">✏️</div><h2>تمارين عملية</h2></div><div class="exercise-item"><h4><span class="exercise-number">1</span> اختر خطتك</h4><p>اكتب: الخطة، RAM، الموقع، الإصدار.</p><button class="solution-toggle" data-target="v02-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="v02-1"><p>مثال: KVM 2 / 8 GB / Europe / Ubuntu 24.04 LTS.</p></div></div><div class="exercise-item"><h4><span class="exercise-number">2</span> حساب يورو</h4><p>من الموقع انسخ السعر الترويجي وسعر التجديد باليورو.</p><button class="solution-toggle" data-target="v02-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="v02-2"><p>ضع الرقمين في دفتر الدورة قبل الدفع.</p></div></div><div class="exercise-item"><h4><span class="exercise-number">3</span> لماذا أوروبا؟</h4><p>جملة واحدة عن التأخير (latency) لجمهورك.</p><button class="solution-toggle" data-target="v02-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="v02-3"><p>مركز أقرب = استجابة أسرع للزائر.</p></div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📌</div><h2>ملخص الجلسة</h2></div><ul class="key-points"><li>RAM أهم من العدد الدعائي للنوى في البداية</li><li>KVM 2 مسار الدورة الموصى به</li><li>LTS + موقع ثابت + حساب التجديد</li></ul></section>
+        <section class="homework-box"><h2>واجب الجلسة</h2><ul><li>قرّر الخطة قبل الجلسة 03</li><li>لا تشترِ لوحة مدفوعة إضافية</li><li>جهّز بطاقة دفع باليورو أو رصيد Hostinger</li></ul></section></div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../shared/course-data.js"></script>
+  <script src="../../shared/layout.js"></script>
+  <script src="../../shared/scripts.js"></script>
+</body>
+</html>

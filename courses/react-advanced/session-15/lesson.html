@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 15 — المشروع الأول: لوحة الأكاديمية</title>
+  <link rel="stylesheet" href="../../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="react-advanced" data-session="15">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+
+        <div class="student-welcome">
+          <h3>هدف الجلسة</h3>
+          <p>نحلّل ونبني Academy Dashboard: تخطيط محمي، فلاتر في الرابط، جدول كورسات، وذاكرة جلب.</p>
+        </div>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">15</div>
+            <h2>الشرح النظري</h2>
+          </div>
+          <div class="theory-content">
+            <h3>1) المنتج</h3>
+            <p>لوحة باسم Osama Bittar تعرض كورسات بأسعار €. الدخول وهمي. القائمة، التفاصيل، والإعدادات داخل تخطيط جانبي.</p>
+            <h3>2) Architecture</h3>
+            <ul>
+              <li>RequireSession حول /desk</li>
+              <li>search params للبحث والحد الأدنى للسعر</li>
+              <li>useCachedCourses للقائمة</li>
+              <li>SectionBoundary حول التفاصيل</li>
+              <li>lazy لصفحات اللوحة</li>
+            </ul>
+            <h3>3) ترتيب التنفيذ</h3>
+            <p>مسارات وهيكل → جلسة → قائمة → فلاتر URL → تفاصيل مع abort → ثم تجميل.</p>
+            <div class="warning-box"><strong>لا تبدأ بالثيم.</strong> التدفق أولاً: دخول → قائمة → تفاصيل → رجوع مع بقاء الفلتر.</div>
+  </div>
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">💻</div>
+            <h2>أمثلة عملية</h2>
+          </div>
+          
+          <h3>مثال 1: مسارات اللوحة</h3>
+          <div class="code-block"><pre><code>&lt;Route element={&lt;RequireSession /&gt;}&gt;
+  &lt;Route path="desk" element={&lt;DeskLayout /&gt;}&gt;
+    &lt;Route index element={&lt;CoursesPage /&gt;} /&gt;
+    &lt;Route path="courses/:courseId" element={&lt;CourseDetailsPage /&gt;} /&gt;
+  &lt;/Route&gt;
+&lt;/Route&gt;</code></pre></div>
+          <h3>مثال 2: فلتر سعر</h3>
+          <div class="code-block"><pre><code>const min = Number(params.get("min") || 0);
+const visible = rows.filter((row) =&gt; row.price &gt;= min);</code></pre></div>
+          <h3>مثال 3: بطاقة صف</h3>
+          <div class="code-block"><pre><code>&lt;tr&gt;
+  &lt;td&gt;{row.title}&lt;/td&gt;
+  &lt;td&gt;Osama Bittar&lt;/td&gt;
+  &lt;td&gt;{row.price} €&lt;/td&gt;
+&lt;/tr&gt;</code></pre></div>
+  
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">🎯</div>
+            <h2>اختبار سريع</h2>
+          </div>
+                    <div class="quiz-card" data-correct="a">
+            <p class="quiz-question">ترتيب البناء الأفضل:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">مسارات وبيانات ثم واجهة أدق</button>
+              <button class="quiz-option" data-value="b">ظلال وألوان قبل أي Route</button>
+              <button class="quiz-option" data-value="c">useImperativeHandle لكل زر</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+          <div class="quiz-card" data-correct="b">
+            <p class="quiz-question">بقاء البحث بعد التفاصيل يعتمد على:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">ملف CSS</button>
+              <button class="quiz-option" data-value="b">search params في الرابط</button>
+              <button class="quiz-option" data-value="c">حذف cache دائماً</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">✏️</div>
+            <h2>تمارين عملية</h2>
+          </div>
+                    <div class="exercise-item">
+            <h4><span class="exercise-number">1</span> هيكل</h4>
+            <p>DeskLayout + حارس + ثلاث روابط.</p>
+            <button class="solution-toggle" data-target="ra15-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="ra15-1">
+              <p>Courses, Details ديناميكي, Settings بسيط.</p>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">2</span> جدول</h4>
+            <p>قائمة مع Loading وError وعمود €.</p>
+            <button class="solution-toggle" data-target="ra15-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="ra15-2">
+              <p>استخدم الخطاف المخزّن من الجلسة 10.</p>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">3</span> تفاصيل</h4>
+            <p>abort + حد أخطاء + اسم المدرب.</p>
+            <button class="solution-toggle" data-target="ra15-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="ra15-3">
+              <p>راجع الجلستين 07 و09.</p>
+            </div>
+          </div>
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">📌</div>
+            <h2>ملخص الجلسة</h2>
+          </div>
+          <ul class="key-points">
+            <li>لوحة محمية</li>
+            <li>فلاتر قابلة للمشاركة</li>
+            <li>عزل أخطاء التفاصيل</li>
+          </ul>
+        </section>
+        <section class="homework-box">
+          <h2>واجب الجلسة</h2>
+          <ul>
+            <li>أكمل اللوحة محلياً</li>
+            <li>رابط فيه ?q= وmin=</li>
+            <li>لا أخطاء حمراء عند المسار السعيد</li>
+          </ul>
+        </section>
+      </div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../../shared/course-data.js"></script>
+  <script src="../../../shared/layout.js"></script>
+  <script src="../../../shared/scripts.js"></script>
+</body>
+</html>

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 13 — إدارة الحالة المعقّدة بـ useReducer</title>
+  <link rel="stylesheet" href="../../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="react" data-session="13">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+
+        <div class="student-welcome">
+          <h3>هدف الجلسة</h3>
+          <p>
+            ندير حالة أغنى من عدّاد واحد عبر نمط Reducer:
+            State و Actions و Dispatch، ثم ندمج useReducer مع Context.
+          </p>
+        </div>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">13</div>
+            <h2>الشرح النظري</h2>
+          </div>
+          <div class="theory-content">
+            <h3>1) مفهوم Reducer</h3>
+            <p>
+              الـ Reducer دالة نقية: تأخذ الحالة الحالية وفعلاً (action)،
+              وترجع حالة جديدة. لا تعدّل الغرض القديم ولا تستدعي fetch داخلها.
+            </p>
+            <div class="code-block">
+              <pre><code>function reducer(state, action) {
+  // return next state
+}</code></pre>
+            </div>
+            <div class="analogy-box">
+              <strong>تشبيه:</strong> الصندوق (state) والتعليمات المكتوبة (action).
+              الموظف (reducer) يقرأ التعليمات ويعيد صندوقاً جديداً مرتباً.
+            </div>
+
+            <h3>2) متى useReducer بدل useState؟</h3>
+            <ul>
+              <li>عدة حقول تتغيّر معاً (سلة: عناصر، المجموع، الحالة).</li>
+              <li>تحديثات مترابطة يصعب تتبعها عبر عدة setState.</li>
+              <li>منطق واضح يمكن اختباره كدالة مستقلة.</li>
+            </ul>
+            <p>للعداد البسيط أو حقل نموذج واحد ابقَ على useState.</p>
+
+            <h3>3) useReducer</h3>
+            <div class="code-block">
+              <pre><code>const [state, dispatch] = useReducer(reducer, initialState);</code></pre>
+            </div>
+            <p>
+              <span class="inline-code">state</span> القيمة الحالية.
+              <span class="inline-code">dispatch</span> يرسل فعلاً إلى الـ reducer.
+            </p>
+
+            <h3>4) Actions و Dispatch</h3>
+            <p>
+              الفعل غرض فيه <span class="inline-code">type</span> غالباً نص ثابت،
+              وقد يحمل <span class="inline-code">payload</span> (id، كمية، سعر).
+            </p>
+            <div class="code-block">
+              <pre><code>dispatch({ type: "add_item", payload: { id: 1, title: "React" } });</code></pre>
+            </div>
+            <p>
+              داخل الـ reducer استخدم
+              <span class="inline-code">switch (action.type)</span>
+              وأرجع نسخة جديدة. أضف
+              <span class="inline-code">default</span> يرجع الحالة كما هي أو يرمي خطأ واضحاً.
+            </p>
+            <div class="warning-box">
+              <strong>ممنوع:</strong> <span class="inline-code">state.items.push(...)</span>.
+              انسخ المصفوفة: <span class="inline-code">[...state.items, item]</span>.
+            </div>
+
+            <h3>5) دمج useReducer مع Context API</h3>
+            <p>
+              Provider يحتفظ بـ
+              <span class="inline-code">[state, dispatch]</span>
+              ويمرّرهما عبر Context.
+              أي صفحة تضيف للسلة تستدعي dispatch دون رفع الحالة يدوياً عبر كل شجرة المسارات.
+            </p>
+            <div class="tip-box">
+              <strong>خطوة تالية للدورة:</strong> هذا النمط أساس المشروع الكبير الثاني (جلسة 16).
+            </div>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">💻</div>
+            <h2>أمثلة عملية</h2>
+          </div>
+
+          <h3>مثال 1: عداد بـ reducer</h3>
+          <div class="code-block">
+            <pre><code>function counterReducer(state, action) {
+  switch (action.type) {
+    case "inc":
+      return { count: state.count + 1 };
+    case "dec":
+      return { count: state.count - 1 };
+    case "reset":
+      return { count: 0 };
+    default:
+      return state;
+  }
+}
+
+function SeatsBoard() {
+  const [state, dispatch] = useReducer(counterReducer, { count: 12 });
+
+  return (
+    &lt;div&gt;
+      &lt;p&gt;Seats: {state.count}&lt;/p&gt;
+      &lt;button onClick={() =&gt; dispatch({ type: "inc" })}&gt;+&lt;/button&gt;
+      &lt;button onClick={() =&gt; dispatch({ type: "dec" })}&gt;-&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+          </div>
+
+          <h3>مثال 2: سلة تسجيل كورسات</h3>
+          <div class="code-block">
+            <pre><code>const initialCart = { items: [] };
+
+function cartReducer(state, action) {
+  switch (action.type) {
+    case "add": {
+      const exists = state.items.some((item) =&gt; item.id === action.payload.id);
+      if (exists) return state;
+      return { items: [...state.items, action.payload] };
+    }
+    case "remove":
+      return {
+        items: state.items.filter((item) =&gt; item.id !== action.payload)
+      };
+    case "clear":
+      return initialCart;
+    default:
+      return state;
+  }
+}</code></pre>
+          </div>
+
+          <h3>مثال 3: الاستخدام في المكوّن</h3>
+          <div class="code-block">
+            <pre><code>const [cart, dispatch] = useReducer(cartReducer, initialCart);
+
+dispatch({
+  type: "add",
+  payload: { id: 1, title: "React", price: 49, trainer: "Osama Bittar" }
+});</code></pre>
+          </div>
+          <p>الأسعار باليورو (€). المجموع:
+            <span class="inline-code">cart.items.reduce((sum, item) =&gt; sum + item.price, 0)</span>
+          </p>
+
+          <h3>مثال 4: CartContext</h3>
+          <div class="code-block">
+            <pre><code>const CartContext = createContext(null);
+
+export function CartProvider({ children }) {
+  const [state, dispatch] = useReducer(cartReducer, initialCart);
+  return (
+    &lt;CartContext.Provider value={{ state, dispatch }}&gt;
+      {children}
+    &lt;/CartContext.Provider&gt;
+  );
+}
+
+export function useCart() {
+  const value = useContext(CartContext);
+  if (!value) throw new Error("useCart must be inside CartProvider");
+  return value;
+}</code></pre>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">🎯</div>
+            <h2>اختبار سريع</h2>
+          </div>
+          <div class="quiz-card" data-correct="b">
+            <p class="quiz-question">الـ reducer يجب أن:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">يعدّل state مباشرة بـ push</button>
+              <button class="quiz-option" data-value="b">يرجع نسخة جديدة من الحالة</button>
+              <button class="quiz-option" data-value="c">يستدعي fetch داخل switch</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+          <div class="quiz-card" data-correct="a">
+            <p class="quiz-question">dispatch يُستخدم لـ:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">إرسال action إلى الـ reducer</button>
+              <button class="quiz-option" data-value="b">حذف ملف Vite</button>
+              <button class="quiz-option" data-value="c">تعريف CSS</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">✏️</div>
+            <h2>تمارين عملية</h2>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">1</span> فعل set</h4>
+            <p>أضف type "set" يضع count إلى action.payload.</p>
+            <button class="solution-toggle" data-target="r13-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="r13-1">
+              <div class="code-block">
+                <pre><code>case "set":
+  return { count: action.payload };</code></pre>
+              </div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">2</span> منع التكرار</h4>
+            <p>عند add إن وُجد نفس id لا تغيّر الحالة.</p>
+            <button class="solution-toggle" data-target="r13-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="r13-2">
+              <div class="code-block">
+                <pre><code>if (state.items.some((item) =&gt; item.id === action.payload.id)) {
+  return state;
+}</code></pre>
+              </div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">3</span> قراءة من السياق</h4>
+            <p>مكوّن Badge يعرض عدد عناصر السلة من useCart.</p>
+            <button class="solution-toggle" data-target="r13-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="r13-3">
+              <div class="code-block">
+                <pre><code>const { state } = useCart();
+return &lt;span&gt;{state.items.length}&lt;/span&gt;;</code></pre>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">📌</div>
+            <h2>ملخص الجلسة</h2>
+          </div>
+          <ul class="key-points">
+            <li>Reducer: (state, action) ⇒ state جديد</li>
+            <li>Actions بأنواع واضحة وpayload عند الحاجة</li>
+            <li>useReducer للحالة المترابطة</li>
+            <li>Provider يمرّر state و dispatch معاً</li>
+          </ul>
+        </section>
+
+        <section class="homework-box">
+          <h2>واجب الجلسة</h2>
+          <ul>
+            <li>سلة كورسات: add / remove / clear</li>
+            <li>اعرض القائمة والمجموع باليورو واسم المدرب Osama Bittar</li>
+            <li>انقل السلة إلى CartProvider للجلسة القادمة</li>
+          </ul>
+        </section>
+
+      </div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../../shared/course-data.js"></script>
+  <script src="../../../shared/layout.js"></script>
+  <script src="../../../shared/scripts.js"></script>
+</body>
+</html>

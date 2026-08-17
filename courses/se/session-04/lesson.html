@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 04 — هندسة البرمجيات</title>
+  <link rel="stylesheet" href="../../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="se" data-session="04">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+        <div class="student-welcome"><h3>هدف الجلسة</h3><p>نكتب متطلبات وظيفية مرقّمة بأسلوب SRS مع أولوية ومعيار قبول يغطي العميل والمطبخ والسائق والمالية.</p></div>
+        <section class="section-block"><div class="section-header"><div class="section-icon">04</div><h2>الشرح النظري</h2></div>
+          <div class="theory-content">
+            <h3>1) شكل المتطلب الوظيفي</h3>
+            <p>كل متطلب: معرّف، فاعل، فعل، شرط، نتيجة. المعرّف ثابت مدى المشروع: <span class="inline-code">FR-ORD-01</span> لا يتغيّر إذا أُعيدت صياغة الجملة.</p>
+            <h3>2) MoSCoW</h3>
+            <p>Must / Should / Could / Won't. نسخة 1 من مذاق بيطار: الطلب والدفع والتعيين والمحفظة Must. تقييم السائق بالنجوم Could.</p>
+            <h3>3) معيار القبول</h3>
+            <p>بدون معيار يبقى المتطلب شعاراً. «يمكن للعميل أن يطلب» يصبح: يضيف أصنافاً، يختار عنواناً داخل النطاق، يرى المجموع باليورو، ويحصل على رقم طلب.</p>
+            <h3>4) تغطية الأنظمة الأربعة</h3>
+            <p>كتالوج ناقص إذا نسي المالية. كل مسار طلب يولّد أثراً مالياً محتملاً: إيراد مطعم، أجر سائق، نقد للتحصيل.</p>
+            <div class="tip-box"><strong>تتبع:</strong> لاحقاً كل Use Case وكل اختبار يشير إلى FR. لذلك الترقيم الآن وليس في نهاية الكورس.</div>
+          </div>
+        </section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📐</div><h2>مخططات ووثائق عملية</h2></div>
+          <div class="spec-table-wrap"><table class="spec-table"><thead><tr><th>ID</th><th>المتطلب</th><th>MoSCoW</th><th>قبول مختصر</th></tr></thead><tbody><tr><td>FR-CUS-01</td><td>إنشاء حساب عميل وتسجيل دخول</td><td>Must</td><td>عميل مسجّل يرى قائمة الطعام</td></tr><tr><td>FR-ORD-01</td><td>إنشاء طلب من السلة</td><td>Must</td><td>رقم طلب وحالة Placed</td></tr><tr><td>FR-KIT-01</td><td>عرض طابور المطبخ وتغيير حالة التحضير</td><td>Must</td><td>من Placed إلى Preparing ثم Ready</td></tr><tr><td>FR-DRV-01</td><td>تعيين سائق متاح للطلب الجاهز</td><td>Must</td><td>الطلب Assigned مع معرّف سائق</td></tr><tr><td>FR-FIN-01</td><td>احتساب أجر توصيل باليورو وإضافته للمحفظة بعد التسليم</td><td>Must</td><td>الرصيد يزيد وفق القاعدة</td></tr></tbody></table></div>
+          <div class="code-block"><pre><code>FR-ORD-02 Cancel by customer
+The customer shall cancel an unpaid or early-status order.
+Acceptance: if status is Placed or Preparing (kitchen rule),
+status becomes Cancelled and no driver payout is created.
+If status is PickedUp, cancel is denied and support handles it.</code></pre></div>
+          </section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">🎯</div><h2>اختبار سريع</h2></div><div class="quiz-card" data-correct="b">
+            <p class="quiz-question">معرّف المتطلب يجب أن:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">يتغيّر مع كل إعادة صياغة</button>
+              <button class="quiz-option" data-value="b">يبقى ثابتاً للتتبع</button>
+              <button class="quiz-option" data-value="c">يكون لون الزر</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div><div class="quiz-card" data-correct="a">
+            <p class="quiz-question">محفظة السائق في نسخة 1:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">Must لأنها جزء من وعد المشروع</button>
+              <button class="quiz-option" data-value="b">Won't لأنها تجميل</button>
+              <button class="quiz-option" data-value="c">Could فقط</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">✏️</div><h2>تمارين عملية</h2></div><div class="exercise-item">
+            <h4><span class="exercise-number">1</span> خمسة FR للعميل</h4>
+            <p>اكتب FR-CUS-02 حتى 06 مع قبول.</p>
+            <button class="solution-toggle" data-target="se04-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="se04-1"><p>أمثلة: عنوان التوصيل، السلة، كوبون اختياري خارج Must، تتبع الحالة، إعادة طلب سابق.</p></div>
+          </div><div class="exercise-item">
+            <h4><span class="exercise-number">2</span> FR للمطبخ</h4>
+            <p>اكتب متطلب نفاد صنف.</p>
+            <button class="solution-toggle" data-target="se04-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="se04-2"><p>FR-KIT-02: يمكن للمطبخ تعليم صنف Unavailable فيُخفى أو يُمنع من السلة خلال 1 دقيقة مفاهيمياً.</p></div>
+          </div><div class="exercise-item">
+            <h4><span class="exercise-number">3</span> FR مالية</h4>
+            <p>اكتب متطلب كشف تسوية أسبوعية.</p>
+            <button class="solution-toggle" data-target="se04-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="se04-3"><p>FR-FIN-02: يصدّر المحاسب كشفاً باليورو لكل سائق: طلبات مسلّمة، أجور، COD مطلوب، صافٍ.</p></div>
+          </div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📌</div><h2>ملخص الجلسة</h2></div>
+          <ul class="key-points"><li>FR مرقّم وقابل للاختبار</li><li>MoSCoW يحمي نسخة 1</li><li>المالية ليست ملحقاً تجميلياً</li><li>القبول جزء من المتطلب</li></ul>
+        </section>
+        <section class="homework-box"><h2>واجب الجلسة</h2><ul><li>أتمم 20 متطلباً على الأقل موزّعة على CUS/ORD/KIT/DRV/FIN</li><li>ضع MoSCoW لكل بند</li><li>راجع بندين كانا غامضين وأعد صياغتهما</li></ul></section>
+      </div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../../shared/course-data.js"></script>
+  <script src="../../../shared/layout.js"></script>
+  <script src="../../../shared/scripts.js"></script>
+</body>
+</html>

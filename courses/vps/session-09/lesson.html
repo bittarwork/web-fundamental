@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 09 — أساسيات Docker</title>
+  <link rel="stylesheet" href="../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="vps" data-session="09">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+        <div class="student-welcome"><h3>هدف الجلسة</h3><p>نفهم الصورة والحاوية، نثبت Docker على Ubuntu، ونشغّل Nginx في حاوية مع Dockerfile بسيط.</p></div>
+        <section class="section-block"><div class="section-header"><div class="section-icon">09</div><h2>الشرح النظري</h2></div><div class="theory-content">
+      <h3>1) لماذا Docker؟</h3>
+      <p>الحاوية تغلف التطبيق ومتطلباته. ما يعمل على سيرفر Osama يعمل بنفس الملف على سيرفر العمل. أقل جملة «عندي يشتغل».</p>
+      <div class="compare-grid">
+        <div class="compare-box"><h4>Image</h4><p>القالب للقراءة فقط (وصفة).</p></div>
+        <div class="compare-box"><h4>Container</h4><p>نسخة شغّالة من الصورة (طبق على الطاولة).</p></div>
+      </div>
+      <h3>2) التثبيت على Ubuntu (رسمي مبسّط للدورة)</h3>
+      <div class="code-block"><pre><code>apt install -y docker.io docker-compose-v2
+systemctl enable --now docker
+docker version
+docker compose version</code></pre></div>
+      <p>إن فضّلت مستودع Docker الرسمي لاحقاً يمكن الترقية. للدورة حزم Ubuntu كافية للبداية.</p>
+      <div class="code-block"><pre><code>usermod -aG docker osama</code></pre></div>
+      <p>بعد إضافة المستخدم لمجموعة docker أعد الدخول حتى يعمل دون sudo.</p>
+      <h3>3) أوامر يومية</h3>
+      <div class="code-block"><pre><code>docker pull nginx:alpine
+docker run -d --name academy-web -p 8080:80 nginx:alpine
+docker ps
+docker logs academy-web
+docker stop academy-web
+docker rm academy-web</code></pre></div>
+      <p>افتح <span class="inline-code">http://IP:8080</span>. إن منع الجدار المنفذ 8080 اسمح به للتجربة أو استخدم 80 بعد إيقاف nginx النظام.</p>
+      <h3>4) Dockerfile</h3>
+      <div class="code-block"><pre><code>FROM nginx:alpine
+COPY public/ /usr/share/nginx/html/</code></pre></div>
+      <div class="code-block"><pre><code>docker build -t academy-site .
+docker run -d --name academy-web -p 8080:80 academy-site</code></pre></div>
+      <h3>5) المجلدات والمنافذ</h3>
+      <p><span class="inline-code">-p 8080:80</span> يربط منفذ المضيف بالحاوية. Volume يشارك ملفات من السيرفر داخل الحاوية للتطوير.</p>
+      <div class="tip-box"><strong>Hostinger</strong> قد يعرض مدير Docker في اللوحة. تعلّم الأوامر أولاً ثم استخدم الواجهة إن شئت.</div>
+    </div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">💻</div><h2>أمثلة عملية</h2></div>
+      <h3>مثال 1: صفحة في الحاوية</h3>
+      <div class="code-block"><pre><code>mkdir -p /root/academy/public
+echo "&lt;h1&gt;Osama Bittar via Docker&lt;/h1&gt;" > /root/academy/public/index.html</code></pre></div>
+      <h3>مثال 2: تنظيف</h3>
+      <div class="code-block"><pre><code>docker ps -a
+docker rm -f academy-web</code></pre></div>
+    </section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">🎯</div><h2>اختبار سريع</h2></div><div class="quiz-card" data-correct="b"><p class="quiz-question">الصورة هي:</p><div class="quiz-options"><button class="quiz-option" data-value="a">السيرفر نفسه</button><button class="quiz-option" data-value="b">قالب للقراءة منه تُنشأ الحاويات</button><button class="quiz-option" data-value="c">سجل DNS</button></div><div class="quiz-feedback"></div></div><div class="quiz-card" data-correct="a"><p class="quiz-question">8080:80 يعني:</p><div class="quiz-options"><button class="quiz-option" data-value="a">المضيف 8080 والحاوية 80</button><button class="quiz-option" data-value="b">حذف nginx</button><button class="quiz-option" data-value="c">فتح SSH</button></div><div class="quiz-feedback"></div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">✏️</div><h2>تمارين عملية</h2></div><div class="exercise-item"><h4><span class="exercise-number">1</span> ثبّت</h4><p>docker.io وشغّل الخدمة.</p><button class="solution-toggle" data-target="v09-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="v09-1"><div class="code-block"><pre><code>systemctl status docker</code></pre></div></div></div><div class="exercise-item"><h4><span class="exercise-number">2</span> run</h4><p>شغّل nginx:alpine على 8080.</p><button class="solution-toggle" data-target="v09-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="v09-2"><p>docker ps يظهر الحاوية.</p></div></div><div class="exercise-item"><h4><span class="exercise-number">3</span> ابنِ</h4><p>Dockerfile ينسخ public.</p><button class="solution-toggle" data-target="v09-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="v09-3"><p>build ثم run كما في الشرح.</p></div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📌</div><h2>ملخص الجلسة</h2></div><ul class="key-points"><li>صورة ≠ حاوية</li><li>المنفذ جسر للزائر</li><li>Dockerfile يوثّق البناء</li></ul></section>
+        <section class="homework-box"><h2>واجب الجلسة</h2><ul><li>حاوية تعرض اسم المدرب</li><li>افهم stop/rm</li><li>لا تفتح منفذ Docker للعالم بلا جدار</li></ul></section></div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../shared/course-data.js"></script>
+  <script src="../../shared/layout.js"></script>
+  <script src="../../shared/scripts.js"></script>
+</body>
+</html>

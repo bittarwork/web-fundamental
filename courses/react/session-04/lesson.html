@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 04 — العرض والأحداث</title>
+  <link rel="stylesheet" href="../../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="react" data-session="04">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+
+        <div class="student-welcome">
+          <h3>هدف الجلسة</h3>
+          <p>
+            نتحكم بما يظهر حسب الشرط، نعرض القوائم مع Keys صحيحة،
+            ونربط أزرار المستخدم بـ Event Handlers.
+          </p>
+        </div>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">04</div>
+            <h2>الشرح النظري</h2>
+          </div>
+          <div class="theory-content">
+            <h3>1) Conditional Rendering</h3>
+            <p>الواجهة تتغير حسب البيانات: رسالة ترحيب إن وُجد اسم، أو تنبيه إن كانت القائمة فارغة.</p>
+            <ul>
+              <li><span class="inline-code">&&</span> — أظهر شيئاً إذا الشرط صحيح.</li>
+              <li>العامل الثلاثي <span class="inline-code">? :</span> — اختيار بين عنصرين.</li>
+              <li><span class="inline-code">if</span> قبل الـ return لإرجاع JSX مختلف.</li>
+            </ul>
+
+            <h3>2) Lists</h3>
+            <p>
+              نمرّ على مصفوفة بـ <span class="inline-code">map</span> ونرجع عنصراً لكل عنصر بيانات.
+              لا تستخدم حلقة <span class="inline-code">for</span> داخل JSX مباشرة.
+            </p>
+
+            <h3>3) Keys</h3>
+            <p>
+              <span class="inline-code">key</span> معرّف ثابت يساعد React على معرفة أي عنصر تغيّر.
+              فضّل معرّفاً حقيقياً (<span class="inline-code">id</span>) لا رقم الفهرس إلا للقوائم الثابتة.
+            </p>
+            <div class="warning-box">
+              <strong>تجنّب:</strong> <span class="inline-code">key={index}</span> إذا كانت القائمة تُضاف أو تُحذف أو تُرتَّب.
+            </div>
+
+            <h3>4) Events و Event Handlers</h3>
+            <p>
+              في React نكتب <span class="inline-code">onClick</span> و <span class="inline-code">onChange</span>
+              بـ camelCase. القيمة دالة — لا تستدعِها بأقواس إلا إذا أردت تغليفها.
+            </p>
+            <div class="compare-grid">
+              <div class="compare-box">
+                <h4>صحيح</h4>
+                <p><span class="inline-code">onClick={handleClick}</span> أو <span class="inline-code">onClick={() =&gt; greet("Osama")}</span></p>
+              </div>
+              <div class="compare-box">
+                <h4>خطأ شائع</h4>
+                <p><span class="inline-code">onClick={handleClick()}</span> يشتغل فوراً عند الرسم لا عند النقر.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">💻</div>
+            <h2>أمثلة عملية</h2>
+          </div>
+
+          <h3>مثال 1: شرط &&</h3>
+          <div class="code-block">
+            <pre><code>function Banner({ isOpen }) {
+  return (
+    &lt;div&gt;
+      {isOpen && &lt;p&gt;Registration is open&lt;/p&gt;}
+    &lt;/div&gt;
+  );
+}</code></pre>
+          </div>
+
+          <h3>مثال 2: ثلاثي للترحيب</h3>
+          <div class="code-block">
+            <pre><code>function Hello({ name }) {
+  return (
+    &lt;h1&gt;{name ? `Welcome ${name}` : "Welcome guest"}&lt;/h1&gt;
+  );
+}
+
+&lt;Hello name="Osama Bittar" /&gt;</code></pre>
+          </div>
+
+          <h3>مثال 3: قائمة كورسات مع key</h3>
+          <div class="code-block">
+            <pre><code>const courses = [
+  { id: 1, title: "HTML" },
+  { id: 2, title: "CSS" },
+  { id: 3, title: "JavaScript" }
+];
+
+function CourseList() {
+  return (
+    &lt;ul&gt;
+      {courses.map((course) =&gt; (
+        &lt;li key={course.id}&gt;{course.title}&lt;/li&gt;
+      ))}
+    &lt;/ul&gt;
+  );
+}</code></pre>
+          </div>
+
+          <h3>مثال 4: زر حدث</h3>
+          <div class="code-block">
+            <pre><code>function EnrollButton() {
+  function handleClick() {
+    console.log("Osama enrolled in React");
+  }
+
+  return (
+    &lt;button type="button" onClick={handleClick}&gt;
+      Enroll
+    &lt;/button&gt;
+  );
+}</code></pre>
+          </div>
+          <div class="expected-output">
+            <div class="expected-output-label">📤 عند النقر في Console</div>
+            <pre>Osama enrolled in React</pre>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">🎯</div>
+            <h2>اختبار سريع</h2>
+          </div>
+          <div class="quiz-card" data-correct="b">
+            <p class="quiz-question">أفضل key لقائمة منتجات:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">رقم الفهرس دائماً</button>
+              <button class="quiz-option" data-value="b">معرّف ثابت مثل product.id</button>
+              <button class="quiz-option" data-value="c">Math.random()</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+          <div class="quiz-card" data-correct="a">
+            <p class="quiz-question">onClick={handleClick()} تعني:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">الدالة تُستدعى أثناء الرسم وليس عند النقر</button>
+              <button class="quiz-option" data-value="b">السلوك الصحيح للنقر</button>
+              <button class="quiz-option" data-value="c">لن يعمل المشروع أبداً</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">✏️</div>
+            <h2>تمارين عملية</h2>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">1</span> قائمة فارغة</h4>
+            <p>إذا كانت المصفوفة فارغة اعرض «No courses yet»، وإلا اعرض القائمة.</p>
+            <button class="solution-toggle" data-target="r04-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="r04-1">
+              <div class="code-block">
+                <pre><code>{courses.length === 0 ? (
+  &lt;p&gt;No courses yet&lt;/p&gt;
+) : (
+  &lt;ul&gt;{courses.map((c) =&gt; &lt;li key={c.id}&gt;{c.title}&lt;/li&gt;)}&lt;/ul&gt;
+)}</code></pre>
+              </div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">2</span> map لمدربين</h4>
+            <p>مصفوفة فيها Osama وBittar كعنصرين (id + name) واعرضها.</p>
+            <button class="solution-toggle" data-target="r04-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="r04-2">
+              <div class="code-block">
+                <pre><code>const people = [
+  { id: 1, name: "Osama" },
+  { id: 2, name: "Bittar" }
+];
+
+{people.map((person) =&gt; (
+  &lt;li key={person.id}&gt;{person.name}&lt;/li&gt;
+))}</code></pre>
+              </div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">3</span> زر مع معامل</h4>
+            <p>عند النقر اطبع «Hello Osama» باستخدام دالة سهمية في onClick.</p>
+            <button class="solution-toggle" data-target="r04-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="r04-3">
+              <div class="code-block">
+                <pre><code>&lt;button onClick={() =&gt; console.log("Hello Osama")}&gt;
+  Greet
+&lt;/button&gt;</code></pre>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">📌</div>
+            <h2>ملخص الجلسة</h2>
+          </div>
+          <ul class="key-points">
+            <li>&& والثلاثي يتحكمان بما يظهر</li>
+            <li>القوائم تُرسم بـ map مع key ثابت</li>
+            <li>الأحداث camelCase: onClick, onChange</li>
+            <li>مرّر الدالة نفسها لا نتيجة استدعائها</li>
+          </ul>
+        </section>
+
+        <section class="homework-box">
+          <h2>واجب الجلسة</h2>
+          <ul>
+            <li>اعرض قائمة 5 جلسات React مع id و title</li>
+            <li>أضف رسالة إذا كانت القائمة فارغة</li>
+            <li>زر لكل عنصر يطبع عنوان الجلسة في Console</li>
+          </ul>
+        </section>
+
+      </div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../../shared/course-data.js"></script>
+  <script src="../../../shared/layout.js"></script>
+  <script src="../../../shared/scripts.js"></script>
+</body>
+</html>

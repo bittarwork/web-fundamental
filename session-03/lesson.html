@@ -6,29 +6,12 @@
   <title>الجلسة 03 — الجداول والنماذج وHTML الدلالي</title>
   <link rel="stylesheet" href="../shared/styles.css">
 </head>
-<body>
+<body class="lesson-page" data-page="lesson" data-course="web" data-session="03">
   <div class="page-wrapper">
 
-    <header class="site-header">
-      <div class="container">
-        <span class="course-badge">المرحلة 1 — HTML</span>
-        <h1>الجلسة 03: الجداول والنماذج وHTML الدلالي</h1>
-        <div class="session-meta">
-          <span>المدة: ساعة ونصف</span>
-          <span>الجلسة 3 من 16</span>
-        </div>
-      </div>
-    </header>
+    <div id="layout-header"></div>
 
-    <nav class="lesson-nav">
-      <div class="container">
-        <a href="../index.html" class="nav-link">الرئيسية</a>
-        <a href="../session-02/lesson.html" class="nav-link">→ السابقة</a>
-        <a href="../session-04/lesson.html" class="nav-link">التالية ←</a>
-      </div>
-    </nav>
-
-    <main class="main-content">
+    <main class="main-content" id="main-content">
       <div class="container">
 
         <section class="section-block">
@@ -258,13 +241,13 @@
               <div class="code-block">
                 <div class="code-label">Solution</div>
                 <pre><code>&lt;header&gt;
-  &lt;h1&gt;أحمد محمد&lt;/h1&gt;
+  &lt;h1&gt;محمد أسامة بيطار&lt;/h1&gt;
   &lt;nav&gt;&lt;a href="#"&gt;عني&lt;/a&gt; | &lt;a href="#"&gt;تواصل&lt;/a&gt;&lt;/nav&gt;
 &lt;/header&gt;
 &lt;main&gt;
   &lt;section&gt;
     &lt;h2&gt;نبذة عني&lt;/h2&gt;
-    &lt;p&gt;طالب مهتم بالبرمجة.&lt;/p&gt;
+    &lt;p&gt;مهندس معلوماتية ومدرب علوم ويب.&lt;/p&gt;
   &lt;/section&gt;
 &lt;/main&gt;
 &lt;footer&gt;&lt;p&gt;2026 — جميع الحقوق محفوظة&lt;/p&gt;&lt;/footer&gt;</code></pre>
@@ -300,15 +283,11 @@
       </div>
     </main>
 
-    <footer class="site-footer">
-      <div class="container">
-        <p class="footer-course">أساسيات الويب — الكورس الأول</p>
-        <p class="footer-instructor">محمد أسامة بيطار · مهندس معلوماتية · مدرب علوم ويب</p>
-        <p class="footer-copy">الجلسة 03 من 16</p>
-      </div>
-    </footer>
+    <div id="layout-footer"></div>
 
   </div>
+  <script src="../shared/course-data.js"></script>
+  <script src="../shared/layout.js"></script>
   <script src="../shared/scripts.js"></script>
 </body>
 </html>

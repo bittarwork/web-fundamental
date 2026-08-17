@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 07 — تهيئة سيرفر Ubuntu بالتفصيل</title>
+  <link rel="stylesheet" href="../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="vps" data-session="07">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+        <div class="student-welcome"><h3>هدف الجلسة</h3><p>نحوّل السيرفر الجديد إلى بيئة جاهزة: وقت، تحديثات، جدار ناري، مستخدم نشر، وNginx على المنفذ 80.</p></div>
+        <section class="section-block"><div class="section-header"><div class="section-icon">07</div><h2>الشرح النظري</h2></div><div class="theory-content">
+      <h3>1) المنطقة الزمنية</h3>
+      <div class="code-block"><pre><code>timedatectl
+timedatectl set-timezone Europe/Berlin</code></pre></div>
+      <p>اختر مدينة تناسب عملك. السجلات تصبح مفهومة.</p>
+      <h3>2) مستخدم للنشر</h3>
+      <div class="code-block"><pre><code>adduser osama
+usermod -aG sudo osama</code></pre></div>
+      <p>انسخ مفتاحك إلى هذا المستخدم لاحقاً وادخل به بدل root اليومي.</p>
+      <h3>3) جدار ناري ufw</h3>
+      <div class="code-block"><pre><code>ufw allow OpenSSH
+ufw allow 80/tcp
+ufw allow 443/tcp
+ufw enable
+ufw status</code></pre></div>
+      <div class="warning-box"><strong>اسمح بـ SSH قبل التفعيل</strong> وإلا قد تُغلق على نفسك. Hostinger Browser Terminal يبقى منفذاً إن أخطأت، ويمكن ضبط جدار hPanel أيضاً.</div>
+      <h3>4) Nginx كواجهة أولية</h3>
+      <div class="code-block"><pre><code>apt install -y nginx
+systemctl enable --now nginx</code></pre></div>
+      <p>افتح <span class="inline-code">http://YOUR_IP</span> من المتصفح. يجب أن تظهر صفحة الترحيب. انسخ ملفاتك إلى <span class="inline-code">/var/www/html</span> أو اضبط موقعاً لاحقاً.</p>
+      <h3>5) صفحة الأكاديمية يدوياً</h3>
+      <div class="code-block"><pre><code>echo "&lt;h1&gt;Osama Bittar Academy&lt;/h1&gt;" > /var/www/html/index.html
+systemctl reload nginx</code></pre></div>
+      <h3>6) جدار Hostinger في hPanel</h3>
+      <p>بالإضافة إلى ufw: VPS → Firewall. أبقِ 22 و80 و443. لا تفتح كل المنافذ «للراحة».</p>
+      <h3>7) ماذا بعد؟</h3>
+      <p>لا تعطّل دخول كلمة المرور حتى تتأكد أن المفتاح يعمل مرتين. ثم يمكن تشديد sshd لاحقاً بحذر.</p>
+    </div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">💻</div><h2>أمثلة عملية</h2></div>
+      <h3>مثال 1: ترتيب اليوم الأول</h3>
+      <div class="code-block"><pre><code>apt update && apt upgrade -y
+timedatectl set-timezone Europe/Berlin
+adduser osama
+usermod -aG sudo osama
+ufw allow OpenSSH && ufw allow 80 && ufw allow 443 && ufw enable
+apt install -y nginx && systemctl enable --now nginx</code></pre></div>
+      <h3>مثال 2: اختبار من الخارج</h3>
+      <p>من هاتفك على شبكة أخرى افتح http://IP حتى لا تختبر من السيرفر فقط.</p>
+    </section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">🎯</div><h2>اختبار سريع</h2></div><div class="quiz-card" data-correct="a"><p class="quiz-question">قبل ufw enable:</p><div class="quiz-options"><button class="quiz-option" data-value="a">اسمح بمنفذ SSH</button><button class="quiz-option" data-value="b">احذف nginx</button><button class="quiz-option" data-value="c">عطّل IP</button></div><div class="quiz-feedback"></div></div><div class="quiz-card" data-correct="b"><p class="quiz-question">صفحة Nginx الافتراضية تظهر على:</p><div class="quiz-options"><button class="quiz-option" data-value="a">منفذ 3306</button><button class="quiz-option" data-value="b">المنفذ 80 عبر IP</button><button class="quiz-option" data-value="c">منفذ Git فقط</button></div><div class="quiz-feedback"></div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">✏️</div><h2>تمارين عملية</h2></div><div class="exercise-item"><h4><span class="exercise-number">1</span> المنطقة</h4><p>اضبط المنطقة الزمنية.</p><button class="solution-toggle" data-target="v07-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="v07-1"><div class="code-block"><pre><code>timedatectl set-timezone Europe/Berlin</code></pre></div></div></div><div class="exercise-item"><h4><span class="exercise-number">2</span> ufw</h4><p>اسمح بـ 22 و80 و443 ثم فعّل.</p><button class="solution-toggle" data-target="v07-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="v07-2"><p>ufw status يعرض Allow.</p></div></div><div class="exercise-item"><h4><span class="exercise-number">3</span> صفحة</h4><p>استبدل index.html باسم Osama Bittar وافتح الـ IP.</p><button class="solution-toggle" data-target="v07-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="v07-3"><p>http://YOUR_IP في المتصفح.</p></div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📌</div><h2>ملخص الجلسة</h2></div><ul class="key-points"><li>يوم أول: تحديث + وقت + جدار + Nginx</li><li>مستخدم sudo للعمل اليومي</li><li>لا تغلق 22 قبل نجاح المفتاح</li></ul></section>
+        <section class="homework-box"><h2>واجب الجلسة</h2><ul><li>أكمل التهيئة حتى تظهر صفحة على IP</li><li>أنشئ مستخدم osama أو اسمك</li><li>سجّل المنافذ المفتوحة</li></ul></section></div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../shared/course-data.js"></script>
+  <script src="../../shared/layout.js"></script>
+  <script src="../../shared/scripts.js"></script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 03 — هندسة البرمجيات</title>
+  <link rel="stylesheet" href="../../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="se" data-session="03">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+        <div class="student-welcome"><h3>هدف الجلسة</h3><p>نتدرّب على جمع المتطلبات من المقابلات والورش والملاحظة، ونحوّل كلام صاحب المطعم إلى حقائق يمكن التحقق منها.</p></div>
+        <section class="section-block"><div class="section-header"><div class="section-icon">03</div><h2>الشرح النظري</h2></div>
+          <div class="theory-content">
+            <h3>1) المصادر</h3>
+            <p>المقابلة مع Osama Bittar تعطي الأهداف. الورشة مع المطبخ تكشف ضغط الذروة. ملاحظة السائق في ساعة الغداء تكشف ما لا يُقال. وثائق قديمة (قوائم Excel للأجور) مصدر ثمين.</p>
+            <h3>2) أسئلة جيّدة</h3>
+            <p>لا تسأل «هل تريدون تطبيقاً جميلاً؟». اسأل: ماذا يحدث إذا نفد طبق؟ من يقرر إغلاق التوصيل؟ كيف يُدفع للسائق إذا أُلغي الطلب بعد خروجه؟</p>
+            <h3>3) التعارض</h3>
+            <p>المطبخ يريد إيقاف الطلبات عند الازدحام. الإدارة تريد ألا تُغلق الصفحة. الحل ليس «الاثنان»: نوثّق القاعدة (عتبة طلبات قيد التحضير) ونحصل على قرار مالك.</p>
+            <div class="analogy-box"><strong>تشبيه:</strong> جمع المتطلبات تحقيق صحفي: مصادر متعددة، ثم تحقق، ثم صياغة خبر واحد واضح.</div>
+            <h3>4) من كلام إلى متطلب</h3>
+            <p>«بدنا السائق يأخذ حقه» ليست متطلباً. المتطلب: «يحتسب النظام أجر التوصيل وفق قاعدة المسافة + ثابت، ويظهر الرصيد باليورو في محفظة السائق بعد تسليم ناجح».</p>
+            <h3>5) محضر المقابلة</h3>
+            <p>كل مقابلة: تاريخ ميلادي، أسماء، أسئلة، إجابات، بنود مفتوحة، قرارات. بدون محضر تضيع المعرفة مع انتهاء الجلسة.</p>
+          </div>
+        </section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📐</div><h2>مخططات ووثائق عملية</h2></div>
+          <div class="spec-table-wrap"><table class="spec-table"><thead><tr><th>سؤال المقابلة</th><th>إجابة نموذجية</th><th>متطلب مرشّح</th></tr></thead><tbody><tr><td>كيف يدفع العميل؟</td><td>بطاقة أو نقد عند الباب</td><td>FR للدفع المختلط وCOD</td></tr><tr><td>متى يُغلق التوصيل؟</td><td>عند تجاوز 25 طلباً قيد التحضير</td><td>FR لسعة المطبخ</td></tr><tr><td>أجر السائق؟</td><td>€2 ثابت + €0.40 لكل كم</td><td>FR لمحرّك الأجور</td></tr></tbody></table></div>
+          <div class="code-block"><pre><code>Interview log
+Date: 2026-08-17
+Interviewee: Osama Bittar (Owner)
+Open item: peak-hour kitchen cap confirmed at 25 in-progress orders
+Decision: currency display is EUR for customer and finance screens</code></pre></div>
+          </section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">🎯</div><h2>اختبار سريع</h2></div><div class="quiz-card" data-correct="a">
+            <p class="quiz-question">أفضل سؤال لجمع متطلبات التوصيل:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">ماذا يحدث إذا ألغى العميل بعد خروج السائق؟</button>
+              <button class="quiz-option" data-value="b">ما لون الزر المفضّل؟</button>
+              <button class="quiz-option" data-value="c">هل تحب التقنية؟</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div><div class="quiz-card" data-correct="c">
+            <p class="quiz-question">عند تعارض المطبخ والإدارة:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">نبرمج الاثنين معاً بلا قاعدة</button>
+              <button class="quiz-option" data-value="b">نحذف الميزة</button>
+              <button class="quiz-option" data-value="c">نوثّق الخيار ونأخذ قرار مالك</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">✏️</div><h2>تمارين عملية</h2></div><div class="exercise-item">
+            <h4><span class="exercise-number">1</span> ثمانية أسئلة</h4>
+            <p>اكتب 8 أسئلة لمقابلة مدير المطبخ.</p>
+            <button class="solution-toggle" data-target="se03-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="se03-1"><p>أمثلة: أقصى طلبات متزامنة، وقت تحضير البيتزا، أطباق تتوقف يومياً، من يعلّم نفاد الصنف، ماذا لو طلب خاص بلا مكوّن، ساعة الذروة، تغليف، أولوية الطلبات المتأخرة.</p></div>
+          </div><div class="exercise-item">
+            <h4><span class="exercise-number">2</span> تحويل جملة</h4>
+            <p>حوّل «بدنا النظام عادل مع السائق» إلى متطلب قابل للاختبار.</p>
+            <button class="solution-toggle" data-target="se03-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="se03-2"><p>بعد تسليم ناجح يُضاف إلى محفظة السائق مبلغ يساوي baseFee + (distanceKm × 0.40) باليورو، ويظهر في كشف يومي.</p></div>
+          </div><div class="exercise-item">
+            <h4><span class="exercise-number">3</span> محضر</h4>
+            <p>اكتب محضر مقابلة وهمي مع سائق حول النقد عند التسليم.</p>
+            <button class="solution-toggle" data-target="se03-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="se03-3"><p>السائق يجمع COD ويسلّمه للمطعم نهاية الوردية. النظام يجب أن يسجّل المتوقع مقابل المستلم ويمنع إغلاق الوردية إذا بقي فرق.</p></div>
+          </div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📌</div><h2>ملخص الجلسة</h2></div>
+          <ul class="key-points"><li>جمع المتطلبات مهارة أسئلة لا مهارة تخمين</li><li>التعارض يُدار بقرار موثّق</li><li>المطلب القابل للاختبار أفضل من الشعار</li><li>المحضر جزء من الملف الهندسي</li></ul>
+        </section>
+        <section class="homework-box"><h2>واجب الجلسة</h2><ul><li>أجرِ مقابلة قصيرة مع زميل يلعب دور المالك</li><li>حوّل 5 جمل عامية إلى مرشحات متطلبات</li><li>أضف المحضر إلى ملفك</li></ul></section>
+      </div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../../shared/course-data.js"></script>
+  <script src="../../../shared/layout.js"></script>
+  <script src="../../../shared/scripts.js"></script>
+</body>
+</html>

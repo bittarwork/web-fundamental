@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 08 — هندسة البرمجيات</title>
+  <link rel="stylesheet" href="../../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="se" data-session="08">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+        <div class="student-welcome"><h3>هدف الجلسة</h3><p>نحلّل نظام السائقين: التوظيف، الورديات، التعيين، حالات التواجد، الموقع كمفهوم، والحوادث ومؤشرات الأداء.</p></div>
+        <section class="section-block"><div class="section-header"><div class="section-icon">08</div><h2>الشرح النظري</h2></div>
+          <div class="theory-content">
+            <h3>1) السائق مورد تشغيلي</h3>
+            <p>ليس «مستخدماً يضغط زر». له وثائق، مركبة، وردية، نطاق أحياء، وسقف طلبات متزامنة (عادة طلب واحد في مذاق بيطار للنسخة 1).</p>
+            <h3>2) دورة حياة السائق</h3>
+            <p>Applicant → Active → Suspended → Inactive. التفعيل يتطلب قرار إدارة. الإيقاف عند حوادث متكررة أو عجز تسوية نقد.</p>
+            <h3>3) التواجد أثناء الوردية</h3>
+            <p>Offline، Available، EnRouteToRestaurant، AtRestaurant، EnRouteToCustomer، Completing. التعيين فقط من Available داخل الوردية.</p>
+            <h3>4) سياسة التعيين</h3>
+            <p>يدوي عبر المشغّل، أو آلي: الأقرب المتاح، ثم الأقل حمل اليوم، مع مهلة قبول. نوثّق السياسة ولا نكتب خوارزمية برمجية.</p>
+            <h3>5) الموقع (GPS) كمفهوم تقني</h3>
+            <p>الجهاز يرسل إحداثيات دورياً أثناء الرحلة النشطة فقط قدر الإمكان (خصوصية). الخادم يخزّن مساراً مختصراً للنزاعات. الخرائط لتقدير المسافة المستخدمة في الأجر باليورو.</p>
+            <h3>6) الحوادث وKPI</h3>
+            <p>حادث: تأخير، طعام منسكب، سلوك. KPI: نسبة قبول، زمن الاستلام، تقييم، فروقات COD. KPI ليس عقاباً تلقائياً بلا سياسة.</p>
+          </div>
+        </section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📐</div><h2>مخططات ووثائق عملية</h2></div>
+          <div class="diagram-box"><div class="diagram-caption">Driver operational states</div>Offline
+   |
+Available --assign--&gt; EnRouteToRestaurant --&gt; AtRestaurant
+                                              |
+                                         PickedUp job
+                                              |
+                                    EnRouteToCustomer --&gt; Completing --&gt; Available</div>
+          <div class="spec-table-wrap"><table class="spec-table"><thead><tr><th>KPI</th><th>تعريف</th><th>استخدام</th></tr></thead><tbody><tr><td>Acceptance rate</td><td>قبول مقابل معروض</td><td>جودة التعيين لا معاقبة عمياء</td></tr><tr><td>Pickup time</td><td>من Assigned إلى PickedUp</td><td>ازدحام المطعم أو السائق</td></tr><tr><td>COD gap</td><td>نقد متوقع − مسلّم</td><td>إغلاق وردية ومالية</td></tr></tbody></table></div>
+          </section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">🎯</div><h2>اختبار سريع</h2></div><div class="quiz-card" data-correct="c">
+            <p class="quiz-question">التعيين في النسخة 1 يفضّل:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">سائق Offline لأنه سيأتي لاحقاً</button>
+              <button class="quiz-option" data-value="b">سائق في رحلة أخرى دائماً لدمج الطلبات</button>
+              <button class="quiz-option" data-value="c">سائق Available في الوردية حسب السياسة</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div><div class="quiz-card" data-correct="a">
+            <p class="quiz-question">إرسال GPS المستمر 24 ساعة بلا رحلة:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">يُتجنّب لدواعى الخصوصية والحمل</button>
+              <button class="quiz-option" data-value="b">إلزامي قانوناً في الدورة</button>
+              <button class="quiz-option" data-value="c">يغني عن حالات السائق</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">✏️</div><h2>تمارين عملية</h2></div><div class="exercise-item">
+            <h4><span class="exercise-number">1</span> سياسة مهلة القبول</h4>
+            <p>حدد ثواني وما يحدث بعد الصمت.</p>
+            <button class="solution-toggle" data-target="se08-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="se08-1"><p>45 ثانية بلا قبول → عرض على التالي وتسجيل Timeout لا يُحتسب أجر.</p></div>
+          </div><div class="exercise-item">
+            <h4><span class="exercise-number">2</span> وثائق التوظيف</h4>
+            <p>عدّد حقول ملف السائق دون بيانات حسّاسة زائدة.</p>
+            <button class="solution-toggle" data-target="se08-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="se08-2"><p>الاسم، هاتف، نوع مركبة، أحياء الخدمة، حالة الحساب. لا تخزن صورة هوية في وثائق الطلاب العامة؛ أشر إليها كمتطلب تشغيلي للإدارة فقط.</p></div>
+          </div><div class="exercise-item">
+            <h4><span class="exercise-number">3</span> حادث انسكاب</h4>
+            <p>ارسم قراراً: إعادة تحضير أو تعويض €.</p>
+            <button class="solution-toggle" data-target="se08-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="se08-3"><p>إن لم يُسلَّم: إعادة تحضير وطلب جديد مرتبط. إن سُلّم ناقصاً: تعويض بند باليورو وسجل Incident على الرحلة.</p></div>
+          </div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📌</div><h2>ملخص الجلسة</h2></div>
+          <ul class="key-points"><li>حالات السائق مستقلة عن حالات الطلب لكنهما تُربطان عند التعيين</li><li>سياسة التعيين قرار أعمال</li><li>GPS مفهوم خصوصية وتشغيل</li><li>KPI للمراقبة لا للظلم الآلي</li></ul>
+        </section>
+        <section class="homework-box"><h2>واجب الجلسة</h2><ul><li>آلة حالات السائق</li><li>سياسة تعيين من صفحة</li><li>ثلاثة KPI مع تعريف</li></ul></section>
+      </div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../../shared/course-data.js"></script>
+  <script src="../../../shared/layout.js"></script>
+  <script src="../../../shared/scripts.js"></script>
+</body>
+</html>

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 10 — التوجيه باستخدام React Router</title>
+  <link rel="stylesheet" href="../../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="react" data-session="10">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+
+        <div class="student-welcome">
+          <h3>هدف الجلسة</h3>
+          <p>
+            نحوّل التطبيق إلى صفحات متعددة عبر React Router:
+            Routes وRoute وLink وNavLink وتخطيط مشترك والتنقّل دون إعادة تحميل.
+          </p>
+        </div>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">10</div>
+            <h2>الشرح النظري</h2>
+          </div>
+          <div class="theory-content">
+            <h3>1) React Router</h3>
+            <p>
+              في SPA الرابط يتغيّر والمحتوى يتبدّل داخل الصفحة نفسها.
+              React Router يربط عنوان URL بمكوّن صفحة: الرئيسية، الكورسات، عن المدرب.
+            </p>
+            <div class="code-block">
+              <pre><code>npm install react-router-dom</code></pre>
+            </div>
+
+            <h3>2) Routes و Route</h3>
+            <p>
+              <span class="inline-code">BrowserRouter</span> يغلّف التطبيق.
+              <span class="inline-code">Routes</span> مجموعة مسارات.
+              كل <span class="inline-code">Route</span> يحدد
+              <span class="inline-code">path</span> و<span class="inline-code">element</span>.
+            </p>
+            <div class="tip-box">
+              <strong>صفحة 404:</strong> مسار <span class="inline-code">path="*"</span>
+              يعرض «الصفحة غير موجودة» لأي رابط غير معروف.
+            </div>
+
+            <h3>3) Link</h3>
+            <p>
+              استخدم <span class="inline-code">&lt;Link to="/courses"&gt;</span>
+              لا <span class="inline-code">&lt;a href&gt;</span> للتنقّل الداخلي.
+              <span class="inline-code">a</span> يعيد تحميل التطبيق ويفقد الـ state.
+            </p>
+
+            <h3>4) NavLink</h3>
+            <p>
+              مثل Link مع حالة «نشط» للرابط الحالي.
+              مفيد للقائمة: نضيف صنفاً عندما يكون المسار مطابقاً.
+            </p>
+
+            <h3>5) Layouts</h3>
+            <p>
+              الهيدر والتذييل يتكرران. نضع تخطيطاً فيه القائمة و
+              <span class="inline-code">&lt;Outlet /&gt;</span>
+              مكان الصفحة الحالية. المسارات المتداخلة ترسم الصفحة داخل التخطيط.
+            </p>
+            <div class="analogy-box">
+              <strong>تشبيه:</strong> التخطيط = إطار الموقع الثابت.
+              Outlet = اللوحة التي تتبدل: الرئيسية ثم الكورسات ثم التواصل.
+            </div>
+
+            <h3>6) Navigation</h3>
+            <p>
+              التنقّل من القائمة بـ Link/NavLink.
+              في الجلسة التالية نتنقّل برمجياً بـ useNavigate بعد حفظ نموذج مثلاً.
+            </p>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">💻</div>
+            <h2>أمثلة عملية</h2>
+          </div>
+
+          <h3>مثال 1: تغليف التطبيق</h3>
+          <div class="code-block">
+            <pre><code>import { BrowserRouter } from "react-router-dom";
+import App from "./App.jsx";
+
+createRoot(document.getElementById("root")).render(
+  &lt;BrowserRouter&gt;
+    &lt;App /&gt;
+  &lt;/BrowserRouter&gt;
+);</code></pre>
+          </div>
+
+          <h3>مثال 2: مسارات أساسية</h3>
+          <div class="code-block">
+            <pre><code>import { Routes, Route } from "react-router-dom";
+
+function App() {
+  return (
+    &lt;Routes&gt;
+      &lt;Route path="/" element={&lt;HomePage /&gt;} /&gt;
+      &lt;Route path="/courses" element={&lt;CoursesPage /&gt;} /&gt;
+      &lt;Route path="/about" element={&lt;AboutPage /&gt;} /&gt;
+      &lt;Route path="*" element={&lt;NotFoundPage /&gt;} /&gt;
+    &lt;/Routes&gt;
+  );
+}</code></pre>
+          </div>
+
+          <h3>مثال 3: Link و NavLink</h3>
+          <div class="code-block">
+            <pre><code>import { Link, NavLink } from "react-router-dom";
+
+function MainNav() {
+  return (
+    &lt;nav&gt;
+      &lt;Link to="/"&gt;Home&lt;/Link&gt;
+      &lt;NavLink
+        to="/courses"
+        className={({ isActive }) =&gt; (isActive ? "active" : "")}
+      &gt;
+        Courses
+      &lt;/NavLink&gt;
+      &lt;Link to="/about"&gt;Osama Bittar&lt;/Link&gt;
+    &lt;/nav&gt;
+  );
+}</code></pre>
+          </div>
+
+          <h3>مثال 4: تخطيط مع Outlet</h3>
+          <div class="code-block">
+            <pre><code>import { Outlet } from "react-router-dom";
+
+function SiteLayout() {
+  return (
+    &lt;div&gt;
+      &lt;header&gt;Academy — Osama Bittar&lt;/header&gt;
+      &lt;MainNav /&gt;
+      &lt;main&gt;
+        &lt;Outlet /&gt;
+      &lt;/main&gt;
+      &lt;footer&gt;Prices in EUR (€)&lt;/footer&gt;
+    &lt;/div&gt;
+  );
+}
+
+function App() {
+  return (
+    &lt;Routes&gt;
+      &lt;Route path="/" element={&lt;SiteLayout /&gt;}&gt;
+        &lt;Route index element={&lt;HomePage /&gt;} /&gt;
+        &lt;Route path="courses" element={&lt;CoursesPage /&gt;} /&gt;
+        &lt;Route path="about" element={&lt;AboutPage /&gt;} /&gt;
+        &lt;Route path="*" element={&lt;NotFoundPage /&gt;} /&gt;
+      &lt;/Route&gt;
+    &lt;/Routes&gt;
+  );
+}</code></pre>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">🎯</div>
+            <h2>اختبار سريع</h2>
+          </div>
+          <div class="quiz-card" data-correct="b">
+            <p class="quiz-question">للتنقّل الداخلي في SPA نفضّل:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">&lt;a href="/courses"&gt;</button>
+              <button class="quiz-option" data-value="b">&lt;Link to="/courses"&gt;</button>
+              <button class="quiz-option" data-value="c">window.location.reload()</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+          <div class="quiz-card" data-correct="a">
+            <p class="quiz-question">Outlet في التخطيط يعني:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">مكان رسم الصفحة الابن</button>
+              <button class="quiz-option" data-value="b">حذف كل المسارات</button>
+              <button class="quiz-option" data-value="c">بديل عن useState</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">✏️</div>
+            <h2>تمارين عملية</h2>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">1</span> ثلاث صفحات</h4>
+            <p>Home و Courses و About. About تعرض اسم المدرب Osama Bittar.</p>
+            <button class="solution-toggle" data-target="r10-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="r10-1">
+              <div class="code-block">
+                <pre><code>&lt;Route path="about" element={&lt;AboutPage /&gt;} /&gt;
+
+function AboutPage() {
+  return &lt;h1&gt;Trainer: Osama Bittar&lt;/h1&gt;;
+}</code></pre>
+              </div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">2</span> قائمة نشطة</h4>
+            <p>NavLink لصنف active على الرابط الحالي.</p>
+            <button class="solution-toggle" data-target="r10-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="r10-2">
+              <div class="code-block">
+                <pre><code>&lt;NavLink
+  to="/courses"
+  className={({ isActive }) =&gt; (isActive ? "active" : "")}
+&gt;
+  Courses
+&lt;/NavLink&gt;</code></pre>
+              </div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">3</span> 404</h4>
+            <p>مسار * يعرض «Page not found» مع Link للرئيسية.</p>
+            <button class="solution-toggle" data-target="r10-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="r10-3">
+              <div class="code-block">
+                <pre><code>&lt;Route path="*" element={&lt;NotFoundPage /&gt;} /&gt;
+
+function NotFoundPage() {
+  return (
+    &lt;p&gt;
+      Page not found. &lt;Link to="/"&gt;Home&lt;/Link&gt;
+    &lt;/p&gt;
+  );
+}</code></pre>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">📌</div>
+            <h2>ملخص الجلسة</h2>
+          </div>
+          <ul class="key-points">
+            <li>BrowserRouter يغلّف التطبيق</li>
+            <li>Route يربط المسار بمكوّن</li>
+            <li>Link للتنقّل الداخلي · NavLink للحالة النشطة</li>
+            <li>Layout + Outlet للهيدر المشترك</li>
+          </ul>
+        </section>
+
+        <section class="homework-box">
+          <h2>واجب الجلسة</h2>
+          <ul>
+            <li>ثبّت react-router-dom وابنِ تخطيطاً فيه شعار الأكاديمية</li>
+            <li>صفحات: الرئيسية، الكورسات (سعر تجريبي 49 €)، عن المدرب</li>
+            <li>صفحة 404 مع رابط عودة</li>
+          </ul>
+        </section>
+
+      </div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../../shared/course-data.js"></script>
+  <script src="../../../shared/layout.js"></script>
+  <script src="../../../shared/scripts.js"></script>
+</body>
+</html>

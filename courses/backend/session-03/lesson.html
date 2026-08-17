@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 03 — أساسيات Express.js</title>
+  <link rel="stylesheet" href="../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="backend" data-session="03">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+        <div class="student-welcome"><h3>هدف الجلسة</h3><p>ننشئ خادم Express، نفهم الطلب والرد، ونعرّف مسارات بطرق HTTP ورموز حالة صحيحة.</p></div>
+        <section class="section-block"><div class="section-header"><div class="section-icon">03</div><h2>الشرح النظري</h2></div><div class="theory-content"><h3>1) Express Setup و Web Server</h3>
+  <div class="code-block"><pre><code>npm install express
+# index.js
+import express from "express";
+const app = express();
+app.use(express.json());
+app.listen(3000, () => console.log("API on 3000"));</code></pre></div>
+  <h3>2) Requests و Responses</h3>
+  <p>req يحمل المعاملات والجسم والترويسات. res يرسل الرمز والجسم. JSON عبر <span class="inline-code">res.json</span>.</p>
+  <h3>3) Routes و HTTP Methods</h3>
+  <p>app.get وapp.post على مسارات ثابتة أولاً. لا تخلط مسؤولية المسار الواحد.</p>
+  <h3>4) Status Codes</h3>
+  <ul>
+    <li>200 نجاح قراءة · 201 إنشاء</li>
+    <li>400 طلب سيئ · 401 غير مصادق · 403 ممنوع · 404 غير موجود</li>
+    <li>500 خطأ خادم</li>
+  </ul></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">💻</div><h2>أمثلة عملية</h2></div><h3>مثال 1: ترحيب</h3><div class="code-block"><pre><code>app.get("/api/health", (req, res) => {
+  res.status(200).json({ ok: true, trainer: "Osama Bittar" });
+});</code></pre></div>
+  <h3>مثال 2: POST بسيط</h3><div class="code-block"><pre><code>app.post("/api/echo", (req, res) => {
+  res.status(201).json({ received: req.body });
+});</code></pre></div>
+  <h3>مثال 3: 404 مبدئي</h3><div class="code-block"><pre><code>app.use((req, res) => {
+  res.status(404).json({ message: "Route not found" });
+});</code></pre></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">🎯</div><h2>اختبار سريع</h2></div><div class="quiz-card" data-correct="a"><p class="quiz-question">express.json ضروري لـ:</p><div class="quiz-options"><button class="quiz-option" data-value="a">قراءة JSON من جسم POST</button><button class="quiz-option" data-value="b">تشغيل Mongo وحدها</button><button class="quiz-option" data-value="c">حذف المسارات</button></div><div class="quiz-feedback"></div></div><div class="quiz-card" data-correct="b"><p class="quiz-question">إنشاء مورد جديد يناسب رمز:</p><div class="quiz-options"><button class="quiz-option" data-value="a">404</button><button class="quiz-option" data-value="b">201</button><button class="quiz-option" data-value="c">500 دائماً</button></div><div class="quiz-feedback"></div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">✏️</div><h2>تمارين عملية</h2></div><div class="exercise-item"><h4><span class="exercise-number">1</span> خادم</h4><p>شغّل Express على PORT من env.</p><button class="solution-toggle" data-target="b03-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="b03-1"><div class="code-block"><pre><code>app.listen(process.env.PORT || 3000)</code></pre></div></div></div><div class="exercise-item"><h4><span class="exercise-number">2</span> health</h4><p>مسار GET /api/health.</p><button class="solution-toggle" data-target="b03-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="b03-2"><p>يرجع ok واسم المدرب.</p></div></div><div class="exercise-item"><h4><span class="exercise-number">3</span> 404</h4><p>وسيط أخير للمسارات المجهولة.</p><button class="solution-toggle" data-target="b03-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="b03-3"><p>status 404 وJSON.</p></div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📌</div><h2>ملخص الجلسة</h2></div><ul class="key-points"><li>استمع ثم عرّف المسارات</li><li>JSON عبر express.json</li><li>اختر رمز الحالة عن وعي</li></ul></section>
+        <section class="homework-box"><h2>واجب الجلسة</h2><ul><li>خادم يرد على /api/health</li><li>جرّب الطلب من Thunder Client أو REST Client</li><li>سجّل المنفذ في .env</li></ul></section></div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../shared/course-data.js"></script>
+  <script src="../../shared/layout.js"></script>
+  <script src="../../shared/scripts.js"></script>
+</body>
+</html>

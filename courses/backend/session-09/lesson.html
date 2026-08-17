@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 09 — المصادقة</title>
+  <link rel="stylesheet" href="../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="backend" data-session="09">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+        <div class="student-welcome"><h3>هدف الجلسة</h3><p>نبني تسجيلاً ودخولاً مع تجزئة كلمة المرور وJWT ووسيط حماية المسارات.</p></div>
+        <section class="section-block"><div class="section-header"><div class="section-icon">09</div><h2>الشرح النظري</h2></div><div class="theory-content"><h3>1) User Model</h3>
+  <p>email فريد، password يُجزَّأ قبل الحفظ، role افتراضي user.</p>
+  <h3>2) Registration و Login</h3>
+  <p>التسجيل ينشئ المستخدم ويرجع توكن. الدخول يقارن bcrypt ثم يصدر توكن.</p>
+  <h3>3) Password Hashing</h3>
+  <p>bcrypt (أو bcryptjs). لا تخزّن النص الأصلي أبداً.</p>
+  <h3>4) JWT</h3>
+  <p>payload: user id وrole. السر من JWT_SECRET. مدة صلاحية قصيرة للتدريب (مثلاً 7d) مع فهم أنها إعداد.</p>
+  <h3>5) Authentication Middleware و Protected Routes</h3>
+  <p>اقرأ Authorization: Bearer. تحقق التوكن وضع req.user. بدون توكن 401.</p>
+  <div class="warning-box"><strong>لا تضع السر في الكود.</strong> ولا تسجّل التوكن في لوج عام.</div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">💻</div><h2>أمثلة عملية</h2></div><h3>مثال 1: تجزئة</h3><div class="code-block"><pre><code>import bcrypt from "bcryptjs";
+user.password = await bcrypt.hash(plain, 10);</code></pre></div>
+  <h3>مثال 2: توكن</h3><div class="code-block"><pre><code>import jwt from "jsonwebtoken";
+const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: "7d" });</code></pre></div>
+  <h3>مثال 3: وسيط</h3><div class="code-block"><pre><code>export async function protect(req, res, next) {
+  const header = req.headers.authorization || "";
+  const token = header.startsWith("Bearer ") ? header.slice(7) : "";
+  if (!token) return res.status(401).json({ success: false, message: "Unauthorized" });
+  const payload = jwt.verify(token, process.env.JWT_SECRET);
+  req.user = payload;
+  next();
+}</code></pre></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">🎯</div><h2>اختبار سريع</h2></div><div class="quiz-card" data-correct="a"><p class="quiz-question">كلمة المرور في القاعدة تكون:</p><div class="quiz-options"><button class="quiz-option" data-value="a">مجزأة</button><button class="quiz-option" data-value="b">نصاً واضحاً للتجربة دائماً</button><button class="quiz-option" data-value="c">في اسم المجموعة</button></div><div class="quiz-feedback"></div></div><div class="quiz-card" data-correct="b"><p class="quiz-question">مسار محمي بدون توكن يرجع:</p><div class="quiz-options"><button class="quiz-option" data-value="a">200</button><button class="quiz-option" data-value="b">401</button><button class="quiz-option" data-value="c">201</button></div><div class="quiz-feedback"></div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">✏️</div><h2>تمارين عملية</h2></div><div class="exercise-item"><h4><span class="exercise-number">1</span> register</h4><p>POST /api/auth/register.</p><button class="solution-toggle" data-target="b09-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="b09-1"><p>hash ثم create ثم token.</p></div></div><div class="exercise-item"><h4><span class="exercise-number">2</span> login</h4><p>قارن bcrypt.compare.</p><button class="solution-toggle" data-target="b09-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="b09-2"><div class="code-block"><pre><code>const ok = await bcrypt.compare(plain, user.password);</code></pre></div></div></div><div class="exercise-item"><h4><span class="exercise-number">3</span> /api/auth/me</h4><p>protect ثم أرجع المستخدم بلا كلمة المرور.</p><button class="solution-toggle" data-target="b09-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="b09-3"><p>select("-password")</p></div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📌</div><h2>ملخص الجلسة</h2></div><ul class="key-points"><li>التجزئة قبل الحفظ</li><li>Bearer JWT</li><li>401 دون مصادقة</li></ul></section>
+        <section class="homework-box"><h2>واجب الجلسة</h2><ul><li>register وlogin يعملان</li><li>مسار me محمي</li><li>JWT_SECRET في .env</li></ul></section></div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../shared/course-data.js"></script>
+  <script src="../../shared/layout.js"></script>
+  <script src="../../shared/scripts.js"></script>
+</body>
+</html>

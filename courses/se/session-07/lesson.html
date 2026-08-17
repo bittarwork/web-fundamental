@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 07 — هندسة البرمجيات</title>
+  <link rel="stylesheet" href="../../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="se" data-session="07">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+        <div class="student-welcome"><h3>هدف الجلسة</h3><p>نمذّل دورة حياة الطلب من السلة حتى التسليم أو الإلغاء، مع قواعد الانتقال واتفاقية زمن الخدمة.</p></div>
+        <section class="section-block"><div class="section-header"><div class="section-icon">07</div><h2>الشرح النظري</h2></div>
+          <div class="theory-content">
+            <h3>1) لماذا الحالات؟</h3>
+            <p>النزاع التشغيلي يبدأ من جملة «الطلب رايح». هل غادر المطبخ؟ هل مع السائق؟ الحالات أسماء واحدة للجميع.</p>
+            <h3>2) الحالات المقترحة</h3>
+            <p>Draft → Placed → Preparing → Ready → Assigned → PickedUp → Delivered. فروع: Cancelled، FailedDelivery، Refunded.</p>
+            <h3>3) من يحرّك الحالة؟</h3>
+            <p>العميل يضع Placed. المطبخ Preparing/Ready. المشغّل أو المحرّك Assigned. السائق PickedUp/Delivered. النظام قد يلغي تلقائياً عند عدم الدفع الإلكتروني.</p>
+            <h3>4) الإلغاء والإرجاع</h3>
+            <p>قبل Ready: إلغاء أسهل. بعد PickedUp: مسار دعم. COD المرفوض عند الباب حالة FailedDelivery مع سياسة إعادة الطعام أو الإتلاف حسب قواعد المطعم.</p>
+            <h3>5) SLA</h3>
+            <p>هدف أكاديمي: 45 دقيقة من Placed إلى Delivered داخل النطاق. نكسرها: قبول مطبخ، تحضير، انتظار سائق، مسار. كل كسر مؤشر لاحقاً.</p>
+          </div>
+        </section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📐</div><h2>مخططات ووثائق عملية</h2></div>
+          <div class="diagram-box"><div class="diagram-caption">Order state machine</div>Draft -> Placed -> Preparing -> Ready -> Assigned -> PickedUp -> Delivered
+           |            |          |         |
+           +-&gt; Cancelled +          +-&gt; FailedDelivery -&gt; Refunded?</div>
+          <div class="spec-table-wrap"><table class="spec-table"><thead><tr><th>من</th><th>إلى</th><th>الفاعل</th><th>شرط</th></tr></thead><tbody><tr><td>Placed</td><td>Preparing</td><td>Kitchen</td><td>المطبخ قبل الطلب</td></tr><tr><td>Ready</td><td>Assigned</td><td>Dispatcher / engine</td><td>وجود سائق متاح</td></tr><tr><td>Assigned</td><td>PickedUp</td><td>Driver</td><td>تأكيد الاستلام من المطعم</td></tr><tr><td>PickedUp</td><td>Delivered</td><td>Driver</td><td>تأكيد التسليم + طريقة الدفع المنفّذة</td></tr></tbody></table></div>
+          </section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">🎯</div><h2>اختبار سريع</h2></div><div class="quiz-card" data-correct="b">
+            <p class="quiz-question">بعد PickedUp الإلغاء المباشر من العميل:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">دائماً تلقائي مع استرداد كامل بلا مراجعة</button>
+              <button class="quiz-option" data-value="b">مسار دعم حسب السياسة لا زر أعمى</button>
+              <button class="quiz-option" data-value="c">يعيد الحالة إلى Draft</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div><div class="quiz-card" data-correct="a">
+            <p class="quiz-question">Ready تعني:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">الطعام جاهز للاستلام من السائق</button>
+              <button class="quiz-option" data-value="b">الطلب ما زال في السلة</button>
+              <button class="quiz-option" data-value="c">السائق وصل للعميل</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">✏️</div><h2>تمارين عملية</h2></div><div class="exercise-item">
+            <h4><span class="exercise-number">1</span> قاعدة نفاد بعد الطلب</h4>
+            <p>ماذا لو نفذ صنف بعد Placed؟</p>
+            <button class="solution-toggle" data-target="se07-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="se07-1"><p>حالة خاصة: تعديل أو إلغاء بند مع إشعار. إن تعذّر البديل → Cancelled مع استرداد إلكتروني أو عدم طلب COD.</p></div>
+          </div><div class="exercise-item">
+            <h4><span class="exercise-number">2</span> SLA مجزّأ</h4>
+            <p>اقترح أزمنة دقائق لكل مرحلة لمجموع 45.</p>
+            <button class="solution-toggle" data-target="se07-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="se07-2"><p>مثال: 5 قبول، 20 تحضير، 5 تعيين، 15 مسار.</p></div>
+          </div><div class="exercise-item">
+            <h4><span class="exercise-number">3</span> FailedDelivery</h4>
+            <p>اكتب أثر الحالة على السائق والمال.</p>
+            <button class="solution-toggle" data-target="se07-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="se07-3"><p>لا أجر كامل إن كان السبب السائق. أجر جزئي إن رفض العميل الاستلام بعد الوصول وفق سياسة موثّقة. COD لا يُسجل كمحصّل.</p></div>
+          </div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📌</div><h2>ملخص الجلسة</h2></div>
+          <ul class="key-points"><li>الحالات لغة تشغيل مشتركة</li><li>كل انتقال له فاعل وشرط</li><li>الإلغاء يعتمد على الحالة لا على الرغبة فقط</li><li>SLA يُجزّأ حتى يُقاس</li></ul>
+        </section>
+        <section class="homework-box"><h2>واجب الجلسة</h2><ul><li>ارسم آلة حالات الطلب</li><li>جدول انتقالات كامل</li><li>سياسة إلغاء من صفحة واحدة</li></ul></section>
+      </div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../../shared/course-data.js"></script>
+  <script src="../../../shared/layout.js"></script>
+  <script src="../../../shared/scripts.js"></script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 03 — تحسين الأداء عن قياس</title>
+  <link rel="stylesheet" href="../../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="react-advanced" data-session="03">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+
+        <div class="student-welcome">
+          <h3>هدف الجلسة</h3>
+          <p>نستخدم memo وuseMemo وuseCallback بعد أن نرى مشكلة حقيقية في Profiler، لا كزينة على كل ملف.</p>
+        </div>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">03</div>
+            <h2>الشرح النظري</h2>
+          </div>
+          <div class="theory-content">
+            <h3>1) القياس أولاً</h3>
+            <p>React Developer Tools → Profiler يسجّل أي مكوّن أعيد رسمه ولماذا. حسّن الأغلى لا كل شيء.</p>
+            <h3>2) React.memo</h3>
+            <p>يتخطى رسم الابن إن كانت props بنفس المرجع/القيمة. مفيد لابن ثقيل تحت أب كثير الرسم.</p>
+            <h3>3) useCallback</h3>
+            <p>يثبّت مرجع الدالة حتى لا يكسر memo في الابن. بلا ابن مُمَوَّه غالباً لا فائدة.</p>
+            <h3>4) useMemo</h3>
+            <p>يحفظ نتيجة حساب مكلف (فلترة 2000 كورس) أو مرجعاً يمرَّر لطفل مُمَوَّه. الحساب الرخيص أسرع بدونه.</p>
+            <div class="warning-box"><strong>تحسين مبكر</strong> يزيد التعقيد ويخلق اعتماداً ناقصاً في المصفوفات.</div>
+            <h3>5) تكلفة الذاكرة</h3>
+            <p>كل memo يخزّن نتيجة سابقة. لا تغلف أيقونة صغيرة. ابدأ بتقسيم المكوّنات ومفاتيح صحيحة.</p>
+    </div>
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">💻</div>
+            <h2>أمثلة عملية</h2>
+          </div>
+          
+          <h3>مثال 1: ابن ثقيل</h3>
+          <div class="code-block"><pre><code>const CourseTable = memo(function CourseTable({ rows }) {
+  console.log("table render");
+  return rows.map((row) =&gt; &lt;tr key={row.id}&gt;&lt;td&gt;{row.title}&lt;/td&gt;&lt;/tr&gt;);
+});</code></pre></div>
+          <h3>مثال 2: تثبيت المعالج</h3>
+          <div class="code-block"><pre><code>const onSelect = useCallback((id) =&gt; {
+  setSelectedId(id);
+}, []);</code></pre></div>
+          <h3>مثال 3: فلترة مكلفة</h3>
+          <div class="code-block"><pre><code>const visible = useMemo(() =&gt; {
+  return courses.filter((item) =&gt; item.trainer === "Osama Bittar");
+}, [courses]);</code></pre></div>
+    
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">🎯</div>
+            <h2>اختبار سريع</h2>
+          </div>
+                    <div class="quiz-card" data-correct="b">
+            <p class="quiz-question">استخدم memo عندما:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">لكل span في الصفحة</button>
+              <button class="quiz-option" data-value="b">بعد قياس إعادة رسم مؤذية لابن ثقيل</button>
+              <button class="quiz-option" data-value="c">بدلاً من keys</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+          <div class="quiz-card" data-correct="a">
+            <p class="quiz-question">useCallback بلا ابن memo غالباً:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">لا يحسّن شيئاً ملموساً</button>
+              <button class="quiz-option" data-value="b">يحذف الـ Router</button>
+              <button class="quiz-option" data-value="c">يضاعف السعر €</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">✏️</div>
+            <h2>تمارين عملية</h2>
+          </div>
+                    <div class="exercise-item">
+            <h4><span class="exercise-number">1</span> Profiler</h4>
+            <p>سجّل نقرة زر بحث وحدد أغلى مكوّن.</p>
+            <button class="solution-toggle" data-target="ra03-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="ra03-1">
+              <p>افتح Profiler → Record → تفاعل → أوقف. ابحث عن الأشرطة الطويلة.</p>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">2</span> memo لبطاقة</h4>
+            <p>غلّف CourseCard بـ memo ومرّر كائناً سعراً ثابتاً.</p>
+            <button class="solution-toggle" data-target="ra03-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="ra03-2">
+              <div class="code-block"><pre><code>const CourseCard = memo(function CourseCard({ title, price }) {
+  return &lt;p&gt;{title}: {price} €&lt;/p&gt;;
+});</code></pre></div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">3</span> متى لا؟</h4>
+            <p>اذكر حالة useMemo غير مفيدة.</p>
+            <button class="solution-toggle" data-target="ra03-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="ra03-3">
+              <p>تجميع جملة ترحيب Hello Osama — أرخص من تكلفة الخطاف نفسه.</p>
+            </div>
+          </div>
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">📌</div>
+            <h2>ملخص الجلسة</h2>
+          </div>
+          <ul class="key-points">
+            <li>قِس ثم حسّن</li>
+            <li>memo يحمي ابناً ثقيلاً</li>
+            <li>المراجع الجديدة في props تكسر الحماية</li>
+          </ul>
+        </section>
+        <section class="homework-box">
+          <h2>واجب الجلسة</h2>
+          <ul>
+            <li>أضف Profiler لمشروع Vite السابق</li>
+            <li>حسّن قائمة واحدة فقط بعد القياس</li>
+            <li>اكتب تعليقاً إنجليزياً يشرح لماذا أضفت memo</li>
+          </ul>
+        </section>
+      </div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../../shared/course-data.js"></script>
+  <script src="../../../shared/layout.js"></script>
+  <script src="../../../shared/scripts.js"></script>
+</body>
+</html>

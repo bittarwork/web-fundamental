@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 13 — أمن الـ Backend وهندسة المشروع</title>
+  <link rel="stylesheet" href="../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="backend" data-session="13">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+        <div class="student-welcome"><h3>هدف الجلسة</h3><p>نضبط CORS والأسرار وRate Limiting كمفهوم، ونثبّت هيكل المجلدات، ونخطّط المشروع النهائي.</p></div>
+        <section class="section-block"><div class="section-header"><div class="section-icon">13</div><h2>الشرح النظري</h2></div><div class="theory-content"><h3>1) CORS</h3>
+  <p>اسمح لأصل الواجهة فقط (مثلاً http://localhost:5173) لا * في الإنتاج.</p>
+  <h3>2) Security Fundamentals</h3>
+  <ul>
+    <li>helmet كمفهوم لترويسات آمنة</li>
+    <li>كلمات مجزأة وJWT سري</li>
+    <li>تحقق المدخلات</li>
+    <li>لا تكشف أخطاء القاعدة للعميل</li>
+  </ul>
+  <h3>3) Rate Limiting Concept</h3>
+  <p>حد لعدد الطلبات لكل IP على /api/auth/login يقلل التخمين. express-rate-limit فكرة كافية لهذه الدورة.</p>
+  <h3>4) الهيكل: Routes · Controllers · Models · Middleware · Services</h3>
+  <p>Service يضم منطقاً يعاد استخدامه (إصدار التوكن، بناء فلتر القائمة) بعيداً عن المتحكم إن ثقل.</p>
+  <h3>5) Final Project Planning</h3>
+  <p>منتج الجلستين 14–15: <strong>Academy API</strong> — مستخدمون، كورسات بأسعار €، تسجيل، أدوار، CRUD، علاقات، رفع صورة، بحث وترقيم.</p></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">💻</div><h2>أمثلة عملية</h2></div><h3>مثال 1: CORS</h3><div class="code-block"><pre><code>import cors from "cors";
+app.use(cors({ origin: process.env.CLIENT_URL }));</code></pre></div>
+  <h3>مثال 2: شجرة الهدف</h3><div class="code-block"><pre><code>src/config/db.js
+src/models/User.js
+src/models/Course.js
+src/routes/authRoutes.js
+src/routes/courseRoutes.js
+src/controllers/
+src/middleware/protect.js
+src/middleware/errorHandler.js
+src/services/tokenService.js</code></pre></div>
+  <h3>مثال 3: حد الدخول</h3><div class="code-block"><pre><code>import rateLimit from "express-rate-limit";
+export const loginLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 20 });</code></pre></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">🎯</div><h2>اختبار سريع</h2></div><div class="quiz-card" data-correct="a"><p class="quiz-question">CORS في الإنتاج يفضّل:</p><div class="quiz-options"><button class="quiz-option" data-value="a">أصلاً معروفاً للواجهة</button><button class="quiz-option" data-value="b">* دائماً</button><button class="quiz-option" data-value="c">تعطيل HTTPS</button></div><div class="quiz-feedback"></div></div><div class="quiz-card" data-correct="b"><p class="quiz-question">Service يفيد عندما:</p><div class="quiz-options"><button class="quiz-option" data-value="a">الملف HTML فقط</button><button class="quiz-option" data-value="b">المنطق يُعاد في أكثر من متحكم</button><button class="quiz-option" data-value="c">لا يوجد Express</button></div><div class="quiz-feedback"></div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">✏️</div><h2>تمارين عملية</h2></div><div class="exercise-item"><h4><span class="exercise-number">1</span> CORS</h4><p>اضبط CLIENT_URL في .env.</p><button class="solution-toggle" data-target="b13-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="b13-1"><p>cors({ origin })</p></div></div><div class="exercise-item"><h4><span class="exercise-number">2</span> رتّب</h4><p>انقل الملفات حسب الشجرة.</p><button class="solution-toggle" data-target="b13-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="b13-2"><p>حدّث مسارات import.</p></div></div><div class="exercise-item"><h4><span class="exercise-number">3</span> خطة موارد</h4><p>اكتب موارد المشروع النهائي: User, Course.</p><button class="solution-toggle" data-target="b13-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="b13-3"><p>حقول السعر € والمدرب Osama Bittar.</p></div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📌</div><h2>ملخص الجلسة</h2></div><ul class="key-points"><li>CORS مقيّد</li><li>الأسرار في البيئة</li><li>الهيكل جاهز للمشروع</li></ul></section>
+        <section class="homework-box"><h2>واجب الجلسة</h2><ul><li>ارسم Endpoints المشروع النهائي</li><li>ثبّت cors و(اختيارياً) helmet وrate-limit</li><li>لا ترفع .env</li></ul></section></div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../shared/course-data.js"></script>
+  <script src="../../shared/layout.js"></script>
+  <script src="../../shared/scripts.js"></script>
+</body>
+</html>

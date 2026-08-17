@@ -6,29 +6,12 @@
   <title>الجلسة 10 — الشروط — if و else (اتخاذ القرارات)</title>
   <link rel="stylesheet" href="../shared/styles.css">
 </head>
-<body>
+<body class="lesson-page" data-page="lesson" data-course="web" data-session="10">
   <div class="page-wrapper">
 
-    <header class="site-header">
-      <div class="container">
-        <span class="course-badge">المرحلة 3 — JavaScript · من الصفر</span>
-        <h1>الجلسة 10: الشروط — if و else (اتخاذ القرارات)</h1>
-        <div class="session-meta">
-          <span>المدة: ساعة ونصف</span>
-          <span>الجلسة 10 من 16</span>
-        </div>
-      </div>
-    </header>
+    <div id="layout-header"></div>
 
-    <nav class="lesson-nav">
-      <div class="container">
-        <a href="../index.html" class="nav-link">الرئيسية</a>
-        <a href="../session-09/lesson.html" class="nav-link">→ السابقة</a>
-        <a href="../session-11/lesson.html" class="nav-link">التالية ←</a>
-      </div>
-    </nav>
-
-    <main class="main-content">
+    <main class="main-content" id="main-content">
       <div class="container">
 
         <div class="student-welcome">
@@ -149,7 +132,7 @@
             <h2>أمثلة عملية</h2>
           </div>
 
-          <h3>مثال 1: فحص العمر — طالب عمره 17 سنة</h3>
+          <h3>مثال 1: فحص العمر</h3>
           <div class="code-block">
             <div class="code-label">JavaScript — if / else</div>
             <pre><code>const age = 17;
@@ -492,13 +475,7 @@ console.log("السعر:", finalPrice, "ل.س");</code></pre>
       </div>
     </main>
 
-    <footer class="site-footer">
-      <div class="container">
-        <p class="footer-course">أساسيات الويب — الكورس الأول</p>
-        <p class="footer-instructor">محمد أسامة بيطار · مهندس معلوماتية · مدرب علوم ويب</p>
-        <p class="footer-copy">الجلسة 10 من 16</p>
-      </div>
-    </footer>
+    <div id="layout-footer"></div>
 
   </div>
 
@@ -555,6 +532,8 @@ console.log("السعر:", finalPrice, "ل.س");</code></pre>
       console.log("السعر النهائي:", finalPrice, "ل.س");
     }
   </script>
+  <script src="../shared/course-data.js"></script>
+  <script src="../shared/layout.js"></script>
   <script src="../shared/scripts.js"></script>
 </body>
 </html>

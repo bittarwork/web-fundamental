@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 03 — Props والتواصل بين المكوّنات</title>
+  <link rel="stylesheet" href="../../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="react" data-session="03">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+
+        <div class="student-welcome">
+          <h3>هدف الجلسة</h3>
+          <p>
+            نتعلّم تمرير البيانات من الأب إلى الابن عبر Props،
+            واستخدام children، وتركيب الواجهة من مكوّنات قابلة لإعادة الاستخدام.
+          </p>
+        </div>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">03</div>
+            <h2>الشرح النظري</h2>
+          </div>
+          <div class="theory-content">
+            <h3>1) ما هي Props؟</h3>
+            <p>
+              Props اختصار Properties: بيانات يرسلها المكوّن الأب إلى الابن.
+              الابن <strong>يقرأها ولا يعدّلها</strong> — كأنها مدخلات للدالة.
+            </p>
+            <div class="analogy-box">
+              <strong>تشبيه:</strong> المكوّن = قالب بطاقة · Props = الاسم والسعر اللذان يتغيران في كل بطاقة.
+            </div>
+
+            <h3>2) تمرير البيانات</h3>
+            <p>تمرَّر كخصائص JSX، وتُستقبل ككائن في معامل الدالة:</p>
+            <div class="code-block">
+              <pre><code>&lt;Welcome name="Osama" /&gt;
+
+function Welcome(props) {
+  return &lt;h1&gt;Hello {props.name}&lt;/h1&gt;;
+}</code></pre>
+            </div>
+            <p>الأوضح تفكيك الكائن:</p>
+            <div class="code-block">
+              <pre><code>function Welcome({ name }) {
+  return &lt;h1&gt;Hello {name}&lt;/h1&gt;;
+}</code></pre>
+            </div>
+
+            <h3>3) Children</h3>
+            <p>
+              كل ما يُكتب بين وسم الفتح والإغلاق يصل عبر
+              <span class="inline-code">props.children</span>.
+              مفيد للصناديق والأزرار والتخطيطات.
+            </p>
+
+            <h3>4) Component Composition</h3>
+            <p>
+              التركيب يعني بناء واجهة أكبر من مكوّنات أصغر:
+              Page تحتوي Header و Card، والـ Card تحتوي Title و Price.
+            </p>
+
+            <h3>5) Reusable UI</h3>
+            <p>
+              إذا تكرر نفس الشكل مع بيانات مختلفة — اصنع مكوّناً واحداً ومرّر Props.
+              لا تنسخ نفس الـ JSX ثلاث مرات.
+            </p>
+            <p>
+              يمكن إعطاء قيمة افتراضية عند التفكيك حتى لا ينكسر العرض إن نُسي الـ prop:
+              <span class="inline-code">function Price({ amount = 0 })</span>.
+            </p>
+            <div class="warning-box">
+              <strong>لا تغيّر props داخل الابن.</strong>
+              إذا احتجت قيمة تتبدل مع الوقت فهذه مهمة State في الجلسة 5.
+            </div>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">💻</div>
+            <h2>أمثلة عملية</h2>
+          </div>
+
+          <h3>مثال 1: بطاقة كورس</h3>
+          <div class="code-block">
+            <div class="code-label">CourseCard.jsx</div>
+            <pre><code>function CourseCard({ title, hours, level }) {
+  return (
+    &lt;article className="card"&gt;
+      &lt;h3&gt;{title}&lt;/h3&gt;
+      &lt;p&gt;{hours} hours · {level}&lt;/p&gt;
+    &lt;/article&gt;
+  );
+}
+
+export default CourseCard;</code></pre>
+          </div>
+          <div class="code-block">
+            <div class="code-label">App.jsx</div>
+            <pre><code>&lt;CourseCard title="Web Fundamentals" hours={40} level="Beginner" /&gt;
+&lt;CourseCard title="React" hours={32} level="Intermediate" /&gt;</code></pre>
+          </div>
+
+          <h3>مثال 2: تمرير اسم المدرب</h3>
+          <div class="code-block">
+            <pre><code>function Instructor({ fullName, city }) {
+  return (
+    &lt;p&gt;{fullName} — {city}&lt;/p&gt;
+  );
+}
+
+&lt;Instructor fullName="Osama Bittar" city="Damascus" /&gt;</code></pre>
+          </div>
+
+          <h3>مثال 3: children — صندوق محتوى</h3>
+          <div class="code-block">
+            <pre><code>function Panel({ title, children }) {
+  return (
+    &lt;section className="panel"&gt;
+      &lt;h2&gt;{title}&lt;/h2&gt;
+      {children}
+    &lt;/section&gt;
+  );
+}
+
+&lt;Panel title="About the trainer"&gt;
+  &lt;p&gt;Osama Bittar teaches modern web development.&lt;/p&gt;
+&lt;/Panel&gt;</code></pre>
+          </div>
+
+          <h3>مثال 4: سعر باليورو</h3>
+          <div class="code-block">
+            <pre><code>function Price({ amount }) {
+  return &lt;strong&gt;{amount} €&lt;/strong&gt;;
+}
+
+&lt;Price amount={29} /&gt;</code></pre>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">🎯</div>
+            <h2>اختبار سريع</h2>
+          </div>
+          <div class="quiz-card" data-correct="b">
+            <p class="quiz-question">Props في المكوّن الابن:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">تُعدَّل بحرية مثل متغير let</button>
+              <button class="quiz-option" data-value="b">للقراءة فقط — تأتي من الأب</button>
+              <button class="quiz-option" data-value="c">تُحفظ في ملف CSS</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+          <div class="quiz-card" data-correct="a">
+            <p class="quiz-question">المحتوى بين وسمي Panel يصل عبر:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">children</button>
+              <button class="quiz-option" data-value="b">innerHTML</button>
+              <button class="quiz-option" data-value="c">document.querySelector</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">✏️</div>
+            <h2>تمارين عملية</h2>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">1</span> مكوّن Welcome</h4>
+            <p>يستقبل <span class="inline-code">name</span> ويعرض «Welcome [name]». استدعه باسم Osama.</p>
+            <button class="solution-toggle" data-target="r03-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="r03-1">
+              <div class="code-block">
+                <pre><code>function Welcome({ name }) {
+  return &lt;h1&gt;Welcome {name}&lt;/h1&gt;;
+}
+
+&lt;Welcome name="Osama" /&gt;</code></pre>
+              </div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">2</span> ثلاث بطاقات كورس</h4>
+            <p>مرّر title و hours لثلاث دورات مختلفة باستخدام نفس المكوّن.</p>
+            <button class="solution-toggle" data-target="r03-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="r03-2">
+              <div class="code-block">
+                <pre><code>&lt;CourseCard title="HTML" hours={12} /&gt;
+&lt;CourseCard title="CSS" hours={12} /&gt;
+&lt;CourseCard title="JavaScript" hours={12} /&gt;</code></pre>
+              </div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">3</span> Button مع children</h4>
+            <p>مكوّن زر يعرض النص الموجود بين الوسمين.</p>
+            <button class="solution-toggle" data-target="r03-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="r03-3">
+              <div class="code-block">
+                <pre><code>function Button({ children }) {
+  return &lt;button type="button"&gt;{children}&lt;/button&gt;;
+}
+
+&lt;Button&gt;Enroll now&lt;/Button&gt;</code></pre>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">📌</div>
+            <h2>ملخص الجلسة</h2>
+          </div>
+          <ul class="key-points">
+            <li>Props = بيانات من الأب إلى الابن للقراءة فقط</li>
+            <li>فكك القيم: <span class="inline-code">{ title, hours }</span></li>
+            <li>children تمرّر المحتوى الداخلي للصندوق أو الزر</li>
+            <li>التركيب = صفحات كبيرة من مكوّنات صغيرة</li>
+          </ul>
+        </section>
+
+        <section class="homework-box">
+          <h2>واجب الجلسة</h2>
+          <ul>
+            <li>حوّل بطاقة المدرب إلى مكوّن يستقبل name و title و city</li>
+            <li>أنشئ قائمة 3 كورسات من نفس CourseCard</li>
+            <li>اصنع Panel يستخدم children لنص طويل</li>
+          </ul>
+        </section>
+
+      </div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../../shared/course-data.js"></script>
+  <script src="../../../shared/layout.js"></script>
+  <script src="../../../shared/scripts.js"></script>
+</body>
+</html>

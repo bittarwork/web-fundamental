@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 04 — التوجيه والوسيط</title>
+  <link rel="stylesheet" href="../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="backend" data-session="04">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+        <div class="student-welcome"><h3>هدف الجلسة</h3><p>نفرّق الراوتر عن التطبيق، نقرأ المعاملات والجسم، ونكتب Middleware وControllers.</p></div>
+        <section class="section-block"><div class="section-header"><div class="section-icon">04</div><h2>الشرح النظري</h2></div><div class="theory-content"><h3>1) Express Router</h3>
+  <p>ملف routes/courses.js يصدّر راوتراً يُركَّب على <span class="inline-code">/api/courses</span>.</p>
+  <h3>2) Route Parameters و Query و Body</h3>
+  <ul>
+    <li>params: <span class="inline-code">/courses/:id</span> → req.params.id</li>
+    <li>query: <span class="inline-code">?q=react</span> → req.query.q</li>
+    <li>body: JSON بعد express.json → req.body</li>
+  </ul>
+  <h3>3) Middleware</h3>
+  <p>دالة (req, res, next). إن لم تستدع next ولم ترسل رداً يبقى الطلب معلّقاً.</p>
+  <h3>4) Custom Middleware</h3>
+  <p>سجّل الطريقة والمسار، أو أرفق req.requestTime.</p>
+  <h3>5) Controllers</h3>
+  <p>المسار يسمي الدالة فقط. المنطق في controllers/courseController.js حتى يبقى الراوتر قصيراً.</p></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">💻</div><h2>أمثلة عملية</h2></div><h3>مثال 1: راوتر</h3><div class="code-block"><pre><code>import { Router } from "express";
+const router = Router();
+router.get("/", listCourses);
+router.get("/:id", getCourse);
+export default router;</code></pre></div>
+  <h3>مثال 2: وسيط سجل</h3><div class="code-block"><pre><code>export function logger(req, res, next) {
+  console.log(req.method, req.originalUrl);
+  next();
+}</code></pre></div>
+  <h3>مثال 3: Controller</h3><div class="code-block"><pre><code>export function listCourses(req, res) {
+  const q = req.query.q || "";
+  res.json({ trainer: "Osama Bittar", q, items: [] });
+}</code></pre></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">🎯</div><h2>اختبار سريع</h2></div><div class="quiz-card" data-correct="b"><p class="quiz-question">next() في الوسيط:</p><div class="quiz-options"><button class="quiz-option" data-value="a">يغلق الخادم</button><button class="quiz-option" data-value="b">يمرّر الطلب للتالي</button><button class="quiz-option" data-value="c">يحذف Mongo</button></div><div class="quiz-feedback"></div></div><div class="quiz-card" data-correct="a"><p class="quiz-question">معرف المورد في المسار يُقرأ من:</p><div class="quiz-options"><button class="quiz-option" data-value="a">req.params</button><button class="quiz-option" data-value="b">process.env فقط</button><button class="quiz-option" data-value="c">CSS</button></div><div class="quiz-feedback"></div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">✏️</div><h2>تمارين عملية</h2></div><div class="exercise-item"><h4><span class="exercise-number">1</span> راوتر كورسات</h4><p>ركّب /api/courses.</p><button class="solution-toggle" data-target="b04-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="b04-1"><div class="code-block"><pre><code>app.use("/api/courses", courseRouter);</code></pre></div></div></div><div class="exercise-item"><h4><span class="exercise-number">2</span> logger</h4><p>وسيط عام قبل المسارات.</p><button class="solution-toggle" data-target="b04-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="b04-2"><p>app.use(logger);</p></div></div><div class="exercise-item"><h4><span class="exercise-number">3</span> query</h4><p>اقرأ q من الاستعلام في list.</p><button class="solution-toggle" data-target="b04-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="b04-3"><div class="code-block"><pre><code>const q = String(req.query.q || "");</code></pre></div></div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📌</div><h2>ملخص الجلسة</h2></div><ul class="key-points"><li>الراوتر يجمّع المسارات</li><li>params/query/body مصادر مختلفة</li><li>Controller يخفف الراوتر</li></ul></section>
+        <section class="homework-box"><h2>واجب الجلسة</h2><ul><li>انقل مسارات الكورسات إلى router+controller</li><li>أضف logger</li><li>اختبر GET /api/courses?q=node</li></ul></section></div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../shared/course-data.js"></script>
+  <script src="../../shared/layout.js"></script>
+  <script src="../../shared/scripts.js"></script>
+</body>
+</html>

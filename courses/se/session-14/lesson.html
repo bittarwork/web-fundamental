@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 14 — هندسة البرمجيات</title>
+  <link rel="stylesheet" href="../../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="se" data-session="14">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+        <div class="student-welcome"><h3>هدف الجلسة</h3><p>نحوّل الملف إلى خطة تنفيذ أكاديمية: هيكل تجزئة عمل، مراحل، تتبع متطلبات، وسجل مخاطر — دون كتابة كود تطبيق.</p></div>
+        <section class="section-block"><div class="section-header"><div class="section-icon">14</div><h2>الشرح النظري</h2></div>
+          <div class="theory-content">
+            <h3>1) التنفيذ هنا تخطيط</h3>
+            <p>المرحلة الأكاديمية «تنفيذ» تعني: يستطيع فريق لاحق أن يبدأ وهو يعرف الترتيب. ليست فتح محرّر لكتابة دوال.</p>
+            <h3>2) WBS</h3>
+            <p>تجزئة: حسابات وصلاحيات، قائمة وطعام، طلب وحالات، مطبخ، تعيين، تطبيق سائق، محفظة وتسوية، إشعارات، تقارير، إعداد تشغيل.</p>
+            <h3>3) مراحل تسليم</h3>
+            <p>M1 قائمة وطلب دون سائق (استلام من المطعم). M2 سائق وتتبع. M3 مالية COD وتسوية. كل مرحلة قابلة للعرض.</p>
+            <h3>4) مصفوفة التتبع</h3>
+            <p>FR → UC → كيان → شاشة → مرحلة. إن بقي FR بلا مرحلة فهو خطر نطاق.</p>
+            <h3>5) المخاطر</h3>
+            <p>احتمال × أثر. أمثلة: انقطاع خرائط، نقص سائقين ساعة الذروة، فروقات COD، تقدير تحضير غير واقعي. لكل خطر: تخفيف ومالك.</p>
+          </div>
+        </section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📐</div><h2>مخططات ووثائق عملية</h2></div>
+          <div class="spec-table-wrap"><table class="spec-table"><thead><tr><th>مرحلة</th><th>نطاق</th><th>FR نموذجي</th></tr></thead><tbody><tr><td>M1</td><td>قائمة، طلب، مطبخ، دفع بطاقة</td><td>FR-ORD-01, FR-KIT-01</td></tr><tr><td>M2</td><td>تعيين، تطبيق سائق، تتبع</td><td>FR-DRV-01</td></tr><tr><td>M3</td><td>COD، محفظة، تسوية €</td><td>FR-FIN-01</td></tr></tbody></table></div>
+          <div class="spec-table-wrap"><table class="spec-table"><thead><tr><th>خطر</th><th>أثر</th><th>تخفيف</th></tr></thead><tbody><tr><td>Maps downtime</td><td>تعيين بلا مسافة</td><td>مسافة افتراضية للنطاق + قائمة أحياء</td></tr><tr><td>COD shortage</td><td>خسارة نقد</td><td>لا إغلاق وردية، خصم تسوية</td></tr><tr><td>Kitchen overload</td><td>تأخير SLA</td><td>إيقاف الطلبات عند 25 قيد التحضير</td></tr></tbody></table></div>
+          </section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">🎯</div><h2>اختبار سريع</h2></div><div class="quiz-card" data-correct="b">
+            <p class="quiz-question">WBS في هذه الدورة:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">مستودع Git فيه تطبيق جاهز</button>
+              <button class="quiz-option" data-value="b">تجزئة عمل وخطة لمراحل بناء لاحقة</button>
+              <button class="quiz-option" data-value="c">شعار المطعم</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div><div class="quiz-card" data-correct="a">
+            <p class="quiz-question">متطلب مالي بلا مرحلة M3:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">خطر نطاق أو نسيان تتبّع</button>
+              <button class="quiz-option" data-value="b">أمر طبيعي يُحذف تلقائياً</button>
+              <button class="quiz-option" data-value="c">يعني أن الكود كُتب</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">✏️</div><h2>تمارين عملية</h2></div><div class="exercise-item">
+            <h4><span class="exercise-number">1</span> WBS</h4>
+            <p>اكتب 8 حزم عمل.</p>
+            <button class="solution-toggle" data-target="se14-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="se14-1"><p>Auth/roles، Menu، Cart/Order، Kitchen queue، Dispatch، Driver job، Wallet/COD، Reports/export.</p></div>
+          </div><div class="exercise-item">
+            <h4><span class="exercise-number">2</span> تتبع</h4>
+            <p>اربط FR-FIN-02 بشاشة ومرحلة.</p>
+            <button class="solution-toggle" data-target="se14-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="se14-2"><p>شاشة Weekly settlement للمحاسب، مرحلة M3، كيانات WalletTx وShift.</p></div>
+          </div><div class="exercise-item">
+            <h4><span class="exercise-number">3</span> خطر سائقين</h4>
+            <p>ذروة بلا Available.</p>
+            <button class="solution-toggle" data-target="se14-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="se14-3"><p>تخفيف: مشغّل يعيد التوزيع، رسالة عميل بتأخير، إيقاف مؤقت للطلبات الجديدة.</p></div>
+          </div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📌</div><h2>ملخص الجلسة</h2></div>
+          <ul class="key-points"><li>التنفيذ الأكاديمي خطة لا كود</li><li>مراحل قابلة للعرض</li><li>التتبع يكشف اليتيم من المتطلبات</li><li>كل خطر له مالك وتخفيف</li></ul>
+        </section>
+        <section class="homework-box"><h2>واجب الجلسة</h2><ul><li>WBS كامل</li><li>مصفوفة تتبع لعشرين FR</li><li>سجل 8 مخاطر</li></ul></section>
+      </div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../../shared/course-data.js"></script>
+  <script src="../../../shared/layout.js"></script>
+  <script src="../../../shared/scripts.js"></script>
+</body>
+</html>

@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 14 — أساسيات متقدمة وهيكل المشروع</title>
+  <link rel="stylesheet" href="../../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="react" data-session="14">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+
+        <div class="student-welcome">
+          <h3>هدف الجلسة</h3>
+          <p>
+            نرتّب مشروع React كمنتج حقيقي: useRef و Custom Hooks
+            ومجلدات واضحة ومتغيرات بيئة وأساسيات الأداء وأدوات التصحيح —
+            استعداداً للمشروعين النهائيين.
+          </p>
+        </div>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">14</div>
+            <h2>الشرح النظري</h2>
+          </div>
+          <div class="theory-content">
+            <h3>1) useRef</h3>
+            <p>
+              <span class="inline-code">useRef</span> يحتفظ بقيمة عبر الرسوم دون إعادة رسم عند تغييرها.
+              الاستخدام الأشهر: الإشارة إلى عنصر DOM — تركيز حقل بعد الخطأ، أو قراءة ملف.
+            </p>
+            <div class="code-block">
+              <pre><code>const inputRef = useRef(null);
+
+function focusName() {
+  inputRef.current.focus();
+}
+
+&lt;input ref={inputRef} /&gt;</code></pre>
+            </div>
+            <div class="tip-box">
+              <strong>ليس بديلاً عن state للواجهة.</strong>
+              إن كان المستخدم يجب أن يرى التغيّر فوراً استخدم useState.
+            </div>
+
+            <h3>2) Custom Hooks</h3>
+            <p>
+              خطاف مخصّص = دالة يبدأ اسمها بـ
+              <span class="inline-code">use</span>
+              وتستدعي Hooks أخرى. ننقل منطق الجلب أو النموذج خارج المكوّن لإعادة الاستخدام.
+            </p>
+            <div class="analogy-box">
+              <strong>تشبيه:</strong> المكوّن يعرض البطاقة · الخطاف يجلب القائمة ويُعيد loading و error و data.
+            </div>
+
+            <h3>3) تنظيم Project Structure</h3>
+            <p>افصل المسؤوليات حتى يبقى المشروع قابلاً للنمو في الجلستين 15 و 16:</p>
+            <div class="code-block">
+              <pre><code>src/
+  components/     // reusable UI pieces
+  pages/          // route screens
+  context/        // providers
+  hooks/          // custom hooks
+  services/       // fetch helpers
+  App.jsx
+  main.jsx</code></pre>
+            </div>
+
+            <h3>4) Components · Pages · Services</h3>
+            <ul>
+              <li><strong>Components:</strong> زر، بطاقة، حقل — بلا معرفة بالمسار.</li>
+              <li><strong>Pages:</strong> تجمع المكوّنات وتربطها بالـ Router.</li>
+              <li><strong>Services:</strong> دوال <span class="inline-code">fetch</span> فقط، تُستدعى من أثر أو خطاف.</li>
+            </ul>
+
+            <h3>5) Reusable Logic</h3>
+            <p>
+              لا تنسخ نفس كتلة fetch في ثلاث صفحات.
+              انقلها إلى <span class="inline-code">useCourses()</span>
+              أو <span class="inline-code">coursesService.js</span>.
+            </p>
+
+            <h3>6) Environment Variables</h3>
+            <p>
+              في Vite المتغيرات العامة تبدأ بـ
+              <span class="inline-code">VITE_</span>
+              وتُقرأ عبر
+              <span class="inline-code">import.meta.env.VITE_API_URL</span>.
+              لا تضع أسراراً حقيقية في الواجهة — أي مفتاح في الفرونت يظهر للمستخدم.
+            </p>
+            <div class="code-block">
+              <pre><code>VITE_API_URL=https://jsonplaceholder.typicode.com</code></pre>
+            </div>
+
+            <h3>7) أساسيات تحسين الأداء</h3>
+            <ul>
+              <li>لا تجلب البيانات في كل رسم — قيّد useEffect بالاعتماد الصحيح.</li>
+              <li>Keys ثابتة في القوائم.</li>
+              <li>قسّم المكوّنات حتى لا يعيد رسم صفحة كاملة من أجل شارة صغيرة.</li>
+              <li>لاحقاً: <span class="inline-code">React.memo</span> عند الحاجة فقط، لا في كل ملف.</li>
+            </ul>
+
+            <h3>8) Debugging و React Developer Tools</h3>
+            <p>
+              ثبّت إضافة React Developer Tools في المتصفح.
+              تبويب Components يعرض الشجرة والـ props والـ state.
+              تبويب Profiler يساعد لاحقاً على فهم إعادة الرسم.
+            </p>
+            <p>
+              أثناء التطوير: <span class="inline-code">console.log</span> بحذر،
+              ونقاط التوقف في DevTools، وقراءة رسالة الخطأ كاملة قبل تعديل عشوائي.
+            </p>
+
+            <h3>9) التحضير للمشاريع النهائية</h3>
+            <p>
+              قبل الجلسة 15 جهّز مستودع Vite نظيفاً، والمجلدات أعلاه، وملف
+              <span class="inline-code">.env</span> لعنوان الـ API،
+              وتخطيط Router فارغ. المشروع الأول كتالوج كورسات، والثاني سلة بحالة متقدمة.
+            </p>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">💻</div>
+            <h2>أمثلة عملية</h2>
+          </div>
+
+          <h3>مثال 1: تركيز الحقل بعد خطأ</h3>
+          <div class="code-block">
+            <pre><code>function EnrollForm() {
+  const nameRef = useRef(null);
+  const [error, setError] = useState("");
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    const name = nameRef.current.value.trim();
+    if (!name) {
+      setError("Name is required");
+      nameRef.current.focus();
+      return;
+    }
+    setError("");
+  }
+
+  return (
+    &lt;form onSubmit={handleSubmit}&gt;
+      &lt;input ref={nameRef} defaultValue="Osama" /&gt;
+      {error && &lt;p&gt;{error}&lt;/p&gt;}
+      &lt;button type="submit"&gt;Save&lt;/button&gt;
+    &lt;/form&gt;
+  );
+}</code></pre>
+          </div>
+
+          <h3>مثال 2: Custom Hook للجلب</h3>
+          <div class="code-block">
+            <pre><code>export function useCourses() {
+  const [courses, setCourses] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() =&gt; {
+    async function load() {
+      try {
+        const base = import.meta.env.VITE_API_URL;
+        const response = await fetch(base + "/posts?_limit=8");
+        if (!response.ok) throw new Error("Failed to load");
+        setCourses(await response.json());
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+    load();
+  }, []);
+
+  return { courses, loading, error };
+}</code></pre>
+          </div>
+
+          <h3>مثال 3: طبقة services</h3>
+          <div class="code-block">
+            <pre><code>const baseUrl = import.meta.env.VITE_API_URL;
+
+export async function getCourses() {
+  const response = await fetch(baseUrl + "/posts?_limit=8");
+  if (!response.ok) throw new Error("Could not load courses");
+  return response.json();
+}
+
+export async function getCourseById(id) {
+  const response = await fetch(baseUrl + "/posts/" + id);
+  if (!response.ok) throw new Error("Course not found");
+  return response.json();
+}</code></pre>
+          </div>
+
+          <h3>مثال 4: صفحة تستخدم الخطاف فقط</h3>
+          <div class="code-block">
+            <pre><code>function CoursesPage() {
+  const { courses, loading, error } = useCourses();
+  if (loading) return &lt;p&gt;Loading...&lt;/p&gt;;
+  if (error) return &lt;p&gt;{error}&lt;/p&gt;;
+  return &lt;CourseList items={courses} trainer="Osama Bittar" /&gt;;
+}</code></pre>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">🎯</div>
+            <h2>اختبار سريع</h2>
+          </div>
+          <div class="quiz-card" data-correct="b">
+            <p class="quiz-question">تغيير ref.current:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">يعيد رسم المكوّن دائماً</button>
+              <button class="quiz-option" data-value="b">لا يعيد الرسم من تلقاء نفسه</button>
+              <button class="quiz-option" data-value="c">يحذف الـ Router</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+          <div class="quiz-card" data-correct="a">
+            <p class="quiz-question">في Vite متغير الواجهة يبدأ بـ:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">VITE_</button>
+              <button class="quiz-option" data-value="b">SECRET_ONLY</button>
+              <button class="quiz-option" data-value="c">HTML_</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">✏️</div>
+            <h2>تمارين عملية</h2>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">1</span> useRef للتركيز</h4>
+            <p>زر «Focus search» يركّز حقل البحث.</p>
+            <button class="solution-toggle" data-target="r14-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="r14-1">
+              <div class="code-block">
+                <pre><code>const searchRef = useRef(null);
+&lt;button type="button" onClick={() =&gt; searchRef.current.focus()}&gt;
+  Focus search
+&lt;/button&gt;
+&lt;input ref={searchRef} /&gt;</code></pre>
+              </div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">2</span> خطاف useToggle</h4>
+            <p>يعيد value و دالة تعكس القيمة. استخدمه لقائمة الجوال.</p>
+            <button class="solution-toggle" data-target="r14-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="r14-2">
+              <div class="code-block">
+                <pre><code>function useToggle(initial = false) {
+  const [value, setValue] = useState(initial);
+  function toggle() {
+    setValue((current) =&gt; !current);
+  }
+  return [value, toggle];
+}</code></pre>
+              </div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">3</span> نقل fetch</h4>
+            <p>انقل طلب القائمة من الصفحة إلى services/courses.js ثم استدعه من الخطاف.</p>
+            <button class="solution-toggle" data-target="r14-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="r14-3">
+              <div class="code-block">
+                <pre><code>import { getCourses } from "../services/courses";
+const data = await getCourses();
+setCourses(data);</code></pre>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">📌</div>
+            <h2>ملخص الجلسة</h2>
+          </div>
+          <ul class="key-points">
+            <li>useRef للـ DOM والقيم التي لا تحتاج رسماً</li>
+            <li>Custom Hooks لإعادة استخدام المنطق</li>
+            <li>components / pages / services / hooks / context</li>
+            <li>VITE_ للمتغيرات · DevTools للتصحيح</li>
+          </ul>
+        </section>
+
+        <section class="homework-box">
+          <h2>واجب الجلسة</h2>
+          <ul>
+            <li>أنشئ هيكل المجلدات لمشروع Vite جديد</li>
+            <li>أضف .env فيه VITE_API_URL وثبّت React Developer Tools</li>
+            <li>اكتب useCourses و getCourses جاهزين لجلسة 15</li>
+          </ul>
+        </section>
+
+      </div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../../shared/course-data.js"></script>
+  <script src="../../../shared/layout.js"></script>
+  <script src="../../../shared/scripts.js"></script>
+</body>
+</html>

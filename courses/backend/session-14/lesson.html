@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 14 — المشروع النهائي — المرحلة الأولى</title>
+  <link rel="stylesheet" href="../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="backend" data-session="14">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+        <div class="student-welcome"><h3>هدف الجلسة</h3><p>نحلّل نظام أكاديمية حقيقي، نبني النماذج والمسارات والمصادقة وCRUD للكورسات.</p></div>
+        <section class="section-block"><div class="section-header"><div class="section-icon">14</div><h2>الشرح النظري</h2></div><div class="theory-content"><h3>1) تحليل المتطلبات</h3>
+  <p>منصة كورسات: الزائر يرى القائمة، المستخدم يسجّل، الأدمن ينشئ كورسات بسعر € واسم مدرّب Osama Bittar.</p>
+  <h3>2) Resources</h3>
+  <p>Auth، Users (محدود)، Courses. لاحقاً يمكن Enrollment.</p>
+  <h3>3) تصميم MongoDB و Schemas و Models</h3>
+  <p>نفّذ User وCourse كما خططت في 13 مع owner وtimestamps.</p>
+  <h3>4) Routes و Controllers و CRUD</h3>
+  <p>GET عام للقائمة والتفاصيل. POST/PATCH/DELETE محمية.</p>
+  <h3>5) Authentication و Users و JWT</h3>
+  <p>register، login، me. لا ترجع password.</p>
+  <h3>6) تنظيم البنية</h3>
+  <p>لا تضع كل شيء في index.js. هذا معيار التسليم.</p>
+  <div class="warning-box"><strong>لا تبدأ بالزينة.</strong> تدفق: اتصال → نماذج → auth → CRUD كورسات.</div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">💻</div><h2>أمثلة عملية</h2></div><h3>مثال 1: مسارات المرحلة 1</h3><div class="code-block"><pre><code>POST /api/auth/register
+POST /api/auth/login
+GET  /api/auth/me
+GET  /api/courses
+GET  /api/courses/:id
+POST /api/courses          // admin
+PATCH /api/courses/:id     // admin or owner
+DELETE /api/courses/:id    // admin or owner</code></pre></div>
+  <h3>مثال 2: جسم إنشاء</h3><div class="code-block"><pre><code>{
+  "title": "Node.js Backend",
+  "price": 55,
+  "trainer": "Osama Bittar"
+}</code></pre></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">🎯</div><h2>اختبار سريع</h2></div><div class="quiz-card" data-correct="a"><p class="quiz-question">ترتيب التنفيذ الأفضل:</p><div class="quiz-options"><button class="quiz-option" data-value="a">قاعدة ومصادقة ثم CRUD</button><button class="quiz-option" data-value="b">رفع الصور قبل الاتصال</button><button class="quiz-option" data-value="c">CORS قبل npm init</button></div><div class="quiz-feedback"></div></div><div class="quiz-card" data-correct="b"><p class="quiz-question">قائمة الكورسات العامة:</p><div class="quiz-options"><button class="quiz-option" data-value="a">تتطلب JWT دائماً في هذا المشروع</button><button class="quiz-option" data-value="b">يمكن أن تكون GET بلا توكن</button><button class="quiz-option" data-value="c">تحذف القاعدة</button></div><div class="quiz-feedback"></div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">✏️</div><h2>تمارين عملية</h2></div><div class="exercise-item"><h4><span class="exercise-number">1</span> نماذج</h4><p>User وCourse في Mongo.</p><button class="solution-toggle" data-target="b14-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="b14-1"><p>email unique · price min 0.</p></div></div><div class="exercise-item"><h4><span class="exercise-number">2</span> Auth</h4><p>register/login/me.</p><button class="solution-toggle" data-target="b14-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="b14-2"><p>توكن في الرد.</p></div></div><div class="exercise-item"><h4><span class="exercise-number">3</span> CRUD</h4><p>إنشاء كورس كأدمن وقراءته بدون توكن.</p><button class="solution-toggle" data-target="b14-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="b14-3"><p>اختبر بعميلين.</p></div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📌</div><h2>ملخص الجلسة</h2></div><ul class="key-points"><li>حلّل ثم صمّم ثم نفّذ</li><li>JWT من اليوم الأول للمشروع</li><li>CRUD يعمل قبل الميزات المتقدمة</li></ul></section>
+        <section class="homework-box"><h2>واجب الجلسة</h2><ul><li>مستودع academy-api على Git بلا .env</li><li>Postman/Thunder لمجموعة الطلبات</li><li>كورس عيّنة بـ 55 €</li></ul></section></div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../shared/course-data.js"></script>
+  <script src="../../shared/layout.js"></script>
+  <script src="../../shared/scripts.js"></script>
+</body>
+</html>

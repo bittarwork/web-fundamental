@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 02 — المكوّنات</title>
+  <link rel="stylesheet" href="../../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="react" data-session="02">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+
+        <div class="student-welcome">
+          <h3>هدف الجلسة</h3>
+          <p>
+            نتعلّم Functional Components: كيف نكتب مكوّناً، كيف نقسم الواجهة،
+            وكيف نصدّر ونستورد المكوّنات لإعادة استخدامها.
+          </p>
+        </div>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">02</div>
+            <h2>الشرح النظري</h2>
+          </div>
+          <div class="theory-content">
+            <h3>1) Functional Components</h3>
+            <p>
+              المكوّن في React الحديثة هو <strong>دالة</strong> اسمها يبدأ بحرف كبير،
+              وترجع JSX. كل مرة نستدعيها كأننا نضع قطعة واجهة في الصفحة.
+            </p>
+            <div class="code-block">
+              <div class="code-label">Component rule</div>
+              <pre><code>function Welcome() {
+  return &lt;h1&gt;Hello Osama&lt;/h1&gt;;
+}</code></pre>
+            </div>
+            <div class="tip-box">
+              <strong>قاعدة:</strong> <span class="inline-code">Welcome</span> صح ·
+              <span class="inline-code">welcome</span> خطأ — React تعتبر الاسم الصغير عنصر HTML عادي.
+            </div>
+
+            <h3>2) Component Structure</h3>
+            <p>هيكل المكوّن الواضح:</p>
+            <ol class="step-list">
+              <li>الاستيرادات في أعلى الملف إن لزم.</li>
+              <li>الدالة بالمكوّن (اسم كبير).</li>
+              <li>منطق بسيط قبل الـ return إذا احتجت متغيرات.</li>
+              <li><span class="inline-code">return (...JSX...)</span></li>
+              <li><span class="inline-code">export default</span> أو تصدير مسمّى.</li>
+            </ol>
+
+            <h3>3) تقسيم واجهة الموقع</h3>
+            <p>
+              لا تضع الموقع كله في <span class="inline-code">App.jsx</span>.
+              قسّم حسب المعنى: Header، Hero، CourseCard، Footer.
+            </p>
+            <div class="analogy-box">
+              <strong>تشبيه:</strong> App = غلاف الكتاب · كل Component = فصل مستقل.
+            </div>
+
+            <h3>4) Reusable Components</h3>
+            <p>
+              المكوّن الجيد يفعل شيئاً واحداً ويمكن وضعه أكثر من مرة.
+              بطاقة كورس واحدة تُعاد لعرض «أساسيات الويب» و«React».
+            </p>
+
+            <h3>5) Import / Export</h3>
+            <div class="compare-grid">
+              <div class="compare-box">
+                <h4>export default</h4>
+                <p>تصدير واحد لكل ملف. الاستيراد بأي اسم: <span class="inline-code">import Header from "./Header"</span></p>
+              </div>
+              <div class="compare-box">
+                <h4>Named export</h4>
+                <p>أكثر من تصدير: <span class="inline-code">export function Logo()</span> ثم <span class="inline-code">import { Logo }</span></p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">💻</div>
+            <h2>أمثلة عملية</h2>
+          </div>
+
+          <h3>مثال 1: مكوّن ترحيب</h3>
+          <div class="code-block">
+            <div class="code-label">src/components/Welcome.jsx</div>
+            <pre><code>function Welcome() {
+  return &lt;h1&gt;Trainer: Osama Bittar&lt;/h1&gt;;
+}
+
+export default Welcome;</code></pre>
+          </div>
+
+          <h3>مثال 2: استخدامه داخل App</h3>
+          <div class="code-block">
+            <div class="code-label">src/App.jsx</div>
+            <pre><code>import Welcome from "./components/Welcome";
+import Footer from "./components/Footer";
+
+function App() {
+  return (
+    &lt;&gt;
+      &lt;Welcome /&gt;
+      &lt;Footer /&gt;
+    &lt;/&gt;
+  );
+}
+
+export default App;</code></pre>
+          </div>
+
+          <h3>مثال 3: مكوّن يُستخدم مرتين</h3>
+          <div class="code-block">
+            <div class="code-label">CourseCard reused</div>
+            <pre><code>function CourseCard() {
+  return (
+    &lt;article className="card"&gt;
+      &lt;h2&gt;Web Course&lt;/h2&gt;
+      &lt;p&gt;40 hours · 20 sessions&lt;/p&gt;
+    &lt;/article&gt;
+  );
+}
+
+function App() {
+  return (
+    &lt;section&gt;
+      &lt;CourseCard /&gt;
+      &lt;CourseCard /&gt;
+    &lt;/section&gt;
+  );
+}</code></pre>
+          </div>
+          <p>حالياً البطاقتان متطابقتان. في الجلسة التالية نمرّر بيانات مختلفة عبر Props.</p>
+
+          <h3>مثال 4: Named export</h3>
+          <div class="code-block">
+            <div class="code-label">src/components/Logo.jsx</div>
+            <pre><code>export function Logo() {
+  return &lt;span className="brand-mark"&gt;وب&lt;/span&gt;;
+}</code></pre>
+          </div>
+          <div class="code-block">
+            <div class="code-label">import named</div>
+            <pre><code>import { Logo } from "./components/Logo";</code></pre>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">🎯</div>
+            <h2>اختبار سريع</h2>
+          </div>
+          <div class="quiz-card" data-correct="c">
+            <p class="quiz-question">اسم المكوّن الصحيح:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">function header()</button>
+              <button class="quiz-option" data-value="b">function navbar()</button>
+              <button class="quiz-option" data-value="c">function Header()</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+          <div class="quiz-card" data-correct="a">
+            <p class="quiz-question">لجمع أكثر من عنصر بدون وسم إضافي نستخدم:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">Fragment &lt;&gt;&lt;/&gt;</button>
+              <button class="quiz-option" data-value="b">ثلاث قيم return منفصلة</button>
+              <button class="quiz-option" data-value="c">document.write</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">✏️</div>
+            <h2>تمارين عملية</h2>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">1</span> Header و Footer</h4>
+            <p>أنشئ مجلداً <span class="inline-code">src/components</span> فيه Header و Footer واستوردهما في App.</p>
+            <button class="solution-toggle" data-target="r02-s1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="r02-s1">
+              <div class="code-block">
+                <pre><code>// Header.jsx
+function Header() {
+  return &lt;header&gt;&lt;h1&gt;Osama Bittar Academy&lt;/h1&gt;&lt;/header&gt;;
+}
+export default Header;
+
+// App.jsx
+import Header from "./components/Header";
+import Footer from "./components/Footer";</code></pre>
+              </div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">2</span> مكوّن Instructor</h4>
+            <p>مكوّن يعرض اسم المدرب ووظيفته في بطاقة بسيطة.</p>
+            <button class="solution-toggle" data-target="r02-s2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="r02-s2">
+              <div class="code-block">
+                <pre><code>function Instructor() {
+  return (
+    &lt;article&gt;
+      &lt;h2&gt;Osama Bittar&lt;/h2&gt;
+      &lt;p&gt;Informatics Engineer · Web Instructor&lt;/p&gt;
+    &lt;/article&gt;
+  );
+}</code></pre>
+              </div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">3</span> تقسيم الصفحة</h4>
+            <p>App لا يحتوي إلا على تجميع المكوّنات: Header، Instructor، Footer — بدون نصوص طويلة داخله.</p>
+            <button class="solution-toggle" data-target="r02-s3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="r02-s3">
+              <div class="code-block">
+                <pre><code>function App() {
+  return (
+    &lt;&gt;
+      &lt;Header /&gt;
+      &lt;Instructor /&gt;
+      &lt;Footer /&gt;
+    &lt;/&gt;
+  );
+}</code></pre>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">📌</div>
+            <h2>ملخص الجلسة</h2>
+          </div>
+          <ul class="key-points">
+            <li>المكوّن = دالة بحرف كبير ترجع JSX</li>
+            <li>قسّم الواجهة حسب المعنى لا حسب الحجم فقط</li>
+            <li>ملفات المكوّنات في <span class="inline-code">src/components</span></li>
+            <li>default export لملف بمكوّن واحد · named export لأكثر من تصدير</li>
+          </ul>
+        </section>
+
+        <section class="homework-box">
+          <h2>واجب الجلسة</h2>
+          <ul>
+            <li>أنشئ 4 مكوّنات: Header، Hero، CourseList، Footer</li>
+            <li>اجمعها في App بدون تكرار HTML طويل</li>
+            <li>سمّ كل ملف بنفس اسم المكوّن</li>
+          </ul>
+        </section>
+
+      </div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../../shared/course-data.js"></script>
+  <script src="../../../shared/layout.js"></script>
+  <script src="../../../shared/scripts.js"></script>
+</body>
+</html>

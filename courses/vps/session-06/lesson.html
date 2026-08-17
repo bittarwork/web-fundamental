@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 06 — سطر الأوامر — العمليات</title>
+  <link rel="stylesheet" href="../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="vps" data-session="06">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+        <div class="student-welcome"><h3>هدف الجلسة</h3><p>نحدّث Ubuntu، ندير الخدمات والعمليات، نقرأ السجلات، وننقل المشروع من جهازنا إلى السيرفر.</p></div>
+        <section class="section-block"><div class="section-header"><div class="section-icon">06</div><h2>الشرح النظري</h2></div><div class="theory-content">
+      <h3>1) الحزم: apt</h3>
+      <p>Ubuntu يستخدم apt. حدّث فهرس الحزم ثم النظام:</p>
+      <div class="code-block"><pre><code>apt update
+apt upgrade -y
+apt install -y curl git ufw nginx</code></pre></div>
+      <p><span class="inline-code">apt search nginx</span> للبحث. <span class="inline-code">apt remove</span> لإزالة حزمة.</p>
+      <h3>2) الخدمات: systemd</h3>
+      <div class="code-block"><pre><code>systemctl status nginx
+systemctl start nginx
+systemctl enable nginx
+systemctl restart nginx</code></pre></div>
+      <p>enable تعني التشغيل بعد إعادة الإقلاع. status يخبرك active أم failed.</p>
+      <h3>3) السجلات</h3>
+      <div class="code-block"><pre><code>journalctl -u nginx -n 50 --no-pager
+tail -f /var/log/nginx/access.log</code></pre></div>
+      <p><span class="inline-code">Ctrl+C</span> يوقف المتابعة. اقرأ الخطأ من الأسفل غالباً.</p>
+      <h3>4) العمليات والموارد</h3>
+      <div class="code-block"><pre><code>htop
+# or: top
+ps aux | grep nginx
+free -h
+df -h</code></pre></div>
+      <p>ثبّت htop إن لم يوجد: <span class="inline-code">apt install -y htop</span>.</p>
+      <h3>5) الأنابيب والتصفية</h3>
+      <div class="code-block"><pre><code>ls /var/log | grep nginx
+dmesg | tail</code></pre></div>
+      <h3>6) النقل من جهازك (على اللابتوب لا على السيرفر)</h3>
+      <div class="code-block"><pre><code>scp -r ./public root@YOUR_IP:/root/academy/
+rsync -avz ./public/ root@YOUR_IP:/root/academy/public/</code></pre></div>
+      <p>rsync ألطف للتحديثات المتكررة. scp كافٍ لأول مرة.</p>
+      <h3>7) المستخدمون (تمهيد)</h3>
+      <div class="code-block"><pre><code>adduser deploy
+id deploy</code></pre></div>
+      <p>التفاصيل والصلاحيات في الجلسة التالية. لا تحذف root.</p>
+    </div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">💻</div><h2>أمثلة عملية</h2></div>
+      <h3>مثال 1: تحديث آمن أول يوم</h3>
+      <div class="code-block"><pre><code>apt update && apt upgrade -y</code></pre></div>
+      <h3>مثال 2: هل Nginx يستمع؟</h3>
+      <div class="code-block"><pre><code>ss -tulpn | grep :80</code></pre></div>
+      <h3>مثال 3: جلب Git على السيرفر</h3>
+      <div class="code-block"><pre><code>cd /root/academy
+git clone https://github.com/USERNAME/academy-notes.git</code></pre></div>
+      <p>مستودعك العام فقط. لا تضع أسراراً في المستودع.</p>
+    </section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">🎯</div><h2>اختبار سريع</h2></div><div class="quiz-card" data-correct="a"><p class="quiz-question">systemctl enable يعني:</p><div class="quiz-options"><button class="quiz-option" data-value="a">تشغيل الخدمة تلقائياً بعد الإقلاع</button><button class="quiz-option" data-value="b">حذف الحزمة</button><button class="quiz-option" data-value="c">شراء نطاق</button></div><div class="quiz-feedback"></div></div><div class="quiz-card" data-correct="b"><p class="quiz-question">scp يُنفَّذ عادة من:</p><div class="quiz-options"><button class="quiz-option" data-value="a">داخل nano</button><button class="quiz-option" data-value="b">جهازك نحو السيرفر</button><button class="quiz-option" data-value="c">ملف CSS</button></div><div class="quiz-feedback"></div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">✏️</div><h2>تمارين عملية</h2></div><div class="exercise-item"><h4><span class="exercise-number">1</span> حدّث</h4><p>apt update وupgrade.</p><button class="solution-toggle" data-target="v06-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="v06-1"><p>انتظر حتى ينتهي بلا أخطاء حمراء حرجة.</p></div></div><div class="exercise-item"><h4><span class="exercise-number">2</span> git وcurl</h4><p>ثبّتهما عبر apt.</p><button class="solution-toggle" data-target="v06-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="v06-2"><div class="code-block"><pre><code>apt install -y git curl</code></pre></div></div></div><div class="exercise-item"><h4><span class="exercise-number">3</span> انقل</h4><p>من جهازك انسخ مجلد public إلى السيرفر.</p><button class="solution-toggle" data-target="v06-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="v06-3"><div class="code-block"><pre><code>scp -r ./public root@YOUR_IP:/root/academy/</code></pre></div></div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📌</div><h2>ملخص الجلسة</h2></div><ul class="key-points"><li>apt للتثبيت</li><li>systemctl للحياة اليومية للخدمة</li><li>scp/rsync جسر جهازك والسيرفر</li></ul></section>
+        <section class="homework-box"><h2>واجب الجلسة</h2><ul><li>ثبّت git curl ufw nginx</li><li>انقل صفحة HTML واحدة</li><li>التقط systemctl status nginx بعد الجلسة 07 إن لم تشغّله بعد</li></ul></section></div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../shared/course-data.js"></script>
+  <script src="../../shared/layout.js"></script>
+  <script src="../../shared/scripts.js"></script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 01 — مفهوم الاستضافة وHostinger</title>
+  <link rel="stylesheet" href="../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="vps" data-session="01">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+        <div class="student-welcome"><h3>هدف الجلسة</h3><p>نفهم أين يعيش الموقع على الإنترنت، ولماذا ننتقل إلى VPS، ولماذا نلتزم بـ Hostinger فقط في هذه الدورة.</p></div>
+        <section class="section-block"><div class="section-header"><div class="section-icon">01</div><h2>الشرح النظري</h2></div><div class="theory-content">
+      <div class="tip-box"><strong>نطاق الدورة:</strong> المزوّد الوحيد هو <span class="inline-code">Hostinger</span> (hPanel وVPS وDomains). لا نخلط مع مزوّدين آخرين حتى يبقى كل زر في مكانه.</div>
+      <h3>1) أين يعيش الموقع؟</h3>
+      <p>جهاز الزائر يطلب عنواناً. خادم يجيب بملفات HTML/CSS/JS أو تطبيق Node/React مُبنى. هذا الخادم مستأجر عند شركة استضافة.</p>
+      <div class="analogy-box"><strong>تشبيه:</strong> GitHub Pages = رفّ في مكتبة عامة. الاستضافة المشتركة = شقة في مبنى يديره الحارس. VPS = شقة بمفتاحك أنت (root).</div>
+      <h3>2) أنواع الاستضافة</h3>
+      <div class="compare-grid">
+        <div class="compare-box"><h4>Shared</h4><p>سهل ورخيص. موارد مشتركة. مناسب لموقع تعريفي صغير بلا Docker.</p></div>
+        <div class="compare-box"><h4>VPS (KVM)</h4><p>جهاز افتراضي معزول، صلاحية root، تختار Ubuntu وتثبت ما تشاء. هذا مسار الدورة.</p></div>
+      </div>
+      <p>GitHub Pages ممتاز للدروس الثابتة. عندما تحتاج قاعدة بيانات أو Docker أو خلفية API، تنتقل إلى VPS.</p>
+      <h3>3) لماذا Hostinger هنا؟</h3>
+      <ul>
+        <li>لوحة <strong>hPanel</strong> واضحة: VPS، Domains، الفواتير بالعملات المتاحة ومنها اليورو.</li>
+        <li>خطط <strong>KVM 1 / 2 / 4 / 8</strong> بمعالجات وذاكرة وNVMe.</li>
+        <li>قالب Ubuntu، Browser Terminal، مفاتيح SSH، جدار ناري، لقطات ونسخ أسبوعية.</li>
+        <li>شراء النطاق وإدارة DNS من نفس الحساب.</li>
+      </ul>
+      <h3>4) hPanel باختصار</h3>
+      <p>بعد تسجيل الدخول: Domains للنطاقات، VPS للسيرفرات، Billing للدفع. صفحة Overview للسيرفر تعرض IP والحالة وBrowser Terminal.</p>
+      <div class="warning-box"><strong>الأسعار باليورو.</strong> غيّر عملة العرض إن لزم، وتحقق من سعر التجديد لا سعر الشهر الأول فقط.</div>
+    </div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">💻</div><h2>أمثلة عملية</h2></div>
+      <h3>مثال 1: متى تترك Pages؟</h3>
+      <p>صفحة Portfolio ثابتة تبقى على Pages. تطبيق React يحتاج API أو Docker → VPS على Hostinger.</p>
+      <h3>مثال 2: إنشاء حساب</h3>
+      <p>hostinger.com → إنشاء حساب بالبريد → أكّد البريد → ادخل hPanel. استخدم اسماً واضحاً مثل Osama Bittar في بيانات الفاتورة.</p>
+      <h3>مثال 3: أين VPS؟</h3>
+      <p>القائمة العلوية → VPS. إن لم تشترِ بعد سترى خطط KVM. بعد الشراء تظهر بطاقة السيرفر وحالته.</p>
+    </section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">🎯</div><h2>اختبار سريع</h2></div><div class="quiz-card" data-correct="b"><p class="quiz-question">VPS يعني غالباً:</p><div class="quiz-options"><button class="quiz-option" data-value="a">مشاركة مجلد مع كل عملاء الاستضافة بلا عزل</button><button class="quiz-option" data-value="b">جهاز افتراضي بصلاحية root تقريباً كاملة</button><button class="quiz-option" data-value="c">استبدال Git</button></div><div class="quiz-feedback"></div></div><div class="quiz-card" data-correct="a"><p class="quiz-question">في هذه الدورة نستخدم:</p><div class="quiz-options"><button class="quiz-option" data-value="a">Hostinger فقط</button><button class="quiz-option" data-value="b">أي مزوّد في كل جلسة</button><button class="quiz-option" data-value="c">ويندوز سيرفر فقط</button></div><div class="quiz-feedback"></div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">✏️</div><h2>تمارين عملية</h2></div><div class="exercise-item"><h4><span class="exercise-number">1</span> حساب</h4><p>أنشئ حساب Hostinger وسجّل دخولك إلى hPanel.</p><button class="solution-toggle" data-target="v01-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="v01-1"><p>البريد → تأكيد → hPanel. لا تشارك كلمة المرور.</p></div></div><div class="exercise-item"><h4><span class="exercise-number">2</span> لماذا VPS؟</h4><p>اكتب ثلاثة أسباب لمشروع React+API مقابل صفحة HTML.</p><button class="solution-toggle" data-target="v01-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="v01-2"><p>خلفية تعمل 24/7، Docker، قاعدة بيانات، صلاحية تثبيت حزم.</p></div></div><div class="exercise-item"><h4><span class="exercise-number">3</span> العملة</h4><p>من الفواتير تأكد أن العرض باليورو أو حوّل السعر إلى € قبل الشراء.</p><button class="solution-toggle" data-target="v01-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="v01-3"><p>سجّل السعر الشهري الترويجي وسعر التجديد باليورو.</p></div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📌</div><h2>ملخص الجلسة</h2></div><ul class="key-points"><li>المشترك سهل · VPS تحكم</li><li>hPanel مركز النطاق والسيرفر والدفع</li><li>راجع التجديد باليورو قبل الالتزام</li></ul></section>
+        <section class="homework-box"><h2>واجب الجلسة</h2><ul><li>جهّز حساب Hostinger</li><li>التقط صورة لصفحة VPS الفارغة أو الخطط</li><li>اكتب نوع مشروعك: ثابت / Node / Docker</li></ul></section></div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../shared/course-data.js"></script>
+  <script src="../../shared/layout.js"></script>
+  <script src="../../shared/scripts.js"></script>
+</body>
+</html>

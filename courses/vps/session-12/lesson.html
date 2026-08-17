@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 12 — التشغيل والانتقال للعمل</title>
+  <link rel="stylesheet" href="../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="vps" data-session="12">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+        <div class="student-welcome"><h3>هدف الجلسة</h3><p>نعتمد نسخ Hostinger، تحديثات أمنية، نشراً من Git، وعادات يمكن أخذها إلى وظيفة حقيقية.</p></div>
+        <section class="section-block"><div class="section-header"><div class="section-icon">12</div><h2>الشرح النظري</h2></div><div class="theory-content">
+      <h3>1) النسخ في hPanel</h3>
+      <ul>
+        <li><strong>Snapshots:</strong> لقطة سريعة قبل تجربة خطرة (تحديث كبير، تغيير OS).</li>
+        <li><strong>Backups:</strong> النسخ الأسبوعية حسب الخطة. اعرف كيف تستعيد من اللوحة قبل أن تحتاجها.</li>
+      </ul>
+      <h3>2) تحديثات أمنية</h3>
+      <div class="code-block"><pre><code>apt update && apt upgrade -y
+docker compose pull
+docker compose up -d</code></pre></div>
+      <p>جدولة أسبوعية أفضل من نسيان شهر. لا ترقِّ إصدار Ubuntu الرئيسي دون لقطة.</p>
+      <h3>3) النشر من Git (مسار عمل)</h3>
+      <div class="code-block"><pre><code>cd /root/academy
+git pull
+docker compose up -d --build</code></pre></div>
+      <p>في الفرق: فرع main محمي، والسيرفر يسحب إصداراً مختبراً فقط. لا تطوّر على السيرفر مباشرة.</p>
+      <h3>4) مراقبة خفيفة</h3>
+      <div class="code-block"><pre><code>df -h
+free -h
+docker compose ps
+journalctl -u nginx -n 20 --no-pager</code></pre></div>
+      <h3>5) الانتقال للعمل</h3>
+      <ul>
+        <li>نفس الأفكار: SSH بمفاتيح، مستخدم غير root، جدار، Docker، بروكسي، شهادات، نسخ.</li>
+        <li>الفارق: بيئات staging/production، أسرار في مدير أسرار لا في Git، وأحياناً أنابيب CI تدفع إلى السيرفر.</li>
+        <li>التذاكر: لا تعطِ صلاحية root في دردشة. وثّق IP والنطاق في مكان الفريق الآمن.</li>
+        <li>Hostinger يبقى خياراً عملياً للمشاريع الصغيرة والمتوسطة باليورو؛ الشركات قد تستخدم بنية أكبر لكن أوامرك نفسها تنقل.</li>
+      </ul>
+      <h3>6) قائمة تسليم الدورة</h3>
+      <ul>
+        <li>VPS Ubuntu Running على Hostinger</li>
+        <li>نطاق من Hostinger + HTTPS</li>
+        <li>تطبيق Docker compose</li>
+        <li>صفحة تظهر Osama Bittar وسعر عيّنة €</li>
+        <li>لقطة Snapshot قبل التسليم</li>
+      </ul>
+    </div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">💻</div><h2>أمثلة عملية</h2></div>
+      <h3>مثال 1: سكربت تحديث بسيط</h3>
+      <div class="code-block"><pre><code>#!/bin/bash
+set -e
+cd /root/academy
+git pull
+docker compose up -d --build</code></pre></div>
+      <p>لا تشغّله تلقائياً قبل أن تفهم git pull على main.</p>
+      <h3>مثال 2: ما الذي لا يُفعل في العمل؟</h3>
+      <p>التطوير على الإنتاج، تعطيل الجدار، مشاركة root، وترك السيرفر بلا نسخ.</p>
+    </section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">🎯</div><h2>اختبار سريع</h2></div><div class="quiz-card" data-correct="b"><p class="quiz-question">قبل تجربة خطرة على السيرفر:</p><div class="quiz-options"><button class="quiz-option" data-value="a">احذف VPS</button><button class="quiz-option" data-value="b">خذ Snapshot من hPanel</button><button class="quiz-option" data-value="c">عطّل DNS</button></div><div class="quiz-feedback"></div></div><div class="quiz-card" data-correct="a"><p class="quiz-question">في العمل نسحب إلى السيرفر:</p><div class="quiz-options"><button class="quiz-option" data-value="a">كود مختبر من Git لا تعديلاً عشوائياً على الإنتاج</button><button class="quiz-option" data-value="b">كل فرع تجريبي مباشرة</button><button class="quiz-option" data-value="c">ملفات من USB فقط</button></div><div class="quiz-feedback"></div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">✏️</div><h2>تمارين عملية</h2></div><div class="exercise-item"><h4><span class="exercise-number">1</span> لقطة</h4><p>أنشئ Snapshot من hPanel.</p><button class="solution-toggle" data-target="v12-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="v12-1"><p>سمّها قبل-التسليم.</p></div></div><div class="exercise-item"><h4><span class="exercise-number">2</span> سحب</h4><p>git pull ثم compose up --build.</p><button class="solution-toggle" data-target="v12-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="v12-2"><p>الموقع ما زال على HTTPS.</p></div></div><div class="exercise-item"><h4><span class="exercise-number">3</span> قائمة أسبوعية</h4><p>اكتب 5 بنود صيانة.</p><button class="solution-toggle" data-target="v12-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="v12-3"><p>تحديث apt، حالة docker، مساحة القرص، شهادة، نسخة.</p></div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📌</div><h2>ملخص الجلسة</h2></div><ul class="key-points"><li>Snapshot عادة لا بطولة</li><li>Git مصدر الحقيقة لا تعديل الإنتاج باليد</li><li>نفس المهارات تُنقل للعمل مع صرامة أكبر</li></ul></section>
+        <section class="homework-box"><h2>واجب الجلسة</h2><ul><li>تسليم: رابط HTTPS + ملخص الخطة باليورو + تأكيد أن المزوّد Hostinger</li><li>لا ترفق كلمات مرور</li><li>راجع الجدار والمفتاح</li></ul></section></div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../shared/course-data.js"></script>
+  <script src="../../shared/layout.js"></script>
+  <script src="../../shared/scripts.js"></script>
+</body>
+</html>

@@ -62,29 +62,12 @@
     }
   </style>
 </head>
-<body>
+<body class="lesson-page" data-page="lesson" data-course="web" data-session="14">
   <div class="page-wrapper">
 
-    <header class="site-header">
-      <div class="container">
-        <span class="course-badge">المرحلة 3 — JavaScript · DOM</span>
-        <h1>الجلسة 14: DOM — ربط JavaScript بالصفحة</h1>
-        <div class="session-meta">
-          <span>المدة: ساعة ونصف</span>
-          <span>الجلسة 14 من 16</span>
-        </div>
-      </div>
-    </header>
+    <div id="layout-header"></div>
 
-    <nav class="lesson-nav">
-      <div class="container">
-        <a href="../index.html" class="nav-link">الرئيسية</a>
-        <a href="../session-13/lesson.html" class="nav-link">→ السابقة</a>
-        <a href="../session-15/lesson.html" class="nav-link">التالية ←</a>
-      </div>
-    </nav>
-
-    <main class="main-content">
+    <main class="main-content" id="main-content">
       <div class="container">
 
         <div class="student-welcome">
@@ -217,23 +200,23 @@
             <pre><code>&lt;p id="welcome"&gt;Hello!&lt;/p&gt;
 &lt;script&gt;
   const welcomeEl = document.getElementById("welcome");
-  welcomeEl.textContent = "Welcome George!";
+  welcomeEl.textContent = "Welcome Osama!";
 &lt;/script&gt;</code></pre>
           </div>
           <div class="expected-output">
             <div class="expected-output-label">📤 النتيجة على الصفحة</div>
-            <pre>Welcome George!</pre>
+            <pre>Welcome Osama!</pre>
           </div>
 
           <h3>مثال 2: querySelector — أول زر</h3>
           <div class="code-block">
             <div class="code-label">JavaScript — querySelector</div>
             <pre><code>const btn = document.querySelector(".start-btn");
-btn.textContent = "Ready, George!";</code></pre>
+btn.textContent = "Ready, Osama!";</code></pre>
           </div>
           <div class="expected-output">
             <div class="expected-output-label">📤 النتيجة</div>
-            <pre>نص الزر الأول من class="start-btn" يصير: Ready, George!</pre>
+            <pre>نص الزر الأول من class="start-btn" يصير: Ready, Osama!</pre>
           </div>
 
           <h3>مثال 3: textContent vs innerHTML</h3>
@@ -241,13 +224,13 @@ btn.textContent = "Ready, George!";</code></pre>
             <div class="code-label">JavaScript — Content</div>
             <pre><code>const box = document.getElementById("info");
 
-box.textContent = "George loves tech";     // نص عادي
-// box.innerHTML = "&lt;strong&gt;George&lt;/strong&gt; loves tech";  // نص + HTML</code></pre>
+box.textContent = "Osama loves tech";     // نص عادي
+// box.innerHTML = "&lt;strong&gt;Osama&lt;/strong&gt; loves tech";  // نص + HTML</code></pre>
           </div>
           <div class="expected-output">
             <div class="expected-output-label">📤 الفرق</div>
-            <pre>textContent → George loves tech (نص فقط)
-innerHTML   → George (عريض) loves tech (يفسر HTML كوسوم)</pre>
+            <pre>textContent → Osama loves tech (نص فقط)
+innerHTML   → Osama (عريض) loves tech (يفسر HTML كوسوم)</pre>
           </div>
 
           <h3>مثال 4: element.style — تغيير اللون</h3>
@@ -269,7 +252,7 @@ title.style.fontSize = "28px";</code></pre>
 const greetText = document.getElementById("greet-text");
 
 greetBtn.addEventListener("click", function () {
-  greetText.textContent = "Hey George Ziad Shahin! 👋";
+  greetText.textContent = "Hey Osama Bittar! 👋";
   greetText.style.color = "green";
 });</code></pre>
           </div>
@@ -344,7 +327,7 @@ addBtn.addEventListener("click", function () {
 
     // Change greeting on click
     greetBtn.addEventListener("click", function () {
-      message.textContent = "Welcome George Ziad Shahin!";
+      message.textContent = "Welcome Osama Bittar!";
       title.style.color = "#2563eb";
     });
 
@@ -506,7 +489,7 @@ goBtn.addEventListener("click", function () {
             <h4><span class="exercise-number">1</span> زر ترحيب شخصي</h4>
             <p>
               أنشئ صفحة فيها <span class="inline-code">&lt;h1 id="name"&gt;Student&lt;/h1&gt;</span>
-              وزر. لما ينقر، يصير النص «George Ziad Shahin» واللون أخضر.
+              وزر. لما ينقر، يصير النص «Osama Bittar» واللون أخضر.
             </p>
             <button class="solution-toggle" data-target="sol-1">
               <span class="toggle-text">عرض الحل</span>
@@ -522,7 +505,7 @@ goBtn.addEventListener("click", function () {
   const btn = document.getElementById("show-name");
 
   btn.addEventListener("click", function () {
-    nameEl.textContent = "George Ziad Shahin";
+    nameEl.textContent = "Osama Bittar";
     nameEl.style.color = "green";
   });
 &lt;/script&gt;</code></pre>
@@ -630,13 +613,7 @@ goBtn.addEventListener("click", function () {
       </div>
     </main>
 
-    <footer class="site-footer">
-      <div class="container">
-        <p class="footer-course">أساسيات الويب — الكورس الأول</p>
-        <p class="footer-instructor">محمد أسامة بيطار · مهندس معلوماتية · مدرب علوم ويب</p>
-        <p class="footer-copy">الجلسة 14 من 16</p>
-      </div>
-    </footer>
+    <div id="layout-footer"></div>
 
   </div>
 
@@ -644,7 +621,7 @@ goBtn.addEventListener("click", function () {
     // Demo simulation for example 5 (console output)
     function demo_s14_example5() {
       console.log("Click simulated!");
-      console.log("greetText.textContent = 'Hey George Ziad Shahin! 👋'");
+      console.log("greetText.textContent = 'Hey Osama Bittar! 👋'");
       console.log("greetText.style.color = 'green'");
     }
 
@@ -663,7 +640,7 @@ goBtn.addEventListener("click", function () {
       // Greeting button — changes text and color
       if (greetingBtn && greetingText) {
         greetingBtn.addEventListener("click", function () {
-          greetingText.textContent = "Hey George Ziad Shahin! 👋";
+          greetingText.textContent = "Hey Osama Bittar! 👋";
           greetingText.style.color = "#16a34a";
         });
       }
@@ -685,6 +662,8 @@ goBtn.addEventListener("click", function () {
       }
     });
   </script>
+  <script src="../shared/course-data.js"></script>
+  <script src="../shared/layout.js"></script>
   <script src="../shared/scripts.js"></script>
 </body>
 </html>

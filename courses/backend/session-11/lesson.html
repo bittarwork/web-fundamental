@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 11 — التحقق ومعالجة الأخطاء</title>
+  <link rel="stylesheet" href="../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="backend" data-session="11">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+        <div class="student-welcome"><h3>هدف الجلسة</h3><p>نتحقق من المدخلات في الطلب والنموذج، ونبني معالجاً مركزياً للأخطاء غير المتزامنة وقاعدة البيانات و404.</p></div>
+        <section class="section-block"><div class="section-header"><div class="section-icon">11</div><h2>الشرح النظري</h2></div><div class="theory-content"><h3>1) Request Validation و Schema Validation</h3>
+  <p>تحقق الجسم قبل قاعدة البيانات (طول الاسم، بريد، السعر ≥ 0). الـ Schema طبقة ثانية.</p>
+  <h3>2) Centralized Error Handler</h3>
+  <p>وسيط بأربعة معاملات (err, req, res, next). أرسل message آمن للعميل. التفاصيل في السجل للخادم فقط.</p>
+  <h3>3) Async Errors</h3>
+  <p>غلّف المتحكم: catchAsync(fn) يستدعي Promise.resolve(fn(...)).catch(next).</p>
+  <h3>4) Database Errors و Invalid IDs و Not Found</h3>
+  <p>CastError لـ ObjectId غير صالح → 400. document null → 404. مسار غير موجود → 404 أخير.</p>
+  <h3>5) API Error Responses</h3>
+  <div class="code-block"><pre><code>{ "success": false, "message": "Title is required" }</code></pre></div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">💻</div><h2>أمثلة عملية</h2></div><h3>مثال 1: غلاف async</h3><div class="code-block"><pre><code>export const asyncHandler = (fn) => (req, res, next) => {
+  Promise.resolve(fn(req, res, next)).catch(next);
+};</code></pre></div>
+  <h3>مثال 2: معالج</h3><div class="code-block"><pre><code>export function errorHandler(err, req, res, next) {
+  const status = err.statusCode || 500;
+  res.status(status).json({ success: false, message: err.message || "Server error" });
+}</code></pre></div>
+  <h3>مثال 3: 404</h3><div class="code-block"><pre><code>app.use((req, res) => {
+  res.status(404).json({ success: false, message: "Route not found" });
+});</code></pre></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">🎯</div><h2>اختبار سريع</h2></div><div class="quiz-card" data-correct="a"><p class="quiz-question">معالج الأخطاء في Express له:</p><div class="quiz-options"><button class="quiz-option" data-value="a">4 معاملات منها err</button><button class="quiz-option" data-value="b">معامل واحد فقط</button><button class="quiz-option" data-value="c">لا next أبداً</button></div><div class="quiz-feedback"></div></div><div class="quiz-card" data-correct="b"><p class="quiz-question">ObjectId غير صالح يناسب:</p><div class="quiz-options"><button class="quiz-option" data-value="a">201</button><button class="quiz-option" data-value="b">400</button><button class="quiz-option" data-value="c">301</button></div><div class="quiz-feedback"></div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">✏️</div><h2>تمارين عملية</h2></div><div class="exercise-item"><h4><span class="exercise-number">1</span> asyncHandler</h4><p>غلّف المتحكمات.</p><button class="solution-toggle" data-target="b11-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="b11-1"><p>لا try في كل دالة إن استخدم الغلاف.</p></div></div><div class="exercise-item"><h4><span class="exercise-number">2</span> تحقق POST</h4><p>ارفض عنواناً فارغاً بـ 400.</p><button class="solution-toggle" data-target="b11-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="b11-2"><div class="code-block"><pre><code>if (!title?.trim()) return next(Object.assign(new Error("Title is required"), { statusCode: 400 }));</code></pre></div></div></div><div class="exercise-item"><h4><span class="exercise-number">3</span> errorHandler</h4><p>ركّبه في نهاية app.</p><button class="solution-toggle" data-target="b11-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="b11-3"><p>بعد كل المسارات.</p></div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📌</div><h2>ملخص الجلسة</h2></div><ul class="key-points"><li>طبقتان للتحقق</li><li>أخطاء موحدة JSON</li><li>لا تكشف تفاصيل Mongo للمستخدم</li></ul></section>
+        <section class="homework-box"><h2>واجب الجلسة</h2><ul><li>كل المسارات تمر بالمعالج</li><li>404 للروابط المجهولة</li><li>اختبر إرسال جسم فارغ</li></ul></section></div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../shared/course-data.js"></script>
+  <script src="../../shared/layout.js"></script>
+  <script src="../../shared/scripts.js"></script>
+</body>
+</html>

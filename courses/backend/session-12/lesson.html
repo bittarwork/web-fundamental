@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 12 — الملفات وميزات الـ API المتقدمة</title>
+  <link rel="stylesheet" href="../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="backend" data-session="12">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+        <div class="student-welcome"><h3>هدف الجلسة</h3><p>نرفع صوراً بأمان، ونربط البحث والتصفية والترتيب والترقيم بمعاملات الاستعلام.</p></div>
+        <section class="section-block"><div class="section-header"><div class="section-icon">12</div><h2>الشرح النظري</h2></div><div class="theory-content"><h3>1) File / Image Uploads</h3>
+  <p>multipart/form-data عبر multer. اسمح بامتدادات صور فقط وحدّ الحجم (مثلاً 2 MB). خزّن المسار في المستند لا الملف داخل Mongo.</p>
+  <h3>2) Search و Filtering و Sorting و Pagination</h3>
+  <p>اجمع ما تعلمته في الجلسة 08 في قائمة الكورسات النهائية: q وminPrice وsort وpage وlimit.</p>
+  <h3>3) Query Parameters</h3>
+  <p>وثّق المعاملات في تعليق أو مسار GET /api/courses حتى مطوّر الواجهة يعرف العقد.</p>
+  <div class="warning-box"><strong>لا تنفّذ الملفات المرفوعة.</strong> احفظها خارج المسارات التنفيذية وتحقق من النوع.</div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">💻</div><h2>أمثلة عملية</h2></div><h3>مثال 1: multer</h3><div class="code-block"><pre><code>import multer from "multer";
+const upload = multer({
+  dest: "uploads/",
+  limits: { fileSize: 2 * 1024 * 1024 },
+  fileFilter(req, file, cb) {
+    const ok = /jpeg|jpg|png|webp/.test(file.mimetype);
+    cb(ok ? null : new Error("Images only"), ok);
+  }
+});</code></pre></div>
+  <h3>مثال 2: مسار</h3><div class="code-block"><pre><code>router.post("/:id/image", protect, upload.single("image"), setCourseImage);</code></pre></div>
+  <h3>مثال 3: حفظ المسار</h3><div class="code-block"><pre><code>course.imageUrl = "/uploads/" + req.file.filename;
+await course.save();</code></pre></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">🎯</div><h2>اختبار سريع</h2></div><div class="quiz-card" data-correct="b"><p class="quiz-question">صورة الكورس تُحفظ في Mongo كـ:</p><div class="quiz-options"><button class="quiz-option" data-value="a">بايتات الملف كاملة دائماً في هذه الدورة</button><button class="quiz-option" data-value="b">مسار أو اسم الملف</button><button class="quiz-option" data-value="c">توكن JWT</button></div><div class="quiz-feedback"></div></div><div class="quiz-card" data-correct="a"><p class="quiz-question">limit حجم الرفع يحمي من:</p><div class="quiz-options"><button class="quiz-option" data-value="a">ملفات ضخمة تملأ القرص</button><button class="quiz-option" data-value="b">CORS فقط</button><button class="quiz-option" data-value="c">npm</button></div><div class="quiz-feedback"></div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">✏️</div><h2>تمارين عملية</h2></div><div class="exercise-item"><h4><span class="exercise-number">1</span> multer</h4><p>ثبّت واضبط fileFilter.</p><button class="solution-toggle" data-target="b12-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="b12-1"><div class="code-block"><pre><code>npm install multer</code></pre></div></div></div><div class="exercise-item"><h4><span class="exercise-number">2</span> ارفع</h4><p>صورة لغلاف كورس.</p><button class="solution-toggle" data-target="b12-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="b12-2"><p>POST multipart حقل image.</p></div></div><div class="exercise-item"><h4><span class="exercise-number">3</span> قائمة</h4><p>اربط q وpage بالقائمة.</p><button class="solution-toggle" data-target="b12-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="b12-3"><p>أعد استخدام جلسة 08.</p></div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📌</div><h2>ملخص الجلسة</h2></div><ul class="key-points"><li>صور فقط وبحد حجم</li><li>المسار في المستند</li><li>query للقوائم الكبيرة</li></ul></section>
+        <section class="homework-box"><h2>واجب الجلسة</h2><ul><li>رفع صورة يعمل</li><li>uploads في gitignore</li><li>قائمة مع بحث وترقيم</li></ul></section></div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../shared/course-data.js"></script>
+  <script src="../../shared/layout.js"></script>
+  <script src="../../shared/scripts.js"></script>
+</body>
+</html>

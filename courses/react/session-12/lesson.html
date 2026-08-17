@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 12 — الحالة العامة عبر Context</title>
+  <link rel="stylesheet" href="../../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="react" data-session="12">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+
+        <div class="student-welcome">
+          <h3>هدف الجلسة</h3>
+          <p>
+            نشارك بيانات بين أجزاء بعيدة من الشجرة دون Prop Drilling:
+            createContext و Provider و useContext.
+          </p>
+        </div>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">12</div>
+            <h2>الشرح النظري</h2>
+          </div>
+          <div class="theory-content">
+            <h3>1) مفهوم Global State</h3>
+            <p>
+              بعض البيانات تخص التطبيق كله: اسم المستخدم الحالي، اللغة، الوضع الليلي،
+              سلة التسجيل. تمريرها عبر خمسة آباء متعبة وعرضة للأخطاء.
+            </p>
+            <div class="compare-grid">
+              <div class="compare-box">
+                <h4>Props</h4>
+                <p>مناسبة للأب المباشر والابن. واضحة ومحدودة.</p>
+              </div>
+              <div class="compare-box">
+                <h4>Context</h4>
+                <p>مناسبة لقيم مشتركة بعيدة. لا تستخدمها لكل حقل صغير.</p>
+              </div>
+            </div>
+
+            <h3>2) createContext</h3>
+            <p>
+              ننشئ حاوية:
+              <span class="inline-code">const TrainerContext = createContext(null)</span>.
+              القيمة الابتدائية تظهر إذا قرأ مكوّن السياق بلا Provider.
+            </p>
+
+            <h3>3) Provider</h3>
+            <p>
+              <span class="inline-code">&lt;TrainerContext.Provider value={...}&gt;</span>
+              يغلّف الشجرة ويمرّر القيمة لكل الأبناء.
+              غالباً القيمة غرض: البيانات + دوال التحديث.
+            </p>
+            <div class="tip-box">
+              <strong>أين نضع Provider؟</strong> أقرب مستوى يغطي كل من يحتاج البيانات —
+              غالباً حول التخطيط أو App، لا حول زر واحد.
+            </div>
+
+            <h3>4) useContext</h3>
+            <p>
+              الابن البعيد يستدعي
+              <span class="inline-code">useContext(TrainerContext)</span>
+              ويحصل على القيمة دون props وسيطة.
+            </p>
+
+            <h3>5) مشاركة البيانات بين Components</h3>
+            <p>
+              الهيدر يعرض اسم المدرب، والفوتر يعرضه، وصفحة الكورسات تستخدمه في البطاقة —
+              مصدر واحد في Provider.
+            </p>
+            <div class="warning-box">
+              <strong>لا تضع كل التطبيق في Context واحد ضخم.</strong>
+              اقسم السياقات حسب الموضوع: مستخدم، سلة، إعدادات.
+              أي تغيير في value يعيد رسم المستهلكين.
+            </div>
+            <div class="analogy-box">
+              <strong>تشبيه:</strong> الراديو في المبنى (Context) يصل لكل الغرف.
+              الهاتف الداخلي (Props) يكفي لغرفتين متجاورتين.
+            </div>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">💻</div>
+            <h2>أمثلة عملية</h2>
+          </div>
+
+          <h3>مثال 1: إنشاء السياق والملف</h3>
+          <div class="code-block">
+            <pre><code>import { createContext, useContext, useState } from "react";
+
+const TrainerContext = createContext(null);
+
+export function TrainerProvider({ children }) {
+  const [trainer] = useState({
+    name: "Osama Bittar",
+    city: "Damascus"
+  });
+
+  return (
+    &lt;TrainerContext.Provider value={trainer}&gt;
+      {children}
+    &lt;/TrainerContext.Provider&gt;
+  );
+}
+
+export function useTrainer() {
+  const value = useContext(TrainerContext);
+  if (!value) {
+    throw new Error("useTrainer must be used inside TrainerProvider");
+  }
+  return value;
+}</code></pre>
+          </div>
+
+          <h3>مثال 2: تغليف التطبيق</h3>
+          <div class="code-block">
+            <pre><code>&lt;TrainerProvider&gt;
+  &lt;BrowserRouter&gt;
+    &lt;App /&gt;
+  &lt;/BrowserRouter&gt;
+&lt;/TrainerProvider&gt;</code></pre>
+          </div>
+
+          <h3>مثال 3: القراءة في الهيدر والبطاقة</h3>
+          <div class="code-block">
+            <pre><code>function Header() {
+  const trainer = useTrainer();
+  return &lt;p&gt;Academy · {trainer.name}&lt;/p&gt;;
+}
+
+function CourseCard() {
+  const trainer = useTrainer();
+  return &lt;p&gt;Taught by {trainer.name}&lt;/p&gt;;
+}</code></pre>
+          </div>
+
+          <h3>مثال 4: سياق مع دالة تحديث (سمة)</h3>
+          <div class="code-block">
+            <pre><code>function ThemeProvider({ children }) {
+  const [theme, setTheme] = useState("light");
+
+  function toggleTheme() {
+    setTheme((current) =&gt; (current === "light" ? "dark" : "light"));
+  }
+
+  return (
+    &lt;ThemeContext.Provider value={{ theme, toggleTheme }}&gt;
+      {children}
+    &lt;/ThemeContext.Provider&gt;
+  );
+}</code></pre>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">🎯</div>
+            <h2>اختبار سريع</h2>
+          </div>
+          <div class="quiz-card" data-correct="b">
+            <p class="quiz-question">useContext يعمل إذا:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">المكوّن خارج كل Provider</button>
+              <button class="quiz-option" data-value="b">المكوّن داخل Provider لذلك السياق</button>
+              <button class="quiz-option" data-value="c">استخدمنا فقط CSS</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+          <div class="quiz-card" data-correct="a">
+            <p class="quiz-question">Prop drilling يعني:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">تمرير نفس الـ prop عبر طبقات لا تحتاجها</button>
+              <button class="quiz-option" data-value="b">حذف كل الـ props</button>
+              <button class="quiz-option" data-value="c">استخدام fetch فقط</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">✏️</div>
+            <h2>تمارين عملية</h2>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">1</span> سياق مدرب</h4>
+            <p>Provider يمرّر name: Osama Bittar. الهيدر يقرأه بـ useContext.</p>
+            <button class="solution-toggle" data-target="r12-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="r12-1">
+              <div class="code-block">
+                <pre><code>const trainer = useContext(TrainerContext);
+return &lt;span&gt;{trainer.name}&lt;/span&gt;;</code></pre>
+              </div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">2</span> تبديل سمة</h4>
+            <p>زر في الإعدادات يغيّر theme عبر دالة من السياق، والتخطيط يقرأ القيمة.</p>
+            <button class="solution-toggle" data-target="r12-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="r12-2">
+              <div class="code-block">
+                <pre><code>const { theme, toggleTheme } = useContext(ThemeContext);
+&lt;body className={theme}&gt;
+  &lt;button onClick={toggleTheme}&gt;Toggle&lt;/button&gt;
+&lt;/body&gt;</code></pre>
+              </div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">3</span> حماية الخطاف</h4>
+            <p>إن استُدعي useTrainer خارج Provider ارمِ خطأ واضحاً.</p>
+            <button class="solution-toggle" data-target="r12-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="r12-3">
+              <div class="code-block">
+                <pre><code>if (!value) {
+  throw new Error("useTrainer must be used inside TrainerProvider");
+}</code></pre>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">📌</div>
+            <h2>ملخص الجلسة</h2>
+          </div>
+          <ul class="key-points">
+            <li>Context للحالة المشتركة البعيدة لا لكل prop</li>
+            <li>createContext ثم Provider ثم useContext</li>
+            <li>مرّر البيانات ودوال التحديث في value</li>
+            <li>اقسم السياقات حسب الموضوع</li>
+          </ul>
+        </section>
+
+        <section class="homework-box">
+          <h2>واجب الجلسة</h2>
+          <ul>
+            <li>سياق Academy فيه المدرب Osama Bittar وعملة العرض €</li>
+            <li>الهيدر والتذييل وصفحة الكورسات يقرأون نفس المصدر</li>
+            <li>خطاف useAcademy يرفض الاستدعاء خارج Provider</li>
+          </ul>
+        </section>
+
+      </div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../../shared/course-data.js"></script>
+  <script src="../../../shared/layout.js"></script>
+  <script src="../../../shared/scripts.js"></script>
+</body>
+</html>

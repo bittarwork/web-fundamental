@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 02 — هندسة البرمجيات</title>
+  <link rel="stylesheet" href="../../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="se" data-session="02">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+        <div class="student-welcome"><h3>هدف الجلسة</h3><p>نحدد أصحاب المصلحة، نرسم مخطط السياق، ونثبت ما يدخل في النطاق وما يخرج حتى لا يتضخم المشروع.</p></div>
+        <section class="section-block"><div class="section-header"><div class="section-icon">02</div><h2>الشرح النظري</h2></div>
+          <div class="theory-content">
+            <h3>1) أصحاب المصلحة</h3>
+            <p>صاحب المصلحة كل من يتأثر بالنظام أو يؤثر فيه. في مذاق بيطار: المالك Osama Bittar، مدير المطبخ، الكاشير، السائق، العميل، المحاسب، ودعم العمليات. تجاهل المحاسب يعني تقارير مالية ناقصة لاحقاً.</p>
+            <h3>2) مخطط السياق</h3>
+            <p>مخطط السياق يضع النظام في الصندوق الأوسط، ومن حوله البشر والأنظمة الخارجية: بوابة دفع، خرائط، رسائل SMS/Push. لا تفاصيل شاشات هنا.</p>
+            <h3>3) النطاق: In و Out</h3>
+            <p>النطاق عقد غير مكتوب إن لم يُكتب. «توصيل» قد يعني تتبّع حي، تقييم سائق، برنامج ولاء، وفوترة شركات. نقرر صراحة.</p>
+            <div class="compare-grid">
+              <div class="compare-box"><h4>داخل النطاق</h4><p>قائمة، طلب، دفع بطاقة أو نقد عند التسليم، مطبخ، تعيين سائق، محفظة، تسوية أسبوعية باليورو.</p></div>
+              <div class="compare-box"><h4>خارج النطاق</h4><p>مطاعم أخرى، بث مباشر للمطبخ، ذكاء تسعير ديناميكي معقّد، محاسبة ضريبية كاملة للدولة.</p></div>
+            </div>
+            <h3>4) الافتراضات والقيود</h3>
+            <p>افتراض: نطاق جغرافي أحياء محددة في دمشق. قيد: العملة المعروضة للعميل والإدارة هي اليورو. قيد: السائق يعمل بهاتف ذكي مع إنترنت.</p>
+            <div class="warning-box"><strong>تحذير:</strong> كل «سنضيفها لاحقاً» إن لم تُصنَّف Out of scope ستُعامل كوعد.</div>
+          </div>
+        </section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📐</div><h2>مخططات ووثائق عملية</h2></div>
+          <div class="diagram-box"><div class="diagram-caption">Context diagram — Bittar Kitchen Delivery</div>  [Customer] ----orders/pay----> +---------------------------+
+  [Kitchen staff] <--tickets--- |                           |
+  [Driver] <---jobs/GPS status- |  Bittar Kitchen Delivery  | ----> [Payment gateway]
+  [Owner / Admin] <--reports--- |                           | ----> [Maps provider]
+  [Accountant] <--EUR exports-- +---------------------------+ ----> [SMS / Push]</div>
+          <div class="spec-table-wrap"><table class="spec-table"><thead><tr><th>Stakeholder</th><th>اهتمامه</th><th>خطر التجاهل</th></tr></thead><tbody><tr><td>Owner Osama Bittar</td><td>ربح وسمعة ووقت تحضير</td><td>قرارات بلا أولوية عمل</td></tr><tr><td>Customer</td><td>طعام صحيح وفي الوقت</td><td>إلغاءات وتقييم سيئ</td></tr><tr><td>Driver</td><td>أجر عادل ومسار واضح</td><td>رفض الطلبات أو نقد مفقود</td></tr><tr><td>Accountant</td><td>تسوية وكشف يورو</td><td>فجوة بين الصندوق والنظام</td></tr></tbody></table></div>
+          </section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">🎯</div><h2>اختبار سريع</h2></div><div class="quiz-card" data-correct="c">
+            <p class="quiz-question">مخطط السياق يُظهر:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">حقول قاعدة البيانات كلها</button>
+              <button class="quiz-option" data-value="b">ألوان الواجهة</button>
+              <button class="quiz-option" data-value="c">النظام والأنظمة/الأشخاص خارجه</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div><div class="quiz-card" data-correct="b">
+            <p class="quiz-question">برنامج ولاء بنقاط في نسخة 1 حسب نطاق الدورة:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">داخل النطاق إلزامياً</button>
+              <button class="quiz-option" data-value="b">خارج النطاق ما لم يُفتح مشروع لاحق</button>
+              <button class="quiz-option" data-value="c">بديل عن محفظة السائق</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">✏️</div><h2>تمارين عملية</h2></div><div class="exercise-item">
+            <h4><span class="exercise-number">1</span> جدول أصحاب مصلحة</h4>
+            <p>أضف صفّين: دعم العملاء، ومزوّد الخرائط.</p>
+            <button class="solution-toggle" data-target="se02-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="se02-1"><p>دعم العملاء: شكاوى التأخير والاستبدال. مزوّد الخرائط: تقدير المسافة والوقت، خطر انقطاع الخدمة.</p></div>
+          </div><div class="exercise-item">
+            <h4><span class="exercise-number">2</span> In/Out</h4>
+            <p>صنّف: تتبع حي للسائق، دردشة عميل-سائق، فوترة شركات شهرية.</p>
+            <button class="solution-toggle" data-target="se02-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="se02-2"><p>تتبع حي: داخل النطاق كمفهوم. دردشة حرة: خارج النطاق (اتصال عبر الحالة والإشعارات). فوترة شركات: خارج النطاق.</p></div>
+          </div><div class="exercise-item">
+            <h4><span class="exercise-number">3</span> قيد واحد</h4>
+            <p>اكتب قيداً تقنياً وقيداً تجارياً.</p>
+            <button class="solution-toggle" data-target="se02-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="se02-3"><p>تقني: السائق يحتاج GPS. تجاري: الحد الأدنى للطلب €8 داخل الأحياء المحددة.</p></div>
+          </div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📌</div><h2>ملخص الجلسة</h2></div>
+          <ul class="key-points"><li>أصحاب المصلحة أوسع من المستخدم النهائي</li><li>السياق يحدّد الحدود لا الشاشات</li><li>Out of scope يحمي المشروع من التضخم</li><li>الافتراضات تُكتب وإلا صارت نزاعاً</li></ul>
+        </section>
+        <section class="homework-box"><h2>واجب الجلسة</h2><ul><li>ارسم مخطط سياق بخط اليد أو نصاً</li><li>جدول In/Out من 10 بنود</li><li>ثلاث افتراضات وثلاثة قيود</li></ul></section>
+      </div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../../shared/course-data.js"></script>
+  <script src="../../../shared/layout.js"></script>
+  <script src="../../../shared/scripts.js"></script>
+</body>
+</html>

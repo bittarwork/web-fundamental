@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 16 — المشروع العملي الكبير الثاني</title>
+  <link rel="stylesheet" href="../../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="react" data-session="16">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+
+        <div class="student-welcome">
+          <h3>هدف الجلسة</h3>
+          <p>
+            ندمج الحالة المتقدمة في تطبيق واحد: سلة تسجيل بـ useReducer و Context،
+            مع API و Routing ومكوّنات قابلة لإعادة الاستخدام،
+            ثم نحسّن المشروع ونراجع الكود النهائي.
+          </p>
+        </div>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">16</div>
+            <h2>الشرح النظري</h2>
+          </div>
+          <div class="theory-content">
+            <h3>1) فكرة المنتج الثاني</h3>
+            <p>
+              <strong>Enrollment Desk</strong> — مكتب تسجيل: الكتالوج يجلب الكورسات،
+              والطالب يضيف إلى السلة، يراجع العناصر، يحذف، ويُفرغ السلة.
+              الحالة المشتركة عبر Context + Reducer حتى الهيدر يعرض العدد والمجموع باليورو.
+            </p>
+
+            <h3>2) State Management في هذا المشروع</h3>
+            <ul>
+              <li>قائمة الكورسات: useState / useEffect (أو خطاف الجلب).</li>
+              <li>نص البحث: محلي في صفحة القائمة.</li>
+              <li>السلة: useReducer داخل CartProvider.</li>
+            </ul>
+            <div class="compare-grid">
+              <div class="compare-box">
+                <h4>أبقِ محلياً</h4>
+                <p>query، فتح قائمة الجوال، رسالة خطأ نموذج.</p>
+              </div>
+              <div class="compare-box">
+                <h4>ارفع للسلة</h4>
+                <p>العناصر المختارة — الهيدر و /cart وصفحة التفاصيل يحتاجونها.</p>
+              </div>
+            </div>
+
+            <h3>3) useReducer و Context API معاً</h3>
+            <p>
+              أفعال مقترحة:
+              <span class="inline-code">add</span>،
+              <span class="inline-code">remove</span>،
+              <span class="inline-code">clear</span>.
+              لا تضف نفس الـ id مرتين. Payload العنصر يحتوي
+              id و title و price و trainer: "Osama Bittar".
+            </p>
+
+            <h3>4) API Integration و Routing</h3>
+            <p>
+              أعد استخدام services من المشروع الأول.
+              صفحات إضافية:
+              <span class="inline-code">/cart</span>
+              تعرض العناصر وأزرار الحذف والمجموع.
+              من التفاصيل: زر «Add to desk» يستدعي dispatch ثم يمكن navigate إلى السلة.
+            </p>
+
+            <h3>5) Reusable Components</h3>
+            <p>
+              CourseCard، CartItem، PriceLabel (تعرض المبلغ و €)،
+              ErrorBanner، LoadingText.
+              الصفحة لا تعيد كتابة نفس الـ JSX ثلاث مرات.
+            </p>
+
+            <h3>6) Loading و Errors</h3>
+            <p>
+              القائمة والتفاصيل تبقيان الحالات الثلاث.
+              السلة نفسها لا تحتاج fetch إن كانت الذاكرة المحلية كافية —
+              لكن إن فشل الكتالوج لا تسمح بالإضافة من بيانات ناقصة.
+            </p>
+
+            <h3>7) تنظيم الكود و Debugging</h3>
+            <ul>
+              <li>Reducer في ملف مستقل قابل للقراءة.</li>
+              <li>أسماء type واضحة كنصوص ثابتة.</li>
+              <li>React Developer Tools: راقب CartProvider والقيم بعد كل زر.</li>
+              <li>إن لم يتحدّث الهيدر تأكد أن المكوّن داخل Provider.</li>
+            </ul>
+
+            <h3>8) تحسين المشروع ومراجعة الكود النهائي</h3>
+            <p>قبل التسليم اعمل جولة مراجعة:</p>
+            <ul>
+              <li>هل المفاتيح في القوائم ids حقيقية؟</li>
+              <li>هل النماذج preventDefault وتتحقق؟</li>
+              <li>هل الأسعار € واسم المدرب موحّد؟</li>
+              <li>هل المسار المجهول يعرض 404؟</li>
+              <li>هل المجلدات تطابق components / pages / services / hooks / context؟</li>
+              <li>هل توجد دوال مكررة يمكن نقلها لخطاف؟</li>
+            </ul>
+            <div class="tip-box">
+              <strong>معيار الاكتمال:</strong> مستخدم يفتح القائمة، يفتح تفاصيل، يضيف كورسين،
+              يرى المجموع في الهيدر وفي /cart، يحذف واحداً، يُفرغ السلة — بلا أخطاء في Console.
+            </div>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">💻</div>
+            <h2>أمثلة عملية</h2>
+          </div>
+
+          <h3>مثال 1: أفعال السلة</h3>
+          <div class="code-block">
+            <pre><code>function cartReducer(state, action) {
+  switch (action.type) {
+    case "add": {
+      const exists = state.items.some((item) =&gt; item.id === action.payload.id);
+      if (exists) return state;
+      return { items: [...state.items, action.payload] };
+    }
+    case "remove":
+      return {
+        items: state.items.filter((item) =&gt; item.id !== action.payload)
+      };
+    case "clear":
+      return { items: [] };
+    default:
+      return state;
+  }
+}</code></pre>
+          </div>
+
+          <h3>مثال 2: زر الإضافة من التفاصيل</h3>
+          <div class="code-block">
+            <pre><code>function AddToDeskButton({ course }) {
+  const { dispatch } = useCart();
+
+  function handleAdd() {
+    dispatch({
+      type: "add",
+      payload: {
+        id: course.id,
+        title: course.title,
+        price: course.price,
+        trainer: "Osama Bittar"
+      }
+    });
+  }
+
+  return (
+    &lt;button type="button" onClick={handleAdd}&gt;
+      Add to desk
+    &lt;/button&gt;
+  );
+}</code></pre>
+          </div>
+
+          <h3>مثال 3: شارة الهيدر والمجموع</h3>
+          <div class="code-block">
+            <pre><code>function CartBadge() {
+  const { state } = useCart();
+  const total = state.items.reduce((sum, item) =&gt; sum + item.price, 0);
+
+  return (
+    &lt;Link to="/cart"&gt;
+      {state.items.length} items · {total} €
+    &lt;/Link&gt;
+  );
+}</code></pre>
+          </div>
+
+          <h3>مثال 4: صفحة السلة</h3>
+          <div class="code-block">
+            <pre><code>function CartPage() {
+  const { state, dispatch } = useCart();
+
+  if (state.items.length === 0) {
+    return &lt;p&gt;Your desk is empty.&lt;/p&gt;;
+  }
+
+  return (
+    &lt;section&gt;
+      {state.items.map((item) =&gt; (
+        &lt;CartItem
+          key={item.id}
+          item={item}
+          onRemove={() =&gt; dispatch({ type: "remove", payload: item.id })}
+        /&gt;
+      ))}
+      &lt;button type="button" onClick={() =&gt; dispatch({ type: "clear" })}&gt;
+        Clear desk
+      &lt;/button&gt;
+    &lt;/section&gt;
+  );
+}</code></pre>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">🎯</div>
+            <h2>اختبار سريع</h2>
+          </div>
+          <div class="quiz-card" data-correct="b">
+            <p class="quiz-question">حالة السلة في هذا المشروع تُدار بـ:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">CSS variables فقط</button>
+              <button class="quiz-option" data-value="b">useReducer داخل Context</button>
+              <button class="quiz-option" data-value="c">تعديل الملف index.html</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+          <div class="quiz-card" data-correct="a">
+            <p class="quiz-question">عند المراجعة النهائية نتحقق أولاً من:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">التدفق الكامل بلا أخطاء في Console</button>
+              <button class="quiz-option" data-value="b">إضافة مكتبات غير مطلوبة في الدورة</button>
+              <button class="quiz-option" data-value="c">حذف كل مكوّنات إعادة الاستخدام</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">✏️</div>
+            <h2>تمارين عملية</h2>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">1</span> ربط السلة</h4>
+            <p>CartProvider حول التطبيق، شارة في الهيدر، مسار /cart.</p>
+            <button class="solution-toggle" data-target="r16-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="r16-1">
+              <div class="code-block">
+                <pre><code>&lt;CartProvider&gt;
+  &lt;BrowserRouter&gt;
+    &lt;App /&gt;
+  &lt;/BrowserRouter&gt;
+&lt;/CartProvider&gt;
+&lt;Route path="cart" element={&lt;CartPage /&gt;} /&gt;</code></pre>
+              </div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">2</span> منع التكرار</h4>
+            <p>إن أُضيف الكورس مسبقاً لا يتكرر السطر. يمكن تعطيل الزر إن وُجد id.</p>
+            <button class="solution-toggle" data-target="r16-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="r16-2">
+              <div class="code-block">
+                <pre><code>const already = state.items.some((item) =&gt; item.id === course.id);
+&lt;button disabled={already} onClick={handleAdd}&gt;
+  {already ? "Added" : "Add to desk"}
+&lt;/button&gt;</code></pre>
+              </div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">3</span> قائمة مراجعة</h4>
+            <p>طبّق بنود المراجعة في الشرح واكتب ثلاث ملاحظات تحسين وجدتها في كودك.</p>
+            <button class="solution-toggle" data-target="r16-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="r16-3">
+              <p>
+                أمثلة: نقل fetch إلى service، توحيد PriceLabel، إصلاح key={index}،
+                إضافة 404، إزالة console.log قبل التسليم.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">📌</div>
+            <h2>ملخص الجلسة والدورة</h2>
+          </div>
+          <ul class="key-points">
+            <li>السلة حالة مشتركة: Reducer + Provider</li>
+            <li>الكتالوج يبقى fetch + مسارات ديناميكية</li>
+            <li>Loading و Errors ومكوّنات قابلة لإعادة الاستخدام</li>
+            <li>المراجعة النهائية جزء من العمل لا خطوة اختيارية</li>
+          </ul>
+        </section>
+
+        <section class="homework-box">
+          <h2>تسليم نهاية الدورة</h2>
+          <ul>
+            <li>تطبيق Enrollment Desk يعمل محلياً بـ Vite</li>
+            <li>قائمة، تفاصيل، سلة، نموذج، 404</li>
+            <li>الأسعار € والمدرب Osama Bittar في العرض</li>
+            <li>لا أخطاء حمراء في Console عند المسار السعيد</li>
+          </ul>
+        </section>
+
+      </div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../../shared/course-data.js"></script>
+  <script src="../../../shared/layout.js"></script>
+  <script src="../../../shared/scripts.js"></script>
+</body>
+</html>

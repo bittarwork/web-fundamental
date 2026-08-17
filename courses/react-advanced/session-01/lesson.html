@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 01 — نموذج الرسم وإعادة المطابقة</title>
+  <link rel="stylesheet" href="../../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="react-advanced" data-session="01">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+
+        <div class="student-welcome">
+          <h3>هدف الجلسة</h3>
+          <p>نفهم متى يعيد React تشغيل المكوّن، كيف يطابق العناصر بالمفاتيح، ولماذا Strict Mode يضاعف الآثار في التطوير.</p>
+        </div>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">01</div>
+            <h2>الشرح النظري</h2>
+          </div>
+          <div class="theory-content">
+            <h3>1) Render مقابل Commit</h3>
+            <p>استدعاء الدالة (render) يحسب JSX الجديد. ثم مرحلة Commit تلمس الـ DOM. ليس كل render يغيّر الشاشة إن كانت النتيجة نفسها.</p>
+            <div class="analogy-box"><strong>تشبيه:</strong> الرسم = إعداد قائمة الطعام · الـ Commit = تقديم الصحون على الطاولة.</div>
+            <h3>2) متى يُعاد التشغيل؟</h3>
+            <ul>
+              <li>تغيّر state أو context يستهلكه المكوّن.</li>
+              <li>إعادة رسم الأب تعيد رسم الأبناء بشكل افتراضي.</li>
+              <li>تغيير <span class="inline-code">key</span> يفكّ المكوّن ويعيد إنشاءه من صفر.</li>
+            </ul>
+            <h3>3) Reconciliation والمفاتيح</h3>
+            <p>React يقارن نوع العنصر والـ key ليعرف: تحديث أم استبدال. مفتاح غير مستقر (index في قائمة تُرتَّب) يسبب أخطاء حالة مثل حقل إدخال يقفز.</p>
+            <div class="warning-box"><strong>لا تستخدم Math.random() كمفتاح.</strong> يتغيّر كل رسم فيُدمَّر المكوّن دائماً.</div>
+            <h3>4) تجميع التحديثات (Batching)</h3>
+            <p>عدة setState في نفس الحدث تُجمع في رسم واحد. في React 18 يُجمع أيضاً داخل الوعود والمهلات في كثير من الحالات.</p>
+            <h3>5) Strict Mode</h3>
+            <p>في التطوير قد يُركَّب المكوّن مرتين لاكتشاف آثار بلا cleanup. الإنتاج مرة واحدة. جهّز useEffect دائماً بدالة تنظيف.</p>
+    </div>
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">💻</div>
+            <h2>أمثلة عملية</h2>
+          </div>
+          
+          <h3>مثال 1: الأب يعيد رسم الابن</h3>
+          <div class="code-block"><pre><code>function AcademyBoard() {
+  const [tick, setTick] = useState(0);
+  return (
+    &lt;div&gt;
+      &lt;button onClick={() =&gt; setTick((n) =&gt; n + 1)}&gt;Refresh {tick}&lt;/button&gt;
+      &lt;TrainerName /&gt;
+    &lt;/div&gt;
+  );
+}
+
+function TrainerName() {
+  console.log("TrainerName render");
+  return &lt;p&gt;Osama Bittar&lt;/p&gt;;
+}</code></pre></div>
+          <h3>مثال 2: key يعيد إنشاء الحقل</h3>
+          <div class="code-block"><pre><code>&lt;input key={selectedCourseId} defaultValue="" /&gt;</code></pre></div>
+          <p>عند تغيّر الكورس يُفرَّغ الحقل لأن المكوّن جديد — مفيد أو مؤذٍ حسب النية.</p>
+          <h3>مثال 3: قائمة بأسعار €</h3>
+          <div class="code-block"><pre><code>{courses.map((course) =&gt; (
+  &lt;li key={course.id}&gt;{course.title} — {course.price} €&lt;/li&gt;
+))}</code></pre></div>
+    
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">🎯</div>
+            <h2>اختبار سريع</h2>
+          </div>
+                    <div class="quiz-card" data-correct="b">
+            <p class="quiz-question">تغيير key لعنصر عادةً:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">لا يفعل شيئاً أبداً</button>
+              <button class="quiz-option" data-value="b">يفك المكوّن ويعيد إنشاء حالته</button>
+              <button class="quiz-option" data-value="c">يحذف ملف Vite</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+          <div class="quiz-card" data-correct="a">
+            <p class="quiz-question">Strict Mode في التطوير قد:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">يضاعف التركيب لاكتشاف الآثار غير النظيفة</button>
+              <button class="quiz-option" data-value="b">يغيّر لون CSS فقط</button>
+              <button class="quiz-option" data-value="c">يمنع git push</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">✏️</div>
+            <h2>تمارين عملية</h2>
+          </div>
+                    <div class="exercise-item">
+            <h4><span class="exercise-number">1</span> مفتاح ثابت</h4>
+            <p>اعرض ثلاث بطاقات كورس بمفتاح id لا index.</p>
+            <button class="solution-toggle" data-target="ra01-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="ra01-1">
+              <div class="code-block"><pre><code>{items.map((item) =&gt; (
+  &lt;CourseCard key={item.id} title={item.title} /&gt;
+))}</code></pre></div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">2</span> إعادة ضبط بنقل key</h4>
+            <p>عند تبديل المدرب اجعل نموذج الاسم يُعاد بمفتاح اسم المدرب.</p>
+            <button class="solution-toggle" data-target="ra01-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="ra01-2">
+              <div class="code-block"><pre><code>&lt;NameForm key={trainerId} /&gt;</code></pre></div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">3</span> لاحظ الرسم</h4>
+            <p>ضع console.log في ابن واضغط زر في الأب. اشرح لماذا طُبع السطر.</p>
+            <button class="solution-toggle" data-target="ra01-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="ra01-3">
+              <p>لأن إعادة رسم الأب تعيد تشغيل دالة الابن ما لم تمنعه لاحقاً بـ memo.</p>
+            </div>
+          </div>
+        </section>
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">📌</div>
+            <h2>ملخص الجلسة</h2>
+          </div>
+          <ul class="key-points">
+            <li>الرسم حساب JSX · Commit يلمس DOM</li>
+            <li>key غير مستقر يفسد الحالة</li>
+            <li>Strict Mode يختبر نظافة الآثار</li>
+          </ul>
+        </section>
+        <section class="homework-box">
+          <h2>واجب الجلسة</h2>
+          <ul>
+            <li>ابنِ قائمة كورسات بأسعار € ومفاتيح id</li>
+            <li>جرّب key={index} ثم أعد الترتيب ولاحظ الحقول</li>
+            <li>اكتب جملة: متى تريد إعادة إنشاء مكوّن عمداً بـ key</li>
+          </ul>
+        </section>
+      </div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../../shared/course-data.js"></script>
+  <script src="../../../shared/layout.js"></script>
+  <script src="../../../shared/scripts.js"></script>
+</body>
+</html>

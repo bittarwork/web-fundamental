@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 08 — شراء الدومين وDNS</title>
+  <link rel="stylesheet" href="../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="vps" data-session="08">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+        <div class="student-welcome"><h3>هدف الجلسة</h3><p>نختار اسماً مناسباً، نشتريه من Hostinger باليورو، ونوجه سجل A إلى IP السيرفر.</p></div>
+        <section class="section-block"><div class="section-header"><div class="section-icon">08</div><h2>الشرح النظري</h2></div><div class="theory-content">
+      <h3>1) ما هو النطاق؟</h3>
+      <p>الاسم الذي يكتبه الزائر بدل حفظ IP. DNS يترجم الاسم إلى العنوان.</p>
+      <div class="analogy-box"><strong>تشبيه:</strong> IP = إحداثيات الشقة · النطاق = اسم المبنى على اللوحة.</div>
+      <h3>2) اختيار الاسم</h3>
+      <ul>
+        <li>قصير، يُكتب بالإنجليزية، بلا أرقام عشوائية.</li>
+        <li>امتداد <span class="inline-code">.com</span> للأعمال. <span class="inline-code">.dev</span> للمشاريع التقنية إن كان متاحاً.</li>
+        <li>تجنّب العلامات التجارية للغير. مثال تعليمي: اسم شخصي مثل osamabittar أو أكاديمية واضحة.</li>
+      </ul>
+      <h3>3) الشراء من Hostinger فقط</h3>
+      <p>hPanel → Domains → Register. ابحث عن الاسم. السعر باليورو يظهر قبل الدفع (السنة الأولى قد تكون مخفّضة، التجديد أعلى). أتمم الشراء داخل Hostinger.</p>
+      <h3>4) Nameservers</h3>
+      <p>إن اشتريت النطاق من Hostinger فغالباً خوادم الأسماء مضبوطة مسبقاً على Hostinger. أبقِها كذلك في هذه الدورة حتى تُدار السجلات من hPanel → DNS / DNS Zone Editor.</p>
+      <h3>5) سجل A</h3>
+      <p>أضف سجلاً:</p>
+      <ul>
+        <li>Type: A</li>
+        <li>Name: @ (الجذر) والقيمة: IP الـ VPS</li>
+        <li>Name: www إما A بنفس IP أو CNAME إلى النطاق الجذر</li>
+      </ul>
+      <p>TTL مدة تخزين الرد عند المزودات. انتظر دقائق إلى ساعات. افحص:</p>
+      <div class="code-block"><pre><code>ping your-domain.com
+# or: getent hosts your-domain.com</code></pre></div>
+      <h3>6) البريد</h3>
+      <p>سجلات MX للبريد موضوع منفصل. لا تحذف MX إن كنت ستستخدم بريد Hostinger لاحقاً. للموقع يكفي A وwww.</p>
+      <div class="warning-box"><strong>لا توجه النطاق إلى IP خطأ.</strong> انسخ IP من Overview حرفياً.</div>
+    </div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">💻</div><h2>أمثلة عملية</h2></div>
+      <h3>مثال 1: سجلات نموذجية</h3>
+      <div class="code-block"><pre><code>A     @      YOUR.SERVER.IP
+A     www    YOUR.SERVER.IP</code></pre></div>
+      <h3>مثال 2: اختبار من الجهاز</h3>
+      <div class="code-block"><pre><code>curl -I http://your-domain.com</code></pre></div>
+      <p>قد ترى صفحة Nginx بعد انتشار DNS. HTTPS في الجلسة 11.</p>
+      <h3>مثال 3: سعر النطاق</h3>
+      <p>سجّل في الدفتر: سعر السنة الأولى باليورو وسعر التجديد. لا تعتمد على رقم قديم من لقطة شاشة.</p>
+    </section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">🎯</div><h2>اختبار سريع</h2></div><div class="quiz-card" data-correct="a"><p class="quiz-question">سجل A يربط:</p><div class="quiz-options"><button class="quiz-option" data-value="a">الاسم بعنوان IPv4 للسيرفر</button><button class="quiz-option" data-value="b">الاسم بحساب GitHub فقط</button><button class="quiz-option" data-value="c">الملف بـ Docker</button></div><div class="quiz-feedback"></div></div><div class="quiz-card" data-correct="b"><p class="quiz-question">نشتري النطاق في هذه الدورة من:</p><div class="quiz-options"><button class="quiz-option" data-value="a">أي موقع عشوائي كل مرة</button><button class="quiz-option" data-value="b">Hostinger Domains</button><button class="quiz-option" data-value="c">مجلد /etc</button></div><div class="quiz-feedback"></div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">✏️</div><h2>تمارين عملية</h2></div><div class="exercise-item"><h4><span class="exercise-number">1</span> ابحث</h4><p>ابحث عن 3 أسماء متاحة واختر واحداً.</p><button class="solution-toggle" data-target="v08-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="v08-1"><p>فضّل .com واضح إن ناسب الميزانية باليورو.</p></div></div><div class="exercise-item"><h4><span class="exercise-number">2</span> اشترِ</h4><p>سجّل النطاق من Hostinger.</p><button class="solution-toggle" data-target="v08-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="v08-2"><p>يظهر تحت Domains في hPanel.</p></div></div><div class="exercise-item"><h4><span class="exercise-number">3</span> A record</h4><p>أشر @ وwww إلى IP الـ VPS.</p><button class="solution-toggle" data-target="v08-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="v08-3"><p>انتظر ثم ping أو افتح المتصفح.</p></div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📌</div><h2>ملخص الجلسة</h2></div><ul class="key-points"><li>النطاق يُشترى من Hostinger</li><li>A → IP</li><li>انتظر DNS قبل الحكم بالفشل</li></ul></section>
+        <section class="homework-box"><h2>واجب الجلسة</h2><ul><li>نطاق مربوط بـ IP</li><li>افتح http://النطاق</li><li>احتفظ بسعر التجديد €</li></ul></section></div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../shared/course-data.js"></script>
+  <script src="../../shared/layout.js"></script>
+  <script src="../../shared/scripts.js"></script>
+</body>
+</html>

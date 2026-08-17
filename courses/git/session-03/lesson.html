@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 03 — GitHub والمستودعات البعيدة</title>
+  <link rel="stylesheet" href="../../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="git" data-session="03">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+
+        <div class="student-welcome">
+          <h3>هدف الجلسة</h3>
+          <p>
+            ننشئ حساباً ومستودعاً على GitHub، نربط origin،
+            ندفع العمل، ونستنسخ مشروعاً موجوداً مع فهم الواجهة الأساسية.
+          </p>
+        </div>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">03</div>
+            <h2>الشرح النظري</h2>
+          </div>
+          <div class="theory-content">
+            <h3>1) حساب GitHub والملف الشخصي</h3>
+            <p>
+              GitHub منصة لاستضافة مستودعات Git. الحساب المجاني يكفي لهذه الدورة.
+              اختر اسم مستخدم واضحاً (بالإنجليزية)، وأضف صورة واسماً ظاهراً مثل
+              <span class="inline-code">Osama Bittar</span>،
+              وسيرة قصيرة في الملف الشخصي.
+            </p>
+            <p>
+              من الصفحة الرئيسية تصل إلى: مستودعاتك، الإشعارات، الإعدادات،
+              واستكشاف مشاريع الآخرين.
+            </p>
+
+            <h3>2) مستودع عام وخاص</h3>
+            <div class="compare-grid">
+              <div class="compare-box">
+                <h4>Public</h4>
+                <p>أي شخص يرى الكود. مناسب لمعرض أعمال الدورة وصفحات التخرج.</p>
+              </div>
+              <div class="compare-box">
+                <h4>Private</h4>
+                <p>تراه أنت ومن تدعوه. مناسب لتجارب فيها بيانات غير جاهزة للعرض.</p>
+              </div>
+            </div>
+            <p>المستودع (Repository) = مشروع Git على GitHub مع صفحة ويب، قضايا، وإعدادات.</p>
+
+            <h3>3) إنشاء Repository من الموقع</h3>
+            <p>New repository ثم:</p>
+            <ul>
+              <li>الاسم: <span class="inline-code">academy-notes</span> (بدون فراغات).</li>
+              <li>الوصف جملة واحدة بالإنجليزية.</li>
+              <li>لا تُضف README من الموقع إذا كان لديك مستودع محلي جاهز — تجنّب تاريخين مختلفين في البداية.</li>
+              <li>يمكنك لاحقاً إضافة رخصة (مثل MIT) من الواجهة أو بملف.</li>
+            </ul>
+            <div class="tip-box">
+              <strong>README:</strong> ملف يُعرض أعلى صفحة المستودع.
+              نكتبه في المشروع ونرفعه. لا تخلطه مع ملفات الدورة في منصة الدروس.
+            </div>
+
+            <h3>4) git remote و git push</h3>
+            <p>
+              <span class="inline-code">remote</span> لقب لعنوان على الشبكة.
+              الاسم الشائع <span class="inline-code">origin</span> يعني «نسخة GitHub».
+            </p>
+            <div class="code-block">
+              <pre><code>git remote add origin https://github.com/USERNAME/academy-notes.git
+git remote -v
+git branch -M main
+git push -u origin main</code></pre>
+            </div>
+            <p>
+              <span class="inline-code">-u</span> يربط الفرع المحلي بتتبع الفرع البعيد،
+              فلاحقاً يكفي غالباً <span class="inline-code">git push</span> و
+              <span class="inline-code">git pull</span>.
+            </p>
+            <p>
+              استبدل <span class="inline-code">USERNAME</span> باسم حسابك.
+              في أمثلة الصف نتخيّل <span class="inline-code">osama-bittar</span>.
+            </p>
+
+            <h3>5) HTTPS ومفاتيح الوصول</h3>
+            <p>
+              GitHub لم يعد يقبل كلمة مرور الحساب مع HTTPS.
+              عند الدفع يطلب Personal Access Token (من Settings → Developer settings)
+              أو نستخدم SSH في الجلسة 05.
+            </p>
+            <p>احفظ الـ Token ككلمة مرور في مربع Git، ولا تلصقه داخل ملف المشروع.</p>
+
+            <h3>6) git clone و git pull و git fetch</h3>
+            <ul>
+              <li><strong>clone:</strong> نسخ مستودع كامل من GitHub إلى مجلد جديد (أول مرة).</li>
+              <li><strong>fetch:</strong> يجلب التحديثات دون دمجها في ملفاتك.</li>
+              <li><strong>pull:</strong> fetch ثم دمج في الفرع الحالي — لتحديث نسختك.</li>
+            </ul>
+            <div class="code-block">
+              <pre><code>git clone https://github.com/USERNAME/academy-notes.git
+cd academy-notes
+git pull</code></pre>
+            </div>
+            <div class="warning-box">
+              <strong>clone ≠ download ZIP.</strong>
+              الـ ZIP نسخة بلا ارتباط Git كامل. للعمل اليومي استخدم clone.
+            </div>
+
+            <h3>7) واجهة GitHub: Code و Commits</h3>
+            <ul>
+              <li><strong>Code:</strong> الملفات، الفرع الحالي، زر Clone، زر Add file.</li>
+              <li><strong>Commits:</strong> تاريخ اللقطات مع الرسائل والمؤلف Osama Bittar إن كان هذا إعداد Git.</li>
+              <li><strong>Branches:</strong> قائمة الفروع على السيرفر.</li>
+              <li><strong>Insights / Settings:</strong> إحصاءات وإعدادات (الخصوصية، الصفحات لاحقاً، التعاون).</li>
+            </ul>
+            <p>
+              يمكنك تعديل ملف من المتصفح وعمل commit هناك.
+              في الدورة فضّل التعديل محلياً ثم push حتى تبقى العادة الاحترافية.
+            </p>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">💻</div>
+            <h2>أمثلة عملية</h2>
+          </div>
+
+          <h3>مثال 1: ربط مشروع موجود</h3>
+          <div class="code-block">
+            <pre><code>cd academy-notes
+git remote add origin https://github.com/osama-bittar/academy-notes.git
+git push -u origin main</code></pre>
+          </div>
+          <p>بعد النجاح حدّث صفحة GitHub: تظهر الملفات والـ commits.</p>
+
+          <h3>مثال 2: التحقق من العنوان البعيد</h3>
+          <div class="code-block">
+            <pre><code>git remote -v
+git status</code></pre>
+          </div>
+          <p>status يذكر أن فرعك يتتبع <span class="inline-code">origin/main</span> إن نجح الربط.</p>
+
+          <h3>مثال 3: تعديل ثم دفع</h3>
+          <div class="code-block">
+            <pre><code>echo "Published by Osama Bittar" >> notes.txt
+git add notes.txt
+git commit -m "Note the publisher name"
+git push</code></pre>
+          </div>
+
+          <h3>مثال 4: استنساخ على مجلد آخر (محاكاة جهاز جديد)</h3>
+          <div class="code-block">
+            <pre><code>cd ..
+git clone https://github.com/osama-bittar/academy-notes.git academy-notes-copy
+cd academy-notes-copy
+git log --oneline</code></pre>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">🎯</div>
+            <h2>اختبار سريع</h2>
+          </div>
+          <div class="quiz-card" data-correct="b">
+            <p class="quiz-question">origin يعني عادة:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">اسم ملف CSS</button>
+              <button class="quiz-option" data-value="b">لقب المستودع البعيد على GitHub</button>
+              <button class="quiz-option" data-value="c">أمر يحذف التاريخ</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+          <div class="quiz-card" data-correct="a">
+            <p class="quiz-question">git clone يُستخدم عندما:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">تريد نسخة كاملة من مستودع موجود لأول مرة</button>
+              <button class="quiz-option" data-value="b">تريد فقط تغيير لون الزر</button>
+              <button class="quiz-option" data-value="c">بعد كل سطر HTML</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">✏️</div>
+            <h2>تمارين عملية</h2>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">1</span> إنشاء المستودع</h4>
+            <p>أنشئ مستودعاً عاماً فارغاً على GitHub باسم academy-notes دون README إن كان لديك مشروع محلي.</p>
+            <button class="solution-toggle" data-target="g03-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="g03-1">
+              <p>GitHub → New → الاسم academy-notes → Public → Create repository بدون تهيئة ملفات إن المشروع موجود محلياً.</p>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">2</span> الدفع الأول</h4>
+            <p>اربط origin وادفع main.</p>
+            <button class="solution-toggle" data-target="g03-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="g03-2">
+              <div class="code-block">
+                <pre><code>git remote add origin https://github.com/USERNAME/academy-notes.git
+git push -u origin main</code></pre>
+              </div>
+            </div>
+          </div>
+          <div class="exercise-item">
+            <h4><span class="exercise-number">3</span> سحب التحديث</h4>
+            <p>اشرح متى تستخدم pull بعد أن يعدّل زميلك على GitHub.</p>
+            <button class="solution-toggle" data-target="g03-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="g03-3">
+              <p>قبل أن تبدأ يوم العمل، ومن بعد كل دمج على GitHub: git pull حتى لا تعمل على نسخة قديمة.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="section-block">
+          <div class="section-header">
+            <div class="section-icon">📌</div>
+            <h2>ملخص الجلسة</h2>
+          </div>
+          <ul class="key-points">
+            <li>GitHub يستضيف المستودع ويعرض الملفات والسجل</li>
+            <li>remote origin + push يرفع عملك</li>
+            <li>clone للنسخة الأولى · pull للتحديث لاحقاً</li>
+            <li>HTTPS يحتاج Token لا كلمة مرور الحساب</li>
+          </ul>
+        </section>
+
+        <section class="homework-box">
+          <h2>واجب الجلسة</h2>
+          <ul>
+            <li>ارفع academy-notes إلى GitHub العام</li>
+            <li>تأكد أن صفحة Commits تعرض اسم Osama Bittar</li>
+            <li>أرسل رابط المستودع في الواجب</li>
+          </ul>
+        </section>
+
+      </div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../../shared/course-data.js"></script>
+  <script src="../../../shared/layout.js"></script>
+  <script src="../../../shared/scripts.js"></script>
+</body>
+</html>

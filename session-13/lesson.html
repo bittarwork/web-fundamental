@@ -6,29 +6,12 @@
   <title>الجلسة 13 — التوابع السهمية و filter و map</title>
   <link rel="stylesheet" href="../shared/styles.css">
 </head>
-<body>
+<body class="lesson-page" data-page="lesson" data-course="web" data-session="13">
   <div class="page-wrapper">
 
-    <header class="site-header">
-      <div class="container">
-        <span class="course-badge">المرحلة 3 — JavaScript · من الصفر</span>
-        <h1>الجلسة 13: التوابع السهمية و filter و map</h1>
-        <div class="session-meta">
-          <span>المدة: ساعة ونصف</span>
-          <span>الجلسة 13 من 16</span>
-        </div>
-      </div>
-    </header>
+    <div id="layout-header"></div>
 
-    <nav class="lesson-nav">
-      <div class="container">
-        <a href="../index.html" class="nav-link">الرئيسية</a>
-        <a href="../session-12/lesson.html" class="nav-link">→ السابقة</a>
-        <a href="../session-14/lesson.html" class="nav-link">التالية ←</a>
-      </div>
-    </nav>
-
-    <main class="main-content">
+    <main class="main-content" id="main-content">
       <div class="container">
 
         <div class="student-welcome">
@@ -152,8 +135,8 @@ function greet(name) {
 // arrow function — same result, shorter syntax
 const greetArrow = (name) =&gt; "Hello " + name;
 
-console.log(greet("George"));
-console.log(greetArrow("George"));
+console.log(greet("Osama"));
+console.log(greetArrow("Osama"));
 
 // arrow with math
 const double = (n) =&gt; n * 2;
@@ -161,8 +144,8 @@ console.log(double(5));</code></pre>
           </div>
           <div class="expected-output">
             <div class="expected-output-label">📤 المخرجات المتوقعة في Console</div>
-            <pre>Hello George
-Hello George
+            <pre>Hello Osama
+Hello Osama
 10</pre>
           </div>
 
@@ -225,7 +208,7 @@ Headphones: 76500 ل.س</pre>
           <h3>مثال 4: map — تحويل الأسماء لأحرف كبيرة</h3>
           <div class="code-block">
             <div class="code-label">JavaScript — map with Strings</div>
-            <pre><code>const friends = ["george", "ahmad", "sara"];
+            <pre><code>const friends = ["osama", "ahmad", "sara"];
 
 const upperNames = friends.map((name) =&gt; name.toUpperCase());
 
@@ -234,8 +217,8 @@ console.log(upperNames);   // new array with uppercase</code></pre>
           </div>
           <div class="expected-output">
             <div class="expected-output-label">📤 المخرجات المتوقعة</div>
-            <pre>["george","ahmad","sara"]
-["GEORGE","AHMAD","SARA"]</pre>
+            <pre>["osama","ahmad","sara"]
+["OSAMA","AHMAD","SARA"]</pre>
           </div>
 
           <button class="run-demo-btn" data-demo="s13-example4">▶ شغّل المثال 4</button>
@@ -538,13 +521,7 @@ console.log(result);</code></pre>
       </div>
     </main>
 
-    <footer class="site-footer">
-      <div class="container">
-        <p class="footer-course">أساسيات الويب — الكورس الأول</p>
-        <p class="footer-instructor">محمد أسامة بيطار · مهندس معلوماتية · مدرب علوم ويب</p>
-        <p class="footer-copy">الجلسة 13 من 16</p>
-      </div>
-    </footer>
+    <div id="layout-footer"></div>
 
   </div>
 
@@ -564,12 +541,14 @@ console.log(result);</code></pre>
 
     // Demo: map names to uppercase
     function demo_s13_example4() {
-      const friends = ["george", "ahmad", "sara"];
+      const friends = ["osama", "ahmad", "sara"];
       const upperNames = friends.map((name) => name.toUpperCase());
       console.log(friends);
       console.log(upperNames);
     }
   </script>
+  <script src="../shared/course-data.js"></script>
+  <script src="../shared/layout.js"></script>
   <script src="../shared/scripts.js"></script>
 </body>
 </html>

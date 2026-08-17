@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 09 — هندسة البرمجيات</title>
+  <link rel="stylesheet" href="../../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="se" data-session="09">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+        <div class="student-welcome"><h3>هدف الجلسة</h3><p>نصمّم المنطق المالي: تسعير الطلب، أجر السائق، النقد عند التسليم، المحفظة، والتسوية الأسبوعية باليورو.</p></div>
+        <section class="section-block"><div class="section-header"><div class="section-icon">09</div><h2>الشرح النظري</h2></div>
+          <div class="theory-content">
+            <h3>1) المال ثلاثة دفاتر ذهنية</h3>
+            <p>دفتر المطعم (إيراد أصناف + رسوم توصيل إن بقيت للمطعم)، دفتر السائق (أجر)، دفتر النقد في الطريق (COD). خلطها يسبب «النظام يقول شيئاً والصندوق شيئاً».</p>
+            <h3>2) تسعير الطلب</h3>
+            <p>مجموع الأصناف + رسوم توصيل للعميل (مثلاً €2.50 داخل نطاق أ، €4.00 نطاق ب) − خصم إن وُجد. الضريبة إن لزم كبند مستقل لاحقاً؛ نسخة 1 توضّح الأسعار شاملة أو غير شاملة صراحة.</p>
+            <h3>3) أجر السائق</h3>
+            <p>قاعدة الدورة: <span class="inline-code">€2.00 + (€0.40 × distanceKm)</span> بعد Delivered الناجح. المسافة من تقدير الخرائط عند التعيين تُثبَّت حتى لا تتغيّر الأجرة بعد انتهاء الرحلة بلا سبب.</p>
+            <h3>4) COD مقابل البطاقة</h3>
+            <p>البطاقة: البوابة تُحصّل للتجار. COD: السائق يحمل نقد العميل. النظام يسجّل expectedCash. عند إغلاق الوردية يُطابق مع ما سلّمه السائق للمطعم.</p>
+            <h3>5) المحفظة والتسوية</h3>
+            <p>المحفظة رصيد محاسبي لا بنك حقيقي في التحليل. التسوية الأسبوعية: مجموع الأجور − عهدة COD غير المسلّمة − خصومات حوادث معتمدة = صافٍ يُدفع باليورو.</p>
+            <div class="warning-box"><strong>تدقيق:</strong> كل حركة محفظة تشير إلى orderId وسبب. بلا مرجع تصبح الأرقام غير قابلة للمراجعة.</div>
+          </div>
+        </section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📐</div><h2>مخططات ووثائق عملية</h2></div>
+          <div class="spec-table-wrap"><table class="spec-table"><thead><tr><th>سيناريو</th><th>إيراد مطعم €</th><th>أجر سائق €</th><th>COD على السائق</th></tr></thead><tbody><tr><td>طلب €18 أصناف + €2.50 توصيل، بطاقة، 3 كم</td><td>20.50</td><td>2.00 + 1.20 = 3.20</td><td>0</td></tr><tr><td>نفس الأصناف COD</td><td>20.50 عند التسليم</td><td>3.20</td><td>20.50 حتى التسليم للمطعم</td></tr><tr><td>إلغاء في Preparing بطاقة</td><td>0 بعد استرداد</td><td>0</td><td>0</td></tr></tbody></table></div>
+          <div class="diagram-box"><div class="diagram-caption">Weekly settlement idea</div>Wallet credits (delivered jobs)
+- COD still held by driver
+- approved deductions
+= net payout EUR to driver
+Finance exports a statement per driver</div>
+          </section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">🎯</div><h2>اختبار سريع</h2></div><div class="quiz-card" data-correct="b">
+            <p class="quiz-question">تثبيت المسافة لأجر السائق يتم:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">بعد أسبوع عشوائياً</button>
+              <button class="quiz-option" data-value="b">عند التعيين (أو قاعدة موثّقة ثابتة) حتى لا تتأرجح الأجرة</button>
+              <button class="quiz-option" data-value="c">حسب مزاج المشغّل كل رحلة</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div><div class="quiz-card" data-correct="a">
+            <p class="quiz-question">COD هو:</p>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="a">نقد يُفترض أن يصل من العميل عبر السائق ويُطابق عند الإغلاق</button>
+              <button class="quiz-option" data-value="b">أجر السائق نفسه</button>
+              <button class="quiz-option" data-value="c">ضريبة الدولة</button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">✏️</div><h2>تمارين عملية</h2></div><div class="exercise-item">
+            <h4><span class="exercise-number">1</span> احسب</h4>
+            <p>أصناف €12، توصيل €2.50، 5 كم، COD. أجر السائق وصافي المطعم قبل تسليم العهدة.</p>
+            <button class="solution-toggle" data-target="se09-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="se09-1"><p>أجر السائق 2 + 2.00 = €4.00. قيمة الطلب للعميل €14.50 هي عهدة. إيراد المطعم المحاسبي €14.50 بعد التحصيل، ويُخصم أجر السائق عند التسوية حسب سياسة: إما يدفع المطعم الأجر منفصلاً أو يصافّ.</p></div>
+          </div><div class="exercise-item">
+            <h4><span class="exercise-number">2</span> حركة محفظة</h4>
+            <p>اكتب حقلاً لحركة wallet.</p>
+            <button class="solution-toggle" data-target="se09-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="se09-2"><p>id, driverId, orderId, type (credit/debit), amountEUR, reason, createdAt.</p></div>
+          </div><div class="exercise-item">
+            <h4><span class="exercise-number">3</span> فرق صندوق</h4>
+            <p>السائق سلّم €40 والمتوقع €45.</p>
+            <button class="solution-toggle" data-target="se09-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button>
+            <div class="solution-content" id="se09-3"><p>لا إغلاق وردية. سجل Shortage €5. تسوية: يخصم من الأجور أو يُتابع كحادث مالي.</p></div>
+          </div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📌</div><h2>ملخص الجلسة</h2></div>
+          <ul class="key-points"><li>افصل إيراد المطعم عن أجر السائق عن عهدة النقد</li><li>القاعدة تُثبَّت قبل الرحلة</li><li>كل حركة لها مرجع طلب</li><li>التسوية باليورو وثيقة أسبوعية</li></ul>
+        </section>
+        <section class="homework-box"><h2>واجب الجلسة</h2><ul><li>صفحة قواعد مالية</li><li>ثلاثة سيناريوهات محسوبة باليورو</li><li>نموذج كشف سائق</li></ul></section>
+      </div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../../shared/course-data.js"></script>
+  <script src="../../../shared/layout.js"></script>
+  <script src="../../../shared/scripts.js"></script>
+</body>
+</html>

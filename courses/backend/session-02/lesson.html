@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 02 — JavaScript غير المتزامن للخادم</title>
+  <link rel="stylesheet" href="../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="backend" data-session="02">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+        <div class="student-welcome"><h3>هدف الجلسة</h3><p>ننتقل من Callbacks إلى Promises وasync/await، نعالج الأخطاء، ونقرأ متغيرات البيئة مع تنظيم المجلدات.</p></div>
+        <section class="section-block"><div class="section-header"><div class="section-icon">02</div><h2>الشرح النظري</h2></div><div class="theory-content"><h3>1) Callbacks كمفهوم</h3>
+  <p>دالة تُستدعى لاحقاً عند انتهاء عمل بطيء. تتداخل بسرعة (callback hell) لذا نفضّل Promises.</p>
+  <h3>2) Promises و async / await</h3>
+  <p>Promise تمثّل قيمة مستقبلية. async/await يجعل القراءة كأنها متسلسلة مع بقائها غير حاجبة للخادم.</p>
+  <h3>3) Error Handling</h3>
+  <p>غلّف await بـ try/catch. لا تترك وعداً بلا catch في المسارات.</p>
+  <h3>4) Environment Variables</h3>
+  <p>المنفذ وسلسلة Mongo وسر JWT لا تُكتب في الكود. ملف <span class="inline-code">.env</span> محلياً و<span class="inline-code">.gitignore</span> يمنعه من Git.</p>
+  <div class="code-block"><pre><code>PORT=3000
+MONGO_URI=mongodb://127.0.0.1:27017/academy
+JWT_SECRET=change-me-in-real-life</code></pre></div>
+  <h3>5) تنظيم مشروع Node.js</h3>
+  <div class="code-block"><pre><code>src/
+  config/
+  routes/
+  controllers/
+  models/
+  middleware/
+  utils/
+index.js
+.env
+.gitignore</code></pre></div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">💻</div><h2>أمثلة عملية</h2></div><h3>مثال 1: await مع خطأ</h3><div class="code-block"><pre><code>async function loadTrainer() {
+  try {
+    const name = await Promise.resolve("Osama Bittar");
+    return name;
+  } catch (error) {
+    console.error(error.message);
+  }
+}</code></pre></div>
+  <h3>مثال 2: dotenv</h3><div class="code-block"><pre><code>import "dotenv/config";
+const port = process.env.PORT || 3000;</code></pre></div>
+  <h3>مثال 3: gitignore</h3><div class="code-block"><pre><code>node_modules/
+.env
+uploads/</code></pre></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">🎯</div><h2>اختبار سريع</h2></div><div class="quiz-card" data-correct="a"><p class="quiz-question">سر JWT يوضع في:</p><div class="quiz-options"><button class="quiz-option" data-value="a">.env ولا يُرفع إلى Git</button><button class="quiz-option" data-value="b">ملف README العام</button><button class="quiz-option" data-value="c">اسم المتغير في CSS</button></div><div class="quiz-feedback"></div></div><div class="quiz-card" data-correct="b"><p class="quiz-question">await يُستخدم داخل:</p><div class="quiz-options"><button class="quiz-option" data-value="a">حلقة for في HTML</button><button class="quiz-option" data-value="b">دالة async</button><button class="quiz-option" data-value="c">وسم title</button></div><div class="quiz-feedback"></div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">✏️</div><h2>تمارين عملية</h2></div><div class="exercise-item"><h4><span class="exercise-number">1</span> dotenv</h4><p>ثبّت dotenv واقرأ PORT.</p><button class="solution-toggle" data-target="b02-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="b02-1"><div class="code-block"><pre><code>npm install dotenv</code></pre></div></div></div><div class="exercise-item"><h4><span class="exercise-number">2</span> try/catch</h4><p>دالة async ترمي إن كان الاسم فارغاً.</p><button class="solution-toggle" data-target="b02-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="b02-2"><p>throw new Error("Name is required");</p></div></div><div class="exercise-item"><h4><span class="exercise-number">3</span> هيكل</h4><p>أنشئ مجلدات src المذكورة.</p><button class="solution-toggle" data-target="b02-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="b02-3"><p>mkdir -p src/{config,routes,controllers,models,middleware,utils}</p></div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📌</div><h2>ملخص الجلسة</h2></div><ul class="key-points"><li>async/await للقراءة</li><li>.env للأسرار</li><li>المجلدات تفصل المسؤوليات مبكراً</li></ul></section>
+        <section class="homework-box"><h2>واجب الجلسة</h2><ul><li>ملف .env محلي و.gitignore</li><li>دالة async واحدة مع catch</li><li>لا تضع كلمة مرور حقيقية</li></ul></section></div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../shared/course-data.js"></script>
+  <script src="../../shared/layout.js"></script>
+  <script src="../../shared/scripts.js"></script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجلسة 05 — سطر الأوامر — الأساسيات</title>
+  <link rel="stylesheet" href="../../shared/styles.css">
+</head>
+<body class="lesson-page" data-page="lesson" data-course="vps" data-session="05">
+  <div class="page-wrapper">
+    <div id="layout-header"></div>
+    <main class="main-content" id="main-content">
+      <div class="container">
+        <div class="student-welcome"><h3>هدف الجلسة</h3><p>نتنقّل في نظام ملفات Ubuntu، ننشئ ملفات المشروع، ونعدّل الصلاحيات دون حذف النظام.</p></div>
+        <section class="section-block"><div class="section-header"><div class="section-icon">05</div><h2>الشرح النظري</h2></div><div class="theory-content">
+      <h3>1) الطرفية تفكّر بالمجلد الحالي</h3>
+      <p>كل أمر يجري «من هنا». <span class="inline-code">pwd</span> يطبع المسار. <span class="inline-code">ls</span> يعرض المحتوى. <span class="inline-code">ls -la</span> يظهر المخفي والصلاحيات.</p>
+      <div class="code-block"><pre><code>pwd
+ls -la
+cd /
+ls
+cd ~
+cd /var/www</code></pre></div>
+      <p><span class="inline-code">~</span> بيت المستخدم. <span class="inline-code">..</span> المجلد الأب. <span class="inline-code">Tab</span> يكمل الأسماء.</p>
+      <h3>2) إنشاء وقراءة</h3>
+      <div class="code-block"><pre><code>mkdir -p /root/academy
+cd /root/academy
+touch notes.txt
+echo "Trainer: Osama Bittar" > notes.txt
+cat notes.txt
+nano notes.txt</code></pre></div>
+      <p>في nano: اكتب النص، <span class="inline-code">Ctrl+O</span> حفظ، <span class="inline-code">Ctrl+X</span> خروج. <span class="inline-code">less</span> للقراءة الطويلة (q للخروج).</p>
+      <h3>3) نسخ نقل حذف</h3>
+      <div class="code-block"><pre><code>cp notes.txt notes.bak
+mv notes.bak /tmp/
+rm notes.txt</code></pre></div>
+      <div class="warning-box"><strong>لا تستخدم rm -rf / أبداً.</strong> احذف فقط مسارات مشروعك التي تعرفها. لا تجربة أوامر تدمير «للتجربة».</div>
+      <h3>4) الصلاحيات باختصار</h3>
+      <p>ثلاث خانات: مالك، مجموعة، آخرون — قراءة كتابة تنفيذ. <span class="inline-code">chmod u+x script.sh</span> يجعل الملف قابلاً للتشغيل للمالك.</p>
+      <div class="code-block"><pre><code>ls -l
+chmod 644 notes.txt
+chmod 755 /root/academy</code></pre></div>
+      <h3>5) sudo</h3>
+      <p>root لا يحتاج sudo. المستخدم العادي يكتب <span class="inline-code">sudo apt update</span> لصلاحية مؤقتة. ستنشئ هذا المستخدم في الجلسة 07.</p>
+      <h3>6) المساعدة</h3>
+      <div class="code-block"><pre><code>man ls
+ls --help
+history</code></pre></div>
+    </div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">💻</div><h2>أمثلة عملية</h2></div>
+      <h3>مثال 1: شجرة مشروع</h3>
+      <div class="code-block"><pre><code>mkdir -p /root/academy/public
+echo "&lt;h1&gt;Osama Bittar&lt;/h1&gt;" > /root/academy/public/index.html
+ls -R /root/academy</code></pre></div>
+      <h3>مثال 2: رؤية المساحة</h3>
+      <div class="code-block"><pre><code>df -h
+du -sh /root/academy</code></pre></div>
+      <h3>مثال 3: مسارات مهمة</h3>
+      <ul>
+        <li><span class="inline-code">/etc</span> إعدادات النظام — لا تحذف.</li>
+        <li><span class="inline-code">/var/log</span> السجلات.</li>
+        <li><span class="inline-code">/home</span> بيوت المستخدمين.</li>
+        <li><span class="inline-code">/root</span> بيت المدير.</li>
+      </ul>
+    </section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">🎯</div><h2>اختبار سريع</h2></div><div class="quiz-card" data-correct="a"><p class="quiz-question">pwd يعرض:</p><div class="quiz-options"><button class="quiz-option" data-value="a">المجلد الحالي</button><button class="quiz-option" data-value="b">سعر الخطة باليورو</button><button class="quiz-option" data-value="c">قائمة Docker</button></div><div class="quiz-feedback"></div></div><div class="quiz-card" data-correct="b"><p class="quiz-question">لحذف ملف واحد:</p><div class="quiz-options"><button class="quiz-option" data-value="a">rm -rf /</button><button class="quiz-option" data-value="b">rm filename</button><button class="quiz-option" data-value="c">chmod 000 /etc</button></div><div class="quiz-feedback"></div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">✏️</div><h2>تمارين عملية</h2></div><div class="exercise-item"><h4><span class="exercise-number">1</span> مجلد الأكاديمية</h4><p>أنشئ /root/academy/public وضع index.html باسم المدرب.</p><button class="solution-toggle" data-target="v05-1"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="v05-1"><div class="code-block"><pre><code>mkdir -p /root/academy/public
+echo "&lt;h1&gt;Osama Bittar&lt;/h1&gt;" > /root/academy/public/index.html</code></pre></div></div></div><div class="exercise-item"><h4><span class="exercise-number">2</span> nano</h4><p>أضف سطراً Price: 29 € واحفظ.</p><button class="solution-toggle" data-target="v05-2"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="v05-2"><p>nano الملف → Ctrl+O → Ctrl+X.</p></div></div><div class="exercise-item"><h4><span class="exercise-number">3</span> نسخة</h4><p>انسخ index.html إلى index.bak في نفس المجلد.</p><button class="solution-toggle" data-target="v05-3"><span class="toggle-text">عرض الحل</span><span class="arrow">▼</span></button><div class="solution-content" id="v05-3"><div class="code-block"><pre><code>cp /root/academy/public/index.html /root/academy/public/index.bak</code></pre></div></div></div></section>
+        <section class="section-block"><div class="section-header"><div class="section-icon">📌</div><h2>ملخص الجلسة</h2></div><ul class="key-points"><li>اعرف أين أنت قبل أن تحذف</li><li>nano للكتابة السريعة</li><li>لا تلمس /etc إلا بتعليمات واضحة</li></ul></section>
+        <section class="homework-box"><h2>واجب الجلسة</h2><ul><li>تمرّن 20 دقيقة: ls cd mkdir cat nano</li><li>اكتب 8 أوامر استخدمتها في الواجب</li><li>لا ترفع مخرجات فيها أسرار</li></ul></section></div>
+    </main>
+    <div id="layout-footer"></div>
+  </div>
+  <script src="../../shared/course-data.js"></script>
+  <script src="../../shared/layout.js"></script>
+  <script src="../../shared/scripts.js"></script>
+</body>
+</html>
